@@ -8,9 +8,12 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="transparent">#00000000</color>
     <color name="base_black">#111111</color>
+    <color name="transparent_black">#80000000</color>
     <color name="primary_500">#F74E28</color>
+    <color name="gray_200">#DCDFEA</color>
     <color name="gray_300">#B9C0D4</color>
-    <color name="gray_600">#4A5578</color>
+    <color name="gray_600">#4A5578</color>S
     <color name="gray_700">#404968</color>
 </resources>
