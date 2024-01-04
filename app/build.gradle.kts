@@ -3,6 +3,9 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.firebase-perf")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -66,6 +69,11 @@ dependencies {
     implementation("androidx.work:work-runtime-ktx:2.8.0")
 
     implementation("com.github.Spikeysanju:MotionToast:1.4")
+
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-perf")
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
 }
 
 // Allow references to generated code
