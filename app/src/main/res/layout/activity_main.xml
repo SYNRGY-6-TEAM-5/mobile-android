@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.MainActivity"
+    android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:padding="16dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/Text.Semibold"
+                android:id="@+id/text_skip_onboarding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Skip"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/gray_200"
+                android:layout_gravity="right"/>
+
+            <ImageView
+                android:id="@+id/img_onboarding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/shape_black"
+                android:layout_marginTop="30dp"/>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout_onboarding"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                app:tabBackground="@drawable/tab_selector"
+                app:tabGravity="center"
+                app:tabIndicatorHeight="0dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/transparent"
+                android:layout_marginTop="40dp"/>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/view_pager_onboarding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="60dp"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextXL.Medium"
+                android:id="@+id/text_next_onboarding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next"
+                android:layout_marginTop="40dp"
+                android:textColor="@color/primary_500"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

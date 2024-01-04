@@ -74,6 +74,9 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-perf")
     implementation("com.google.firebase:firebase-crashlytics-ktx")
+
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.6")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
 }
 
 // Allow references to generated code
