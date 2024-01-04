@@ -71,6 +71,7 @@ class LoginActivity : AppCompatActivity(), OnClickListener {
         loginViewModel.error.observe(this, ::handleError)
         loginViewModel.loading.observe(this, ::handleLoading)
         authViewModel.authentication.observe(this, ::handleAuthentication)
+        loginViewModel.authentication.observe(this, ::handleAuthentication)
         loginViewModel.login.observe(this, ::handleSuccess)
     }
 
