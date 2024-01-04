@@ -3,4 +3,11 @@
 
     <string name="login_heading">Welcome back!</string>
     <string name="login_desc">By continuing you agree to our T&amp;Cs. We use your data to offer you a personalized experience</string>
+    <string name="login_google_text">or sign in with Google</string>
+
+    <string name="message_logout">Logout success!</string>
+
+    <string name="server_client_id">432632858701-8pjqliu5fet9klpoqoa4o22oni7q700a.apps.googleusercontent.com</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
