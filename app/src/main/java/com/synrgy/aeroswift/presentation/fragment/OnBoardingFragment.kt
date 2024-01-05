@@ -19,7 +19,7 @@ class OnBoardingFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        pageViewModel.setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
+        pageViewModel.setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 0)
     }
 
     override fun onCreateView(
@@ -36,13 +36,13 @@ class OnBoardingFragment : Fragment() {
     private fun handleScrollView(index: Int) {
         val textOnboarding = view?.findViewById<MaterialTextView>(R.id.text_onboarding)
 
-        when (index) {
-            0 -> textOnboarding?.text = "Track & find your flight"
-            1 -> textOnboarding?.text = "Manage all your document trip"
-            2 -> textOnboarding?.text = "Easy to schedulling your flight"
-            null -> textOnboarding?.text = "Track & find your flight"
-            else -> textOnboarding?.text = "Track & find your flight"
-        }
+        val textList = listOf<String>(
+            "Track & find your flight",
+            "Manage all your document trip",
+            "Easy to schedulling your flight"
+        )
+
+        textOnboarding?.text = textList[index ?: 0]
     }
 
     companion object {
