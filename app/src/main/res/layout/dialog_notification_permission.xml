@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextL.Medium"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="@string/permission_notification_title"
+                android:textColor="@color/base_black"
+                android:layout_marginTop="30dp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextXS.Regular"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="@string/permission_notification_desc"
+                android:textColor="@color/gray_700"
+                android:layout_marginTop="8dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_gray_100"
+                android:orientation="horizontal"
+                android:padding="24dp"
+                android:layout_marginTop="30dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_bell" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextS.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Notifications"
+                    android:textColor="@color/base_black"
+                    android:layout_marginLeft="8dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <com.github.angads25.toggle.widget.LabeledSwitch
+                    android:layout_width="40dp"
+                    android:layout_height="24dp"
+                    android:textSize="0sp"
+                    app:on="true"
+                    app:colorOn="@color/primary_500"
+                    app:colorBorder="@color/gray_300" />
+
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Button.Primary"
+                android:id="@+id/btn_notif_perm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Continue"
+                android:layout_marginTop="60dp" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</com.google.android.material.card.MaterialCardView>
