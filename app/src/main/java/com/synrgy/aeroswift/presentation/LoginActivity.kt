@@ -8,8 +8,6 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.util.Log
-import android.view.View
-import android.view.View.OnClickListener
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -29,7 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class LoginActivity : AppCompatActivity(), OnClickListener {
+class LoginActivity : AppCompatActivity() {
     companion object {
         fun startActivity(context: Context) {
             context.startActivity(Intent(context, LoginActivity::class.java))
@@ -57,14 +55,8 @@ class LoginActivity : AppCompatActivity(), OnClickListener {
         setupGso()
         setTextSpan()
 
-        binding.btnSignInGoogle.setOnClickListener(this)
+        binding.btnSignInGoogle.setOnClickListener { signIn() }
         binding.btnLogin.setOnClickListener { handleLogin() }
-    }
-
-    override fun onClick(v: View?) {
-        when (v!!.id) {
-            R.id.btn_sign_in_google -> signIn()
-        }
     }
 
     private fun observeLogin() {
@@ -191,6 +183,7 @@ class LoginActivity : AppCompatActivity(), OnClickListener {
             authViewModel.setToken(idToken!!)
 
             HomeActivity.startActivity(this)
+            this.finish()
         }
     }
 }

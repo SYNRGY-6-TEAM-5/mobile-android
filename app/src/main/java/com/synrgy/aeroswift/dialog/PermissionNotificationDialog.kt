@@ -24,6 +24,7 @@ class PermissionNotificationDialog(
 
         btnContinue?.setOnClickListener {
             LoginActivity.startActivity(activity)
+            activity.finish()
         }
     }
 }
