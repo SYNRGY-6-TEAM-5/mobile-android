@@ -18,7 +18,9 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center_horizontal"
-            android:padding="16dp">
+            android:paddingTop="16dp"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="32dp">
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/Text.Semibold"
