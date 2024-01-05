@@ -41,6 +41,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:432632858701:android:009b911bf82c94afc6f404",
+        "android_client_info": {
+          "package_name": "com.synrgy.aeroswift.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "432632858701-8pjqliu5fet9klpoqoa4o22oni7q700a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdv2q9s6xp_LWWKwamcQZgIs0rMJGA_74"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "432632858701-8pjqliu5fet9klpoqoa4o22oni7q700a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"
