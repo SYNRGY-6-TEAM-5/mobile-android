@@ -34,9 +34,8 @@ class SplashActivity : AppCompatActivity() {
             if (token.isNotEmpty() && token.isNotBlank()) {
                 mainViewModel.setNewUser(false)
                 authViewModel.setToken(token)
-            } else {
-                mainViewModel.newUser.observe(this, ::handleIsNewUser)
             }
+            mainViewModel.newUser.observe(this, ::handleIsNewUser)
         }, 2000)
     }
 
