@@ -79,7 +79,7 @@ class LoginActivity : AppCompatActivity() {
             binding.loginTiPassword.error = "Required"
         }
 
-        Helper.showToast(this, this, error, isSuccess = false)
+        Helper.showToast(this, this, "Login failed", isSuccess = false)
     }
 
     private fun handleLoading(loading: Boolean) {
@@ -91,7 +91,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun handleSuccess(message: String) {
-        Helper.showToast(this, this, message, isSuccess = true)
+        Helper.showToast(this, this, "Login success", isSuccess = true)
     }
 
     private fun handleLogin() {
