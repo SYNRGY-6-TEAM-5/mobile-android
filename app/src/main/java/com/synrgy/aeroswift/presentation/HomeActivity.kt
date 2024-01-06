@@ -75,8 +75,6 @@ class HomeActivity : AppCompatActivity() {
     private fun handleAuthentication(token: String) {
         if (token.isEmpty() && token.isBlank()) {
             authViewModel.setToken(token)
-            LoginActivity.startActivity(this)
-            this.finish()
         }
     }
 }
