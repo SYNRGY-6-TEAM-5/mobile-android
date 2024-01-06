@@ -34,8 +34,6 @@ class SplashActivity : AppCompatActivity() {
             if (token.isNotEmpty() && token.isNotBlank()) {
                 mainViewModel.setNewUser(false)
                 authViewModel.setToken(token)
-                HomeActivity.startActivity(this)
-                this.finish()
             } else {
                 mainViewModel.newUser.observe(this, ::handleIsNewUser)
             }
@@ -49,7 +47,7 @@ class SplashActivity : AppCompatActivity() {
             this.finish()
         } else {
             mainViewModel.setNewUser(false)
-            LoginActivity.startActivity(this)
+            HomeActivity.startActivity(this)
             this.finish()
         }
     }
