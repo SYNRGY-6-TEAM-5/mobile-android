@@ -8,6 +8,7 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.util.Log
+import android.widget.Button
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -16,9 +17,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.ActivityLoginBinding
+import com.synrgy.aeroswift.dialog.ForgotPassDialog
 import com.synrgy.aeroswift.dialog.LoadingDialog
+import com.synrgy.aeroswift.dialog.PermissionNotificationDialog
 import com.synrgy.aeroswift.presentation.viewmodel.AuthViewModel
 import com.synrgy.aeroswift.presentation.viewmodel.LoginViewModel
 import com.synrgy.domain.LoginBody
@@ -42,6 +46,7 @@ class LoginActivity : AppCompatActivity() {
     private val loginViewModel: LoginViewModel by viewModels()
 
     private val loadingDialog = LoadingDialog(LoginActivity@this)
+    private val forgotPassDialog = ForgotPassDialog(LoginActivity@this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +62,8 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btnSignInGoogle.setOnClickListener { signIn() }
         binding.btnLogin.setOnClickListener { handleLogin() }
+
+        binding.txtForgotPass.setOnClickListener{ forgotPassDialog.show() }
     }
 
     private fun observeLogin() {
