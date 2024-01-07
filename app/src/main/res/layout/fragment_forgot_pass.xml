@@ -16,7 +16,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/choose_verification"
-            android:textColor="@color/base_black" />
+            android:textColor="@color/base_black"
+            android:layout_marginTop="30dp" />
 
         <com.google.android.material.textview.MaterialTextView
             style="@style/TextXS.Regular"
@@ -25,7 +26,7 @@
             android:text="@string/choose_verification_desc"
             android:textColor="@color/gray_700"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="50dp"/>
+            android:layout_marginBottom="30dp"/>
 
         <RadioGroup
             android:id="@+id/radio_group_input_type"

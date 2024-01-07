@@ -1,6 +1,8 @@
 package com.synrgy.aeroswift.presentation.fragment.forgotpassword
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +22,36 @@ class VerificationCodePassFragment : Fragment() {
 
         binding = FragmentVerificationCodePassBinding.inflate(layoutInflater)
         val view = binding.root
+
+        binding.vc1.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s?.length == 1) {
+                    binding.vc2.requestFocus()
+                }
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        binding.vc2.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s?.length == 1) {
+                    binding.vc3.requestFocus()
+                }
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        binding.vc3.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s?.length == 1) {
+                    binding.vc4.requestFocus()
+                }
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
 
         binding.btnConfirmCode.setOnClickListener { sendCode() }
 

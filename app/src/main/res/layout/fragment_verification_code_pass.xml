@@ -16,7 +16,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/verification_code"
-            android:textColor="@color/base_black" />
+            android:textColor="@color/base_black"
+            android:layout_marginTop="30dp"/>
 
         <com.google.android.material.textview.MaterialTextView
             style="@style/TextXS.Regular"
@@ -26,7 +27,7 @@
             android:text="@string/verification_code_desc"
             android:textColor="@color/gray_700"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="50dp"/>
+            android:layout_marginBottom="30dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,9 +35,9 @@
             android:orientation="horizontal"
             android:gravity="center"
             android:weightSum="4"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="20dp">
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="30dp">
 
             <EditText
                 android:id="@+id/vc1"
@@ -49,7 +50,7 @@
                 android:maxLength="1"
                 android:backgroundTint="@color/primary_500"
                 android:textStyle="bold"
-                android:textSize="30sp"/>
+                android:textSize="20sp"/>
 
             <EditText
                 android:id="@+id/vc2"
@@ -63,7 +64,7 @@
                 android:maxLength="1"
                 android:backgroundTint="@color/primary_500"
                 android:textStyle="bold"
-                android:textSize="30sp"/>
+                android:textSize="20sp"/>
 
             <EditText
                 android:id="@+id/vc3"
@@ -77,7 +78,7 @@
                 android:maxLength="1"
                 android:backgroundTint="@color/primary_500"
                 android:textStyle="bold"
-                android:textSize="30sp"/>
+                android:textSize="20sp"/>
 
             <EditText
                 android:id="@+id/vc4"
@@ -91,7 +92,7 @@
                 android:maxLength="1"
                 android:backgroundTint="@color/primary_500"
                 android:textStyle="bold"
-                android:textSize="30sp"/>
+                android:textSize="20sp"/>
 
         </LinearLayout>
 
