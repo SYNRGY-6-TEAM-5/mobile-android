@@ -95,5 +95,4 @@
     <style name="TextField">
         <item name="backgroundTint">@color/white</item>
     </style>
-
 </resources>
