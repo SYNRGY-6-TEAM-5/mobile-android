@@ -84,6 +84,7 @@ class LoginActivity : AppCompatActivity() {
 
         if (password.isBlank() && password.isEmpty()) {
             binding.loginTiPassword.error = "Required"
+            binding.loginTilPassword.errorIconDrawable = null
         }
 
         Helper.showToast(this, this, "Login failed", isSuccess = false)
