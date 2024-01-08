@@ -35,4 +35,12 @@ class LocalRepository @Inject constructor (
     override suspend fun setIsNewUser(isNewUser: Boolean) {
         dataStoreManager.setIsNewUser(isNewUser)
     }
+
+    override suspend fun setName(name: String) {
+        dataStoreManager.setName(name)
+    }
+
+    override suspend fun getName(): Flow<String?> {
+        return dataStoreManager.getName()
+    }
 }

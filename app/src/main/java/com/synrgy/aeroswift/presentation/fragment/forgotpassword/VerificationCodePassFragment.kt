@@ -28,6 +28,13 @@ class VerificationCodePassFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s?.length == 1) {
                     binding.vc2.requestFocus()
+                    binding.vc1.background = resources.getDrawable(R.drawable.bg_verif_code_filled)
+                    binding.vc1.setTextColor(resources.getColor(R.color.white))
+                }
+
+                if (s?.length == 0) {
+                    binding.vc1.background = resources.getDrawable(R.drawable.bg_verif_code)
+                    binding.vc1.setTextColor(resources.getColor(R.color.base_black))
                 }
             }
             override fun afterTextChanged(s: Editable?) {}
@@ -38,6 +45,14 @@ class VerificationCodePassFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s?.length == 1) {
                     binding.vc3.requestFocus()
+                    binding.vc2.background = resources.getDrawable(R.drawable.bg_verif_code_filled)
+                    binding.vc2.setTextColor(resources.getColor(R.color.white))
+                }
+
+                if (s?.length == 0) {
+                    binding.vc1.requestFocus()
+                    binding.vc2.background = resources.getDrawable(R.drawable.bg_verif_code)
+                    binding.vc2.setTextColor(resources.getColor(R.color.base_black))
                 }
             }
             override fun afterTextChanged(s: Editable?) {}
@@ -48,6 +63,31 @@ class VerificationCodePassFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s?.length == 1) {
                     binding.vc4.requestFocus()
+                    binding.vc3.background = resources.getDrawable(R.drawable.bg_verif_code_filled)
+                    binding.vc3.setTextColor(resources.getColor(R.color.white))
+                }
+
+                if (s?.length == 0) {
+                    binding.vc2.requestFocus()
+                    binding.vc3.background = resources.getDrawable(R.drawable.bg_verif_code)
+                    binding.vc3.setTextColor(resources.getColor(R.color.base_black))
+                }
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        binding.vc4.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s?.length == 1) {
+                    binding.vc4.background = resources.getDrawable(R.drawable.bg_verif_code_filled)
+                    binding.vc4.setTextColor(resources.getColor(R.color.white))
+                }
+
+                if (s?.length == 0) {
+                    binding.vc3.requestFocus()
+                    binding.vc4.background = resources.getDrawable(R.drawable.bg_verif_code)
+                    binding.vc4.setTextColor(resources.getColor(R.color.base_black))
                 }
             }
             override fun afterTextChanged(s: Editable?) {}
