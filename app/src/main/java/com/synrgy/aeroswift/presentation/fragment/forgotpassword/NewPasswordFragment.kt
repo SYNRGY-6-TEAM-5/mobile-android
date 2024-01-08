@@ -28,6 +28,6 @@ class NewPasswordFragment : Fragment() {
     }
 
     private fun changePass() {
-        requireActivity().finish()
+        findNavController().navigate(R.id.action_newPasswordFragment_to_doneResetPassFragment)
     }
 }

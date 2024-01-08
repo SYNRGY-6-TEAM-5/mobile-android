@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,8 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/choose_verification"
-            android:textColor="@color/base_black"
-            android:layout_marginTop="30dp" />
+            android:textColor="@color/base_black" />
 
         <com.google.android.material.textview.MaterialTextView
             style="@style/TextXS.Regular"
@@ -39,18 +38,23 @@
                 android:id="@+id/radio_phone"
                 android:layout_width="match_parent"
                 android:buttonTint="@color/primary_500"
-                android:drawableRight="@drawable/outline_phone"
+                android:drawableLeft="@drawable/outline_phone"
+                android:drawablePadding="4dp"
                 android:hint=" +62-738-****-****"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:textDirection="ltr"/>
 
             <RadioButton
                 android:id="@+id/radio_email"
                 android:layout_width="match_parent"
                 android:buttonTint="@color/primary_500"
-                android:drawableRight="@drawable/outline_mail"
+                android:drawableLeft="@drawable/outline_mail"
+                android:drawablePadding="4dp"
                 android:hint=" te****@*****.com"
-                android:gravity=""
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:textDirection="ltr"/>
         </RadioGroup>
 
         <com.google.android.material.button.MaterialButton
@@ -63,4 +67,4 @@
 
     </LinearLayout>
 
-</FrameLayout>
+</ScrollView>
