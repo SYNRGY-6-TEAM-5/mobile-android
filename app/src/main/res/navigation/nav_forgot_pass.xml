@@ -27,5 +27,14 @@
         android:id="@+id/newPasswordFragment"
         android:name="com.synrgy.aeroswift.presentation.fragment.forgotpassword.NewPasswordFragment"
         android:label="fragment_new_password"
-        tools:layout="@layout/fragment_new_password" />
+        tools:layout="@layout/fragment_new_password" >
+        <action
+            android:id="@+id/action_newPasswordFragment_to_doneResetPassFragment"
+            app:destination="@id/doneResetPassFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/doneResetPassFragment"
+        android:name="com.synrgy.aeroswift.presentation.fragment.forgotpassword.DoneResetPassFragment"
+        android:label="fragment_done_reset_pass"
+        tools:layout="@layout/fragment_done_reset_pass" />
 </navigation>

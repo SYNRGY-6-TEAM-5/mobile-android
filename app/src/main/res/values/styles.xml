@@ -43,6 +43,11 @@
         <item name="fontWeight">400</item>
     </style>
 
+    <style name="TextS.Semibold" parent="TextS">
+        <item name="fontWeight">600</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextS.Medium" parent="TextS">
         <item name="fontWeight">500</item>
         <item name="android:textStyle">bold</item>

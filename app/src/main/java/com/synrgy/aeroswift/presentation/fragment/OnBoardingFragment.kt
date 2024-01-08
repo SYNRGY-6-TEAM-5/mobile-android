@@ -6,16 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.google.android.material.textview.MaterialTextView
-import com.synrgy.aeroswift.R
-import com.synrgy.aeroswift.presentation.LoginActivity
-import com.synrgy.aeroswift.presentation.MainActivity
+import com.synrgy.aeroswift.databinding.FragmentOnBoardingBinding
 import com.synrgy.aeroswift.presentation.viewmodel.PageViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class OnBoardingFragment : Fragment() {
     private val pageViewModel: PageViewModel by viewModels()
+    private lateinit var binding: FragmentOnBoardingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,23 +24,22 @@ class OnBoardingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_on_boarding, container, false)
+        binding = FragmentOnBoardingBinding.inflate(layoutInflater)
+        val view = binding.root
 
         pageViewModel.index.observe(viewLifecycleOwner, ::handleScrollView)
 
-        return root
+        return view
     }
 
     private fun handleScrollView(index: Int) {
-        val textOnboarding = view?.findViewById<MaterialTextView>(R.id.text_onboarding)
-
         val textList = listOf<String>(
             "Track & find your flight",
             "Manage all your document trip",
             "Easy to schedulling your flight"
         )
 
-        textOnboarding?.text = textList[index ?: 0]
+        binding.textOnboarding.text = textList[index ?: 0]
     }
 
     companion object {
