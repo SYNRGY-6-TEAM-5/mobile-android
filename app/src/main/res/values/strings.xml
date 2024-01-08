@@ -11,4 +11,26 @@
 
     <string name="permission_notification_title">Notify latest offers &amp; flights availability</string>
     <string name="permission_notification_desc">Enable notifications now and never miss out on exclusive deals that are hand-picked just for you. Click  continue to savings!</string>
+
+    <string name="register_heading">Lets Get Started</string>
+    <string name="register_desc">Please enter your valid data in order to create an account</string>
+    <string name="verification_title">Verification Code</string>
+    <string name="verification_desc_otp">We have sent the code verification to</string>
+    <string name="verification_email_otp">test@gmail.com</string>
+    <string name="verification_change_email">Change your email ?</string>
+    <string name="resend_otp">Resend Code After</string>
+    <string name="resend_otp_time">1:36</string>
+
+    <string name="profile_title">Setup Profile</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="skip">Skip</string>
+    <string name="success_setup">Your account has been verified succesfully </string>
+    <string name="redirect_home">Redirect to home</string>
+
+
+
+
+
+
+
 </resources>

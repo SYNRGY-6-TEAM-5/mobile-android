@@ -33,6 +33,18 @@
         <activity
             android:name=".presentation.LoginActivity"
             android:exported="false" />
+        <activity
+            android:name=".presentation.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.VerificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.SetupProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.RedirectActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

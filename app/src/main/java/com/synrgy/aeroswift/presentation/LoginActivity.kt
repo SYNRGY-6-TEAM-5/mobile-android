@@ -8,6 +8,9 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.util.Log
+import android.view.View
+import android.view.View.OnClickListener
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -27,7 +30,10 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity(), OnClickListener {
+
+
+
     companion object {
         fun startActivity(context: Context) {
             context.startActivity(Intent(context, LoginActivity::class.java))
@@ -42,6 +48,8 @@ class LoginActivity : AppCompatActivity() {
     private val loginViewModel: LoginViewModel by viewModels()
 
     private val loadingDialog = LoadingDialog(LoginActivity@this)
+    private lateinit var signUpText: TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,8 +63,28 @@ class LoginActivity : AppCompatActivity() {
         setupGso()
         setTextSpan()
 
-        binding.btnSignInGoogle.setOnClickListener { signIn() }
+        binding.btnSignInGoogle.setOnClickListener(this)
         binding.btnLogin.setOnClickListener { handleLogin() }
+
+        // Temukan TextView dengan ID yang sesuai
+        signUpText = findViewById(R.id.text_sign_up)
+
+        // Tambahkan onClickListener untuk menanggapi klik pada teks
+        signUpText.setOnClickListener {
+            // Panggil fungsi untuk beralih ke halaman pendaftaran (RegisterActivity)
+            navigateToRegister()
+        }
+    }
+
+    private fun navigateToRegister() {
+        val intent = Intent(this, RegisterActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun onClick(v: View?) {
+        when (v!!.id) {
+            R.id.btn_sign_in_google -> signIn()
+        }
     }
 
     private fun observeLogin() {
@@ -79,7 +107,7 @@ class LoginActivity : AppCompatActivity() {
             binding.loginTiPassword.error = "Required"
         }
 
-        Helper.showToast(this, this, "Login failed", isSuccess = false)
+        Helper.showToast(this, this, error, isSuccess = false)
     }
 
     private fun handleLoading(loading: Boolean) {
@@ -91,7 +119,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun handleSuccess(message: String) {
-        Helper.showToast(this, this, "Login success", isSuccess = true)
+        Helper.showToast(this, this, message, isSuccess = true)
     }
 
     private fun handleLogin() {
@@ -183,7 +211,6 @@ class LoginActivity : AppCompatActivity() {
             authViewModel.setToken(idToken!!)
 
             HomeActivity.startActivity(this)
-            this.finish()
         }
     }
 }
