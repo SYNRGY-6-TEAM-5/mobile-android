@@ -11,4 +11,16 @@
 
     <string name="permission_notification_title">Notify latest offers &amp; flights availability</string>
     <string name="permission_notification_desc">Enable notifications now and never miss out on exclusive deals that are hand-picked just for you. Click  continue to savings!</string>
+
+    // bottom navigation menu
+    <string name="title_home">Home</string>
+    <string name="title_flight">Flight</string>
+    <string name="title_profile">Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_back">Welcome back,</string>
+    <string name="name">Name</string>
+    <string name="soar_to_new_heights_and_cultivate_expertise">Soar to New Heights and Cultivate Expertise</string>
+    <string name="origin">Origin</string>
+    <string name="destination">Destination</string>
 </resources>

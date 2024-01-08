@@ -17,4 +17,5 @@
     <color name="gray_300">#B9C0D4</color>
     <color name="gray_600">#4A5578</color>S
     <color name="gray_700">#404968</color>
+    <color name="no_color" />
 </resources>

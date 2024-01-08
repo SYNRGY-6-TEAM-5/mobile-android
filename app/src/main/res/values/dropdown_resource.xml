@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="origin">
+        <item>Select</item>
+        <item>JKT</item>
+        <item>SBY</item>
+        <item>YIA</item>
+    </string-array>
+
+</resources>

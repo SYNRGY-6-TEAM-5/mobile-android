@@ -96,4 +96,11 @@
         <item name="backgroundTint">@color/white</item>
     </style>
 
+    <style name="spinnerStyle" parent="Widget.AppCompat.Spinner">
+        <item name="android:background">@drawable/bg_dropdown_trip</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:spinnerMode">dropdown</item>
+    </style>
+
 </resources>
