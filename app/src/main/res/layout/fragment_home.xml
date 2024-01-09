@@ -42,10 +42,11 @@
         app:layout_constraintTop_toBottomOf="@id/tv_welcome" />
 
     <ImageView
+        android:id="@+id/iv_notification"
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_marginTop="12dp"
-        android:src="@drawable/ic_bell_bagde"
+        android:src="@drawable/ic_bell_badge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -62,12 +63,12 @@
         app:layout_constraintTop_toBottomOf="@id/iv_profile" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_select_trip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:background="@drawable/bg_select_trip"
-        android:paddingHorizontal="8dp"
-        android:paddingVertical="8dp"
+        android:padding="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title">
 
@@ -90,11 +91,91 @@
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager"
-            android:paddingTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="8dp"
             app:layout_constraintTop_toBottomOf="@id/tab_layout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_select_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/bg_black"
+        android:padding="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cl_select_trip">
+
+        <TextView
+            android:id="@+id/tv_depart_date"
+            style="@style/TextS.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/depart_date"
+            android:textColor="@color/gray_300"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_selected_date"
+            style="@style/TextS.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/select_date"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_depart_date" />
+
+        <include layout="@layout/iv_arrow_down" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_passenger_and_cabin_class"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/bg_black"
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@id/cl_select_date">
+
+        <TextView
+            android:id="@+id/tv_passenger_and_cabin_class"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/passenger_s_and_cabin_class"
+            android:textColor="@color/gray_300"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_selected_passenger_and_cabin_class"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/select_passenger_and_cabin_class"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_passenger_and_cabin_class" />
+
+        <include layout="@layout/iv_arrow_down" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_search_flight"
+        style="@style/Button.Primary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/search_flight"
+        app:layout_constraintTop_toBottomOf="@id/cl_passenger_and_cabin_class" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

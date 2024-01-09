@@ -1,5 +1,6 @@
 package com.synrgy.aeroswift.presentation.fragment.tabTrip
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
+import androidx.transition.R.*
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentOneWayBinding
 
@@ -39,12 +41,13 @@ class OneWayFragment : Fragment() {
     }
 
     private fun initSpinner(spinner: Spinner) {
-        spinner.adapter = ArrayAdapter.createFromResource(
+        val adapter = ArrayAdapter.createFromResource(
             requireContext(),
             R.array.origin,
             android.R.layout.simple_spinner_item
         )
 
+        spinner.adapter = adapter
         spinner.setSelection(0)
     }
 

@@ -23,4 +23,28 @@
     <string name="soar_to_new_heights_and_cultivate_expertise">Soar to New Heights and Cultivate Expertise</string>
     <string name="origin">Origin</string>
     <string name="destination">Destination</string>
+    <string name="depart_date">Depart Date</string>
+    <string name="select_date">Select Date</string>
+    <string name="passenger_s_and_cabin_class">Passenger (s) and Cabin Class</string>
+    <string name="search_flight">Search Flight</string>
+    <string name="select_passenger_and_cabin_class">Select passenger and cabin class</string>
+    <string name="passengers_and_cabin_class">Passengers and cabin class</string>
+    <string name="close">close</string>
+    <string name="economy_class">Economy Class</string>
+    <string name="first_class">First Class</string>
+    <string name="business_class">Business Class</string>
+    <string name="save">Save</string>
+
+    <string-array name="origin">
+        <item>Select</item>
+        <item>JKT</item>
+        <item>SBY</item>
+        <item>YIA</item>
+    </string-array>
+
+    <string-array name="trip_class">
+        <item>2 Passengers -  Economy Class</item>
+        <item>1 Passenger -  Economy Class</item>
+        <item>1 Passenger -  Business Class</item>
+    </string-array>
 </resources>
