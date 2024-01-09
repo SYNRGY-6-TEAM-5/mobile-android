@@ -81,11 +81,11 @@ class LoginActivity : AppCompatActivity() {
         val password = binding.loginTiPassword.text.toString()
 
         if (email.isBlank() && email.isEmpty()) {
-            binding.loginTiEmail.error = "Required"
+            binding.loginTilEmail.error = "Required"
         }
 
         if (password.isBlank() && password.isEmpty()) {
-            binding.loginTiPassword.error = "Required"
+            binding.loginTilPassword.error = "Required"
             binding.loginTilPassword.errorIconDrawable = null
         }
 
