@@ -42,6 +42,7 @@ class HomeActivity : AppCompatActivity() {
         observeHome()
 
         binding.homeBtnLogout.setOnClickListener { authViewModel.logout() }
+        binding.homeBtnAirport.setOnClickListener { AirportListActivity.startActivity(this) }
     }
 
     private fun setupGso() {

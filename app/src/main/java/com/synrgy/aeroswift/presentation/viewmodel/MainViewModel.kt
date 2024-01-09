@@ -27,7 +27,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun setNewUser(newUser: Boolean) {
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch(Dispatchers.IO) {
             setNewUserUseCase.invoke(newUser)
         }
     }
