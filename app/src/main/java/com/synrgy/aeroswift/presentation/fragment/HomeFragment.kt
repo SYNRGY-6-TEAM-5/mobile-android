@@ -7,10 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
+import android.widget.TextView
 import androidx.fragment.app.viewModels
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentHomeBinding
 import com.synrgy.aeroswift.dialog.PassengersAndCabinClassDialog
+import com.synrgy.aeroswift.presentation.adapter.DiscountAdapter
 import com.synrgy.aeroswift.presentation.adapter.TabTripAdapter
 import com.synrgy.aeroswift.presentation.viewmodel.HomeViewModel
 import java.text.SimpleDateFormat
@@ -22,6 +26,9 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
 
     private val viewModel: HomeViewModel by viewModels()
+
+    private var selectedClass: String? = null
+    private var totalPassenger: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,32 +42,93 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val tabAdapter = TabTripAdapter(requireActivity())
-        binding.viewPager.adapter = tabAdapter
+        adapter()
+        tabController()
 
-        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            when (position) {
-                0 -> tab.text = "One-Way"
-                else -> tab.text = "Roundtrip"
-            }
-        }.attach()
+        binding.clDepartDate.setOnClickListener {
+            showDatePicker(binding.tvSelectedDate)
+        }
 
-        binding.clSelectDate.setOnClickListener {
-            showDatePicker()
+        binding.clReturnDate.setOnClickListener {
+            showDatePicker(binding.tvSelectedReturnDate)
         }
 
         binding.clPassengerAndCabinClass.setOnClickListener {
             PassengersAndCabinClassDialog(requireActivity(), viewModel).show()
         }
-
         val tvSelectedClass = binding.tvSelectedPassengerAndCabinClass
 
         viewModel.selectedClass.observe(viewLifecycleOwner) {
-            tvSelectedClass.text = it
+            selectedClass = it
+            tvSelectedClass.text = "$totalPassenger Passengers - $selectedClass"
+        }
+
+        viewModel.totalPassengers.observe(viewLifecycleOwner) {
+            totalPassenger = it.toString()
+            tvSelectedClass.text = "$totalPassenger Passengers - $selectedClass"
         }
     }
 
-    private fun showDatePicker() {
+    private fun tabController() {
+        val clDepartDate = binding.clDepartDate
+        val clReturnDate = binding.clReturnDate
+        val params = clDepartDate.layoutParams
+
+        binding.viewPager.isUserInputEnabled = false
+
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                tab?.position?.let { binding.viewPager.setCurrentItem(it, false) }
+
+                if (tab?.position == 0) {
+                    params.width = ViewGroup.LayoutParams.MATCH_PARENT
+
+                    clDepartDate.visibility = View.VISIBLE
+                    clDepartDate.layoutParams = params
+
+                    clDepartDate.setBackgroundResource(R.drawable.bg_black)
+
+                    clReturnDate.visibility = View.GONE
+                } else {
+                    clReturnDate.visibility = View.VISIBLE
+                    clDepartDate.visibility = View.VISIBLE
+
+                    clDepartDate.setBackgroundResource(R.drawable.bg_roundtrip)
+                    clReturnDate.setBackgroundResource(R.drawable.bg_roundtrip)
+
+                    params.width = ViewGroup.LayoutParams.WRAP_CONTENT
+                    clDepartDate.layoutParams = params
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+
+        })
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            when (position) {
+                0 -> {
+                    tab.text = "One-Way"
+                }
+
+                else -> {
+                    tab.text = "Roundtrip"
+                }
+            }
+        }.attach()
+    }
+    private fun adapter() {
+        val adapter = DiscountAdapter()
+        binding.rvDiscount.adapter = adapter
+
+        val tabAdapter = TabTripAdapter(requireActivity())
+        binding.viewPager.adapter = tabAdapter
+    }
+
+    private fun showDatePicker(textView: TextView) {
         // Create the DatePickerFragment
         val datePickerDialog = DatePickerDialog(
             requireContext(),
@@ -70,7 +138,7 @@ class HomeFragment : Fragment() {
                 calendar.set(year, month, dayOfMonth)
                 val simpleDateFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
                 val date = simpleDateFormat.format(calendar.time)
-                binding.tvSelectedDate.text = date
+                textView.text = date
             },
             // Set the DatePickerDialog to open on the last selected date of the user
             Calendar.getInstance().get(Calendar.YEAR),

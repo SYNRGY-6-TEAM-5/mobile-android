@@ -1,4 +1,4 @@
-package com.synrgy.aeroswift.presentation.fragment.tabTrip
+package com.synrgy.aeroswift.presentation.fragment
 
 import android.graphics.Color
 import android.os.Bundle

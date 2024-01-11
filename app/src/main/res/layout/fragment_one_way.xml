@@ -7,7 +7,7 @@
     android:background="@drawable/bg_oneway"
     android:paddingHorizontal="16dp"
     android:paddingVertical="16dp"
-    tools:context=".presentation.fragment.tabTrip.OneWayFragment">
+    tools:context=".presentation.fragment.OneWayFragment">
 
     <View
         android:id="@+id/ic_airplane_takeoff"

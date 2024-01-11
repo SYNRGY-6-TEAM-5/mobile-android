@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -64,14 +65,29 @@
 
             </com.google.android.material.chip.ChipGroup>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSave"
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvPassengers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Button.Primary"
-                android:text="@string/save"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_passenger"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:nestedScrollingEnabled="false"
                 app:layout_constraintTop_toBottomOf="@id/cgPassengers"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                tools:itemCount="3"
+                tools:listitem="@layout/item_select_passenger" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSave"
+                style="@style/Button.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/save"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rvPassengers" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

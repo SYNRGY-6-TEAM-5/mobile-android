@@ -34,6 +34,19 @@
     <string name="first_class">First Class</string>
     <string name="business_class">Business Class</string>
     <string name="save">Save</string>
+    <string name="adult">Adult</string>
+    <string name="_12_years_old">+12 years old</string>
+    <string name="minus">minus</string>
+    <string name="plus">plus</string>
+    <string name="_0">0</string>
+    <string name="best_deal_for_you">Best deal for you</string>
+    <string name="return_date">Return Date</string>
+    <string name="upcoming_flight">Upcoming Flight</string>
+    <string name="_24_oct_09_50">24 Oct, 09:50</string>
+    <string name="yia">YIA</string>
+    <string name="yogyakarta">Yogyakarta</string>
+    <string name="_25_oct_09_50">25 Oct, 09:50</string>
+    <string name="tokyo">Tokyo</string>
 
     <string-array name="origin">
         <item>Select</item>
