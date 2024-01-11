@@ -16,6 +16,7 @@ class DataStoreManager @Inject constructor (
 ) {
     companion object {
         private val KEY_TOKEN = stringPreferencesKey("token")
+        private val KEY_NAME = stringPreferencesKey("name")
         private val KEY_IS_NEW_USER = booleanPreferencesKey("is_new_user")
         private const val PREF_NAME = "myPreferences"
 
@@ -27,7 +28,12 @@ class DataStoreManager @Inject constructor (
     }
 
     suspend fun clearToken() {
-        context.dataStore.edit { preferences -> preferences.remove(KEY_TOKEN) }
+        context.dataStore.edit { preferences ->
+            run {
+                preferences.remove(KEY_TOKEN)
+                preferences.remove(KEY_NAME)
+            }
+        }
     }
 
     fun getToken(): Flow<String?> {
@@ -40,5 +46,13 @@ class DataStoreManager @Inject constructor (
 
     suspend fun setIsNewUser(isNewUser: Boolean) {
         context.dataStore.edit { preferences -> preferences[KEY_IS_NEW_USER] = isNewUser }
+    }
+
+    suspend fun setName(name: String) {
+        context.dataStore.edit { preferences -> preferences[KEY_NAME] = name }
+    }
+
+    fun getName(): Flow<String?> {
+        return context.dataStore.data.map { preferences -> preferences[KEY_NAME] }
     }
 }

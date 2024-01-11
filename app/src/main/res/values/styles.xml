@@ -43,6 +43,11 @@
         <item name="fontWeight">400</item>
     </style>
 
+    <style name="TextS.Semibold" parent="TextS">
+        <item name="fontWeight">600</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextS.Medium" parent="TextS">
         <item name="fontWeight">500</item>
         <item name="android:textStyle">bold</item>
@@ -51,6 +56,15 @@
     <style name="Text" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">16sp</item>
         <item name="lineHeight">24sp</item>
+    </style>
+
+    <style name="Text.Regular" parent="Text">
+        <item name="fontWeight">400</item>
+    </style>
+
+    <style name="Text.Medium" parent="Text">
+        <item name="fontWeight">500</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="Text.Semibold" parent="Text">
@@ -95,7 +109,7 @@
     <style name="TextField">
         <item name="backgroundTint">@color/white</item>
     </style>
-
+  
     <style name="spinnerStyle" parent="Widget.AppCompat.Spinner">
         <item name="android:background">@drawable/bg_dropdown_trip</item>
         <item name="android:textSize">24sp</item>

@@ -43,10 +43,10 @@ class HomeActivity : AppCompatActivity() {
         authViewModel.checkAuth()
 
         setupGso()
-
         observeHome()
 //
 //        binding.homeBtnLogout.setOnClickListener { authViewModel.logout() }
+
 
         replaceFragment(HomeFragment())
 
@@ -60,6 +60,10 @@ class HomeActivity : AppCompatActivity() {
             }
             true
         }
+// =======
+//         binding.homeBtnLogout.setOnClickListener { authViewModel.logout() }
+//         binding.homeBtnAirport.setOnClickListener { AirportListActivity.startActivity(this) }
+// >>>>>>> develop
     }
 
     private fun setupGso() {
@@ -72,7 +76,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun observeHome() {
         authViewModel.logoutLoading.observe(this, ::handleLogout)
-        authViewModel.authentication.observe(this, ::handleAuthentication)
+        authViewModel.name.observe(this, ::handleGetUserProfile)
     }
 
     private fun handleLogout(loading: Boolean) {
@@ -89,10 +93,8 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleAuthentication(token: String) {
-        if (token.isEmpty() && token.isBlank()) {
-            authViewModel.setToken(token)
-        }
+    private fun handleGetUserProfile(name: String) {
+        binding.homeDisplayName.text = name
     }
 
     private fun replaceFragment(fragment: Fragment) {

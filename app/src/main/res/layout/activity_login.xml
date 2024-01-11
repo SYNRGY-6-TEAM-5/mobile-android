@@ -115,6 +115,7 @@
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/TextXS.Regular"
+                android:id="@+id/txt_forgot_pass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Forgot Password"
@@ -155,6 +156,18 @@
                     android:layout_gravity="center"/>
 
             </LinearLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextS.Semibold"
+                android:id="@+id/txt_login_as_guest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login as guest"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/base_black"
+                android:textAlignment="center"
+                android:layout_marginTop="80dp"
+                android:alpha="0.6"/>
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/TextXS.Regular"
