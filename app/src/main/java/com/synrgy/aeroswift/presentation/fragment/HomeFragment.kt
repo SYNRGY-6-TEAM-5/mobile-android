@@ -16,6 +16,7 @@ import com.synrgy.aeroswift.databinding.FragmentHomeBinding
 import com.synrgy.aeroswift.dialog.PassengersAndCabinClassDialog
 import com.synrgy.aeroswift.presentation.adapter.DiscountAdapter
 import com.synrgy.aeroswift.presentation.adapter.TabTripAdapter
+import com.synrgy.aeroswift.presentation.adapter.TicketPromoAdapter
 import com.synrgy.aeroswift.presentation.viewmodel.HomeViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -126,6 +127,9 @@ class HomeFragment : Fragment() {
 
         val tabAdapter = TabTripAdapter(requireActivity())
         binding.viewPager.adapter = tabAdapter
+
+        val ticketPromoAdapter = TicketPromoAdapter()
+        binding.rvTicketPromo.adapter = ticketPromoAdapter
     }
 
     private fun showDatePicker(textView: TextView) {
