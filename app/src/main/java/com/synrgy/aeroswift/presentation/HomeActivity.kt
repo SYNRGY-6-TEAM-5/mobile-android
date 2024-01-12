@@ -32,7 +32,7 @@ class HomeActivity : AppCompatActivity() {
 
     private val authViewModel: AuthViewModel by viewModels()
 
-    private val loadingDialog = LoadingDialog(HomeActivity@ this)
+    private val loadingDialog = LoadingDialog(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,9 +44,6 @@ class HomeActivity : AppCompatActivity() {
 
         setupGso()
         observeHome()
-//
-//        binding.homeBtnLogout.setOnClickListener { authViewModel.logout() }
-
 
         replaceFragment(HomeFragment())
 
@@ -60,10 +57,6 @@ class HomeActivity : AppCompatActivity() {
             }
             true
         }
-// =======
-//         binding.homeBtnLogout.setOnClickListener { authViewModel.logout() }
-//         binding.homeBtnAirport.setOnClickListener { AirportListActivity.startActivity(this) }
-// >>>>>>> develop
     }
 
     private fun setupGso() {
@@ -76,7 +69,6 @@ class HomeActivity : AppCompatActivity() {
 
     private fun observeHome() {
         authViewModel.logoutLoading.observe(this, ::handleLogout)
-        authViewModel.name.observe(this, ::handleGetUserProfile)
     }
 
     private fun handleLogout(loading: Boolean) {
@@ -91,10 +83,6 @@ class HomeActivity : AppCompatActivity() {
                 this.finish()
             }
         }
-    }
-
-    private fun handleGetUserProfile(name: String) {
-//        binding.homeDisplayName.text = name
     }
 
     private fun replaceFragment(fragment: Fragment) {
