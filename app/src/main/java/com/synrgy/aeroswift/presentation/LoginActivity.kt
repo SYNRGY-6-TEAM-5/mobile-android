@@ -18,6 +18,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.ActivityLoginBinding
+import com.synrgy.aeroswift.dialog.ForgotPassDialog
 import com.synrgy.aeroswift.dialog.LoadingDialog
 import com.synrgy.aeroswift.presentation.viewmodel.AuthViewModel
 import com.synrgy.aeroswift.presentation.viewmodel.LoginViewModel
@@ -42,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
     private val loginViewModel: LoginViewModel by viewModels()
 
     private val loadingDialog = LoadingDialog(LoginActivity@this)
+    private val forgotPassDialog = ForgotPassDialog(LoginActivity@this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,14 +59,21 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btnSignInGoogle.setOnClickListener { signIn() }
         binding.btnLogin.setOnClickListener { handleLogin() }
+
+        binding.txtForgotPass.setOnClickListener{ forgotPassDialog.show() }
+        binding.txtLoginAsGuest.setOnClickListener {
+            authViewModel.setName("Guest")
+            handleNavigateToHome()
+        }
     }
 
     private fun observeLogin() {
         loginViewModel.error.observe(this, ::handleError)
         loginViewModel.loading.observe(this, ::handleLoading)
-        authViewModel.authentication.observe(this, ::handleAuthentication)
         loginViewModel.authentication.observe(this, ::handleAuthentication)
         loginViewModel.login.observe(this, ::handleSuccess)
+
+        authViewModel.authentication.observe(this, ::handleAuthentication)
     }
 
     private fun handleError(error: String) {
@@ -72,14 +81,15 @@ class LoginActivity : AppCompatActivity() {
         val password = binding.loginTiPassword.text.toString()
 
         if (email.isBlank() && email.isEmpty()) {
-            binding.loginTiEmail.error = "Required"
+            binding.loginTilEmail.error = "Required"
         }
 
         if (password.isBlank() && password.isEmpty()) {
-            binding.loginTiPassword.error = "Required"
+            binding.loginTilPassword.error = "Required"
+            binding.loginTilPassword.errorIconDrawable = null
         }
 
-        Helper.showToast(this, this, error, isSuccess = false)
+        Helper.showToast(this, this, "Login failed", isSuccess = false)
     }
 
     private fun handleLoading(loading: Boolean) {
@@ -91,7 +101,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun handleSuccess(message: String) {
-        Helper.showToast(this, this, message, isSuccess = true)
+        Helper.showToast(this, this, "Login success", isSuccess = true)
     }
 
     private fun handleLogin() {
@@ -104,14 +114,20 @@ class LoginActivity : AppCompatActivity() {
                 password = password
             )
         )
+
+        authViewModel.setName(email)
     }
 
     private fun handleAuthentication(token: String) {
         if (token.isNotEmpty() && token.isNotBlank()) {
             authViewModel.setToken(token)
-            HomeActivity.startActivity(this)
-            this.finish()
+            handleNavigateToHome()
         }
+    }
+
+    private fun handleNavigateToHome() {
+        HomeActivity.startActivity(this)
+        this.finish()
     }
 
     private fun setTextSpan() {
@@ -178,12 +194,15 @@ class LoginActivity : AppCompatActivity() {
 
     private fun updateUI(account: GoogleSignInAccount?) {
         if (account != null) {
-            val idToken = account.idToken
+            val idToken = account.idToken.toString()
+            val displayName = account.displayName.toString()
+            val photoUrl = account.photoUrl.toString()
 
-            authViewModel.setToken(idToken!!)
+            authViewModel.setToken(idToken)
+            authViewModel.setName(displayName)
+            authViewModel.setPhoto(photoUrl)
 
-            HomeActivity.startActivity(this)
-            this.finish()
+            handleNavigateToHome()
         }
     }
 }

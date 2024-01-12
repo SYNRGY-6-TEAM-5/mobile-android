@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_forgot_pass"
+    app:startDestination="@id/forgotPassFragment">
+
+    <fragment
+        android:id="@+id/forgotPassFragment"
+        android:name="com.synrgy.aeroswift.presentation.fragment.forgotpassword.ForgotPassFragment"
+        android:label="fragment_forgot_pass"
+        tools:layout="@layout/fragment_forgot_pass" >
+        <action
+            android:id="@+id/action_forgotPassFragment_to_verificationCodePassFragment"
+            app:destination="@id/verificationCodePassFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/verificationCodePassFragment"
+        android:name="com.synrgy.aeroswift.presentation.fragment.forgotpassword.VerificationCodePassFragment"
+        android:label="fragment_verification_code_pass"
+        tools:layout="@layout/fragment_verification_code_pass" >
+        <action
+            android:id="@+id/action_verificationCodePassFragment_to_newPasswordFragment"
+            app:destination="@id/newPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newPasswordFragment"
+        android:name="com.synrgy.aeroswift.presentation.fragment.forgotpassword.NewPasswordFragment"
+        android:label="fragment_new_password"
+        tools:layout="@layout/fragment_new_password" >
+        <action
+            android:id="@+id/action_newPasswordFragment_to_doneResetPassFragment"
+            app:destination="@id/doneResetPassFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/doneResetPassFragment"
+        android:name="com.synrgy.aeroswift.presentation.fragment.forgotpassword.DoneResetPassFragment"
+        android:label="fragment_done_reset_pass"
+        tools:layout="@layout/fragment_done_reset_pass" />
+</navigation>

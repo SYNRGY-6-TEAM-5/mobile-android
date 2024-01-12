@@ -3,6 +3,7 @@ package com.synrgy.data.local
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -15,6 +16,9 @@ class DataStoreManager @Inject constructor (
 ) {
     companion object {
         private val KEY_TOKEN = stringPreferencesKey("token")
+        private val KEY_NAME = stringPreferencesKey("name")
+        private val KEY_PHOTO = stringPreferencesKey("photo")
+        private val KEY_IS_NEW_USER = booleanPreferencesKey("is_new_user")
         private const val PREF_NAME = "myPreferences"
 
         private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = PREF_NAME)
@@ -25,10 +29,40 @@ class DataStoreManager @Inject constructor (
     }
 
     suspend fun clearToken() {
-        context.dataStore.edit { preferences -> preferences.clear() }
+        context.dataStore.edit { preferences ->
+            run {
+                preferences.remove(KEY_TOKEN)
+                preferences.remove(KEY_NAME)
+                preferences.remove(KEY_PHOTO)
+            }
+        }
     }
 
     fun getToken(): Flow<String?> {
         return context.dataStore.data.map { preferences -> preferences[KEY_TOKEN] }
+    }
+
+    fun getIsNewUser(): Flow<Boolean?> {
+        return context.dataStore.data.map { preferences -> preferences[KEY_IS_NEW_USER] }
+    }
+
+    suspend fun setIsNewUser(isNewUser: Boolean) {
+        context.dataStore.edit { preferences -> preferences[KEY_IS_NEW_USER] = isNewUser }
+    }
+
+    suspend fun setName(name: String) {
+        context.dataStore.edit { preferences -> preferences[KEY_NAME] = name }
+    }
+
+    fun getName(): Flow<String?> {
+        return context.dataStore.data.map { preferences -> preferences[KEY_NAME] }
+    }
+
+    suspend fun setPhoto(photoUrl: String) {
+        context.dataStore.edit { preferences -> preferences[KEY_PHOTO] = photoUrl }
+    }
+
+    fun getPhoto(): Flow<String?> {
+        return context.dataStore.data.map { preferences -> preferences[KEY_PHOTO] }
     }
 }

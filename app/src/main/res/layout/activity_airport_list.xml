@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.AirportListActivity"
+    android:paddingHorizontal="16dp"
+    android:paddingTop="60dp"
+    android:paddingBottom="16dp">
+
+    <SearchView
+        android:id="@+id/sv_airport_list"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:queryHint="Search city, country or airport"
+        android:background="@drawable/shape_gray_100"
+        android:searchIcon="@drawable/ic_search"
+        android:iconifiedByDefault="false"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/Text.Regular"
+        android:id="@+id/title_recent_airport"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sv_airport_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recent Airport"
+        android:layout_marginTop="40dp"
+        android:textColor="@color/primary_500"
+        android:paddingVertical="10dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/TextS.Regular"
+        android:id="@+id/tv_clear_al"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/title_recent_airport"
+        app:layout_constraintBottom_toBottomOf="@id/title_recent_airport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clear"
+        android:textColor="@color/gray_300" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recent_airport_list_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_recent_airport"
+        app:layout_constraintBottom_toTopOf="@id/title_all_airport"
+        tools:listitem="@layout/item_airport_list"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/Text.Regular"
+        android:id="@+id/title_all_airport"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recent_airport_list_recycler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="All Airport"
+        android:layout_marginTop="40dp"
+        android:textColor="@color/primary_500"
+        android:paddingVertical="10dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/airport_list_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_all_airport"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/item_airport_list"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

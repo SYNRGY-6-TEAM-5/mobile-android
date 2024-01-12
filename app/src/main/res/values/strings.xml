@@ -7,8 +7,67 @@
 
     <string name="message_logout">Logout success!</string>
 
+    <string name="password_recovery">Password recovery</string>
+    <string name="password_recovery_desc">Enter your registered email address to recover your password</string>
+    <string name="choose_verification">Choose verification method</string>
+    <string name="choose_verification_desc">We`ll send you a verification code to reset your password</string>
+    <string name="verification_code">Verification Code</string>
+    <string name="verification_code_desc">We have sent the code verification to %s!. Please input the 4 digits code</string>
+
     <string name="server_client_id">432632858701-8pjqliu5fet9klpoqoa4o22oni7q700a.apps.googleusercontent.com</string>
 
     <string name="permission_notification_title">Notify latest offers &amp; flights availability</string>
     <string name="permission_notification_desc">Enable notifications now and never miss out on exclusive deals that are hand-picked just for you. Click  continue to savings!</string>
+
+    // bottom navigation menu
+    <string name="title_home">Home</string>
+    <string name="title_flight">My Flight</string>
+    <string name="title_profile">Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_back">Welcome back,</string>
+    <string name="name">Name</string>
+    <string name="soar_to_new_heights_and_cultivate_expertise">Soar to New Heights and Cultivate Expertise</string>
+    <string name="origin">Origin</string>
+    <string name="destination">Destination</string>
+    <string name="depart_date">Depart Date</string>
+    <string name="select_date">Select Date</string>
+    <string name="passenger_s_and_cabin_class">Passenger (s) and Cabin Class</string>
+    <string name="search_flight">Search Flight</string>
+    <string name="select_passenger_and_cabin_class">Select passenger and cabin class</string>
+    <string name="passengers_and_cabin_class">Passengers and cabin class</string>
+    <string name="close">close</string>
+    <string name="economy_class">Economy Class</string>
+    <string name="first_class">First Class</string>
+    <string name="business_class">Business Class</string>
+    <string name="save">Save</string>
+    <string name="adult">Adult</string>
+    <string name="_12_years_old">+12 years old</string>
+    <string name="minus">minus</string>
+    <string name="plus">plus</string>
+    <string name="_0">0</string>
+    <string name="best_deal_for_you">Best deal for you</string>
+    <string name="return_date">Return Date</string>
+    <string name="upcoming_flight">Upcoming Flight</string>
+    <string name="_24_oct_09_50">24 Oct, 09:50</string>
+    <string name="yia">YIA</string>
+    <string name="yogyakarta">Yogyakarta</string>
+    <string name="_25_oct_09_50">25 Oct, 09:50</string>
+    <string name="tokyo">Tokyo</string>
+    <string name="title_flight_booking">Flight are not available on that date, please select the nearest date.</string>
+    <string name="desc_flight_booking">The selected flight date may not have any available flights. Alternatively, you can choose flights on other dates below.</string>
+
+    <string-array name="origin">
+        <item>Select</item>
+        <item>JKT</item>
+        <item>SBY</item>
+        <item>YIA</item>
+    </string-array>
+
+    <string-array name="trip_class">
+        <item>2 Passengers -  Economy Class</item>
+        <item>1 Passenger -  Economy Class</item>
+        <item>1 Passenger -  Business Class</item>
+    </string-array>
+
 </resources>

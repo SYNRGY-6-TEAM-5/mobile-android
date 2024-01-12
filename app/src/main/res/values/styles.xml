@@ -20,6 +20,11 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="H6.Semibold" parent="H6">
+        <item name="fontWeight">600</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextXS" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">12sp</item>
         <item name="lineHeight">18sp</item>
@@ -48,9 +53,23 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="TextS.Semibold" parent="TextS">
+        <item name="fontWeight">600</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="Text" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">16sp</item>
         <item name="lineHeight">24sp</item>
+    </style>
+
+    <style name="Text.Regular" parent="Text">
+        <item name="fontWeight">400</item>
+    </style>
+
+    <style name="Text.Medium" parent="Text">
+        <item name="fontWeight">500</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="Text.Semibold" parent="Text">
@@ -94,6 +113,23 @@
 
     <style name="TextField">
         <item name="backgroundTint">@color/white</item>
+    </style>
+  
+    <style name="spinnerStyle" parent="Widget.AppCompat.Spinner">
+        <item name="android:background">@drawable/bg_dropdown_trip</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:spinnerMode">dropdown</item>
+    </style>
+
+    <style name="CustomChipChoice" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/bg_chip_selector</item>
+        <item name="chipStrokeColor">@color/gray_300</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="rippleColor">@color/gray_300</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/text_chip_selector</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
 </resources>

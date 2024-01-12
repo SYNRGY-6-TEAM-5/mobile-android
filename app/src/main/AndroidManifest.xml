@@ -16,6 +16,15 @@
         android:theme="@style/Theme.AeroSwift"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.FlightBookingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.AirportListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.SplashActivity"
             android:exported="true">
             <intent-filter>
