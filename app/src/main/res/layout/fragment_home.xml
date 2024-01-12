@@ -116,12 +116,13 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_depart_date"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:background="@drawable/bg_black"
                     android:padding="8dp"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/gl1_home"
                     app:layout_constraintTop_toBottomOf="@id/cl_select_trip">
 
                     <TextView
@@ -149,17 +150,30 @@
 
                     <include layout="@layout/iv_arrow_down" />
 
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl1_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.49"/>
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl2_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.51"/>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_return_date"
-                    android:layout_width="172dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:background="@drawable/bg_black"
                     android:padding="8dp"
+                    app:layout_constraintStart_toEndOf="@id/gl2_home"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/cl_select_trip">
 

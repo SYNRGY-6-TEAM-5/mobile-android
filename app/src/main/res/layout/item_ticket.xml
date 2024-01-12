@@ -83,13 +83,12 @@
 
     <ImageView
         android:id="@+id/img_plane"
-        android:layout_width="48dp"
-        android:layout_height="22dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginBottom="18dp"
+        android:layout_width="24dp"
+        android:layout_height="11dp"
         android:background="@drawable/img_plane"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_departure" />
+        app:layout_constraintTop_toTopOf="@id/tv_plane"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_plane"/>
 
     <TextView
         android:id="@+id/tv_plane"
