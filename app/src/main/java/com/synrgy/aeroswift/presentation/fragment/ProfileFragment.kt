@@ -1,60 +1,78 @@
 package com.synrgy.aeroswift.presentation.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.synrgy.aeroswift.R
+import com.synrgy.aeroswift.databinding.FragmentProfileBinding
+import com.synrgy.aeroswift.dialog.LoadingDialog
+import com.synrgy.aeroswift.presentation.LoginActivity
+import com.synrgy.aeroswift.presentation.viewmodel.AuthViewModel
+import com.synrgy.presentation.helper.Helper
+import dagger.hilt.android.AndroidEntryPoint
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+@AndroidEntryPoint
 class ProfileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentProfileBinding
+
+    private val authViewModel: AuthViewModel by viewModels()
+
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
+
+    private lateinit var loadingDialog: LoadingDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        binding = FragmentProfileBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfileFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProfileFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        loadingDialog = LoadingDialog(requireActivity())
+
+        setupGso()
+        observeHome()
+
+        binding.btnLogout.setOnClickListener {
+            authViewModel.logout()
+        }
+    }
+
+    private fun setupGso() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.server_client_id))
+            .requestEmail()
+            .build()
+        mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
+    }
+
+    private fun observeHome() {
+        authViewModel.logoutLoading.observe(viewLifecycleOwner, ::handleLogout)
+    }
+
+    private fun handleLogout(loading: Boolean) {
+        if (loading) {
+            loadingDialog.startLoadingDialog()
+        } else {
+            loadingDialog.dismissDialog()
+
+            mGoogleSignInClient.revokeAccess().addOnCompleteListener {
+                Helper.showToast(requireActivity(), requireActivity(), getString(R.string.message_logout), isSuccess = true)
+                LoginActivity.startActivity(requireActivity())
+                requireActivity().finish()
             }
+        }
     }
 }

@@ -114,6 +114,8 @@ class LoginActivity : AppCompatActivity() {
                 password = password
             )
         )
+
+        authViewModel.setName(email)
     }
 
     private fun handleAuthentication(token: String) {
