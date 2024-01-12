@@ -3,6 +3,7 @@ package com.synrgy.aeroswift.presentation.fragment.forgotpassword
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
+import android.text.Html
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
@@ -35,11 +36,11 @@ class VerificationCodePassFragment : Fragment() {
 
         val bundle = requireActivity().intent.extras
 
-        binding.verifDesc.text = getString(
-            R.string.verification_code_desc, bundle?.getString(
-                ForgotPassDialog.KEY_EMAIL_RECOVERY
-            ) ?: "test@gmail.com"
-        )
+        binding.verifDesc.text = Html.fromHtml(getString(
+            R.string.verification_code_desc,
+            "<b>${bundle?.getString(ForgotPassDialog.KEY_EMAIL_RECOVERY)
+                ?: "test@gmail.com"}.</b>"
+        ))
 
         return view
     }

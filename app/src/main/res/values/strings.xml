@@ -12,7 +12,7 @@
     <string name="choose_verification">Choose verification method</string>
     <string name="choose_verification_desc">We`ll send you a verification code to reset your password</string>
     <string name="verification_code">Verification Code</string>
-    <string name="verification_code_desc">We have sent the code verification to %1$s!. Please input the 4 digits code</string>
+    <string name="verification_code_desc">We have sent the code verification to %1$s Please input the 4 digits code</string>
     <string name="resend">Resend</string>
 
     <string name="server_client_id">432632858701-8pjqliu5fet9klpoqoa4o22oni7q700a.apps.googleusercontent.com</string>

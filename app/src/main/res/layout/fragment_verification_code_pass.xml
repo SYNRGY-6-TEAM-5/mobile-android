@@ -20,12 +20,12 @@
             android:textColor="@color/base_black"/>
 
         <com.google.android.material.textview.MaterialTextView
-            style="@style/TextXS.Regular"
+            style="@style/TextS.Regular"
             android:id="@+id/verif_desc"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:text="@string/verification_code_desc"
-            android:textColor="@color/gray_700"
+            android:textColor="@color/gray_500"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="30dp"/>
 
