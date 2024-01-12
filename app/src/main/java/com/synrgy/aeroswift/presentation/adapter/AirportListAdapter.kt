@@ -1,5 +1,6 @@
 package com.synrgy.aeroswift.presentation.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -9,10 +10,11 @@ import com.synrgy.aeroswift.presentation.viewholder.AirportListViewHolder
 import com.synrgy.domain.AirportList
 
 
-class AirportListAdapter:
-    ListAdapter<AirportList, AirportListViewHolder>(
-        AirportListDiffUtil()
-    ) {
+class AirportListAdapter(
+    private val clickListener: () -> Unit
+): ListAdapter<AirportList, AirportListViewHolder>(
+    AirportListDiffUtil()
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AirportListViewHolder {
         return AirportListViewHolder(
@@ -26,5 +28,9 @@ class AirportListAdapter:
 
     override fun onBindViewHolder(holder: AirportListViewHolder, position: Int) {
         holder.bindData(getItem(position))
+
+        holder.itemView.setOnClickListener {
+            clickListener()
+        }
     }
 }

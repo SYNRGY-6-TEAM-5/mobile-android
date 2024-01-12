@@ -54,6 +54,8 @@
     <string name="yogyakarta">Yogyakarta</string>
     <string name="_25_oct_09_50">25 Oct, 09:50</string>
     <string name="tokyo">Tokyo</string>
+    <string name="title_flight_booking">Flight are not available on that date, please select the nearest date.</string>
+    <string name="desc_flight_booking">The selected flight date may not have any available flights. Alternatively, you can choose flights on other dates below.</string>
 
     <string-array name="origin">
         <item>Select</item>

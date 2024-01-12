@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.FlightBookingActivity"
+    android:paddingHorizontal="16dp"
+    android:paddingTop="60dp"
+    android:paddingBottom="16dp">
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/TextL.Medium"
+        android:id="@+id/title_fb"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_flight_booking"
+        android:textColor="@color/base_black"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/H6.Semibold"
+        android:id="@+id/tv1_origin_fb"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_fb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="YIA"
+        android:textColor="@color/base_black"
+        android:layout_marginTop="24dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/TextS.Medium"
+        android:id="@+id/tv2_origin_fb"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv1_origin_fb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Yogyakarta"
+        android:textColor="@color/gray_300"
+        android:layout_marginTop="4dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv1_origin_fb"
+        app:layout_constraintBottom_toBottomOf="@id/tv2_origin_fb"
+        android:src="@drawable/ic_arrow_left"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/H6.Semibold"
+        android:id="@+id/tv1_dest_fb"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv1_origin_fb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CGK"
+        android:textColor="@color/base_black"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/TextS.Medium"
+        android:id="@+id/tv2_dest_fb"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv1_dest_fb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Jakarta"
+        android:textColor="@color/gray_300"
+        android:layout_marginTop="4dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/TextXS.Regular"
+        android:id="@+id/desc_fb"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv2_origin_fb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/desc_flight_booking"
+        android:textColor="@color/base_black"
+        android:layout_marginTop="16dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/TextS.Medium"
+        android:id="@+id/tv_prev_fb"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/desc_fb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Previous day"
+        android:textColor="@color/primary_200"
+        android:layout_marginTop="24dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/TextS.Medium"
+        android:id="@+id/tv_next_fb"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_prev_fb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next day"
+        android:textColor="@color/primary_500"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/depart_date_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_prev_fb"
+        app:layout_constraintBottom_toTopOf="@id/btn_search_schedule"
+        tools:listitem="@layout/item_depart_date"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"/>
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Button.Primary"
+        android:id="@+id/btn_search_schedule"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Search schedule"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
