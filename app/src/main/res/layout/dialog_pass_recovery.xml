@@ -35,7 +35,7 @@
                                     android:textColor="@color/base_black" />
 
                                 <com.google.android.material.textview.MaterialTextView
-                                    style="@style/TextXS.Regular"
+                                    style="@style/TextS.Regular"
                                     android:layout_width="300dp"
                                     android:layout_height="wrap_content"
                                     android:text="@string/password_recovery_desc"

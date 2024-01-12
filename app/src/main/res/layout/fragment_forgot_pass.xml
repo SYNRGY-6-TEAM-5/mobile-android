@@ -35,7 +35,7 @@
                 android:textColor="@color/base_black" />
 
             <com.google.android.material.textview.MaterialTextView
-                style="@style/TextXS.Regular"
+                style="@style/TextS.Regular"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:text="@string/choose_verification_desc"
@@ -55,22 +55,27 @@
                     android:layout_width="match_parent"
                     android:buttonTint="@color/primary_500"
                     android:drawableLeft="@drawable/outline_phone"
+                    android:drawableTint="@color/primary_500"
                     android:drawablePadding="4dp"
                     android:hint=" +62-738-****-****"
                     android:layout_height="wrap_content"
                     android:layoutDirection="rtl"
-                    android:textDirection="ltr"/>
+                    android:textDirection="ltr"
+                    android:layout_marginBottom="20dp"
+                    android:textColorHint="@color/primary_500"/>
 
                 <RadioButton
                     android:id="@+id/radio_email"
                     android:layout_width="match_parent"
                     android:buttonTint="@color/primary_500"
                     android:drawableLeft="@drawable/outline_mail"
+                    android:drawableTint="@color/primary_500"
                     android:drawablePadding="4dp"
                     android:hint=" te****@*****.com"
                     android:layout_height="wrap_content"
                     android:layoutDirection="rtl"
-                    android:textDirection="ltr"/>
+                    android:textDirection="ltr"
+                    android:textColorHint="@color/primary_500"/>
             </RadioGroup>
 
         </LinearLayout>

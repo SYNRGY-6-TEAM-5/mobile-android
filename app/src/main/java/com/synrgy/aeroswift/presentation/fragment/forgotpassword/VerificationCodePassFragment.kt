@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentVerificationCodePassBinding
+import com.synrgy.aeroswift.dialog.ForgotPassDialog
 
 class VerificationCodePassFragment : Fragment() {
 
@@ -31,6 +32,14 @@ class VerificationCodePassFragment : Fragment() {
         handleTimer()
 
         binding.btnConfirmCode.setOnClickListener { sendCode() }
+
+        val bundle = requireActivity().intent.extras
+
+        binding.verifDesc.text = getString(
+            R.string.verification_code_desc, bundle?.getString(
+                ForgotPassDialog.KEY_EMAIL_RECOVERY
+            ) ?: "test@gmail.com"
+        )
 
         return view
     }
