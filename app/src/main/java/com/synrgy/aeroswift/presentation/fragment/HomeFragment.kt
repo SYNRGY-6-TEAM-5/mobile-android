@@ -14,19 +14,24 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentHomeBinding
 import com.synrgy.aeroswift.dialog.PassengersAndCabinClassDialog
+import com.synrgy.aeroswift.presentation.AirportListActivity
 import com.synrgy.aeroswift.presentation.adapter.DiscountAdapter
 import com.synrgy.aeroswift.presentation.adapter.TabTripAdapter
 import com.synrgy.aeroswift.presentation.adapter.TicketPromoAdapter
+import com.synrgy.aeroswift.presentation.viewmodel.AuthViewModel
 import com.synrgy.aeroswift.presentation.viewmodel.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
     private val viewModel: HomeViewModel by viewModels()
+    private val authViewModel: AuthViewModel by viewModels()
 
     private var selectedClass: String? = null
     private var totalPassenger: String? = null
@@ -67,6 +72,16 @@ class HomeFragment : Fragment() {
         viewModel.totalPassengers.observe(viewLifecycleOwner) {
             totalPassenger = it.toString()
             tvSelectedClass.text = "$totalPassenger Passengers - $selectedClass"
+        }
+
+        authViewModel.checkAuth()
+
+        authViewModel.name.observe(viewLifecycleOwner) {
+            binding.tvName.text = it
+        }
+
+        binding.btnSearchFlight.setOnClickListener {
+            AirportListActivity.startActivity(requireActivity())
         }
     }
 

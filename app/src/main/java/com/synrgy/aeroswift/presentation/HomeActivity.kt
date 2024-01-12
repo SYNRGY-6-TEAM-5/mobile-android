@@ -94,7 +94,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun handleGetUserProfile(name: String) {
-        binding.homeDisplayName.text = name
+//        binding.homeDisplayName.text = name
     }
 
     private fun replaceFragment(fragment: Fragment) {
