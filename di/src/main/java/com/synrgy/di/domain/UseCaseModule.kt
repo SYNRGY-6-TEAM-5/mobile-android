@@ -6,7 +6,9 @@ import com.synrgy.domain.repository.LoginRepository
 import com.synrgy.domain.repository.NewUserRepository
 import com.synrgy.presentation.usecase.auth.ClearTokenUseCase
 import com.synrgy.presentation.usecase.auth.GetNameUseCase
+import com.synrgy.presentation.usecase.auth.GetPhotoUseCase
 import com.synrgy.presentation.usecase.auth.SetNameUseCase
+import com.synrgy.presentation.usecase.auth.SetPhotoUseCase
 import com.synrgy.presentation.usecase.login.GetTokenUseCase
 import com.synrgy.presentation.usecase.login.LoginUseCase
 import com.synrgy.presentation.usecase.login.LoginValidateInputUseCase
@@ -92,5 +94,21 @@ object UseCaseModule {
         authRepository: AuthRepository
     ): GetNameUseCase {
         return GetNameUseCase(authRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSetPhotoUseCase(
+        authRepository: AuthRepository
+    ): SetPhotoUseCase {
+        return SetPhotoUseCase(authRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetPhotoUseCase(
+        authRepository: AuthRepository
+    ): GetPhotoUseCase {
+        return GetPhotoUseCase(authRepository)
     }
 }

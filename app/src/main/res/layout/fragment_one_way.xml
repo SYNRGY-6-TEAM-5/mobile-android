@@ -56,7 +56,8 @@
         android:layout_marginTop="16dp"
         android:spinnerMode="dropdown"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_origin" />
+        app:layout_constraintTop_toBottomOf="@id/tv_origin"
+        android:popupBackground="@drawable/bg_spinner_popup"/>
 
     <Spinner
         android:id="@+id/sp_destination"
@@ -66,7 +67,8 @@
         android:layout_marginTop="16dp"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_destination" />
+        app:layout_constraintTop_toBottomOf="@id/tv_destination"
+        android:popupBackground="@drawable/bg_spinner_popup"/>
 
     <ImageButton
         android:id="@+id/btn_swap"

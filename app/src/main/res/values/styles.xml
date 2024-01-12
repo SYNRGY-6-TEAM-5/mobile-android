@@ -20,6 +20,11 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="H6.Semibold" parent="H6">
+        <item name="fontWeight">600</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextXS" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">12sp</item>
         <item name="lineHeight">18sp</item>
@@ -43,13 +48,13 @@
         <item name="fontWeight">400</item>
     </style>
 
-    <style name="TextS.Semibold" parent="TextS">
-        <item name="fontWeight">600</item>
+    <style name="TextS.Medium" parent="TextS">
+        <item name="fontWeight">500</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="TextS.Medium" parent="TextS">
-        <item name="fontWeight">500</item>
+    <style name="TextS.Semibold" parent="TextS">
+        <item name="fontWeight">600</item>
         <item name="android:textStyle">bold</item>
     </style>
 

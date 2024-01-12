@@ -114,6 +114,8 @@ class LoginActivity : AppCompatActivity() {
                 password = password
             )
         )
+
+        authViewModel.setName(email)
     }
 
     private fun handleAuthentication(token: String) {
@@ -194,9 +196,11 @@ class LoginActivity : AppCompatActivity() {
         if (account != null) {
             val idToken = account.idToken.toString()
             val displayName = account.displayName.toString()
+            val photoUrl = account.photoUrl.toString()
 
             authViewModel.setToken(idToken)
             authViewModel.setName(displayName)
+            authViewModel.setPhoto(photoUrl)
 
             handleNavigateToHome()
         }

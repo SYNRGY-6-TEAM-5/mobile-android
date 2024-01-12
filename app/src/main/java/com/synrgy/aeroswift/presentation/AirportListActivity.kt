@@ -24,8 +24,8 @@ class AirportListActivity : AppCompatActivity() {
 
     private val airportList = AirportListConstant.getAirportList()
 
-    private val allAirportListAdapter = AirportListAdapter()
-    private val recentAirportListAdapter = AirportListAdapter()
+    private val allAirportListAdapter = AirportListAdapter { handleNavigate() }
+    private val recentAirportListAdapter = AirportListAdapter { handleNavigate() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +52,10 @@ class AirportListActivity : AppCompatActivity() {
                 return false
             }
         });
+
+        binding.tvClearAl.setOnClickListener {
+            this.recentAirportListAdapter.submitList(ArrayList<AirportList>())
+        }
     }
 
     private fun handleSearchAirport(text: String) {
@@ -64,5 +68,9 @@ class AirportListActivity : AppCompatActivity() {
         }
 
         this.allAirportListAdapter.submitList(filteredList)
+    }
+
+    private fun handleNavigate() {
+        FlightBookingActivity.startActivity(this)
     }
 }

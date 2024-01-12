@@ -43,4 +43,12 @@ class LocalRepository @Inject constructor (
     override suspend fun getName(): Flow<String?> {
         return dataStoreManager.getName()
     }
+
+    override suspend fun setPhoto(photoUrl: String) {
+        dataStoreManager.setPhoto(photoUrl)
+    }
+
+    override suspend fun getPhoto(): Flow<String?> {
+        return dataStoreManager.getPhoto()
+    }
 }

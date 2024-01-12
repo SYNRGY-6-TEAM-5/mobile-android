@@ -34,6 +34,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         style="@style/TextS.Regular"
+        android:id="@+id/tv_clear_al"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/title_recent_airport"
         app:layout_constraintBottom_toBottomOf="@id/title_recent_airport"

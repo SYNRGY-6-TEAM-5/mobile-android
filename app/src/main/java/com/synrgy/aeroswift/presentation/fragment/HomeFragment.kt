@@ -2,13 +2,14 @@ package com.synrgy.aeroswift.presentation.fragment
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.synrgy.aeroswift.R
@@ -78,6 +79,17 @@ class HomeFragment : Fragment() {
 
         authViewModel.name.observe(viewLifecycleOwner) {
             binding.tvName.text = it
+        }
+
+        authViewModel.photo.observe(viewLifecycleOwner) {
+            if (it.isNotBlank() && it.isNotEmpty()) {
+                Glide
+                    .with(this)
+                    .load(it)
+                    .centerCrop()
+                    .circleCrop()
+                    .into(binding.ivProfile)
+            }
         }
 
         binding.btnSearchFlight.setOnClickListener {

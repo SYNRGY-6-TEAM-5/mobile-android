@@ -6,17 +6,12 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.ActivityHomeBinding
-import com.synrgy.aeroswift.dialog.LoadingDialog
 import com.synrgy.aeroswift.presentation.fragment.FlightFragment
 import com.synrgy.aeroswift.presentation.fragment.HomeFragment
 import com.synrgy.aeroswift.presentation.fragment.ProfileFragment
 import com.synrgy.aeroswift.presentation.viewmodel.AuthViewModel
-import com.synrgy.presentation.helper.Helper
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,11 +23,8 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityHomeBinding
-    private lateinit var mGoogleSignInClient: GoogleSignInClient
 
     private val authViewModel: AuthViewModel by viewModels()
-
-    private val loadingDialog = LoadingDialog(HomeActivity@ this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,12 +33,6 @@ class HomeActivity : AppCompatActivity() {
         setContentView(view)
 
         authViewModel.checkAuth()
-
-        setupGso()
-        observeHome()
-//
-//        binding.homeBtnLogout.setOnClickListener { authViewModel.logout() }
-
 
         replaceFragment(HomeFragment())
 
@@ -60,41 +46,6 @@ class HomeActivity : AppCompatActivity() {
             }
             true
         }
-// =======
-//         binding.homeBtnLogout.setOnClickListener { authViewModel.logout() }
-//         binding.homeBtnAirport.setOnClickListener { AirportListActivity.startActivity(this) }
-// >>>>>>> develop
-    }
-
-    private fun setupGso() {
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.server_client_id))
-            .requestEmail()
-            .build()
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
-    }
-
-    private fun observeHome() {
-        authViewModel.logoutLoading.observe(this, ::handleLogout)
-        authViewModel.name.observe(this, ::handleGetUserProfile)
-    }
-
-    private fun handleLogout(loading: Boolean) {
-        if (loading) {
-            loadingDialog.startLoadingDialog()
-        } else {
-            loadingDialog.dismissDialog()
-
-            mGoogleSignInClient.revokeAccess().addOnCompleteListener {
-                Helper.showToast(this, this, getString(R.string.message_logout), isSuccess = true)
-                LoginActivity.startActivity(this)
-                this.finish()
-            }
-        }
-    }
-
-    private fun handleGetUserProfile(name: String) {
-//        binding.homeDisplayName.text = name
     }
 
     private fun replaceFragment(fragment: Fragment) {
