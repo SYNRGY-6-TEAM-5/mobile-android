@@ -16,6 +16,9 @@
     <color name="gray_100">#EFF1F5</color>
     <color name="gray_200">#DCDFEA</color>
     <color name="gray_300">#B9C0D4</color>
-    <color name="gray_600">#4A5578</color>S
+    <color name="gray_400">#7D89B0</color>
+    <color name="gray_500">#5D6B98</color>
+    <color name="gray_600">#4A5578</color>
     <color name="gray_700">#404968</color>
+    <color name="no_color" />
 </resources>

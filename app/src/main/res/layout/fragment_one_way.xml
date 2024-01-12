@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_oneway"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="16dp"
+    tools:context=".presentation.fragment.OneWayFragment">
+
+    <View
+        android:id="@+id/ic_airplane_takeoff"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:background="@drawable/ic_airplane_takeoff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_origin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/origin"
+        android:textColor="@color/gray_300"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@id/ic_airplane_takeoff"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_destination"
+        style="@style/TextS.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/destination"
+        android:textColor="@color/gray_300"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/ic_airplane_landing"
+        app:layout_constraintEnd_toStartOf="@id/tv_destination"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/sp_origin"
+        style="@style/spinnerStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:spinnerMode="dropdown"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_origin" />
+
+    <Spinner
+        android:id="@+id/sp_destination"
+        style="@style/spinnerStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_destination" />
+
+    <ImageButton
+        android:id="@+id/btn_swap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_button_swap_trip"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

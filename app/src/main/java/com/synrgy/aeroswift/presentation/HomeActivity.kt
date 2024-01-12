@@ -5,12 +5,16 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.ActivityHomeBinding
 import com.synrgy.aeroswift.dialog.LoadingDialog
+import com.synrgy.aeroswift.presentation.fragment.FlightFragment
+import com.synrgy.aeroswift.presentation.fragment.HomeFragment
+import com.synrgy.aeroswift.presentation.fragment.ProfileFragment
 import com.synrgy.aeroswift.presentation.viewmodel.AuthViewModel
 import com.synrgy.presentation.helper.Helper
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +32,7 @@ class HomeActivity : AppCompatActivity() {
 
     private val authViewModel: AuthViewModel by viewModels()
 
-    private val loadingDialog = LoadingDialog(HomeActivity@this)
+    private val loadingDialog = LoadingDialog(HomeActivity@ this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +44,26 @@ class HomeActivity : AppCompatActivity() {
 
         setupGso()
         observeHome()
+//
+//        binding.homeBtnLogout.setOnClickListener { authViewModel.logout() }
 
-        binding.homeBtnLogout.setOnClickListener { authViewModel.logout() }
-        binding.homeBtnAirport.setOnClickListener { AirportListActivity.startActivity(this) }
+
+        replaceFragment(HomeFragment())
+
+        binding.homeBottomNavigation.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.navigation_home -> replaceFragment(HomeFragment())
+                R.id.navigation_flight -> replaceFragment(FlightFragment())
+                R.id.navigation_profile -> replaceFragment(ProfileFragment())
+                else -> {
+                }
+            }
+            true
+        }
+// =======
+//         binding.homeBtnLogout.setOnClickListener { authViewModel.logout() }
+//         binding.homeBtnAirport.setOnClickListener { AirportListActivity.startActivity(this) }
+// >>>>>>> develop
     }
 
     private fun setupGso() {
@@ -74,5 +95,12 @@ class HomeActivity : AppCompatActivity() {
 
     private fun handleGetUserProfile(name: String) {
         binding.homeDisplayName.text = name
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.home_frame_layout, fragment)
+        fragmentTransaction.commit()
     }
 }

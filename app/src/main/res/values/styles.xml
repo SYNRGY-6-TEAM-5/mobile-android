@@ -109,4 +109,22 @@
     <style name="TextField">
         <item name="backgroundTint">@color/white</item>
     </style>
+  
+    <style name="spinnerStyle" parent="Widget.AppCompat.Spinner">
+        <item name="android:background">@drawable/bg_dropdown_trip</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:spinnerMode">dropdown</item>
+    </style>
+
+    <style name="CustomChipChoice" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/bg_chip_selector</item>
+        <item name="chipStrokeColor">@color/gray_300</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="rippleColor">@color/gray_300</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/text_chip_selector</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
 </resources>

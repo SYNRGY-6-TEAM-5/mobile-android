@@ -42,7 +42,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_bell" />
+                    android:src="@drawable/ic_bell_outline" />
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/TextS.Medium"

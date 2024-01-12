@@ -12,7 +12,6 @@ class PermissionNotificationDialog(
     private val mainViewModel: MainViewModel
 ) {
     private lateinit var dialog: BottomSheetDialog
-
     fun show() {
         dialog = BottomSheetDialog(activity)
         val inflater = activity.layoutInflater
