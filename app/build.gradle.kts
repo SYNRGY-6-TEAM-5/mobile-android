@@ -80,6 +80,8 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
 
     implementation("com.github.angads25:toggle:1.1.0")
+
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 }
 
 // Allow references to generated code
