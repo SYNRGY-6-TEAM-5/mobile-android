@@ -31,13 +31,12 @@
                 android:text="Skip"
                 android:layout_marginTop="50dp"
                 android:textColor="@color/gray_200"
-                android:layout_gravity="right"/>
+                android:layout_gravity="end"/>
 
-            <ImageView
-                android:id="@+id/img_onboarding"
-                android:layout_width="wrap_content"
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/view_pager_onboarding"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/shape_black"
                 android:layout_marginTop="30dp"/>
 
             <com.google.android.material.tabs.TabLayout
@@ -51,11 +50,15 @@
                 android:background="@color/transparent"
                 android:layout_marginTop="40dp"/>
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/view_pager_onboarding"
-                android:layout_width="match_parent"
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/H4.Regular"
+                android:id="@+id/text_onboarding"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="60dp"/>
+                android:text="@string/track_amp_find_your_flight"
+                android:layout_marginTop="60dp"
+                android:textColor="@color/base_black"
+                android:textAlignment="center"/>
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/TextXL.Medium"
@@ -63,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Next"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="80dp"
                 android:textColor="@color/primary_500"
                 android:textAlignment="center"/>
 

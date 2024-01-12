@@ -13,6 +13,7 @@
     <string name="choose_verification_desc">We`ll send you a verification code to reset your password</string>
     <string name="verification_code">Verification Code</string>
     <string name="verification_code_desc">We have sent the code verification to %s!. Please input the 4 digits code</string>
+    <string name="resend">Resend</string>
 
     <string name="server_client_id">432632858701-8pjqliu5fet9klpoqoa4o22oni7q700a.apps.googleusercontent.com</string>
 
@@ -56,6 +57,15 @@
     <string name="tokyo">Tokyo</string>
     <string name="title_flight_booking">Flight are not available on that date, please select the nearest date.</string>
     <string name="desc_flight_booking">The selected flight date may not have any available flights. Alternatively, you can choose flights on other dates below.</string>
+    <string name="set_new_password">Set new password</string>
+    <string name="used_passwords">Your new password must be diffrent from previosly used passwords.</string>
+    <string name="new_password">New Password</string>
+    <string name="retype_new_password">Retype New Password</string>
+    <string name="change_password">Change Password</string>
+    <string name="confirm">Confirm</string>
+    <string name="strip">-</string>
+    <string name="resend_code_after">Resend code after</string>
+    <string name="track_amp_find_your_flight"><![CDATA[Track & find your flight]]></string>
 
     <string-array name="origin">
         <item>Select</item>

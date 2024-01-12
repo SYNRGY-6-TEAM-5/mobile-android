@@ -1,6 +1,5 @@
 package com.synrgy.aeroswift.presentation.fragment
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
-import androidx.transition.R.*
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentOneWayBinding
 

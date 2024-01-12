@@ -1,13 +1,12 @@
 package com.synrgy.aeroswift.presentation.fragment.forgotpassword
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.synrgy.aeroswift.R
-import com.synrgy.aeroswift.databinding.FragmentForgotPassBinding
 import com.synrgy.aeroswift.databinding.FragmentNewPasswordBinding
 
 class NewPasswordFragment : Fragment() {
@@ -16,7 +15,7 @@ class NewPasswordFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentNewPasswordBinding.inflate(layoutInflater)
         val view = binding.root
@@ -24,7 +23,6 @@ class NewPasswordFragment : Fragment() {
         binding.btnChangePassword.setOnClickListener { changePass() }
 
         return view
-
     }
 
     private fun changePass() {

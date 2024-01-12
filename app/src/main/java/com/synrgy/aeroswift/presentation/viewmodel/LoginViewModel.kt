@@ -33,7 +33,7 @@ class LoginViewModel @Inject constructor(
     fun login(user: LoginBody) {
         _loading.value = true
         viewModelScope.launch(Dispatchers.IO) {
-            if (loginValidateInputUseCase.invoke(user.username, user.password)) {
+            if (loginValidateInputUseCase.invoke(user.email, user.password)) {
                 runCatching {
                     loginUseCase.invoke(user)
                 }.onFailure { exception ->
@@ -45,7 +45,7 @@ class LoginViewModel @Inject constructor(
                     withContext(Dispatchers.Main) {
                         _loading.value = false
                         _login.value = value.message
-                        _authentication.value = value.token
+                        _authentication.value = value.token!!
                     }
                 }
             } else {

@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
+import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentOnBoardingBinding
 import com.synrgy.aeroswift.presentation.viewmodel.PageViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,13 +35,17 @@ class OnBoardingFragment : Fragment() {
     }
 
     private fun handleScrollView(index: Int) {
-        val textList = listOf<String>(
-            "Track & find your flight",
-            "Manage all your document trip",
-            "Easy to schedulling your flight"
+        val imgList = listOf(
+            R.drawable.img_onboarding_1,
+            R.drawable.shape_black,
+            R.drawable.shape_black
         )
 
-        binding.textOnboarding.text = textList[index ?: 0]
+        Glide
+            .with(this)
+            .load(imgList[index])
+            .centerCrop()
+            .into(binding.imgOnboarding)
     }
 
     companion object {

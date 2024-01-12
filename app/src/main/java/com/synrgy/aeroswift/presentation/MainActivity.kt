@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.synrgy.aeroswift.databinding.ActivityMainBinding
 import com.synrgy.aeroswift.dialog.PermissionNotificationDialog
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        notifDialog = PermissionNotificationDialog(MainActivity@this, mainViewModel)
+        notifDialog = PermissionNotificationDialog(this, mainViewModel)
 
         val adapter = ScreenSlidePagerAdapter(this)
         binding.viewPagerOnboarding.adapter = adapter
@@ -46,12 +47,28 @@ class MainActivity : AppCompatActivity() {
         binding.textNextOnboarding.setOnClickListener {
             val currPos = binding.viewPagerOnboarding.currentItem
 
-            if ((currPos + 1) < adapter.itemCount ?: 0) {
+            if ((currPos + 1) < (adapter.itemCount)) {
                 handleNextOnBoarding(currPos)
             } else {
                 notifDialog.show()
             }
         }
+
+        binding.viewPagerOnboarding.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                handleScrollView(position)
+            }
+        })
+    }
+
+    private fun handleScrollView(index: Int) {
+        val textList = listOf(
+            "Track & find your flight",
+            "Manage all your document trip",
+            "Easy to schedulling your flight"
+        )
+
+        binding.textOnboarding.text = textList[index]
     }
 
     private fun handleNextOnBoarding(currPos: Int) {

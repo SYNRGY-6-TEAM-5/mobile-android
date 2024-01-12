@@ -1,7 +1,6 @@
 package com.synrgy.aeroswift.presentation.fragment.forgotpassword
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,16 +8,26 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentForgotPassBinding
+import com.synrgy.aeroswift.dialog.ForgotPassDialog
 import com.synrgy.aeroswift.dialog.LoadingDialog
+import com.synrgy.presentation.helper.Helper
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 class ForgotPassFragment : Fragment() {
 
     private lateinit var binding: FragmentForgotPassBinding
+
+    private val coroutineScope: CoroutineScope = CoroutineScope(Job() + Dispatchers.Main)
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentForgotPassBinding.inflate(layoutInflater)
         val view = binding.root
@@ -28,11 +37,20 @@ class ForgotPassFragment : Fragment() {
         binding.btnSendCode.setOnClickListener {
             loadingDialog.startLoadingDialog()
 
-            Handler().postDelayed({
+            coroutineScope.launch {
+                delay(1000)
                 loadingDialog.dismissDialog()
                 sendCode()
-            }, 1000)
+            }
         }
+
+        binding.toolbarForgotPass.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+
+        val bundle = requireActivity().intent.extras
+
+        binding.radioEmail.hint = Helper.maskEmail(bundle?.getString(ForgotPassDialog.KEY_EMAIL_RECOVERY) ?: "test@gmail.com")
 
         return view
 

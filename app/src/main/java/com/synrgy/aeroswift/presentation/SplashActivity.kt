@@ -1,21 +1,28 @@
 package com.synrgy.aeroswift.presentation
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import androidx.activity.viewModels
-import com.synrgy.aeroswift.R
-import com.synrgy.aeroswift.databinding.ActivityMainBinding
 import com.synrgy.aeroswift.databinding.ActivitySplashBinding
 import com.synrgy.aeroswift.presentation.viewmodel.AuthViewModel
 import com.synrgy.aeroswift.presentation.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
+@SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
+
     private val authViewModel: AuthViewModel by viewModels()
     private val mainViewModel: MainViewModel by viewModels()
+
+    private val coroutineScope: CoroutineScope = CoroutineScope(Job() + Dispatchers.Main)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,17 +37,19 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun handleNavigateToActivity(token: String) {
-        Handler().postDelayed({
+        coroutineScope.launch {
+            delay(2000)
+
             if (token.isNotEmpty() && token.isNotBlank()) {
                 mainViewModel.setNewUser(false)
                 authViewModel.setToken(token)
 
-                HomeActivity.startActivity(this)
-                this.finish()
+                HomeActivity.startActivity(this@SplashActivity)
+                this@SplashActivity.finish()
             } else {
-                mainViewModel.newUser.observe(this, ::handleIsNewUser)
+                mainViewModel.newUser.observe(this@SplashActivity, ::handleIsNewUser)
             }
-        }, 2000)
+        }
     }
 
     private fun handleIsNewUser(isNewUser: Boolean) {

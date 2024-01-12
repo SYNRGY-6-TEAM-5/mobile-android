@@ -11,10 +11,16 @@ class RemoteRepository @Inject constructor(
     private val remoteService: RemoteService
 ): GuestRepository {
     override suspend fun login(user: LoginBody): Login {
-        return Login(
-            message = remoteService.login(user).message,
-            token = remoteService.login(user).data.token
-        )
+        return user.takeIf { it.email == "zachrie2005@gmail.com" && it.password == "password" }
+            ?.run {
+                Login(
+                    message = "Login success!",
+                    token = "token"
+                )
+            } ?: Login(
+                    message = "Login failed!",
+                    token = null
+                )
     }
 
     override suspend fun register(user: User): String {

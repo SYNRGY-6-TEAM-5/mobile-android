@@ -15,8 +15,11 @@ class ForgotPasswordActivity : AppCompatActivity() {
     private var binding: ActivityForgotPasswordBinding? = null
 
     companion object {
-        fun startActivity(context: Context) {
-            context.startActivity(Intent(context, ForgotPasswordActivity::class.java))
+        fun startActivity(context: Context, bundle: Bundle? = null) {
+            val intent = Intent(context, ForgotPasswordActivity::class.java)
+            if (bundle != null) intent.putExtras(bundle)
+
+            context.startActivity(intent)
         }
     }
     override fun onCreate(savedInstanceState: Bundle?) {

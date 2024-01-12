@@ -50,7 +50,5 @@ class SelectPassengerAdapter(private val passengers: MutableList<RvPassengerMode
             sumCount = passengers.sumOf { it.count }
             Log.d("sumCount", sumCount.toString())
         }
-
-
     }
 }

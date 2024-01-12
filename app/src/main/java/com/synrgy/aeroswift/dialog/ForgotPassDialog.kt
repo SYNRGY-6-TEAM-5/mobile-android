@@ -1,23 +1,30 @@
 package com.synrgy.aeroswift.dialog
 
 import android.app.Activity
+import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.button.MaterialButton
-import com.synrgy.aeroswift.R
+import com.synrgy.aeroswift.databinding.DialogPassRecoveryBinding
 import com.synrgy.aeroswift.presentation.ForgotPasswordActivity
+import com.synrgy.presentation.helper.Helper
 
 class ForgotPassDialog(
     private val activity: Activity,
 ) {
+    companion object {
+        const val KEY_EMAIL_RECOVERY = "email_recovery"
+    }
+
     private lateinit var dialog: BottomSheetDialog
+
+    private lateinit var binding: DialogPassRecoveryBinding
 
     fun show() {
         dialog = BottomSheetDialog(activity)
-        val inflater = activity.layoutInflater
-        val view = inflater.inflate(R.layout.dialog_pass_recovery, null)
+        binding = DialogPassRecoveryBinding.inflate(activity.layoutInflater)
+        val view = binding.root
 
         dialog.setContentView(view)
         dialog.setCancelable(true)
@@ -26,16 +33,27 @@ class ForgotPassDialog(
         val parentLayout =
             dialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
 
-        parentLayout?.let { it ->
+        parentLayout?.let {
             val behaviour = BottomSheetBehavior.from(it)
             setupFullHeight(it)
             behaviour.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
-        val btnNext = view?.findViewById<MaterialButton>(R.id.btn_next_pass_recovery)
+        binding.btnNextPassRecovery.setOnClickListener {
+            val email = binding.passwordTiEmail.text.toString().takeIf { it.isNotEmpty() }
+                ?: "test@example.com"
 
-        btnNext?.setOnClickListener {
-            ForgotPasswordActivity.startActivity(activity)
+            if (!Helper.isValidEmail(email)) {
+                binding.passwordTilEmail.error = "Email is not valid"
+            } else {
+                val bundle = Bundle()
+                bundle.putString(KEY_EMAIL_RECOVERY, email)
+                ForgotPasswordActivity.startActivity(activity, bundle)
+                dialog.dismiss()
+            }
+        }
+
+        binding.toolbarPassRecovery.setOnClickListener {
             dialog.dismiss()
         }
     }

@@ -1,13 +1,9 @@
 package com.synrgy.aeroswift.dialog
 
 import android.app.Activity
-import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.ViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.Chip
-import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.DialogPassengersAndClassBinding
 import com.synrgy.aeroswift.models.RvPassengerModels
 import com.synrgy.aeroswift.presentation.adapter.SelectPassengerAdapter
@@ -61,8 +57,6 @@ class PassengersAndCabinClassDialog(
                 }
 
             }
-
-
 
             setCancelable(true)
             show()

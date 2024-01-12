@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.synrgy.aeroswift.databinding.FragmentDoneResetPassBinding
-import com.synrgy.aeroswift.presentation.LoginActivity
 
 class DoneResetPassFragment: Fragment() {
     private lateinit var binding: FragmentDoneResetPassBinding
@@ -15,7 +14,7 @@ class DoneResetPassFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentDoneResetPassBinding.inflate(layoutInflater)
         val view = binding.root
 

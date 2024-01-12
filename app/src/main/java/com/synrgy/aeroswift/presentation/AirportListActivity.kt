@@ -51,7 +51,7 @@ class AirportListActivity : AppCompatActivity() {
                 handleSearchAirport(newText)
                 return false
             }
-        });
+        })
 
         binding.tvClearAl.setOnClickListener {
             this.recentAirportListAdapter.submitList(ArrayList<AirportList>())

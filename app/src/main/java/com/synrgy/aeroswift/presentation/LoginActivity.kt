@@ -10,6 +10,7 @@ import android.text.style.StyleSpan
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -30,20 +31,21 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
     companion object {
+        const val RC_SIGN_IN = 2
+
         fun startActivity(context: Context) {
             context.startActivity(Intent(context, LoginActivity::class.java))
         }
     }
 
-    private val RC_SIGN_IN = 2
     private lateinit var binding: ActivityLoginBinding
     private lateinit var mGoogleSignInClient: GoogleSignInClient
 
     private val authViewModel: AuthViewModel by viewModels()
     private val loginViewModel: LoginViewModel by viewModels()
 
-    private val loadingDialog = LoadingDialog(LoginActivity@this)
-    private val forgotPassDialog = ForgotPassDialog(LoginActivity@this)
+    private val loadingDialog = LoadingDialog(this)
+    private val forgotPassDialog = ForgotPassDialog(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,19 +79,21 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun handleError(error: String) {
-        val email = binding.loginTiEmail.text.toString()
-        val password = binding.loginTiPassword.text.toString()
+        if (error.isNotBlank() && error.isNotEmpty()) {
+            val email = binding.loginTiEmail.text.toString()
+            val password = binding.loginTiPassword.text.toString()
 
-        if (email.isBlank() && email.isEmpty()) {
-            binding.loginTilEmail.error = "Required"
+            if (email.isBlank() && email.isEmpty()) {
+                binding.loginTilEmail.error = "Required"
+            }
+
+            if (password.isBlank() && password.isEmpty()) {
+                binding.loginTilPassword.error = "Required"
+                binding.loginTilPassword.errorIconDrawable = null
+            }
+
+            Helper.showToast(this, this, "Login failed", isSuccess = false)
         }
-
-        if (password.isBlank() && password.isEmpty()) {
-            binding.loginTilPassword.error = "Required"
-            binding.loginTilPassword.errorIconDrawable = null
-        }
-
-        Helper.showToast(this, this, "Login failed", isSuccess = false)
     }
 
     private fun handleLoading(loading: Boolean) {
@@ -101,7 +105,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun handleSuccess(message: String) {
-        Helper.showToast(this, this, "Login success", isSuccess = true)
+        if (message.isNotEmpty() && message.isNotBlank()) {
+            Helper.showToast(this, this, "Login success", isSuccess = true)
+        }
     }
 
     private fun handleLogin() {
@@ -109,10 +115,7 @@ class LoginActivity : AppCompatActivity() {
         val password = binding.loginTiPassword.text.toString()
 
         loginViewModel.login(
-            LoginBody(
-                username = email,
-                password = password
-            )
+            LoginBody(email, password)
         )
 
         authViewModel.setName(email)
@@ -136,7 +139,7 @@ class LoginActivity : AppCompatActivity() {
         val loginGoogleText: Spannable = SpannableString(resources.getString(R.string.login_google_text))
 
         loginDescText.setSpan(
-            ForegroundColorSpan(resources.getColor(R.color.primary_500)),
+            ForegroundColorSpan(ContextCompat.getColor(this, R.color.primary_500)),
             30,
             35,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -150,7 +153,7 @@ class LoginActivity : AppCompatActivity() {
         )
 
         loginGoogleText.setSpan(
-            ForegroundColorSpan(resources.getColor(R.color.gray_300)),
+            ForegroundColorSpan(ContextCompat.getColor(this, R.color.gray_300)),
             0,
             2,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -173,7 +176,11 @@ class LoginActivity : AppCompatActivity() {
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
+    ) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == RC_SIGN_IN) {
