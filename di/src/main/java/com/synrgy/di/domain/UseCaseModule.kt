@@ -4,6 +4,7 @@ import com.synrgy.domain.repository.AuthRepository
 import com.synrgy.domain.repository.GuestRepository
 import com.synrgy.domain.repository.LoginRepository
 import com.synrgy.domain.repository.NewUserRepository
+import com.synrgy.domain.repository.RegisterRepository
 import com.synrgy.presentation.usecase.auth.ClearTokenUseCase
 import com.synrgy.presentation.usecase.auth.GetNameUseCase
 import com.synrgy.presentation.usecase.auth.GetPhotoUseCase
@@ -15,6 +16,8 @@ import com.synrgy.presentation.usecase.login.LoginValidateInputUseCase
 import com.synrgy.presentation.usecase.login.SetTokenUseCase
 import com.synrgy.presentation.usecase.onboarding.GetNewUserUseCase
 import com.synrgy.presentation.usecase.onboarding.SetNewUserUseCase
+import com.synrgy.presentation.usecase.register.RegisterUseCase
+import com.synrgy.presentation.usecase.register.RegisterValidateInputUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,10 +37,25 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun provideValidateInputUseCase(
+    fun provideLoginValidateInputUseCase(
         loginRepository: LoginRepository
     ): LoginValidateInputUseCase {
         return LoginValidateInputUseCase(loginRepository)
+    }
+    @Singleton
+    @Provides
+    fun provideRegisterUseCase(
+        guestRepository: GuestRepository
+    ): RegisterUseCase {
+        return RegisterUseCase(guestRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideRegisterValidateInputUseCase(
+        registerRepository: RegisterRepository
+    ): RegisterValidateInputUseCase {
+        return RegisterValidateInputUseCase(registerRepository)
     }
 
     @Singleton

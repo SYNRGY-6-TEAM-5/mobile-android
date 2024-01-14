@@ -3,7 +3,8 @@ package com.synrgy.data.remote
 import com.synrgy.data.remote.service.RemoteService
 import com.synrgy.domain.Login
 import com.synrgy.domain.LoginBody
-import com.synrgy.domain.User
+import com.synrgy.domain.Register
+import com.synrgy.domain.RegisterBody
 import com.synrgy.domain.repository.GuestRepository
 import javax.inject.Inject
 
@@ -23,7 +24,7 @@ class RemoteRepository @Inject constructor(
                 )
     }
 
-    override suspend fun register(user: User): String {
+    override suspend fun register(user: RegisterBody): Register {
         TODO("Not yet implemented")
     }
 }

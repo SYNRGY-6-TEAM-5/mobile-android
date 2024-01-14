@@ -26,17 +26,19 @@ import com.synrgy.aeroswift.dialog.LoadingDialog
 import com.synrgy.aeroswift.presentation.AuthActivity
 import com.synrgy.aeroswift.presentation.HomeActivity
 import com.synrgy.aeroswift.presentation.viewmodel.AuthViewModel
-import com.synrgy.aeroswift.presentation.viewmodel.LoginViewModel
-import com.synrgy.domain.LoginBody
+import com.synrgy.aeroswift.presentation.viewmodel.RegisterViewModel
+import com.synrgy.domain.RegisterBody
 import com.synrgy.presentation.helper.Helper
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RegisterFragment: Fragment() {
     private lateinit var binding: FragmentRegisterBinding
 
     private lateinit var mGoogleSignInClient: GoogleSignInClient
 
     private val authViewModel: AuthViewModel by viewModels()
-    private val loginViewModel: LoginViewModel by viewModels()
+    private val registerViewModel: RegisterViewModel by viewModels()
 
     private lateinit var loadingDialog: LoadingDialog
     private lateinit var forgotPassDialog: ForgotPassDialog
@@ -63,14 +65,13 @@ class RegisterFragment: Fragment() {
         setTextSpan()
 
         binding.btnSignInGoogle.setOnClickListener { signUp() }
-        binding.btnRegister.setOnClickListener { handleLogin() }
+        binding.btnRegister.setOnClickListener { handleRegister() }
     }
 
     private fun observeLogin() {
-        loginViewModel.error.observe(viewLifecycleOwner, ::handleError)
-        loginViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
-        loginViewModel.authentication.observe(viewLifecycleOwner, ::handleAuthentication)
-        loginViewModel.login.observe(viewLifecycleOwner, ::handleSuccess)
+        registerViewModel.error.observe(viewLifecycleOwner, ::handleError)
+        registerViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
+        registerViewModel.register.observe(viewLifecycleOwner, ::handleSuccess)
 
         authViewModel.authentication.observe(viewLifecycleOwner, ::handleAuthentication)
     }
@@ -103,19 +104,17 @@ class RegisterFragment: Fragment() {
 
     private fun handleSuccess(message: String) {
         if (message.isNotEmpty() && message.isNotBlank()) {
-            Helper.showToast(requireActivity(), requireContext(), "Login success", isSuccess = true)
+            Helper.showToast(requireActivity(), requireContext(), "Register success", isSuccess = true)
         }
     }
 
-    private fun handleLogin() {
+    private fun handleRegister() {
         val email = binding.registerTiEmail.text.toString()
         val password = binding.registerTiPassword.text.toString()
 
-        loginViewModel.login(
-            LoginBody(email, password)
+        registerViewModel.register(
+            RegisterBody(email, password)
         )
-
-        authViewModel.setName("zachriek")
     }
 
     private fun handleAuthentication(token: String) {
