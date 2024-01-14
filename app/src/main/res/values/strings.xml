@@ -2,7 +2,7 @@
     <string name="app_name">Aero Swift</string>
 
     <string name="login_heading">Welcome back!</string>
-    <string name="login_desc">By continuing you agree to our T&amp;Cs. We use your data to offer you a personalized experience</string>
+    <string name="t_and_c">By continuing you agree to our T&amp;Cs. We use your data to offer you a personalized experience</string>
     <string name="login_google_text">or sign in with Google</string>
 
     <string name="message_logout">Logout success!</string>
@@ -47,7 +47,7 @@
     <string name="minus">minus</string>
     <string name="plus">plus</string>
     <string name="_0">0</string>
-    <string name="best_deal_for_you">Best deal for you</string>
+    <string name="best_deal_for_you">Best Deal For You</string>
     <string name="return_date">Return Date</string>
     <string name="upcoming_flight">Upcoming Flight</string>
     <string name="_24_oct_09_50">24 Oct, 09:50</string>
@@ -66,6 +66,16 @@
     <string name="strip">-</string>
     <string name="resend_code_after">Resend code after</string>
     <string name="track_amp_find_your_flight"><![CDATA[Track & find your flight]]></string>
+    <string name="login_as_guest">Login as guest</string>
+    <string name="sign_in">Sign In</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="password">Password</string>
+    <string name="email_phone_number">Email/Phone number</string>
+    <string name="register_heading">Let’s get started</string>
+    <string name="register_desc">Please enter your valid data in order to create an account.</string>
+    <string name="email">Email</string>
+    <string name="sign_up">Sign up</string>
+    <string name="register_google_text">or sign up with Google</string>
 
     <string-array name="origin">
         <item>Select</item>

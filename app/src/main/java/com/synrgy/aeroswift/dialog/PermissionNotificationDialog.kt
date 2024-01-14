@@ -4,7 +4,7 @@ import android.app.Activity
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.synrgy.aeroswift.R
-import com.synrgy.aeroswift.presentation.LoginActivity
+import com.synrgy.aeroswift.presentation.AuthActivity
 import com.synrgy.aeroswift.presentation.viewmodel.MainViewModel
 
 class PermissionNotificationDialog(
@@ -25,7 +25,7 @@ class PermissionNotificationDialog(
 
         btnContinue?.setOnClickListener {
             mainViewModel.setNewUser(false)
-            LoginActivity.startActivity(activity)
+            AuthActivity.startActivity(activity)
             activity.finish()
         }
     }

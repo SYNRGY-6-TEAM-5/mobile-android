@@ -40,7 +40,7 @@
             android:name=".presentation.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.LoginActivity"
+            android:name=".presentation.AuthActivity"
             android:exported="false" />
     </application>
 

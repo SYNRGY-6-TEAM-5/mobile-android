@@ -1,6 +1,5 @@
-package com.synrgy.aeroswift.presentation
+package com.synrgy.aeroswift.presentation.fragment.auth
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Spannable
@@ -8,9 +7,12 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.util.Log
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -18,40 +20,41 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.synrgy.aeroswift.R
-import com.synrgy.aeroswift.databinding.ActivityLoginBinding
+import com.synrgy.aeroswift.databinding.FragmentRegisterBinding
 import com.synrgy.aeroswift.dialog.ForgotPassDialog
 import com.synrgy.aeroswift.dialog.LoadingDialog
+import com.synrgy.aeroswift.presentation.AuthActivity
+import com.synrgy.aeroswift.presentation.HomeActivity
 import com.synrgy.aeroswift.presentation.viewmodel.AuthViewModel
 import com.synrgy.aeroswift.presentation.viewmodel.LoginViewModel
 import com.synrgy.domain.LoginBody
 import com.synrgy.presentation.helper.Helper
-import dagger.hilt.android.AndroidEntryPoint
 
+class RegisterFragment: Fragment() {
+    private lateinit var binding: FragmentRegisterBinding
 
-@AndroidEntryPoint
-class LoginActivity : AppCompatActivity() {
-    companion object {
-        const val RC_SIGN_IN = 2
-
-        fun startActivity(context: Context) {
-            context.startActivity(Intent(context, LoginActivity::class.java))
-        }
-    }
-
-    private lateinit var binding: ActivityLoginBinding
     private lateinit var mGoogleSignInClient: GoogleSignInClient
 
     private val authViewModel: AuthViewModel by viewModels()
     private val loginViewModel: LoginViewModel by viewModels()
 
-    private val loadingDialog = LoadingDialog(this)
-    private val forgotPassDialog = ForgotPassDialog(this)
+    private lateinit var loadingDialog: LoadingDialog
+    private lateinit var forgotPassDialog: ForgotPassDialog
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        loadingDialog = LoadingDialog(requireActivity())
+        forgotPassDialog = ForgotPassDialog(requireActivity())
 
         authViewModel.checkAuth()
 
@@ -59,40 +62,34 @@ class LoginActivity : AppCompatActivity() {
         setupGso()
         setTextSpan()
 
-        binding.btnSignInGoogle.setOnClickListener { signIn() }
-        binding.btnLogin.setOnClickListener { handleLogin() }
-
-        binding.txtForgotPass.setOnClickListener{ forgotPassDialog.show() }
-        binding.txtLoginAsGuest.setOnClickListener {
-            authViewModel.setName("Guest")
-            handleNavigateToHome()
-        }
+        binding.btnSignInGoogle.setOnClickListener { signUp() }
+        binding.btnRegister.setOnClickListener { handleLogin() }
     }
 
     private fun observeLogin() {
-        loginViewModel.error.observe(this, ::handleError)
-        loginViewModel.loading.observe(this, ::handleLoading)
-        loginViewModel.authentication.observe(this, ::handleAuthentication)
-        loginViewModel.login.observe(this, ::handleSuccess)
+        loginViewModel.error.observe(viewLifecycleOwner, ::handleError)
+        loginViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
+        loginViewModel.authentication.observe(viewLifecycleOwner, ::handleAuthentication)
+        loginViewModel.login.observe(viewLifecycleOwner, ::handleSuccess)
 
-        authViewModel.authentication.observe(this, ::handleAuthentication)
+        authViewModel.authentication.observe(viewLifecycleOwner, ::handleAuthentication)
     }
 
     private fun handleError(error: String) {
         if (error.isNotBlank() && error.isNotEmpty()) {
-            val email = binding.loginTiEmail.text.toString()
-            val password = binding.loginTiPassword.text.toString()
+            val email = binding.registerTiEmail.text.toString()
+            val password = binding.registerTiPassword.text.toString()
 
             if (email.isBlank() && email.isEmpty()) {
-                binding.loginTilEmail.error = "Required"
+                binding.registerTilEmail.error = "Required"
             }
 
             if (password.isBlank() && password.isEmpty()) {
-                binding.loginTilPassword.error = "Required"
-                binding.loginTilPassword.errorIconDrawable = null
+                binding.registerTilPassword.error = "Required"
+                binding.registerTilPassword.errorIconDrawable = null
             }
 
-            Helper.showToast(this, this, "Login failed", isSuccess = false)
+            Helper.showToast(requireActivity(), requireContext(), "Login failed", isSuccess = false)
         }
     }
 
@@ -106,19 +103,19 @@ class LoginActivity : AppCompatActivity() {
 
     private fun handleSuccess(message: String) {
         if (message.isNotEmpty() && message.isNotBlank()) {
-            Helper.showToast(this, this, "Login success", isSuccess = true)
+            Helper.showToast(requireActivity(), requireContext(), "Login success", isSuccess = true)
         }
     }
 
     private fun handleLogin() {
-        val email = binding.loginTiEmail.text.toString()
-        val password = binding.loginTiPassword.text.toString()
+        val email = binding.registerTiEmail.text.toString()
+        val password = binding.registerTiPassword.text.toString()
 
         loginViewModel.login(
             LoginBody(email, password)
         )
 
-        authViewModel.setName(email)
+        authViewModel.setName("zachriek")
     }
 
     private fun handleAuthentication(token: String) {
@@ -129,38 +126,38 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun handleNavigateToHome() {
-        HomeActivity.startActivity(this)
-        this.finish()
+        HomeActivity.startActivity(requireActivity())
+        requireActivity().finish()
     }
 
     private fun setTextSpan() {
-        val loginDescText: Spannable =
-            SpannableString(resources.getString(R.string.login_desc))
-        val loginGoogleText: Spannable = SpannableString(resources.getString(R.string.login_google_text))
+        val registerDescText: Spannable =
+            SpannableString(resources.getString(R.string.t_and_c))
+        val registerGoogleText: Spannable = SpannableString(resources.getString(R.string.register_google_text))
 
-        loginDescText.setSpan(
-            ForegroundColorSpan(ContextCompat.getColor(this, R.color.primary_500)),
+        registerDescText.setSpan(
+            ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.primary_500)),
             30,
             35,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
-        loginDescText.setSpan(
+        registerDescText.setSpan(
             StyleSpan(R.style.TextXS_Medium),
             30,
             35,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
-        loginGoogleText.setSpan(
-            ForegroundColorSpan(ContextCompat.getColor(this, R.color.gray_300)),
+        registerGoogleText.setSpan(
+            ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.gray_300)),
             0,
             2,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
-        binding.loginDesc.text = loginDescText
-        binding.loginGoogleText.text = loginGoogleText
+        binding.registerDesc.text = registerDescText
+        binding.registerGoogleText.text = registerGoogleText
     }
 
     private fun setupGso() {
@@ -168,12 +165,12 @@ class LoginActivity : AppCompatActivity() {
             .requestIdToken(getString(R.string.server_client_id))
             .requestEmail()
             .build()
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+        mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
     }
 
-    private fun signIn() {
+    private fun signUp() {
         val signInIntent: Intent = mGoogleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+        startActivityForResult(signInIntent, AuthActivity.RC_SIGN_IN)
     }
 
     override fun onActivityResult(
@@ -183,13 +180,13 @@ class LoginActivity : AppCompatActivity() {
     ) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == RC_SIGN_IN) {
+        if (requestCode == AuthActivity.RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            handleSignInResult(task)
+            handleSignUpResult(task)
         }
     }
 
-    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+    private fun handleSignUpResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             val account = completedTask.getResult(ApiException::class.java)
             updateUI(account)
