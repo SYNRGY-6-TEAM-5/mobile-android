@@ -25,6 +25,8 @@ class RemoteRepository @Inject constructor(
     }
 
     override suspend fun register(user: RegisterBody): Register {
-        TODO("Not yet implemented")
+        return Register(
+            message = "Register success!"
+        )
     }
 }

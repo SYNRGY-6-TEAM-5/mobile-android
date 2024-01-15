@@ -41,7 +41,7 @@ class ForgotPassDialog(
 
         binding.btnNextPassRecovery.setOnClickListener {
             val email = binding.passwordTiEmail.text.toString().takeIf { it.isNotEmpty() }
-                ?: "test@example.com"
+                ?: "test@gmail.com"
 
             if (!Helper.isValidEmail(email)) {
                 binding.passwordTilEmail.error = "Email is not valid"

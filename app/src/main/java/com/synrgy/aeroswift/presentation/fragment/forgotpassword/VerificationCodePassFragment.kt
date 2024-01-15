@@ -25,9 +25,12 @@ class VerificationCodePassFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding = FragmentVerificationCodePassBinding.inflate(layoutInflater)
-        val view = binding.root
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         handleInputCode()
         handleTimer()
@@ -41,8 +44,6 @@ class VerificationCodePassFragment : Fragment() {
             "<b>${bundle?.getString(ForgotPassDialog.KEY_EMAIL_RECOVERY)
                 ?: "test@gmail.com"}.</b>"
         ))
-
-        return view
     }
 
     private fun handleInputCode() {

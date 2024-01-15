@@ -97,7 +97,7 @@ class LoginFragment: Fragment() {
                 binding.loginTilPassword.errorIconDrawable = null
             }
 
-            Helper.showToast(requireActivity(), requireContext(), "Login failed", isSuccess = false)
+            Helper.showToast(requireActivity(), requireContext(), error, isSuccess = false)
         }
     }
 
@@ -111,7 +111,7 @@ class LoginFragment: Fragment() {
 
     private fun handleSuccess(message: String) {
         if (message.isNotEmpty() && message.isNotBlank()) {
-            Helper.showToast(requireActivity(), requireContext(), "Login success", isSuccess = true)
+            Helper.showToast(requireActivity(), requireContext(), message, isSuccess = true)
         }
     }
 

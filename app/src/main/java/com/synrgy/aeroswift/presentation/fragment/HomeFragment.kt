@@ -124,7 +124,7 @@ class HomeFragment : Fragment() {
                     clDepartDate.setBackgroundResource(R.drawable.bg_roundtrip)
                     clReturnDate.setBackgroundResource(R.drawable.bg_roundtrip)
 
-                    params.width = ViewGroup.LayoutParams.WRAP_CONTENT
+                    params.width = 0
                     clDepartDate.layoutParams = params
                 }
             }

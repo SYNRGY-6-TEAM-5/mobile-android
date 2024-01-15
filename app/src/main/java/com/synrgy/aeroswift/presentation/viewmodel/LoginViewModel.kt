@@ -50,7 +50,7 @@ class LoginViewModel @Inject constructor(
                 }
             } else {
                 withContext(Dispatchers.Main) {
-                    _error.value = "Username atau password tidak valid!"
+                    _error.value = "Username or password is not valid!"
                     _loading.value = false
                 }
             }

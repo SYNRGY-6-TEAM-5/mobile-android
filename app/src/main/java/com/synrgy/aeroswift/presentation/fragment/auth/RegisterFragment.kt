@@ -23,6 +23,7 @@ import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentRegisterBinding
 import com.synrgy.aeroswift.dialog.ForgotPassDialog
 import com.synrgy.aeroswift.dialog.LoadingDialog
+import com.synrgy.aeroswift.presentation.AccountSetupActivity
 import com.synrgy.aeroswift.presentation.AuthActivity
 import com.synrgy.aeroswift.presentation.HomeActivity
 import com.synrgy.aeroswift.presentation.viewmodel.AuthViewModel
@@ -90,7 +91,7 @@ class RegisterFragment: Fragment() {
                 binding.registerTilPassword.errorIconDrawable = null
             }
 
-            Helper.showToast(requireActivity(), requireContext(), "Login failed", isSuccess = false)
+            Helper.showToast(requireActivity(), requireContext(), error, isSuccess = false)
         }
     }
 
@@ -104,13 +105,23 @@ class RegisterFragment: Fragment() {
 
     private fun handleSuccess(message: String) {
         if (message.isNotEmpty() && message.isNotBlank()) {
-            Helper.showToast(requireActivity(), requireContext(), "Register success", isSuccess = true)
+            val email = binding.registerTiEmail.text.toString().takeIf { it.isNotEmpty() }
+                ?: "test@gmail.com"
+
+            val bundle = Bundle()
+            bundle.putString(AccountSetupActivity.KEY_EMAIL_SETUP, email)
+
+            handleNavigateToAccountSetup(bundle)
         }
     }
 
     private fun handleRegister() {
         val email = binding.registerTiEmail.text.toString()
         val password = binding.registerTiPassword.text.toString()
+
+        if (!Helper.isValidEmail(email)) {
+            binding.registerTilEmail.error = "Email is not valid"
+        }
 
         registerViewModel.register(
             RegisterBody(email, password)
@@ -122,6 +133,10 @@ class RegisterFragment: Fragment() {
             authViewModel.setToken(token)
             handleNavigateToHome()
         }
+    }
+
+    private fun handleNavigateToAccountSetup(bundle: Bundle) {
+        AccountSetupActivity.startActivity(requireActivity(), bundle)
     }
 
     private fun handleNavigateToHome() {
@@ -197,15 +212,17 @@ class RegisterFragment: Fragment() {
 
     private fun updateUI(account: GoogleSignInAccount?) {
         if (account != null) {
-            val idToken = account.idToken.toString()
             val displayName = account.displayName.toString()
             val photoUrl = account.photoUrl.toString()
+            val email = account.email
 
-            authViewModel.setToken(idToken)
             authViewModel.setName(displayName)
             authViewModel.setPhoto(photoUrl)
 
-            handleNavigateToHome()
+            val bundle = Bundle()
+            bundle.putString(AccountSetupActivity.KEY_EMAIL_SETUP, email)
+
+            handleNavigateToAccountSetup(bundle)
         }
     }
 }

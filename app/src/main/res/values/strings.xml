@@ -78,6 +78,20 @@
     <string name="register_google_text">or sign up with Google</string>
     <string name="your_password_has_been_changed_successfully">Your password has been changed successfully!</string>
     <string name="login">Login</string>
+    <string name="we_have_sent_the_code_verification_to">We have sent the code verification to</string>
+    <string name="test_gmail_com">test@gmail.com.</string>
+    <string name="change_your_email">Change your email?</string>
+    <string name="setup_profile">Setup profile</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="full_name">Full name</string>
+    <string name="date_of_birth_dd_mm_yyyy">Date of birth (DD/MM/YYYY)</string>
+    <string name="phone_number">Phone number</string>
+    <string name="_62">+62</string>
+    <string name="skip">Skip</string>
+    <string name="next">Next</string>
+    <string name="your_account_has_been_verified_succesfully">Your account has been verified succesfully</string>
+    <string name="redirecting_to_home_in">Redirecting to home in</string>
+    <string name="_0_03">0:03</string>
 
     <string-array name="origin">
         <item>Select</item>
