@@ -3,12 +3,13 @@ package com.synrgy.data.local
 import com.synrgy.domain.repository.AuthRepository
 import com.synrgy.domain.repository.LoginRepository
 import com.synrgy.domain.repository.NewUserRepository
+import com.synrgy.domain.repository.RegisterRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class LocalRepository @Inject constructor (
     private val dataStoreManager: DataStoreManager
-): LoginRepository, AuthRepository, NewUserRepository {
+): LoginRepository, RegisterRepository, AuthRepository, NewUserRepository {
     override suspend fun validateInput(email: String, password: String): Boolean {
         return email.isNotEmpty()
                 && email.isNotBlank()

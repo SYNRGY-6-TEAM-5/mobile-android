@@ -16,10 +16,12 @@ class DoneResetPassFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDoneResetPassBinding.inflate(layoutInflater)
-        val view = binding.root
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.btnDoneLogin.setOnClickListener { requireActivity().finish() }
-
-        return view
     }
 }

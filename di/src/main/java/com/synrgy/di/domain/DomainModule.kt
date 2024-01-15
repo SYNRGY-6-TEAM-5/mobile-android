@@ -6,6 +6,7 @@ import com.synrgy.domain.repository.AuthRepository
 import com.synrgy.domain.repository.GuestRepository
 import com.synrgy.domain.repository.LoginRepository
 import com.synrgy.domain.repository.NewUserRepository
+import com.synrgy.domain.repository.RegisterRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,6 +28,14 @@ object DomainModule {
     fun provideLoginRepository(
         localRepository: LocalRepository
     ): LoginRepository {
+        return localRepository
+    }
+
+    @Singleton
+    @Provides
+    fun provideRegisterRepository(
+        localRepository: LocalRepository
+    ): RegisterRepository {
         return localRepository
     }
 

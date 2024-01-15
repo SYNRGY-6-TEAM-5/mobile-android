@@ -28,9 +28,12 @@ class ForgotPassFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding = FragmentForgotPassBinding.inflate(layoutInflater)
-        val view = binding.root
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val loadingDialog = LoadingDialog(requireActivity())
 
@@ -51,9 +54,6 @@ class ForgotPassFragment : Fragment() {
         val bundle = requireActivity().intent.extras
 
         binding.radioEmail.hint = Helper.maskEmail(bundle?.getString(ForgotPassDialog.KEY_EMAIL_RECOVERY) ?: "test@gmail.com")
-
-        return view
-
     }
 
     private fun sendCode() {

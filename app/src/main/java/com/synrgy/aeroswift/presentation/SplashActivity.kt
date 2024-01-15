@@ -59,7 +59,7 @@ class SplashActivity : AppCompatActivity() {
             this.finish()
         } else {
             mainViewModel.setNewUser(false)
-            LoginActivity.startActivity(this)
+            AuthActivity.startActivity(this)
             this.finish()
         }
     }

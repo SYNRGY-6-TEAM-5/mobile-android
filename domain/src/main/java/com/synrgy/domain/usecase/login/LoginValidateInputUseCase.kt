@@ -1,8 +1,8 @@
 package com.synrgy.domain.usecase.login
 
-interface ValidateInputUseCase {
+interface LoginValidateInputUseCase {
     suspend fun invoke(
-        username: String,
+        email: String,
         password: String,
     ): Boolean
 }

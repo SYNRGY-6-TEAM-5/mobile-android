@@ -10,10 +10,6 @@ import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.ActivityForgotPasswordBinding
 
 class ForgotPasswordActivity : AppCompatActivity() {
-
-    private var navController: NavController? = null
-    private var binding: ActivityForgotPasswordBinding? = null
-
     companion object {
         fun startActivity(context: Context, bundle: Bundle? = null) {
             val intent = Intent(context, ForgotPasswordActivity::class.java)
@@ -22,17 +18,19 @@ class ForgotPasswordActivity : AppCompatActivity() {
             context.startActivity(intent)
         }
     }
+
+    private lateinit var navController: NavController
+    private lateinit var binding: ActivityForgotPasswordBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityForgotPasswordBinding.inflate(layoutInflater)
-
-        setContentView(binding?.root)
+        setContentView(binding.root)
 
         navController = findNavController(R.id.nav_container)
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return navController?.navigateUp() == true || super.onSupportNavigateUp()
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }

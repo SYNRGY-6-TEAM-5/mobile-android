@@ -14,6 +14,11 @@
             android:padding="16dp"
             android:orientation="vertical">
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_notif_perm"/>
+
             <com.google.android.material.textview.MaterialTextView
                 style="@style/TextL.Medium"
                 android:layout_width="200dp"

@@ -1,10 +1,13 @@
 package com.synrgy.aeroswift.dialog
 
 import android.app.Activity
+import android.view.View
+import android.view.WindowManager
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.synrgy.aeroswift.R
-import com.synrgy.aeroswift.presentation.LoginActivity
+import com.synrgy.aeroswift.presentation.AuthActivity
 import com.synrgy.aeroswift.presentation.viewmodel.MainViewModel
 
 class PermissionNotificationDialog(
@@ -21,12 +24,27 @@ class PermissionNotificationDialog(
         dialog.setCancelable(true)
         dialog.show()
 
+        val parentLayout =
+            dialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+
+        parentLayout?.let {
+            val behaviour = BottomSheetBehavior.from(it)
+            setupFullHeight(it)
+            behaviour.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+
         val btnContinue = view?.findViewById<MaterialButton>(R.id.btn_notif_perm)
 
         btnContinue?.setOnClickListener {
             mainViewModel.setNewUser(false)
-            LoginActivity.startActivity(activity)
+            AuthActivity.startActivity(activity)
             activity.finish()
         }
+    }
+
+    private fun setupFullHeight(bottomSheet: View) {
+        val layoutParams = bottomSheet.layoutParams
+        layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT
+        bottomSheet.layoutParams = layoutParams
     }
 }

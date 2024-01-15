@@ -37,8 +37,8 @@ class OnBoardingFragment : Fragment() {
     private fun handleScrollView(index: Int) {
         val imgList = listOf(
             R.drawable.img_onboarding_1,
-            R.drawable.shape_black,
-            R.drawable.shape_black
+            R.drawable.img_onboarding_2,
+            R.drawable.img_onboarding_3
         )
 
         Glide

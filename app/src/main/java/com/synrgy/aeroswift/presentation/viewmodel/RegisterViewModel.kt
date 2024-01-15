@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.synrgy.domain.LoginBody
-import com.synrgy.presentation.usecase.login.LoginUseCase
-import com.synrgy.presentation.usecase.login.LoginValidateInputUseCase
+import com.synrgy.domain.RegisterBody
+import com.synrgy.presentation.usecase.register.RegisterUseCase
+import com.synrgy.presentation.usecase.register.RegisterValidateInputUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,15 +14,12 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase,
-    private val loginValidateInputUseCase: LoginValidateInputUseCase
+class RegisterViewModel @Inject constructor(
+    private val registerUseCase: RegisterUseCase,
+    private val registerValidateInputUseCase: RegisterValidateInputUseCase
 ): ViewModel() {
-    private val _login: MutableLiveData<String> = MutableLiveData()
-    val login: LiveData<String> = _login
-
-    private val _authentication = MutableLiveData<String>()
-    val authentication: LiveData<String> = _authentication
+    private val _register: MutableLiveData<String> = MutableLiveData()
+    val register: LiveData<String> = _register
 
     private val _loading: MutableLiveData<Boolean> = MutableLiveData()
     val loading: LiveData<Boolean> = _loading
@@ -30,12 +27,12 @@ class LoginViewModel @Inject constructor(
     private val _error: MutableLiveData<String> = MutableLiveData()
     val error: LiveData<String> = _error
 
-    fun login(user: LoginBody) {
+    fun register(user: RegisterBody) {
         _loading.value = true
         viewModelScope.launch(Dispatchers.IO) {
-            if (loginValidateInputUseCase.invoke(user.email, user.password)) {
+            if (registerValidateInputUseCase.invoke(user.email, user.password)) {
                 runCatching {
-                    loginUseCase.invoke(user)
+                    registerUseCase.invoke(user)
                 }.onFailure { exception ->
                     withContext(Dispatchers.Main) {
                         _loading.value = false
@@ -44,8 +41,7 @@ class LoginViewModel @Inject constructor(
                 }.onSuccess { value ->
                     withContext(Dispatchers.Main) {
                         _loading.value = false
-                        _login.value = value.message
-                        _authentication.value = value.token!!
+                        _register.value = value.message
                     }
                 }
             } else {
