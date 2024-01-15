@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.TermOfServicesActivity"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_forgot_pass"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="?attr/homeAsUpIndicator"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_forgot_pass">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/H6.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/term_of_services"
+                android:textColor="@color/base_black" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextS.Regular"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="@string/term_of_services_desc"
+                android:textColor="@color/gray_500"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextS.Medium"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/term_1"
+                android:textColor="@color/black" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextS.Regular"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/term_1_desc"
+                android:textColor="@color/black" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextS.Medium"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/term_2"
+                android:textColor="@color/black" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextS.Regular"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/term_2_desc"
+                android:textColor="@color/black" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextS.Medium"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/term_3"
+                android:textColor="@color/black" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextS.Regular"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/term_3_desc"
+                android:textColor="@color/black" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextS.Medium"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/term_4"
+                android:textColor="@color/black" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextS.Regular"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/term_4_desc"
+                android:textColor="@color/black" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextS.Medium"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/term_5"
+                android:textColor="@color/black" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextS.Regular"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/term_5_desc"
+                android:textColor="@color/black" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextS.Medium"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/term_6"
+                android:textColor="@color/black" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextS.Regular"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/term_6_desc"
+                android:textColor="@color/black" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextS.Medium"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/term_7"
+                android:textColor="@color/black" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextS.Regular"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/term_7_desc"
+                android:textColor="@color/black" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextS.Medium"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/term_8"
+                android:textColor="@color/black" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextS.Regular"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/term_8_desc"
+                android:textColor="@color/black" />
+
+            <CheckBox
+                android:id="@+id/checkBoxAgree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I Agree to the Terms of Service"
+                android:checked="false"
+                android:layout_marginTop="16dp"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_acc"
+            style="@style/Button.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Accept"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
