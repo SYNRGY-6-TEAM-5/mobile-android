@@ -76,6 +76,8 @@
     <string name="email">Email</string>
     <string name="sign_up">Sign up</string>
     <string name="register_google_text">or sign up with Google</string>
+    <string name="your_password_has_been_changed_successfully">Your password has been changed successfully!</string>
+    <string name="login">Login</string>
 
     <string-array name="origin">
         <item>Select</item>

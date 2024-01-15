@@ -8,18 +8,25 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingHorizontal="16dp"
         android:paddingTop="16dp"
         android:paddingBottom="30dp"
         android:layout_gravity="bottom">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_done_reset_pass"
+            android:layout_gravity="center"
+            android:layout_marginBottom="150dp"/>
+
         <com.google.android.material.textview.MaterialTextView
             style="@style/H6.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your password has been changed successfully!"
+            android:text="@string/your_password_has_been_changed_successfully"
             android:textColor="@color/base_black"
             android:textAlignment="center"/>
 
@@ -28,7 +35,7 @@
             style="@style/Button.Primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login"
+            android:text="@string/login"
             android:layout_marginTop="70dp"/>
 
     </LinearLayout>
