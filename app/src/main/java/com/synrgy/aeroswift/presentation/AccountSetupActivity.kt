@@ -11,7 +11,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.ActivityAccountSetupBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AccountSetupActivity : AppCompatActivity() {
     companion object {
         const val KEY_EMAIL_SETUP = "email_setup"

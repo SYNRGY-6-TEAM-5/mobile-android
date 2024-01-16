@@ -82,6 +82,8 @@ dependencies {
     implementation("com.github.angads25:toggle:1.1.0")
 
     implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    implementation("com.github.esafirm:android-image-picker:3.0.0")
 }
 
 // Allow references to generated code
