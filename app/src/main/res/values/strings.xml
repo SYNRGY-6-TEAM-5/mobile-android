@@ -92,6 +92,19 @@
     <string name="your_account_has_been_verified_succesfully">Your account has been verified succesfully</string>
     <string name="redirecting_to_home_in">Redirecting to home in</string>
     <string name="_0_03">0:03</string>
+    <string name="complete_your_booking">Complete Your Booking</string>
+    <string name="non_stop">Non-stop</string>
+    <string name="cgk">CGK</string>
+    <string name="contact_details">Contact Details</string>
+    <string name="jessica_jane">Jessica Jane</string>
+    <string name="j_jane_gmail_com">J.jane@gmail.com</string>
+    <string name="_62_8723_9873_9837">+62 8723-9873-9837</string>
+    <string name="contact_details_desc">Ticket information and confirmation will be sent to the contact details listed</string>
+    <string name="passenger_details">Passenger Details</string>
+    <string name="same_as_contact_details">Same as contact details</string>
+    <string name="passenger_1_adult">Passenger 1 (Adult)</string>
+    <string name="passenger_2_baby">Passenger 2 (Baby)</string>
+    <string name="covid19_details">Covid-19 has caused widespread disruption to international travel. See all the latest Covid-19 restrictions on our Covid-19 infopage</string>
 
     <string-array name="origin">
         <item>Select</item>

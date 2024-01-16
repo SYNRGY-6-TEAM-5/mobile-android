@@ -121,6 +121,7 @@ class RegisterFragment: Fragment() {
 
         if (!Helper.isValidEmail(email)) {
             binding.registerTilEmail.error = "Email is not valid"
+            return
         }
 
         registerViewModel.register(
@@ -216,11 +217,10 @@ class RegisterFragment: Fragment() {
             val photoUrl = account.photoUrl.toString()
             val email = account.email
 
-            authViewModel.setName(displayName)
-            authViewModel.setPhoto(photoUrl)
-
             val bundle = Bundle()
             bundle.putString(AccountSetupActivity.KEY_EMAIL_SETUP, email)
+            bundle.putString(AccountSetupActivity.KEY_NAME_SETUP, displayName)
+            bundle.putString(AccountSetupActivity.KEY_PHOTO_SETUP, photoUrl)
 
             handleNavigateToAccountSetup(bundle)
         }

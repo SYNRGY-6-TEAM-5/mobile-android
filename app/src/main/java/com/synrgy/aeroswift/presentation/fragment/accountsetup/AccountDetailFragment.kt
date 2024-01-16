@@ -1,8 +1,6 @@
 package com.synrgy.aeroswift.presentation.fragment.accountsetup
 
 import android.app.DatePickerDialog
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +17,7 @@ import com.esafirm.imagepicker.features.registerImagePicker
 import com.esafirm.imagepicker.model.Image
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentAccountDetailBinding
+import com.synrgy.aeroswift.presentation.AccountSetupActivity
 import com.synrgy.aeroswift.presentation.viewmodel.AuthViewModel
 import com.synrgy.presentation.helper.Helper
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,8 +49,7 @@ class AccountDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        authViewModel.checkAuth()
-        observeProfile()
+        handleUpdateProfile()
 
         imagePickerConfig = ImagePickerConfig {
             language = "en"
@@ -69,10 +67,10 @@ class AccountDetailFragment : Fragment() {
         binding.tvUploadImage.setOnClickListener { checkPermissions() }
 
         binding.accountDetailTiBirth.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) showDatePicker()
+            if (hasFocus) Helper.showDatePicker(requireContext(), selectedDate, ::updateBirthInput)
         }
 
-        binding.btnConfirmCodeAccountDetail.setOnClickListener { handleUpdateProfile() }
+        binding.btnConfirmCodeAccountDetail.setOnClickListener { handleConfirmProfile() }
     }
 
     private fun handleNavigate() {
@@ -92,7 +90,7 @@ class AccountDetailFragment : Fragment() {
         imagePickerLauncher.launch(imagePickerConfig)
     }
 
-    private fun handleUpdateProfile() {
+    private fun handleConfirmProfile() {
         val name = binding.accountDetailTiName.text.toString()
         val birthDate = binding.accountDetailTiBirth.text.toString()
         val phone = binding.accountDetailTiPhone.text.toString()
@@ -114,19 +112,13 @@ class AccountDetailFragment : Fragment() {
         handleNavigate()
     }
 
-    private fun observeProfile() {
-        authViewModel.name.observe(viewLifecycleOwner, ::observeProfileName)
-        authViewModel.photo.observe(viewLifecycleOwner, ::observeProfilePhoto)
-    }
+    private fun handleUpdateProfile() {
+        val bundle = requireActivity().intent.extras
+        val name = bundle?.getString(AccountSetupActivity.KEY_NAME_SETUP)
+        val photo = bundle?.getString(AccountSetupActivity.KEY_PHOTO_SETUP)
 
-    private fun observeProfileName(name: String) {
-        if (name.isNotEmpty() && name.isNotBlank()) {
-            binding.accountDetailTiName.setText(name)
-        }
-    }
-
-    private fun observeProfilePhoto(photo: String) {
-        if (photo.isNotEmpty() && photo.isNotBlank()) {
+        binding.accountDetailTiName.setText(name)
+        if (photo != null) {
             handleLoadImage(photo)
         }
     }
@@ -138,22 +130,6 @@ class AccountDetailFragment : Fragment() {
             .centerCrop()
             .circleCrop()
             .into(binding.ivProfilePlaceholder)
-    }
-
-    private fun showDatePicker() {
-        val datePickerDialog = DatePickerDialog(
-            requireContext(),
-            { _: DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
-                selectedDate.set(Calendar.YEAR, year)
-                selectedDate.set(Calendar.MONTH, monthOfYear)
-                selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                updateBirthInput()
-            },
-            selectedDate.get(Calendar.YEAR),
-            selectedDate.get(Calendar.MONTH),
-            selectedDate.get(Calendar.DAY_OF_MONTH)
-        )
-        datePickerDialog.show()
     }
 
     private fun updateBirthInput() {
