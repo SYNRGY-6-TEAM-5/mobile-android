@@ -15,4 +15,19 @@
         <item name="android:windowTranslucentStatus">true</item>
         <item name="fontFamily">@font/inter</item>
     </style>
+
+    <style name="Theme.AeroSwift.ImagePicker" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primary_500</item>
+        <item name="colorPrimaryVariant">@color/primary_500</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/primary_200</item>
+        <item name="colorSecondaryVariant">@color/primary_500</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <!-- Customize your theme here. -->
+        <item name="fontFamily">@font/inter</item>
+    </style>
 </resources>
