@@ -138,6 +138,7 @@ class RegisterFragment: Fragment() {
 
     private fun handleNavigateToAccountSetup(bundle: Bundle) {
         AccountSetupActivity.startActivity(requireActivity(), bundle)
+        requireActivity().finish()
     }
 
     private fun handleNavigateToHome() {

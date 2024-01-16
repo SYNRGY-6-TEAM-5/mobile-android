@@ -3,6 +3,7 @@ package com.synrgy.aeroswift.presentation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -42,6 +43,13 @@ class AccountSetupActivity : AppCompatActivity() {
         handleSetupGso()
 
         mGoogleSignInClient.revokeAccess()
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                AuthActivity.startActivity(this@AccountSetupActivity)
+                this@AccountSetupActivity.finish()
+            }
+        })
     }
 
     private fun handleSetupGso() {

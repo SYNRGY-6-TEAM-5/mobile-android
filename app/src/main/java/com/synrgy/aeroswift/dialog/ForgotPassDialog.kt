@@ -49,6 +49,7 @@ class ForgotPassDialog(
                 val bundle = Bundle()
                 bundle.putString(KEY_EMAIL_RECOVERY, email)
                 ForgotPasswordActivity.startActivity(activity, bundle)
+                activity.finish()
                 dialog.dismiss()
             }
         }
