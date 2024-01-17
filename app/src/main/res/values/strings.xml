@@ -105,6 +105,17 @@
     <string name="passenger_1_adult">Passenger 1 (Adult)</string>
     <string name="passenger_2_baby">Passenger 2 (Baby)</string>
     <string name="covid19_details">Covid-19 has caused widespread disruption to international travel. See all the latest Covid-19 restrictions on our Covid-19 infopage</string>
+    <string name="passenger_info">Passenger info</string>
+    <string name="nik">NIK</string>
+    <string name="mr">Mr.</string>
+    <string name="mrs">Mrs.</string>
+    <string name="ms">Ms.</string>
+    <string name="are_you_vaccinated">Are you vaccinated?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="continue_">Continue</string>
+    <string name="travel_docs_title">Your destination requires travel documents</string>
+    <string name="travel_docs_desc">Please prepare the documents, you will need to enter the details.</string>
 
     <string-array name="origin">
         <item>Select</item>

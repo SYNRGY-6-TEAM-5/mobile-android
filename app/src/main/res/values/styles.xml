@@ -92,7 +92,7 @@
         <item name="lineHeight">28sp</item>
     </style>
 
-    <style name="TextL.Medium" parent="Text">
+    <style name="TextL.Medium" parent="TextL">
         <item name="fontWeight">500</item>
         <item name="android:textStyle">bold</item>
     </style>
