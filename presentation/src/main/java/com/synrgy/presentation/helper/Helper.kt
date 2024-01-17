@@ -2,18 +2,20 @@ package com.synrgy.presentation.helper
 
 import android.Manifest
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
+import android.widget.DatePicker
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.res.ResourcesCompat
 import com.synrgy.presentation.R
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
+import java.util.Calendar
 
 object Helper {
-    private const val MIME_TYPE_IMAGE = "image/*"
     private const val REQUEST_CODE_PERMISSION = 0
 
     private val permissions = arrayOf(
@@ -106,5 +108,26 @@ object Helper {
 
     private fun isGranted(activity: Activity, permission: String): Boolean {
         return ActivityCompat.checkSelfPermission(activity, permission) == PackageManager.PERMISSION_GRANTED
+    }
+
+    fun showDatePicker(
+        context: Context,
+        selectedDate: Calendar,
+        doAfterSelected: () -> Unit = {}
+    ) {
+        val datePickerDialog = DatePickerDialog(
+            context,
+            { _: DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
+                selectedDate.set(Calendar.YEAR, year)
+                selectedDate.set(Calendar.MONTH, monthOfYear)
+                selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                doAfterSelected()
+            },
+            selectedDate.get(Calendar.YEAR),
+            selectedDate.get(Calendar.MONTH),
+            selectedDate.get(Calendar.DAY_OF_MONTH)
+        )
+        datePickerDialog.show()
     }
 }

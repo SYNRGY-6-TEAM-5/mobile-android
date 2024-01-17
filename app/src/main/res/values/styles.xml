@@ -10,6 +10,16 @@
         <item name="fontWeight">400</item>
     </style>
 
+    <style name="H5" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">30sp</item>
+        <item name="lineHeight">38sp</item>
+    </style>
+
+    <style name="H5.Semibold" parent="H5">
+        <item name="fontWeight">600</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="H6" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">24sp</item>
         <item name="lineHeight">32sp</item>
@@ -82,7 +92,7 @@
         <item name="lineHeight">28sp</item>
     </style>
 
-    <style name="TextL.Medium" parent="Text">
+    <style name="TextL.Medium" parent="TextL">
         <item name="fontWeight">500</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -130,6 +140,19 @@
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@color/text_chip_selector</item>
         <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="ChipWhiteXSMedium" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/white</item>
+        <item name="chipCornerRadius">33dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/base_black</item>
+        <item name="android:textSize">12sp</item>
+        <item name="fontWeight">500</item>
+        <item name="lineHeight">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="chipStartPadding">8dp</item>
+        <item name="chipEndPadding">8dp</item>
     </style>
 
 </resources>
