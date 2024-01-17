@@ -15,6 +15,7 @@ import com.synrgy.aeroswift.databinding.FragmentCodeVerifBinding
 import com.synrgy.aeroswift.presentation.AccountSetupActivity
 import com.synrgy.aeroswift.presentation.AuthActivity
 
+
 class CodeVerifFragment : Fragment() {
     private lateinit var binding: FragmentCodeVerifBinding
     private lateinit var countDownTimer: CountDownTimer
@@ -45,7 +46,10 @@ class CodeVerifFragment : Fragment() {
     }
 
     private fun handleChangeEmail() {
-        AuthActivity.startActivity(requireActivity())
+        val bundle = Bundle()
+        bundle.putInt(AuthActivity.KEY_TAB_INDEX, 1)
+
+        AuthActivity.startActivity(requireActivity(), bundle)
         requireActivity().finish()
     }
 

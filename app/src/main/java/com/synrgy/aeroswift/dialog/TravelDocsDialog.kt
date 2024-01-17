@@ -40,6 +40,7 @@ class TravelDocsDialog(
         val btnContinue = view?.findViewById<MaterialButton>(R.id.btn_continue)
 
         btnContinue?.setOnClickListener {
+            navController.navigate(R.id.action_passengerDomFragment_to_passengerIntFragment)
         }
     }
 

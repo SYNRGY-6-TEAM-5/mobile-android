@@ -15,9 +15,13 @@ import dagger.hilt.android.AndroidEntryPoint
 class AuthActivity : AppCompatActivity() {
     companion object {
         const val RC_SIGN_IN = 2
+        const val KEY_TAB_INDEX = "tab_index"
 
-        fun startActivity(context: Context) {
-            context.startActivity(Intent(context, AuthActivity::class.java))
+        fun startActivity(context: Context, bundle: Bundle? = null) {
+            val intent = Intent(context, AuthActivity::class.java)
+            if (bundle != null) intent.putExtras(bundle)
+
+            context.startActivity(intent)
         }
     }
 
@@ -59,5 +63,8 @@ class AuthActivity : AppCompatActivity() {
                 else -> tab.text = "Sign up"
             }
         }.attach()
+
+        val tabIndex = intent.extras?.getInt(KEY_TAB_INDEX) ?: 0
+        binding.viewPagerAuth.currentItem = tabIndex
     }
 }

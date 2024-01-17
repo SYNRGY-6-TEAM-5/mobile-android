@@ -18,5 +18,14 @@
         android:id="@+id/passengerDomFragment"
         android:name="com.synrgy.aeroswift.presentation.fragment.checkout.PassengerDomFragment"
         android:label="fragment_passenger_dom"
-        tools:layout="@layout/fragment_passenger_dom" />
+        tools:layout="@layout/fragment_passenger_dom" >
+        <action
+            android:id="@+id/action_passengerDomFragment_to_passengerIntFragment"
+            app:destination="@id/passengerIntFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/passengerIntFragment"
+        android:name="com.synrgy.aeroswift.presentation.fragment.checkout.PassengerIntFragment"
+        android:label="fragment_passenger_int"
+        tools:layout="@layout/fragment_passenger_int" />
 </navigation>

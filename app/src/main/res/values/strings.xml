@@ -116,6 +116,17 @@
     <string name="continue_">Continue</string>
     <string name="travel_docs_title">Your destination requires travel documents</string>
     <string name="travel_docs_desc">Please prepare the documents, you will need to enter the details.</string>
+    <string name="your_travel_documents_1">Your travel documents 1</string>
+    <string name="document_type">Document type</string>
+    <string name="nationality">Nationality</string>
+    <string name="document_number">Document number</string>
+    <string name="expiry_date_dd_mm_yyyy">Expiry Date (DD/MM/YYYY)</string>
+    <string name="upload_your_scanned_documents">Upload your scanned documents</string>
+    <string name="accepted_file_types_pdf_png_or_jpeg">Accepted file types: PDF, PNG, or JPEG</string>
+    <string name="browse_files">Browse files</string>
+    <string name="add_visa">Add visa</string>
+    <string name="add_residence_permit">Add residence permit</string>
+    <string name="add_other_travel_documents">Add other travel documents</string>
 
     <string-array name="origin">
         <item>Select</item>
