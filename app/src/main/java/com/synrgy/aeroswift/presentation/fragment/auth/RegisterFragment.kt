@@ -119,11 +119,6 @@ class RegisterFragment: Fragment() {
         val email = binding.registerTiEmail.text.toString()
         val password = binding.registerTiPassword.text.toString()
 
-        if (!Helper.isValidEmail(email)) {
-            binding.registerTilEmail.error = "Email is not valid"
-            return
-        }
-
         registerViewModel.register(
             RegisterBody(email, password)
         )

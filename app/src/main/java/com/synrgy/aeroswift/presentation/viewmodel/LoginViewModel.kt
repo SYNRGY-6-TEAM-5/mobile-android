@@ -45,7 +45,7 @@ class LoginViewModel @Inject constructor(
                     withContext(Dispatchers.Main) {
                         _loading.value = false
                         _login.value = value.message
-                        _authentication.value = value.token!!
+                        _authentication.value = value.token
                     }
                 }
             } else {
