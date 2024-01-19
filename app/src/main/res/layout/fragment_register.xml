@@ -59,6 +59,15 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/TextXS.Medium"
+        android:id="@+id/tv_strength"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_marginTop="10dp"
+        android:textColor="@color/base_black"/>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_register"
         style="@style/Button.Primary"

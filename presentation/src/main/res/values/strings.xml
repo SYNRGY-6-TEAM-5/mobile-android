@@ -2,4 +2,7 @@
 <resources>
     <string name="message_success">Hurray success 😍</string>
     <string name="message_error">Failed ☹️</string>
+    <string name="weak">Weak</string>
+    <string name="okay">Okay</string>
+    <string name="strong">Strong</string>
 </resources>

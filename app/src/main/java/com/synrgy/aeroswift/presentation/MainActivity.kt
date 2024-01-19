@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.synrgy.aeroswift.databinding.ActivityMainBinding
-import com.synrgy.aeroswift.dialog.PermissionNotificationDialog
+import com.synrgy.aeroswift.dialog.NotificationPermissionDialog
 import com.synrgy.aeroswift.presentation.adapter.ScreenSlidePagerAdapter
 import com.synrgy.aeroswift.presentation.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     private val mainViewModel: MainViewModel by viewModels()
 
-    private lateinit var notifDialog: PermissionNotificationDialog
+    private lateinit var notifDialog: NotificationPermissionDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        notifDialog = PermissionNotificationDialog(this, mainViewModel)
+        notifDialog = NotificationPermissionDialog(this, mainViewModel)
 
         val adapter = ScreenSlidePagerAdapter(this)
         binding.viewPagerOnboarding.adapter = adapter

@@ -25,9 +25,10 @@ import com.synrgy.aeroswift.dialog.ForgotPassDialog
 import com.synrgy.aeroswift.dialog.LoadingDialog
 import com.synrgy.aeroswift.presentation.HomeActivity
 import com.synrgy.aeroswift.presentation.AuthActivity
-import com.synrgy.aeroswift.presentation.viewmodel.AuthViewModel
-import com.synrgy.aeroswift.presentation.viewmodel.LoginViewModel
-import com.synrgy.domain.LoginBody
+import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
+import com.synrgy.aeroswift.presentation.viewmodel.auth.LoginViewModel
+import com.synrgy.domain.body.LoginBody
+import com.synrgy.domain.response.ErrorItem
 import com.synrgy.presentation.helper.Helper
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -75,6 +76,7 @@ class LoginFragment: Fragment() {
     }
 
     private fun observeLogin() {
+        loginViewModel.errors.observe(viewLifecycleOwner, ::handleErrors)
         loginViewModel.error.observe(viewLifecycleOwner, ::handleError)
         loginViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
         loginViewModel.authentication.observe(viewLifecycleOwner, ::handleAuthentication)
@@ -85,19 +87,25 @@ class LoginFragment: Fragment() {
 
     private fun handleError(error: String) {
         if (error.isNotBlank() && error.isNotEmpty()) {
-            val email = binding.loginTiEmail.text.toString()
-            val password = binding.loginTiPassword.text.toString()
-
-            if (email.isBlank() && email.isEmpty()) {
-                binding.loginTilEmail.error = "Required"
-            }
-
-            if (password.isBlank() && password.isEmpty()) {
-                binding.loginTilPassword.error = "Required"
-                binding.loginTilPassword.errorIconDrawable = null
-            }
-
             Helper.showToast(requireActivity(), requireContext(), error, isSuccess = false)
+        }
+    }
+
+    private fun handleErrors(errors: List<ErrorItem>) {
+        if (errors.isNotEmpty()) {
+            var emailMessage = ""
+            var passwordMessage = ""
+
+            for (error in errors) {
+                when (error.field) {
+                    "emailAddress" -> emailMessage += error.defaultMessage + "\n"
+                    "password" -> passwordMessage += error.defaultMessage + "\n"
+                }
+            }
+
+            binding.loginTilEmail.error = emailMessage.replace(",", "\n")
+            binding.loginTilPassword.error = passwordMessage.replace(",", "\n")
+            binding.loginTilPassword.errorIconDrawable = null
         }
     }
 
@@ -122,8 +130,6 @@ class LoginFragment: Fragment() {
         loginViewModel.login(
             LoginBody(email, password)
         )
-
-        authViewModel.setName("zachriek")
     }
 
     private fun handleAuthentication(token: String) {

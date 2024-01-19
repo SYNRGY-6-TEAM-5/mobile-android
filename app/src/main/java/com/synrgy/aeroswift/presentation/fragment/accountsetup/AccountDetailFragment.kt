@@ -1,11 +1,9 @@
 package com.synrgy.aeroswift.presentation.fragment.accountsetup
 
-import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -18,7 +16,7 @@ import com.esafirm.imagepicker.model.Image
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentAccountDetailBinding
 import com.synrgy.aeroswift.presentation.AccountSetupActivity
-import com.synrgy.aeroswift.presentation.viewmodel.AuthViewModel
+import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
 import com.synrgy.presentation.helper.Helper
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat

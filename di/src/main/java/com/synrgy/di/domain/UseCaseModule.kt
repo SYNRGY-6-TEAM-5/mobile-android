@@ -18,6 +18,7 @@ import com.synrgy.presentation.usecase.onboarding.GetNewUserUseCase
 import com.synrgy.presentation.usecase.onboarding.SetNewUserUseCase
 import com.synrgy.presentation.usecase.register.RegisterUseCase
 import com.synrgy.presentation.usecase.register.RegisterValidateInputUseCase
+import com.synrgy.presentation.usecase.register.ValidateOtpUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -56,6 +57,14 @@ object UseCaseModule {
         registerRepository: RegisterRepository
     ): RegisterValidateInputUseCase {
         return RegisterValidateInputUseCase(registerRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideValidateOtpUseCase(
+        guestRepository: GuestRepository
+    ): ValidateOtpUseCase {
+        return ValidateOtpUseCase(guestRepository)
     }
 
     @Singleton

@@ -4,20 +4,35 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentCodeVerifBinding
+import com.synrgy.aeroswift.dialog.LoadingDialog
 import com.synrgy.aeroswift.presentation.AccountSetupActivity
 import com.synrgy.aeroswift.presentation.AuthActivity
+import com.synrgy.aeroswift.presentation.viewmodel.accountsetup.CodeVerifViewModel
+import com.synrgy.domain.body.ValidateOtpBody
+import com.synrgy.presentation.helper.Helper
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class CodeVerifFragment : Fragment() {
     private lateinit var binding: FragmentCodeVerifBinding
     private lateinit var countDownTimer: CountDownTimer
+
+    private val viewModel: CodeVerifViewModel by viewModels()
+
+    private lateinit var loadingDialog: LoadingDialog
+
+    private lateinit var email: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,13 +46,16 @@ class CodeVerifFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        loadingDialog = LoadingDialog(requireActivity())
+
+        observeViewModel()
         handleInputCode()
         handleTimer()
 
         binding.btnConfirmCodeReg.setOnClickListener { sendCode() }
 
         val bundle = requireActivity().intent.extras
-        val email = bundle?.getString(AccountSetupActivity.KEY_EMAIL_SETUP) ?: "test@gmail.com"
+        email = bundle?.getString(AccountSetupActivity.KEY_EMAIL_SETUP)!!
 
         binding.regVerifEmail.text = "$email."
 
@@ -45,7 +63,10 @@ class CodeVerifFragment : Fragment() {
     }
 
     private fun handleChangeEmail() {
-        AuthActivity.startActivity(requireActivity())
+        val bundle = Bundle()
+        bundle.putInt(AuthActivity.KEY_TAB_INDEX, 1)
+
+        AuthActivity.startActivity(requireActivity(), bundle)
         requireActivity().finish()
     }
 
@@ -149,8 +170,44 @@ class CodeVerifFragment : Fragment() {
         countDownTimer.start()
     }
 
+    private fun observeViewModel() {
+        viewModel.error.observe(viewLifecycleOwner, ::handleError)
+        viewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
+        viewModel.success.observe(viewLifecycleOwner, ::handleSuccess)
+    }
+
+    private fun handleError(error: String) {
+        if (error.isNotEmpty() && error.isNotBlank()) {
+            Helper.showToast(requireActivity(), requireContext(), error, isSuccess = false)
+        }
+    }
+
+    private fun handleLoading(loading: Boolean) {
+        if (loading) {
+            loadingDialog.startLoadingDialog()
+        } else {
+            loadingDialog.dismissDialog()
+        }
+    }
+
+    private fun handleSuccess(success: String) {
+        if (success.isNotBlank() && success.isNotEmpty()) {
+            Helper.showToast(requireActivity(), requireContext(), success, isSuccess = true)
+
+            findNavController().navigate(R.id.action_codeVerifFragment_to_accountDetailFragment)
+        }
+    }
+
     private fun sendCode() {
-        findNavController().navigate(R.id.action_codeVerifFragment_to_accountDetailFragment)
+        val code1 = binding.regVc1.text
+        val code2 = binding.regVc2.text
+        val code3 = binding.regVc3.text
+        val code4 = binding.regVc4.text
+        val otp = "${code1}${code2}${code3}${code4}"
+
+        viewModel.validateOtp(
+            ValidateOtpBody(email, otp)
+        )
     }
 
     override fun onDestroy() {

@@ -1,12 +1,13 @@
-package com.synrgy.aeroswift.presentation.viewmodel
+package com.synrgy.aeroswift.presentation.viewmodel.auth
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.synrgy.domain.RegisterBody
+import com.synrgy.domain.Resource
+import com.synrgy.domain.body.RegisterBody
+import com.synrgy.domain.response.ErrorItem
 import com.synrgy.presentation.usecase.register.RegisterUseCase
-import com.synrgy.presentation.usecase.register.RegisterValidateInputUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,11 +16,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
-    private val registerUseCase: RegisterUseCase,
-    private val registerValidateInputUseCase: RegisterValidateInputUseCase
+    private val registerUseCase: RegisterUseCase
 ): ViewModel() {
-    private val _register: MutableLiveData<String> = MutableLiveData()
-    val register: LiveData<String> = _register
+    private val _otp: MutableLiveData<String> = MutableLiveData()
+    val otp: LiveData<String> = _otp
 
     private val _loading: MutableLiveData<Boolean> = MutableLiveData()
     val loading: LiveData<Boolean> = _loading
@@ -27,27 +27,30 @@ class RegisterViewModel @Inject constructor(
     private val _error: MutableLiveData<String> = MutableLiveData()
     val error: LiveData<String> = _error
 
+    private val _errors: MutableLiveData<List<ErrorItem>> = MutableLiveData()
+    val errors: LiveData<List<ErrorItem>> = _errors
+
     fun register(user: RegisterBody) {
         _loading.value = true
         viewModelScope.launch(Dispatchers.IO) {
-            if (registerValidateInputUseCase.invoke(user.email, user.password)) {
-                runCatching {
-                    registerUseCase.invoke(user)
-                }.onFailure { exception ->
+            when (val response = registerUseCase.invoke(user)) {
+                is Resource.Success -> {
                     withContext(Dispatchers.Main) {
                         _loading.value = false
-                        _error.value = exception.message
-                    }
-                }.onSuccess { value ->
-                    withContext(Dispatchers.Main) {
-                        _loading.value = false
-                        _register.value = value.message
+                        _otp.value = response.data!!.otp
                     }
                 }
-            } else {
-                withContext(Dispatchers.Main) {
-                    _error.value = "Username or password is not valid!"
-                    _loading.value = false
+                is Resource.ErrorRes -> {
+                    withContext(Dispatchers.Main) {
+                        _loading.value = false
+                        _errors.value = response.errorRes!!.errors ?: emptyList()
+                    }
+                }
+                is Resource.ExceptionRes -> {
+                    withContext(Dispatchers.Main) {
+                        _loading.value = false
+                        _error.value = response.exceptionRes!!.message
+                    }
                 }
             }
         }

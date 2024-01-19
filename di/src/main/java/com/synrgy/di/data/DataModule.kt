@@ -25,7 +25,7 @@ object DataModule {
     @Singleton
     @Provides
     fun provideBaseUrl(): String {
-        return "https://lampah-server.vercel.app/api/v1/"
+        return "https://backend-java-production-ece2.up.railway.app/api/v1/"
     }
 
     @Singleton
