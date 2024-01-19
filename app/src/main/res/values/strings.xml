@@ -117,6 +117,25 @@
     <string name="travel_docs_title">Your destination requires travel documents</string>
     <string name="travel_docs_desc">Please prepare the documents, you will need to enter the details.</string>
 
+    <string name="term_of_services">Term Of Services</string>
+    <string name="term_of_services_desc">Welcome to Aero Swift! By accessing or using our services, you agree to be bound by the following terms:</string>
+    <string name="term_1">1. User Agreement</string>
+    <string name="term_1_desc">By using our services, you affirm that you are at least 18 years old or have obtained consent from a parent or legal guardian.</string>
+    <string name="term_2">2. Service Usage</string>
+    <string name="term_2_desc">You agree to use our services only for lawful purposes and in compliance with all applicable laws and regulations.</string>
+    <string name="term_3">3. User Privacy</string>
+    <string name="term_3_desc">We respect your privacy. Any personal information you provide will be handled and used in accordance with our privacy policy.</string>
+    <string name="term_4">4. User Responsibility</string>
+    <string name="term_4_desc">You are fully responsible for the security of your account and any activities that occur on your account. Report any unauthorized use promptly.</string>
+    <string name="term_5">5. Updates and Changes</string>
+    <string name="term_5_desc">We reserve the right to update or change these terms without prior notice. Changes will be effective immediately upon posting on our website.</string>
+    <string name="term_6">6. Access Termination</string>
+    <string name="term_6_desc">We reserve the right to suspend or terminate your access to our services with or without notice, at our discretion.</string>
+    <string name="term_7">7. Intellectual Property Rights</string>
+    <string name="term_7_desc">Content and materials in our services are protected by copyright and other intellectual property rights. Unauthorized use may violate the law.</string>
+    <string name="term_8">8. Indemnification</string>
+    <string name="term_8_desc">You agree to indemnify us against any claims or losses arising from your use of our services in violation of these terms.</string>
+
     <string-array name="origin">
         <item>Select</item>
         <item>JKT</item>
