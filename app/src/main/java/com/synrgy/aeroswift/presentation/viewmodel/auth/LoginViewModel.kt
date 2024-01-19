@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.synrgy.domain.Resource
 import com.synrgy.domain.body.LoginBody
+import com.synrgy.domain.response.ErrorItem
 import com.synrgy.presentation.usecase.login.LoginUseCase
 import com.synrgy.presentation.usecase.login.LoginValidateInputUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,8 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase,
-    private val loginValidateInputUseCase: LoginValidateInputUseCase
+    private val loginUseCase: LoginUseCase
 ): ViewModel() {
     private val _login: MutableLiveData<String> = MutableLiveData()
     val login: LiveData<String> = _login
@@ -30,28 +31,31 @@ class LoginViewModel @Inject constructor(
     private val _error: MutableLiveData<String> = MutableLiveData()
     val error: LiveData<String> = _error
 
+    private val _errors: MutableLiveData<List<ErrorItem>> = MutableLiveData()
+    val errors: LiveData<List<ErrorItem>> = _errors
+
     fun login(user: LoginBody) {
         _loading.value = true
         viewModelScope.launch(Dispatchers.IO) {
-            if (loginValidateInputUseCase.invoke(user.email, user.password)) {
-                runCatching {
-                    loginUseCase.invoke(user)
-                }.onFailure { exception ->
+            when (val response = loginUseCase.invoke(user)) {
+                is Resource.Success -> {
                     withContext(Dispatchers.Main) {
                         _loading.value = false
-                        _error.value = exception.message
-                    }
-                }.onSuccess { value ->
-                    withContext(Dispatchers.Main) {
-                        _loading.value = false
-                        _login.value = value.message
-                        _authentication.value = value.token
+                        _authentication.value = response.data!!.token
+                        _login.value = "Login success!"
                     }
                 }
-            } else {
-                withContext(Dispatchers.Main) {
-                    _error.value = "Username or password is not valid!"
-                    _loading.value = false
+                is Resource.ErrorRes -> {
+                    withContext(Dispatchers.Main) {
+                        _loading.value = false
+                        _errors.value = response.errorRes!!.errors ?: emptyList()
+                    }
+                }
+                is Resource.ExceptionRes -> {
+                    withContext(Dispatchers.Main) {
+                        _loading.value = false
+                        _error.value = response.exceptionRes!!.message
+                    }
                 }
             }
         }
