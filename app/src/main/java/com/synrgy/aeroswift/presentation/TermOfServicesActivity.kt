@@ -2,8 +2,11 @@ package com.synrgy.aeroswift.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.CheckBox
+import androidx.core.widget.NestedScrollView
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.synrgy.aeroswift.R
 
 class TermOfServicesActivity : AppCompatActivity() {
@@ -18,5 +21,19 @@ class TermOfServicesActivity : AppCompatActivity() {
             btnAccept.isEnabled = isChecked
         }
 
+        val nestedScrollView: NestedScrollView = findViewById(R.id.nestedScrollView)
+        val fabScrollDown: FloatingActionButton = findViewById(R.id.fab_scroll_down)
+
+        nestedScrollView.viewTreeObserver.addOnScrollChangedListener {
+            if (nestedScrollView.getChildAt(0).bottom <= nestedScrollView.height + nestedScrollView.scrollY) {
+                fabScrollDown.visibility = View.GONE
+            } else {
+                fabScrollDown.visibility = View.VISIBLE
+            }
+        }
+
+        fabScrollDown.setOnClickListener {
+            nestedScrollView.fullScroll(View.FOCUS_DOWN)
+        }
     }
 }
