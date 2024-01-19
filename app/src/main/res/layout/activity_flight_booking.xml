@@ -48,7 +48,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv1_origin_fb"
         app:layout_constraintBottom_toBottomOf="@id/tv2_origin_fb"
-        android:src="@drawable/ic_arrow_left"/>
+        android:src="@drawable/img_arrow_left"/>
 
     <com.google.android.material.textview.MaterialTextView
         style="@style/H6.Semibold"

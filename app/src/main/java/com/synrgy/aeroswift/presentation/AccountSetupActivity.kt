@@ -3,6 +3,7 @@ package com.synrgy.aeroswift.presentation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -11,10 +12,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.ActivityAccountSetupBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AccountSetupActivity : AppCompatActivity() {
     companion object {
         const val KEY_EMAIL_SETUP = "email_setup"
+        const val KEY_NAME_SETUP = "name_setup"
+        const val KEY_PHOTO_SETUP = "photo_setup"
 
         fun startActivity(context: Context, bundle: Bundle? = null) {
             val intent = Intent(context, AccountSetupActivity::class.java)
@@ -38,6 +43,13 @@ class AccountSetupActivity : AppCompatActivity() {
         handleSetupGso()
 
         mGoogleSignInClient.revokeAccess()
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                AuthActivity.startActivity(this@AccountSetupActivity)
+                this@AccountSetupActivity.finish()
+            }
+        })
     }
 
     private fun handleSetupGso() {

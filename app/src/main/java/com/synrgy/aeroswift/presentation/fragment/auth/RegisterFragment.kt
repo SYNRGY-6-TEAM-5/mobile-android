@@ -119,10 +119,6 @@ class RegisterFragment: Fragment() {
         val email = binding.registerTiEmail.text.toString()
         val password = binding.registerTiPassword.text.toString()
 
-        if (!Helper.isValidEmail(email)) {
-            binding.registerTilEmail.error = "Email is not valid"
-        }
-
         registerViewModel.register(
             RegisterBody(email, password)
         )
@@ -137,6 +133,7 @@ class RegisterFragment: Fragment() {
 
     private fun handleNavigateToAccountSetup(bundle: Bundle) {
         AccountSetupActivity.startActivity(requireActivity(), bundle)
+        requireActivity().finish()
     }
 
     private fun handleNavigateToHome() {
@@ -216,11 +213,10 @@ class RegisterFragment: Fragment() {
             val photoUrl = account.photoUrl.toString()
             val email = account.email
 
-            authViewModel.setName(displayName)
-            authViewModel.setPhoto(photoUrl)
-
             val bundle = Bundle()
             bundle.putString(AccountSetupActivity.KEY_EMAIL_SETUP, email)
+            bundle.putString(AccountSetupActivity.KEY_NAME_SETUP, displayName)
+            bundle.putString(AccountSetupActivity.KEY_PHOTO_SETUP, photoUrl)
 
             handleNavigateToAccountSetup(bundle)
         }
