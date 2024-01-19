@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentOnBoardingBinding
-import com.synrgy.aeroswift.presentation.viewmodel.PageViewModel
+import com.synrgy.aeroswift.presentation.viewmodel.onboarding.PageViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,7 +25,7 @@ class OnBoardingFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentOnBoardingBinding.inflate(layoutInflater)
         val view = binding.root
 

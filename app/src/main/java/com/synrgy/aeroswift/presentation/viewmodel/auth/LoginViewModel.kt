@@ -1,10 +1,10 @@
-package com.synrgy.aeroswift.presentation.viewmodel
+package com.synrgy.aeroswift.presentation.viewmodel.auth
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.synrgy.domain.LoginBody
+import com.synrgy.domain.body.LoginBody
 import com.synrgy.presentation.usecase.login.LoginUseCase
 import com.synrgy.presentation.usecase.login.LoginValidateInputUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

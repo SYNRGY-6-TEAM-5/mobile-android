@@ -25,9 +25,9 @@ import com.synrgy.aeroswift.dialog.ForgotPassDialog
 import com.synrgy.aeroswift.dialog.LoadingDialog
 import com.synrgy.aeroswift.presentation.HomeActivity
 import com.synrgy.aeroswift.presentation.AuthActivity
-import com.synrgy.aeroswift.presentation.viewmodel.AuthViewModel
-import com.synrgy.aeroswift.presentation.viewmodel.LoginViewModel
-import com.synrgy.domain.LoginBody
+import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
+import com.synrgy.aeroswift.presentation.viewmodel.auth.LoginViewModel
+import com.synrgy.domain.body.LoginBody
 import com.synrgy.presentation.helper.Helper
 import dagger.hilt.android.AndroidEntryPoint
 

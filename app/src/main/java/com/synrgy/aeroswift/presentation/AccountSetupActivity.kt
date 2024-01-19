@@ -46,7 +46,10 @@ class AccountSetupActivity : AppCompatActivity() {
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                AuthActivity.startActivity(this@AccountSetupActivity)
+                val bundle = Bundle()
+                bundle.putInt(AuthActivity.KEY_TAB_INDEX, 1)
+
+                AuthActivity.startActivity(this@AccountSetupActivity, bundle)
                 this@AccountSetupActivity.finish()
             }
         })

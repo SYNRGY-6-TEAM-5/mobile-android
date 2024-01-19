@@ -7,18 +7,21 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.synrgy.aeroswift.R
+import com.synrgy.aeroswift.databinding.DialogNotificationPermissionBinding
 import com.synrgy.aeroswift.presentation.AuthActivity
 import com.synrgy.aeroswift.presentation.viewmodel.MainViewModel
 
-class PermissionNotificationDialog(
+class NotificationPermissionDialog(
     private val activity: Activity,
     private val mainViewModel: MainViewModel
 ) {
     private lateinit var dialog: BottomSheetDialog
+    private lateinit var binding: DialogNotificationPermissionBinding
+
     fun show() {
         dialog = BottomSheetDialog(activity)
-        val inflater = activity.layoutInflater
-        val view = inflater.inflate(R.layout.dialog_notification_permission, null)
+        binding = DialogNotificationPermissionBinding.inflate(activity.layoutInflater)
+        val view = binding.root
 
         dialog.setContentView(view)
         dialog.setCancelable(true)
@@ -33,9 +36,7 @@ class PermissionNotificationDialog(
             behaviour.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
-        val btnContinue = view?.findViewById<MaterialButton>(R.id.btn_notif_perm)
-
-        btnContinue?.setOnClickListener {
+        binding.btnNotifPerm.setOnClickListener {
             mainViewModel.setNewUser(false)
             AuthActivity.startActivity(activity)
             activity.finish()

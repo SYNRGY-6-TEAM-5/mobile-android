@@ -1,7 +1,7 @@
-package com.zachriek.domain.usecase.login
+package com.synrgy.domain.usecase.login
 
 import com.synrgy.domain.Login
-import com.synrgy.domain.LoginBody
+import com.synrgy.domain.body.LoginBody
 
 interface LoginUseCase {
     suspend fun invoke(

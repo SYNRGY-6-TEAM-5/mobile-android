@@ -11,7 +11,7 @@ import com.synrgy.aeroswift.databinding.ActivityHomeBinding
 import com.synrgy.aeroswift.presentation.fragment.FlightFragment
 import com.synrgy.aeroswift.presentation.fragment.HomeFragment
 import com.synrgy.aeroswift.presentation.fragment.ProfileFragment
-import com.synrgy.aeroswift.presentation.viewmodel.AuthViewModel
+import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

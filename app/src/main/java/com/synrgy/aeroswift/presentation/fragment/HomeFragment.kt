@@ -19,7 +19,7 @@ import com.synrgy.aeroswift.presentation.AirportListActivity
 import com.synrgy.aeroswift.presentation.adapter.DiscountAdapter
 import com.synrgy.aeroswift.presentation.adapter.TabTripAdapter
 import com.synrgy.aeroswift.presentation.adapter.TicketPromoAdapter
-import com.synrgy.aeroswift.presentation.viewmodel.AuthViewModel
+import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
 import com.synrgy.aeroswift.presentation.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
