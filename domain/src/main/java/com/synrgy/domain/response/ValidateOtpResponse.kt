@@ -7,5 +7,7 @@ data class ValidateOtpResponse(
     @SerializedName("message")
     val message: String,
     @SerializedName("success")
-    val success: Boolean
+    val success: Boolean,
+    @SerializedName("token")
+    val token: String
 )

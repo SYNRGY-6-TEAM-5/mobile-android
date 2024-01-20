@@ -27,8 +27,8 @@ class RegisterViewModel @Inject constructor(
     private val _error: MutableLiveData<String> = MutableLiveData()
     val error: LiveData<String> = _error
 
-    private val _errors: MutableLiveData<List<ErrorItem>> = MutableLiveData()
-    val errors: LiveData<List<ErrorItem>> = _errors
+    private val _errors: MutableLiveData<List<ErrorItem?>?> = MutableLiveData()
+    val errors: LiveData<List<ErrorItem?>?> = _errors
 
     fun register(user: RegisterBody) {
         _loading.value = true
@@ -37,19 +37,20 @@ class RegisterViewModel @Inject constructor(
                 is Resource.Success -> {
                     withContext(Dispatchers.Main) {
                         _loading.value = false
-                        _otp.value = response.data!!.otp
+                        _otp.value = response.data?.otp ?: ""
                     }
                 }
                 is Resource.ErrorRes -> {
                     withContext(Dispatchers.Main) {
                         _loading.value = false
-                        _errors.value = response.errorRes!!.errors ?: emptyList()
+                        _error.value = response.errorRes?.message ?: ""
+                        _errors.value = response.errorRes?.errors ?: emptyList()
                     }
                 }
                 is Resource.ExceptionRes -> {
                     withContext(Dispatchers.Main) {
                         _loading.value = false
-                        _error.value = response.exceptionRes!!.message
+                        _error.value = response.exceptionRes?.message ?: ""
                     }
                 }
             }

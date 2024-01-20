@@ -33,19 +33,19 @@ class CodeVerifViewModel @Inject constructor(
                 is Resource.Success -> {
                     withContext(Dispatchers.Main) {
                         _loading.value = false
-                        _success.value = response.data!!.message
+                        _success.value = response.data?.message ?: ""
                     }
                 }
                 is Resource.ErrorRes -> {
                     withContext(Dispatchers.Main) {
                         _loading.value = false
-                        _error.value = response.errorRes!!.message
+                        _error.value = response.errorRes?.message ?: ""
                     }
                 }
                 is Resource.ExceptionRes -> {
                     withContext(Dispatchers.Main) {
                         _loading.value = false
-                        _error.value = response.exceptionRes!!.message
+                        _error.value = response.exceptionRes?.message ?: ""
                     }
                 }
             }

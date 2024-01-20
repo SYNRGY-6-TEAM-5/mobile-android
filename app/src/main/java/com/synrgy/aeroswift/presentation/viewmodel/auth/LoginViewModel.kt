@@ -8,7 +8,6 @@ import com.synrgy.domain.Resource
 import com.synrgy.domain.body.LoginBody
 import com.synrgy.domain.response.ErrorItem
 import com.synrgy.presentation.usecase.login.LoginUseCase
-import com.synrgy.presentation.usecase.login.LoginValidateInputUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,8 +30,8 @@ class LoginViewModel @Inject constructor(
     private val _error: MutableLiveData<String> = MutableLiveData()
     val error: LiveData<String> = _error
 
-    private val _errors: MutableLiveData<List<ErrorItem>> = MutableLiveData()
-    val errors: LiveData<List<ErrorItem>> = _errors
+    private val _errors: MutableLiveData<List<ErrorItem?>?> = MutableLiveData()
+    val errors: LiveData<List<ErrorItem?>?> = _errors
 
     fun login(user: LoginBody) {
         _loading.value = true
@@ -41,20 +40,21 @@ class LoginViewModel @Inject constructor(
                 is Resource.Success -> {
                     withContext(Dispatchers.Main) {
                         _loading.value = false
-                        _authentication.value = response.data!!.token
+                        _authentication.value = response.data?.token ?: ""
                         _login.value = "Login success!"
                     }
                 }
                 is Resource.ErrorRes -> {
                     withContext(Dispatchers.Main) {
                         _loading.value = false
-                        _errors.value = response.errorRes!!.errors ?: emptyList()
+                        _error.value = response.errorRes?.message ?: ""
+                        _errors.value = response.errorRes?.errors ?: emptyList()
                     }
                 }
                 is Resource.ExceptionRes -> {
                     withContext(Dispatchers.Main) {
                         _loading.value = false
-                        _error.value = response.exceptionRes!!.message
+                        _error.value = response.exceptionRes?.message ?: ""
                     }
                 }
             }

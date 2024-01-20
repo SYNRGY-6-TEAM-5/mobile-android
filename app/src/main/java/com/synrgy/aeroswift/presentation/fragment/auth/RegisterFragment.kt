@@ -92,13 +92,13 @@ class RegisterFragment: Fragment() {
         }
     }
 
-    private fun handleErrors(errors: List<ErrorItem>) {
-        if (errors.isNotEmpty()) {
+    private fun handleErrors(errors: List<ErrorItem?>?) {
+        if (!errors.isNullOrEmpty()) {
             var emailMessage = ""
             var passwordMessage = ""
 
             for (error in errors) {
-                when (error.field) {
+                when (error?.field) {
                     "email" -> emailMessage += error.defaultMessage + "\n"
                     "password" -> passwordMessage += error.defaultMessage + "\n"
                 }
@@ -121,9 +121,11 @@ class RegisterFragment: Fragment() {
     private fun handleSuccess(otp: String) {
         if (otp.isNotEmpty() && otp.isNotBlank()) {
             val email = binding.registerTiEmail.text.toString()
+            val password = binding.registerTiPassword.text.toString()
 
             val bundle = Bundle()
             bundle.putString(AccountSetupActivity.KEY_EMAIL_SETUP, email)
+            bundle.putString(AccountSetupActivity.KEY_PASSWORD_SETUP, password)
 
             handleNavigateToAccountSetup(bundle)
         }
@@ -248,6 +250,7 @@ class RegisterFragment: Fragment() {
             val bundle = Bundle()
             bundle.putString(AccountSetupActivity.KEY_EMAIL_SETUP, email)
             bundle.putString(AccountSetupActivity.KEY_NAME_SETUP, displayName)
+            bundle.putString(AccountSetupActivity.KEY_PASSWORD_SETUP, "")
             bundle.putString(AccountSetupActivity.KEY_PHOTO_SETUP, photoUrl)
 
             handleNavigateToAccountSetup(bundle)

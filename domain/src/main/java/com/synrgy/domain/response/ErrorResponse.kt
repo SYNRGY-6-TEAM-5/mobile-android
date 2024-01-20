@@ -5,15 +5,15 @@ import com.google.gson.annotations.SerializedName
 
 data class ErrorResponse(
     @SerializedName("error")
-    val error: String,
+    val error: String?,
     @SerializedName("errors")
-    val errors: List<ErrorItem>?,
+    val errors: List<ErrorItem?>?,
     @SerializedName("message")
-    val message: String,
+    val message: String?,
     @SerializedName("path")
-    val path: String,
+    val path: String?,
     @SerializedName("status")
-    val status: Int,
+    val status: Int?,
     @SerializedName("timestamp")
-    val timestamp: Long
+    val timestamp: Long?
 )

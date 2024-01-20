@@ -94,13 +94,13 @@ class LoginFragment: Fragment() {
         }
     }
 
-    private fun handleErrors(errors: List<ErrorItem>) {
-        if (errors.isNotEmpty()) {
+    private fun handleErrors(errors: List<ErrorItem?>?) {
+        if (!errors.isNullOrEmpty()) {
             var emailMessage = ""
             var passwordMessage = ""
 
             for (error in errors) {
-                when (error.field) {
+                when (error?.field) {
                     "emailAddress" -> emailMessage += error.defaultMessage + "\n"
                     "password" -> passwordMessage += error.defaultMessage + "\n"
                 }

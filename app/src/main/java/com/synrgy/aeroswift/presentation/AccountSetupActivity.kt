@@ -19,6 +19,7 @@ class AccountSetupActivity : AppCompatActivity() {
     companion object {
         const val KEY_EMAIL_SETUP = "email_setup"
         const val KEY_NAME_SETUP = "name_setup"
+        const val KEY_PASSWORD_SETUP = "password_setup"
         const val KEY_PHOTO_SETUP = "photo_setup"
 
         fun startActivity(context: Context, bundle: Bundle? = null) {

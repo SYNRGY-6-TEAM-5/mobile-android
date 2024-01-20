@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +32,7 @@ class CodeVerifFragment : Fragment() {
     private lateinit var loadingDialog: LoadingDialog
 
     private lateinit var email: String
+    private lateinit var password: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,6 +56,7 @@ class CodeVerifFragment : Fragment() {
 
         val bundle = requireActivity().intent.extras
         email = bundle?.getString(AccountSetupActivity.KEY_EMAIL_SETUP)!!
+        password = bundle.getString(AccountSetupActivity.KEY_PASSWORD_SETUP)!!
 
         binding.regVerifEmail.text = "$email."
 
@@ -206,7 +207,7 @@ class CodeVerifFragment : Fragment() {
         val otp = "${code1}${code2}${code3}${code4}"
 
         viewModel.validateOtp(
-            ValidateOtpBody(email, otp)
+            ValidateOtpBody(email, otp, password)
         )
     }
 
