@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.util.Log
@@ -27,6 +29,7 @@ import com.synrgy.aeroswift.dialog.LoadingDialog
 import com.synrgy.aeroswift.presentation.AccountSetupActivity
 import com.synrgy.aeroswift.presentation.AuthActivity
 import com.synrgy.aeroswift.presentation.HomeActivity
+import com.synrgy.aeroswift.presentation.TermOfServicesActivity
 import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
 import com.synrgy.aeroswift.presentation.viewmodel.auth.RegisterViewModel
 import com.synrgy.domain.body.RegisterBody
@@ -157,16 +160,33 @@ class RegisterFragment: Fragment() {
             SpannableString(resources.getString(R.string.t_and_c))
         val registerGoogleText: Spannable = SpannableString(resources.getString(R.string.register_google_text))
 
+        val clickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                val bundle = Bundle()
+                bundle.putInt(AuthActivity.KEY_TAB_INDEX, 1)
+
+                TermOfServicesActivity.startActivity(requireActivity(), bundle)
+                requireActivity().finish()
+            }
+        }
+
+        registerDescText.setSpan(
+            clickableSpan,
+            31,
+            35,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
         registerDescText.setSpan(
             ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.primary_500)),
-            30,
+            31,
             35,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
         registerDescText.setSpan(
             StyleSpan(R.style.TextXS_Medium),
-            30,
+            31,
             35,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
@@ -179,6 +199,7 @@ class RegisterFragment: Fragment() {
         )
 
         binding.registerDesc.text = registerDescText
+        binding.registerDesc.movementMethod = LinkMovementMethod.getInstance()
         binding.registerGoogleText.text = registerGoogleText
     }
 

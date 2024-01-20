@@ -48,8 +48,9 @@ class ForgotPassFragment : Fragment() {
         }
 
         val bundle = requireActivity().intent.extras
-
         binding.radioEmail.hint = Helper.maskEmail(bundle?.getString(ForgotPassDialog.KEY_EMAIL_RECOVERY) ?: "test@gmail.com")
+
+        binding.toolbarForgotPass.setOnClickListener { requireActivity().onBackPressed() }
     }
 
     private fun sendCode() {

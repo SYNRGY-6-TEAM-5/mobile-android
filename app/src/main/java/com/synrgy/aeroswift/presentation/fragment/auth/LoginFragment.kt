@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.util.Log
@@ -25,6 +27,7 @@ import com.synrgy.aeroswift.dialog.ForgotPassDialog
 import com.synrgy.aeroswift.dialog.LoadingDialog
 import com.synrgy.aeroswift.presentation.HomeActivity
 import com.synrgy.aeroswift.presentation.AuthActivity
+import com.synrgy.aeroswift.presentation.TermOfServicesActivity
 import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
 import com.synrgy.aeroswift.presentation.viewmodel.auth.LoginViewModel
 import com.synrgy.domain.body.LoginBody
@@ -149,16 +152,30 @@ class LoginFragment: Fragment() {
             SpannableString(resources.getString(R.string.t_and_c))
         val loginGoogleText: Spannable = SpannableString(resources.getString(R.string.login_google_text))
 
+        val clickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                TermOfServicesActivity.startActivity(requireActivity())
+                requireActivity().finish()
+            }
+        }
+
+        loginDescText.setSpan(
+            clickableSpan,
+            31,
+            35,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
         loginDescText.setSpan(
             ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.primary_500)),
-            30,
+            31,
             35,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
         loginDescText.setSpan(
             StyleSpan(R.style.TextXS_Medium),
-            30,
+            31,
             35,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
@@ -171,6 +188,7 @@ class LoginFragment: Fragment() {
         )
 
         binding.loginDesc.text = loginDescText
+        binding.loginDesc.movementMethod = LinkMovementMethod.getInstance()
         binding.loginGoogleText.text = loginGoogleText
     }
 
