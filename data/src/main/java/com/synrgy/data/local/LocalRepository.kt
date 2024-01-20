@@ -52,4 +52,12 @@ class LocalRepository @Inject constructor (
     override suspend fun getPhoto(): Flow<String?> {
         return dataStoreManager.getPhoto()
     }
+
+    override suspend fun getRegToken(): Flow<String?> {
+        return dataStoreManager.getRegToken()
+    }
+
+    override suspend fun setRegToken(token: String) {
+        dataStoreManager.setRegToken(token)
+    }
 }

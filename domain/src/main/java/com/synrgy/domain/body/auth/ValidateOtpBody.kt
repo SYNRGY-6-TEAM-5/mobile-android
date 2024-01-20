@@ -1,4 +1,4 @@
-package com.synrgy.domain.body
+package com.synrgy.domain.body.auth
 
 data class ValidateOtpBody(
     val email: String,

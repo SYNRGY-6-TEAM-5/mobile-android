@@ -28,12 +28,11 @@ import com.synrgy.aeroswift.dialog.ForgotPassDialog
 import com.synrgy.aeroswift.dialog.LoadingDialog
 import com.synrgy.aeroswift.presentation.AccountSetupActivity
 import com.synrgy.aeroswift.presentation.AuthActivity
-import com.synrgy.aeroswift.presentation.HomeActivity
 import com.synrgy.aeroswift.presentation.TermOfServicesActivity
-import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
 import com.synrgy.aeroswift.presentation.viewmodel.auth.RegisterViewModel
-import com.synrgy.domain.body.RegisterBody
-import com.synrgy.domain.response.ErrorItem
+import com.synrgy.domain.body.auth.RegisterBody
+import com.synrgy.domain.response.auth.RegisterResponse
+import com.synrgy.domain.response.error.ErrorItem
 import com.synrgy.presentation.helper.Helper
 import com.synrgy.presentation.helper.PasswordStrength
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,7 +43,6 @@ class RegisterFragment: Fragment() {
 
     private lateinit var mGoogleSignInClient: GoogleSignInClient
 
-    private val authViewModel: AuthViewModel by viewModels()
     private val registerViewModel: RegisterViewModel by viewModels()
 
     private lateinit var loadingDialog: LoadingDialog
@@ -65,8 +63,6 @@ class RegisterFragment: Fragment() {
         loadingDialog = LoadingDialog(requireActivity())
         forgotPassDialog = ForgotPassDialog(requireActivity())
 
-        authViewModel.checkAuth()
-
         observeRegister()
         setupGso()
         setTextSpan()
@@ -81,9 +77,7 @@ class RegisterFragment: Fragment() {
         registerViewModel.error.observe(viewLifecycleOwner, ::handleError)
         registerViewModel.errors.observe(viewLifecycleOwner, ::handleErrors)
         registerViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
-        registerViewModel.otp.observe(viewLifecycleOwner, ::handleSuccess)
-
-        authViewModel.authentication.observe(viewLifecycleOwner, ::handleAuthentication)
+        registerViewModel.register.observe(viewLifecycleOwner, ::handleSuccess)
     }
 
     private fun handleError(error: String) {
@@ -118,14 +112,21 @@ class RegisterFragment: Fragment() {
         }
     }
 
-    private fun handleSuccess(otp: String) {
-        if (otp.isNotEmpty() && otp.isNotBlank()) {
+    private fun handleSuccess(response: RegisterResponse) {
+        if (response.otp.isNotBlank() &&
+            response.otp.isNotEmpty() &&
+            response.expiredOTP != 0L &&
+            response.success) {
+
+            Log.d("OTP", response.otp)
+
             val email = binding.registerTiEmail.text.toString()
             val password = binding.registerTiPassword.text.toString()
 
             val bundle = Bundle()
             bundle.putString(AccountSetupActivity.KEY_EMAIL_SETUP, email)
             bundle.putString(AccountSetupActivity.KEY_PASSWORD_SETUP, password)
+            bundle.putLong(AccountSetupActivity.KEY_TIMESTAMP_SETUP, response.expiredOTP)
 
             handleNavigateToAccountSetup(bundle)
         }
@@ -140,20 +141,8 @@ class RegisterFragment: Fragment() {
         )
     }
 
-    private fun handleAuthentication(token: String) {
-        if (token.isNotEmpty() && token.isNotBlank()) {
-            authViewModel.setToken(token)
-            handleNavigateToHome()
-        }
-    }
-
     private fun handleNavigateToAccountSetup(bundle: Bundle) {
         AccountSetupActivity.startActivity(requireActivity(), bundle)
-        requireActivity().finish()
-    }
-
-    private fun handleNavigateToHome() {
-        HomeActivity.startActivity(requireActivity())
         requireActivity().finish()
     }
 
@@ -252,6 +241,9 @@ class RegisterFragment: Fragment() {
             bundle.putString(AccountSetupActivity.KEY_NAME_SETUP, displayName)
             bundle.putString(AccountSetupActivity.KEY_PASSWORD_SETUP, "")
             bundle.putString(AccountSetupActivity.KEY_PHOTO_SETUP, photoUrl)
+            bundle.putLong(AccountSetupActivity.KEY_TIMESTAMP_SETUP,
+                (System.currentTimeMillis() + 300000)
+            )
 
             handleNavigateToAccountSetup(bundle)
         }

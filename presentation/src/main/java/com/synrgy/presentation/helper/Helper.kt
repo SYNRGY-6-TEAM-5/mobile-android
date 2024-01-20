@@ -13,7 +13,13 @@ import androidx.core.content.res.ResourcesCompat
 import com.synrgy.presentation.R
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
+import java.util.regex.Pattern
 
 object Helper {
     private const val REQUEST_CODE_PERMISSION = 0
@@ -129,5 +135,28 @@ object Helper {
             selectedDate.get(Calendar.DAY_OF_MONTH)
         )
         datePickerDialog.show()
+    }
+
+    fun convertDateFormat(inputDate: String): String {
+        val inputDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        inputDateFormat.timeZone = TimeZone.getTimeZone("UTC")
+
+        val date = inputDateFormat.parse(inputDate) ?: Date()
+        val outputDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+        outputDateFormat.timeZone = TimeZone.getTimeZone("UTC")
+
+        return outputDateFormat.format(date)
+    }
+
+    fun isValidDateFormat(dateString: String): Boolean {
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        dateFormat.isLenient = false
+
+        return try {
+            dateFormat.parse(dateString)
+            true
+        } catch (e: ParseException) {
+            false
+        }
     }
 }

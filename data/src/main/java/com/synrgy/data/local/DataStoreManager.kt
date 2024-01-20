@@ -19,6 +19,8 @@ class DataStoreManager @Inject constructor (
         private val KEY_NAME = stringPreferencesKey("name")
         private val KEY_PHOTO = stringPreferencesKey("photo")
         private val KEY_IS_NEW_USER = booleanPreferencesKey("is_new_user")
+        private val KEY_REG_TOKEN = stringPreferencesKey("reg_token")
+
         private const val PREF_NAME = "myPreferences"
 
         private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = PREF_NAME)
@@ -64,5 +66,13 @@ class DataStoreManager @Inject constructor (
 
     fun getPhoto(): Flow<String?> {
         return context.dataStore.data.map { preferences -> preferences[KEY_PHOTO] }
+    }
+
+    suspend fun setRegToken(token: String) {
+        context.dataStore.edit { preferences -> preferences[KEY_REG_TOKEN] = token }
+    }
+
+    fun getRegToken(): Flow<String?> {
+        return context.dataStore.data.map { preferences -> preferences[KEY_REG_TOKEN] }
     }
 }

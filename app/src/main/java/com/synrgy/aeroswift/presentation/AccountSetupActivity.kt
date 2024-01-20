@@ -21,6 +21,7 @@ class AccountSetupActivity : AppCompatActivity() {
         const val KEY_NAME_SETUP = "name_setup"
         const val KEY_PASSWORD_SETUP = "password_setup"
         const val KEY_PHOTO_SETUP = "photo_setup"
+        const val KEY_TIMESTAMP_SETUP = "timestamp_setup"
 
         fun startActivity(context: Context, bundle: Bundle? = null) {
             val intent = Intent(context, AccountSetupActivity::class.java)

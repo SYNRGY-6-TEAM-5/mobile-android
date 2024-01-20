@@ -30,8 +30,9 @@ import com.synrgy.aeroswift.presentation.AuthActivity
 import com.synrgy.aeroswift.presentation.TermOfServicesActivity
 import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
 import com.synrgy.aeroswift.presentation.viewmodel.auth.LoginViewModel
-import com.synrgy.domain.body.LoginBody
-import com.synrgy.domain.response.ErrorItem
+import com.synrgy.domain.body.auth.LoginBody
+import com.synrgy.domain.response.auth.LoginResponse
+import com.synrgy.domain.response.error.ErrorItem
 import com.synrgy.presentation.helper.Helper
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -62,8 +63,6 @@ class LoginFragment: Fragment() {
         loadingDialog = LoadingDialog(requireActivity())
         forgotPassDialog = ForgotPassDialog(requireActivity())
 
-        authViewModel.checkAuth()
-
         observeLogin()
         setupGso()
         setTextSpan()
@@ -82,10 +81,7 @@ class LoginFragment: Fragment() {
         loginViewModel.errors.observe(viewLifecycleOwner, ::handleErrors)
         loginViewModel.error.observe(viewLifecycleOwner, ::handleError)
         loginViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
-        loginViewModel.authentication.observe(viewLifecycleOwner, ::handleAuthentication)
         loginViewModel.login.observe(viewLifecycleOwner, ::handleSuccess)
-
-        authViewModel.authentication.observe(viewLifecycleOwner, ::handleAuthentication)
     }
 
     private fun handleError(error: String) {
@@ -120,10 +116,20 @@ class LoginFragment: Fragment() {
         }
     }
 
-    private fun handleSuccess(message: String) {
-        if (message.isNotEmpty() && message.isNotBlank()) {
-            Helper.showToast(requireActivity(), requireContext(), message, isSuccess = true)
+    private fun handleSuccess(response: LoginResponse) {
+        if (!response.message.isNullOrEmpty() &&
+            !response.message.isNullOrBlank() &&
+            response.token.isNotEmpty() &&
+            response.token.isNotBlank()) {
+
+            Helper.showToast(requireActivity(), requireContext(), response.message!!, isSuccess = true)
+            handleAuthentication(response.token)
         }
+    }
+
+    private fun handleAuthentication(token: String) {
+        authViewModel.setToken(token)
+        handleNavigateToHome()
     }
 
     private fun handleLogin() {
@@ -133,13 +139,6 @@ class LoginFragment: Fragment() {
         loginViewModel.login(
             LoginBody(email, password)
         )
-    }
-
-    private fun handleAuthentication(token: String) {
-        if (token.isNotEmpty() && token.isNotBlank()) {
-            authViewModel.setToken(token)
-            handleNavigateToHome()
-        }
     }
 
     private fun handleNavigateToHome() {

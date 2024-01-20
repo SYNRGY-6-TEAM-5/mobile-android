@@ -44,6 +44,10 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.48.1")
 
     implementation("com.github.Spikeysanju:MotionToast:1.4")
+
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 }
 // Allow references to generated code
 kapt {

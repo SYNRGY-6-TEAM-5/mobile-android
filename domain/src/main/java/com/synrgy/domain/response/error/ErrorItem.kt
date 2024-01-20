@@ -1,4 +1,4 @@
-package com.synrgy.domain.response
+package com.synrgy.domain.response.error
 
 
 import com.google.gson.annotations.SerializedName

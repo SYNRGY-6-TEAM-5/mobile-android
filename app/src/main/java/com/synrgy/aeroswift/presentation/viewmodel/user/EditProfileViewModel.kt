@@ -1,24 +1,29 @@
-package com.synrgy.aeroswift.presentation.viewmodel.accountsetup
+package com.synrgy.aeroswift.presentation.viewmodel.user
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.synrgy.domain.Resource
-import com.synrgy.domain.body.ValidateOtpBody
-import com.synrgy.presentation.usecase.register.ValidateOtpUseCase
+import com.synrgy.domain.body.user.EditProfileBody
+import com.synrgy.domain.response.error.ErrorItem
+import com.synrgy.domain.response.user.EditProfileResponse
+import com.synrgy.presentation.usecase.auth.GetRegTokenUseCase
+import com.synrgy.presentation.usecase.user.EditProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class CodeVerifViewModel @Inject constructor(
-    private val validateOtpUseCase: ValidateOtpUseCase
+class EditProfileViewModel @Inject constructor(
+    private val editProfileUseCase: EditProfileUseCase,
+    private val getRegTokenUseCase: GetRegTokenUseCase
 ): ViewModel() {
-    private val _success = MutableLiveData<String>()
-    val success: LiveData<String> = _success
+    private val _editProfile: MutableLiveData<EditProfileResponse> = MutableLiveData()
+    val editProfile: LiveData<EditProfileResponse> = _editProfile
 
     private val _loading: MutableLiveData<Boolean> = MutableLiveData()
     val loading: LiveData<Boolean> = _loading
@@ -26,20 +31,30 @@ class CodeVerifViewModel @Inject constructor(
     private val _error: MutableLiveData<String> = MutableLiveData()
     val error: LiveData<String> = _error
 
-    fun validateOtp(body: ValidateOtpBody) {
+    private val _errors: MutableLiveData<List<ErrorItem?>?> = MutableLiveData()
+    val errors: LiveData<List<ErrorItem?>?> = _errors
+
+    fun editProfile(body: EditProfileBody) {
         _loading.value = true
         viewModelScope.launch(Dispatchers.IO) {
-            when (val response = validateOtpUseCase.invoke(body)) {
+            when (val response = editProfileUseCase.invoke(
+                getRegTokenUseCase.invoke().first() ?: "",
+                body
+            )) {
                 is Resource.Success -> {
                     withContext(Dispatchers.Main) {
                         _loading.value = false
-                        _success.value = response.data?.message ?: ""
+                        _editProfile.value = EditProfileResponse(
+                            message = response.data?.message ?: "",
+                            success = response.data?.success ?: true
+                        )
                     }
                 }
                 is Resource.ErrorRes -> {
                     withContext(Dispatchers.Main) {
                         _loading.value = false
                         _error.value = response.errorRes?.message ?: ""
+                        _errors.value = response.errorRes?.errors ?: emptyList()
                     }
                 }
                 is Resource.ExceptionRes -> {
