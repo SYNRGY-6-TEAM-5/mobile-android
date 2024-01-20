@@ -1,26 +1,29 @@
-package com.synrgy.aeroswift.presentation.viewmodel.auth
+package com.synrgy.aeroswift.presentation.viewmodel.user
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.synrgy.domain.Resource
-import com.synrgy.domain.body.auth.LoginBody
-import com.synrgy.domain.response.auth.LoginResponse
+import com.synrgy.domain.body.user.EditProfileBody
 import com.synrgy.domain.response.error.ErrorItem
-import com.synrgy.presentation.usecase.login.LoginUseCase
+import com.synrgy.domain.response.user.EditProfileResponse
+import com.synrgy.presentation.usecase.auth.GetRegTokenUseCase
+import com.synrgy.presentation.usecase.user.EditProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase
+class EditProfileViewModel @Inject constructor(
+    private val editProfileUseCase: EditProfileUseCase,
+    private val getRegTokenUseCase: GetRegTokenUseCase
 ): ViewModel() {
-    private val _login: MutableLiveData<LoginResponse> = MutableLiveData()
-    val login: LiveData<LoginResponse> = _login
+    private val _editProfile: MutableLiveData<EditProfileResponse> = MutableLiveData()
+    val editProfile: LiveData<EditProfileResponse> = _editProfile
 
     private val _loading: MutableLiveData<Boolean> = MutableLiveData()
     val loading: LiveData<Boolean> = _loading
@@ -31,19 +34,19 @@ class LoginViewModel @Inject constructor(
     private val _errors: MutableLiveData<List<ErrorItem?>?> = MutableLiveData()
     val errors: LiveData<List<ErrorItem?>?> = _errors
 
-    fun login(user: LoginBody) {
+    fun editProfile(body: EditProfileBody) {
         _loading.value = true
         viewModelScope.launch(Dispatchers.IO) {
-            when (val response = loginUseCase.invoke(user)) {
+            when (val response = editProfileUseCase.invoke(
+                getRegTokenUseCase.invoke().first() ?: "",
+                body
+            )) {
                 is Resource.Success -> {
                     withContext(Dispatchers.Main) {
                         _loading.value = false
-                        _login.value = LoginResponse(
-                            email = response.data?.email ?: "",
-                            roles = response.data?.roles ?: emptyList(),
-                            token = response.data?.token ?: "",
-                            type = response.data?.type ?: "",
-                            message = "Login success!"
+                        _editProfile.value = EditProfileResponse(
+                            message = response.data?.message ?: "",
+                            success = response.data?.success ?: true
                         )
                     }
                 }

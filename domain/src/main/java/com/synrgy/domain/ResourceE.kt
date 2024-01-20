@@ -1,7 +1,7 @@
 package com.synrgy.domain
 
-import com.synrgy.domain.response.ErrorResponse
-import com.synrgy.domain.response.ExceptionResponse
+import com.synrgy.domain.response.error.ErrorResponse
+import com.synrgy.domain.response.error.ExceptionResponse
 
 sealed class Resource<T>(
     val data: T?,

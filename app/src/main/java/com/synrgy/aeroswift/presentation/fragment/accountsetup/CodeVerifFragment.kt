@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,8 +16,12 @@ import com.synrgy.aeroswift.databinding.FragmentCodeVerifBinding
 import com.synrgy.aeroswift.dialog.LoadingDialog
 import com.synrgy.aeroswift.presentation.AccountSetupActivity
 import com.synrgy.aeroswift.presentation.AuthActivity
-import com.synrgy.aeroswift.presentation.viewmodel.accountsetup.CodeVerifViewModel
-import com.synrgy.domain.body.ValidateOtpBody
+import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
+import com.synrgy.aeroswift.presentation.viewmodel.auth.CodeVerifViewModel
+import com.synrgy.aeroswift.presentation.viewmodel.auth.RegisterViewModel
+import com.synrgy.domain.body.auth.RegisterBody
+import com.synrgy.domain.body.auth.ValidateOtpBody
+import com.synrgy.domain.response.auth.ValidateOtpResponse
 import com.synrgy.presentation.helper.Helper
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,11 +31,15 @@ class CodeVerifFragment : Fragment() {
     private lateinit var binding: FragmentCodeVerifBinding
     private lateinit var countDownTimer: CountDownTimer
 
+    private val authViewModel: AuthViewModel by viewModels()
+    private val registerViewModel: RegisterViewModel by viewModels()
     private val viewModel: CodeVerifViewModel by viewModels()
 
     private lateinit var loadingDialog: LoadingDialog
 
     private lateinit var email: String
+    private lateinit var password: String
+    private var expiredOtp = 0L
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,15 +57,15 @@ class CodeVerifFragment : Fragment() {
 
         observeViewModel()
         handleInputCode()
-        handleTimer()
-
-        binding.btnConfirmCodeReg.setOnClickListener { sendCode() }
 
         val bundle = requireActivity().intent.extras
         email = bundle?.getString(AccountSetupActivity.KEY_EMAIL_SETUP)!!
+        password = bundle.getString(AccountSetupActivity.KEY_PASSWORD_SETUP)!!
+        expiredOtp = bundle.getLong(AccountSetupActivity.KEY_TIMESTAMP_SETUP)
 
+        handleTimer()
         binding.regVerifEmail.text = "$email."
-
+        binding.btnConfirmCodeReg.setOnClickListener { sendCode() }
         binding.regChangeEmail.setOnClickListener { handleChangeEmail() }
     }
 
@@ -145,9 +152,7 @@ class CodeVerifFragment : Fragment() {
     }
 
     private fun handleTimer() {
-        val totalTimeInMillis: Long = 97 * 1000
-
-        countDownTimer = object : CountDownTimer(totalTimeInMillis, 1000) {
+        countDownTimer = object : CountDownTimer(expiredOtp - System.currentTimeMillis(), 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val minutes = millisUntilFinished / 1000 / 60
                 val seconds = (millisUntilFinished / 1000) % 60
@@ -161,8 +166,16 @@ class CodeVerifFragment : Fragment() {
                 binding.tv2TimerVcReg.text = getString(R.string.resend)
 
                 binding.tv2TimerVcReg.setOnClickListener {
-                    countDownTimer.start()
-                    binding.tv1TimerVcReg.text = getString(R.string.resend_code_after)
+                    resendCode()
+
+                    registerViewModel.register.observe(viewLifecycleOwner) {
+                        if (it.expiredOTP != 0L && it.success) {
+                            Helper.showToast(requireActivity(), requireContext(), "Resend code success!", isSuccess = true)
+                            expiredOtp = it.expiredOTP
+                            countDownTimer.start()
+                            binding.tv1TimerVcReg.text = getString(R.string.resend_code_after)
+                        }
+                    }
                 }
             }
         }
@@ -173,7 +186,10 @@ class CodeVerifFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.error.observe(viewLifecycleOwner, ::handleError)
         viewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
-        viewModel.success.observe(viewLifecycleOwner, ::handleSuccess)
+        viewModel.validateOtp.observe(viewLifecycleOwner, ::handleSuccess)
+
+        registerViewModel.error.observe(viewLifecycleOwner, ::handleError)
+        registerViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
     }
 
     private fun handleError(error: String) {
@@ -190,10 +206,15 @@ class CodeVerifFragment : Fragment() {
         }
     }
 
-    private fun handleSuccess(success: String) {
-        if (success.isNotBlank() && success.isNotEmpty()) {
-            Helper.showToast(requireActivity(), requireContext(), success, isSuccess = true)
+    private fun handleSuccess(response: ValidateOtpResponse) {
+        if (response.token.isNotBlank() &&
+            response.token.isNotEmpty() &&
+            response.message.isNotBlank() &&
+            response.message.isNotEmpty() &&
+            response.success) {
 
+            Helper.showToast(requireActivity(), requireContext(), response.message, isSuccess = true)
+            authViewModel.setRegToken(response.token)
             findNavController().navigate(R.id.action_codeVerifFragment_to_accountDetailFragment)
         }
     }
@@ -206,7 +227,17 @@ class CodeVerifFragment : Fragment() {
         val otp = "${code1}${code2}${code3}${code4}"
 
         viewModel.validateOtp(
-            ValidateOtpBody(email, otp)
+            ValidateOtpBody(
+                email = email,
+                otp = otp,
+                password = password
+            )
+        )
+    }
+
+    private fun resendCode() {
+        registerViewModel.register(
+            RegisterBody(email, password)
         )
     }
 

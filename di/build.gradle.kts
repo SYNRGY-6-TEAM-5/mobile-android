@@ -49,6 +49,9 @@ dependencies {
 
     implementation("com.google.dagger:hilt-android:2.48.1")
     kapt("com.google.dagger:hilt-android-compiler:2.48.1")
+
+    debugApi("com.github.chuckerteam.chucker:library:4.0.0")
+    releaseApi("com.github.chuckerteam.chucker:library-no-op:4.0.0")
 }
 
 // Allow references to generated code

@@ -128,7 +128,7 @@
     <string name="add_residence_permit">Add residence permit</string>
     <string name="add_other_travel_documents">Add other travel documents</string>
 
-    <string name="term_of_services">Term Of Services</string>
+    <string name="term_of_services">Term of Services</string>
     <string name="term_of_services_desc">Welcome to Aero Swift! By accessing or using our services, you agree to be bound by the following terms:</string>
     <string name="term_1">1. User Agreement</string>
     <string name="term_1_desc">By using our services, you affirm that you are at least 18 years old or have obtained consent from a parent or legal guardian.</string>
@@ -146,6 +146,9 @@
     <string name="term_7_desc">Content and materials in our services are protected by copyright and other intellectual property rights. Unauthorized use may violate the law.</string>
     <string name="term_8">8. Indemnification</string>
     <string name="term_8_desc">You agree to indemnify us against any claims or losses arising from your use of our services in violation of these terms.</string>
+    <string name="latest_update_dec_2023">Latest update Dec 2023</string>
+    <string name="accept">Accept</string>
+    <string name="i_agree_to_the_terms_of_service">I Agree to the Terms of Service</string>
 
     <string-array name="origin">
         <item>Select</item>

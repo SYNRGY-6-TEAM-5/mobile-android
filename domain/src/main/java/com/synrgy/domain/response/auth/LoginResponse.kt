@@ -1,4 +1,4 @@
-package com.synrgy.domain.response
+package com.synrgy.domain.response.auth
 
 
 import com.google.gson.annotations.SerializedName
@@ -11,5 +11,7 @@ data class LoginResponse(
     @SerializedName("token")
     val token: String,
     @SerializedName("type")
-    val type: String
+    val type: String,
+    @SerializedName("message")
+    val message: String?,
 )

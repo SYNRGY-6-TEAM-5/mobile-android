@@ -1,9 +1,9 @@
 package com.synrgy.presentation.usecase.register
 
 import com.synrgy.domain.Resource
-import com.synrgy.domain.body.ValidateOtpBody
+import com.synrgy.domain.body.auth.ValidateOtpBody
 import com.synrgy.domain.repository.GuestRepository
-import com.synrgy.domain.response.ValidateOtpResponse
+import com.synrgy.domain.response.auth.ValidateOtpResponse
 import com.synrgy.domain.usecase.register.ValidateOtpUseCase
 import javax.inject.Inject
 

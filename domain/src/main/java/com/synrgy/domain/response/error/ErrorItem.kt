@@ -1,23 +1,23 @@
-package com.synrgy.domain.response
+package com.synrgy.domain.response.error
 
 
 import com.google.gson.annotations.SerializedName
 
 data class ErrorItem(
     @SerializedName("arguments")
-    val arguments: List<ArgumentItem>,
+    val arguments: List<Any?>?,
     @SerializedName("bindingFailure")
-    val bindingFailure: Boolean,
+    val bindingFailure: Boolean?,
     @SerializedName("code")
-    val code: String,
+    val code: String?,
     @SerializedName("codes")
-    val codes: List<String>,
+    val codes: List<String?>?,
     @SerializedName("defaultMessage")
-    val defaultMessage: String,
+    val defaultMessage: String?,
     @SerializedName("field")
-    val `field`: String,
+    val `field`: String?,
     @SerializedName("objectName")
-    val objectName: String,
+    val objectName: String?,
     @SerializedName("rejectedValue")
-    val rejectedValue: String
+    val rejectedValue: String?
 )

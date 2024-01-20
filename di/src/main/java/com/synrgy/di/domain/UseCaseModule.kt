@@ -8,8 +8,10 @@ import com.synrgy.domain.repository.RegisterRepository
 import com.synrgy.presentation.usecase.auth.ClearTokenUseCase
 import com.synrgy.presentation.usecase.auth.GetNameUseCase
 import com.synrgy.presentation.usecase.auth.GetPhotoUseCase
+import com.synrgy.presentation.usecase.auth.GetRegTokenUseCase
 import com.synrgy.presentation.usecase.auth.SetNameUseCase
 import com.synrgy.presentation.usecase.auth.SetPhotoUseCase
+import com.synrgy.presentation.usecase.auth.SetRegTokenUseCase
 import com.synrgy.presentation.usecase.login.GetTokenUseCase
 import com.synrgy.presentation.usecase.login.LoginUseCase
 import com.synrgy.presentation.usecase.login.LoginValidateInputUseCase
@@ -19,6 +21,8 @@ import com.synrgy.presentation.usecase.onboarding.SetNewUserUseCase
 import com.synrgy.presentation.usecase.register.RegisterUseCase
 import com.synrgy.presentation.usecase.register.RegisterValidateInputUseCase
 import com.synrgy.presentation.usecase.register.ValidateOtpUseCase
+import com.synrgy.presentation.usecase.user.EditProfileUseCase
+import com.synrgy.presentation.usecase.user.UploadProfileImageUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -65,6 +69,22 @@ object UseCaseModule {
         guestRepository: GuestRepository
     ): ValidateOtpUseCase {
         return ValidateOtpUseCase(guestRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideEditProfileUseCase(
+        guestRepository: GuestRepository
+    ): EditProfileUseCase {
+        return EditProfileUseCase(guestRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideUploadProfileImageUseCase(
+        guestRepository: GuestRepository
+    ): UploadProfileImageUseCase {
+        return UploadProfileImageUseCase(guestRepository)
     }
 
     @Singleton
@@ -137,5 +157,21 @@ object UseCaseModule {
         authRepository: AuthRepository
     ): GetPhotoUseCase {
         return GetPhotoUseCase(authRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSetRegTokenUseCase(
+        authRepository: AuthRepository
+    ): SetRegTokenUseCase {
+        return SetRegTokenUseCase(authRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetRegTokenUseCase(
+        authRepository: AuthRepository
+    ): GetRegTokenUseCase {
+        return GetRegTokenUseCase(authRepository)
     }
 }

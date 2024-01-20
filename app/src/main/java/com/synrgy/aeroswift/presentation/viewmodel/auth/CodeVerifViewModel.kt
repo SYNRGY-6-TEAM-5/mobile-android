@@ -1,11 +1,12 @@
-package com.synrgy.aeroswift.presentation.viewmodel.accountsetup
+package com.synrgy.aeroswift.presentation.viewmodel.auth
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.synrgy.domain.Resource
-import com.synrgy.domain.body.ValidateOtpBody
+import com.synrgy.domain.body.auth.ValidateOtpBody
+import com.synrgy.domain.response.auth.ValidateOtpResponse
 import com.synrgy.presentation.usecase.register.ValidateOtpUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -17,8 +18,8 @@ import javax.inject.Inject
 class CodeVerifViewModel @Inject constructor(
     private val validateOtpUseCase: ValidateOtpUseCase
 ): ViewModel() {
-    private val _success = MutableLiveData<String>()
-    val success: LiveData<String> = _success
+    private val _validateOtp = MutableLiveData<ValidateOtpResponse>()
+    val validateOtp: LiveData<ValidateOtpResponse> = _validateOtp
 
     private val _loading: MutableLiveData<Boolean> = MutableLiveData()
     val loading: LiveData<Boolean> = _loading
@@ -33,19 +34,23 @@ class CodeVerifViewModel @Inject constructor(
                 is Resource.Success -> {
                     withContext(Dispatchers.Main) {
                         _loading.value = false
-                        _success.value = response.data!!.message
+                        _validateOtp.value = ValidateOtpResponse(
+                            message = response.data?.message ?: "",
+                            token = response.data?.token ?: "",
+                            success = response.data?.success ?: true
+                        )
                     }
                 }
                 is Resource.ErrorRes -> {
                     withContext(Dispatchers.Main) {
                         _loading.value = false
-                        _error.value = response.errorRes!!.message
+                        _error.value = response.errorRes?.message ?: ""
                     }
                 }
                 is Resource.ExceptionRes -> {
                     withContext(Dispatchers.Main) {
                         _loading.value = false
-                        _error.value = response.exceptionRes!!.message
+                        _error.value = response.exceptionRes?.message ?: ""
                     }
                 }
             }

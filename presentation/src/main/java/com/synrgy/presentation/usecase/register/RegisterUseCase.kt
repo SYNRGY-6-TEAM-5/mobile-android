@@ -1,9 +1,9 @@
 package com.synrgy.presentation.usecase.register
 
 import com.synrgy.domain.Resource
-import com.synrgy.domain.body.RegisterBody
+import com.synrgy.domain.body.auth.RegisterBody
 import com.synrgy.domain.repository.GuestRepository
-import com.synrgy.domain.response.RegisterResponse
+import com.synrgy.domain.response.auth.RegisterResponse
 import com.synrgy.domain.usecase.register.RegisterUseCase
 import javax.inject.Inject
 
