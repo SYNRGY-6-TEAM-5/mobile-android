@@ -3,17 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_forgot_pass"
-    app:startDestination="@id/forgotPassFragment">
+    app:startDestination="@id/verificationCodePassFragment">
 
-    <fragment
-        android:id="@+id/forgotPassFragment"
-        android:name="com.synrgy.aeroswift.presentation.fragment.forgotpassword.ForgotPassFragment"
-        android:label="fragment_forgot_pass"
-        tools:layout="@layout/fragment_forgot_pass" >
-        <action
-            android:id="@+id/action_forgotPassFragment_to_verificationCodePassFragment"
-            app:destination="@id/verificationCodePassFragment" />
-    </fragment>
     <fragment
         android:id="@+id/verificationCodePassFragment"
         android:name="com.synrgy.aeroswift.presentation.fragment.forgotpassword.VerificationCodePassFragment"

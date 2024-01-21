@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.synrgy.aeroswift.databinding.FragmentDoneResetPassBinding
+import com.synrgy.aeroswift.presentation.AuthActivity
 
 class DoneResetPassFragment: Fragment() {
     private lateinit var binding: FragmentDoneResetPassBinding
@@ -22,6 +23,9 @@ class DoneResetPassFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnDoneLogin.setOnClickListener { requireActivity().finish() }
+        binding.btnDoneLogin.setOnClickListener {
+            AuthActivity.startActivity(requireActivity())
+            requireActivity().finish()
+        }
     }
 }

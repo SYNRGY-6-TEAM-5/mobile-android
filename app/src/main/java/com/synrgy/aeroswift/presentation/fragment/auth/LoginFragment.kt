@@ -27,12 +27,15 @@ import com.synrgy.aeroswift.dialog.ForgotPassDialog
 import com.synrgy.aeroswift.dialog.LoadingDialog
 import com.synrgy.aeroswift.presentation.HomeActivity
 import com.synrgy.aeroswift.presentation.AuthActivity
+import com.synrgy.aeroswift.presentation.ForgotPasswordActivity
 import com.synrgy.aeroswift.presentation.TermOfServicesActivity
 import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
 import com.synrgy.aeroswift.presentation.viewmodel.auth.LoginViewModel
+import com.synrgy.aeroswift.presentation.viewmodel.forgotpassword.ForgotPasswordViewModel
 import com.synrgy.domain.body.auth.LoginBody
 import com.synrgy.domain.response.auth.LoginResponse
 import com.synrgy.domain.response.error.ErrorItem
+import com.synrgy.domain.response.forgotpassword.ForgotPasswordResponse
 import com.synrgy.presentation.helper.Helper
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -44,6 +47,7 @@ class LoginFragment: Fragment() {
 
     private val authViewModel: AuthViewModel by viewModels()
     private val loginViewModel: LoginViewModel by viewModels()
+    private val forgotPassViewModel: ForgotPasswordViewModel by viewModels()
 
     private lateinit var loadingDialog: LoadingDialog
     private lateinit var forgotPassDialog: ForgotPassDialog
@@ -61,9 +65,13 @@ class LoginFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         loadingDialog = LoadingDialog(requireActivity())
-        forgotPassDialog = ForgotPassDialog(requireActivity())
+        forgotPassDialog = ForgotPassDialog(
+            requireActivity(),
+            forgotPassViewModel,
+            viewLifecycleOwner
+        )
 
-        observeLogin()
+        observeViewModel()
         setupGso()
         setTextSpan()
 
@@ -77,11 +85,15 @@ class LoginFragment: Fragment() {
         }
     }
 
-    private fun observeLogin() {
+    private fun observeViewModel() {
         loginViewModel.errors.observe(viewLifecycleOwner, ::handleErrors)
         loginViewModel.error.observe(viewLifecycleOwner, ::handleError)
         loginViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
         loginViewModel.login.observe(viewLifecycleOwner, ::handleSuccess)
+
+        forgotPassViewModel.forgotPassword.observe(viewLifecycleOwner, ::handleForgotPassword)
+        forgotPassViewModel.error.observe(viewLifecycleOwner, ::handleError)
+        forgotPassViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
     }
 
     private fun handleError(error: String) {
@@ -132,9 +144,29 @@ class LoginFragment: Fragment() {
         handleNavigateToHome()
     }
 
+    private fun handleForgotPassword(response: ForgotPasswordResponse) {
+        if (!response.otp.isNullOrEmpty() &&
+            !response.otp.isNullOrBlank() &&
+            response.expiredOTP != 0L &&
+            !response.email.isNullOrEmpty() &&
+            !response.email.isNullOrBlank() &&
+            response.success == true) {
+
+            val bundle = Bundle()
+            bundle.putString(ForgotPasswordActivity.KEY_EMAIL_RECOVERY, response.email)
+            bundle.putLong(ForgotPasswordActivity.KEY_TIMESTAMP_RECOVERY, response.expiredOTP!!)
+
+            ForgotPasswordActivity.startActivity(requireActivity(), bundle)
+            requireActivity().finish()
+        }
+    }
+
     private fun handleLogin() {
         val email = binding.loginTiEmail.text.toString()
         val password = binding.loginTiPassword.text.toString()
+
+        binding.loginTilEmail.error = null
+        binding.loginTilPassword.error = null
 
         loginViewModel.login(
             LoginBody(email, password)
