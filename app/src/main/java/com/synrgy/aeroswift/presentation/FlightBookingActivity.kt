@@ -27,5 +27,11 @@ class FlightBookingActivity : AppCompatActivity() {
 
         binding.departDateRecycler.layoutManager = LinearLayoutManager(this)
         binding.departDateRecycler.adapter = this.departDateAdapter
+
+        binding.btnSearchSchedule .setOnClickListener {
+            Intent(this, FlightDetailsActivity::class.java).apply {
+                startActivity(this)
+            }
+        }
     }
 }

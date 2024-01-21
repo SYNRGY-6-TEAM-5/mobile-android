@@ -116,6 +116,19 @@
     <string name="continue_">Continue</string>
     <string name="travel_docs_title">Your destination requires travel documents</string>
     <string name="travel_docs_desc">Please prepare the documents, you will need to enter the details.</string>
+    <string name="selected_flight">Selected Flight</string>
+    <string name="_2_passenger">2 Passenger</string>
+    <string name="depart">Depart</string>
+    <string name="tue_18_dec_2018">Tue, 18 Dec 2018</string>
+    <string name="_08_00_am">08:00 AM</string>
+    <string name="yogyakarta_kulon_progo">Yogyakarta Kulon Progo</string>
+    <string name="terminal_1_domestic">Terminal 1 Domestic</string>
+    <string name="what_s_included">What\'s included</string>
+    <string name="excess_baggage_idr_25_000_kg">Excess Baggage (+) : IDR 25,000 / kg</string>
+    <string name="free_meals">Free Meals</string>
+    <string name="total">Total</string>
+    <string name="idr_1_000_000">IDR 1.000.000</string>
+    <string name="select_flight">Select Flight</string>
 
     <string-array name="origin">
         <item>Select</item>

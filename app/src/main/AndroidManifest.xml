@@ -30,6 +30,9 @@
         android:theme="@style/Theme.AeroSwift"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.FlightDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.CheckoutActivity"
             android:exported="false" />
         <activity
