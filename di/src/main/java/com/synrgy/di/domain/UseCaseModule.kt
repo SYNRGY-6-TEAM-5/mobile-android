@@ -12,6 +12,9 @@ import com.synrgy.presentation.usecase.auth.GetRegTokenUseCase
 import com.synrgy.presentation.usecase.auth.SetNameUseCase
 import com.synrgy.presentation.usecase.auth.SetPhotoUseCase
 import com.synrgy.presentation.usecase.auth.SetRegTokenUseCase
+import com.synrgy.presentation.usecase.forgotpassword.EditPasswordFpUseCase
+import com.synrgy.presentation.usecase.forgotpassword.ForgotPasswordUseCase
+import com.synrgy.presentation.usecase.forgotpassword.ValidateOtpFpUseCase
 import com.synrgy.presentation.usecase.login.GetTokenUseCase
 import com.synrgy.presentation.usecase.login.LoginUseCase
 import com.synrgy.presentation.usecase.login.LoginValidateInputUseCase
@@ -85,6 +88,30 @@ object UseCaseModule {
         guestRepository: GuestRepository
     ): UploadProfileImageUseCase {
         return UploadProfileImageUseCase(guestRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideForgotPasswordUseCase(
+        guestRepository: GuestRepository
+    ): ForgotPasswordUseCase {
+        return ForgotPasswordUseCase(guestRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideValidateOtpFpUseCase(
+        guestRepository: GuestRepository
+    ): ValidateOtpFpUseCase {
+        return ValidateOtpFpUseCase(guestRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideEditPasswordFpUseCase(
+        guestRepository: GuestRepository
+    ): EditPasswordFpUseCase {
+        return EditPasswordFpUseCase(guestRepository)
     }
 
     @Singleton

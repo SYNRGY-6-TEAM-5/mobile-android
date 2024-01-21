@@ -5,8 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -31,7 +29,6 @@ class AccountSetupActivity : AppCompatActivity() {
         }
     }
 
-    private lateinit var navController: NavController
     private lateinit var binding: ActivityAccountSetupBinding
     private lateinit var mGoogleSignInClient: GoogleSignInClient
 
@@ -39,8 +36,6 @@ class AccountSetupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAccountSetupBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        navController = findNavController(R.id.nav_container_as)
 
         handleSetupGso()
 

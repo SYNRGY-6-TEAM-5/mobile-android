@@ -194,6 +194,10 @@ class AccountDetailFragment : Fragment() {
             birthDate = Helper.convertDateFormat(birthDate)
         }
 
+        binding.accountDetailTilName.error = null
+        binding.accountDetailTilBirth.error = null
+        binding.accountDetailTilPhone.error = null
+
         editProfileViewModel.editProfile(
             EditProfileBody(
                 fullName = name,

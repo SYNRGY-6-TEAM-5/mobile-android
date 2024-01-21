@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.synrgy.presentation.usecase.auth.ClearTokenUseCase
 import com.synrgy.presentation.usecase.auth.GetNameUseCase
 import com.synrgy.presentation.usecase.auth.GetPhotoUseCase
-import com.synrgy.presentation.usecase.auth.GetRegTokenUseCase
 import com.synrgy.presentation.usecase.auth.SetNameUseCase
 import com.synrgy.presentation.usecase.auth.SetPhotoUseCase
 import com.synrgy.presentation.usecase.auth.SetRegTokenUseCase
@@ -29,7 +28,6 @@ class AuthViewModel @Inject constructor(
     private val setNameUseCase: SetNameUseCase,
     private val getPhotoUseCase: GetPhotoUseCase,
     private val setPhotoUseCase: SetPhotoUseCase,
-    private val getRegTokenUseCase: GetRegTokenUseCase,
     private val setRegTokenUseCase: SetRegTokenUseCase
 ): ViewModel() {
     private val _logoutLoading: MutableLiveData<Boolean> = MutableLiveData()
@@ -37,9 +35,6 @@ class AuthViewModel @Inject constructor(
 
     private val _authentication = MutableLiveData<String>()
     val authentication: LiveData<String> = _authentication
-
-    private val _regToken = MutableLiveData<String>()
-    val regToken: LiveData<String> = _regToken
 
     private val _name = MutableLiveData<String>()
     val name: LiveData<String> = _name
@@ -58,12 +53,6 @@ class AuthViewModel @Inject constructor(
     fun setToken(token: String) {
         viewModelScope.launch(Dispatchers.IO) {
             setTokenUseCase.invoke(token)
-        }
-    }
-
-    fun getRegToken() {
-        viewModelScope.launch(Dispatchers.Main) {
-            _regToken.value = getRegTokenUseCase.invoke().first() ?: ""
         }
     }
 

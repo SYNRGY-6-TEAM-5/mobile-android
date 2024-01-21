@@ -24,7 +24,6 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentRegisterBinding
-import com.synrgy.aeroswift.dialog.ForgotPassDialog
 import com.synrgy.aeroswift.dialog.LoadingDialog
 import com.synrgy.aeroswift.presentation.AccountSetupActivity
 import com.synrgy.aeroswift.presentation.AuthActivity
@@ -46,7 +45,6 @@ class RegisterFragment: Fragment() {
     private val registerViewModel: RegisterViewModel by viewModels()
 
     private lateinit var loadingDialog: LoadingDialog
-    private lateinit var forgotPassDialog: ForgotPassDialog
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,9 +59,8 @@ class RegisterFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         loadingDialog = LoadingDialog(requireActivity())
-        forgotPassDialog = ForgotPassDialog(requireActivity())
 
-        observeRegister()
+        observeViewModel()
         setupGso()
         setTextSpan()
 
@@ -73,7 +70,7 @@ class RegisterFragment: Fragment() {
         handlePasswordChange()
     }
 
-    private fun observeRegister() {
+    private fun observeViewModel() {
         registerViewModel.error.observe(viewLifecycleOwner, ::handleError)
         registerViewModel.errors.observe(viewLifecycleOwner, ::handleErrors)
         registerViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
@@ -135,6 +132,9 @@ class RegisterFragment: Fragment() {
     private fun handleRegister() {
         val email = binding.registerTiEmail.text.toString()
         val password = binding.registerTiPassword.text.toString()
+
+        binding.registerTilEmail.error = null
+        binding.registerTilPassword.error = null
 
         registerViewModel.register(
             RegisterBody(email, password)
