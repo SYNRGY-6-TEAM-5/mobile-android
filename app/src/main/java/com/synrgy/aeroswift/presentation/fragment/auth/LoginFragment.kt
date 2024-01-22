@@ -267,7 +267,7 @@ class LoginFragment: Fragment() {
             val account = completedTask.getResult(ApiException::class.java)
             updateUI(account)
         } catch (e: ApiException) {
-            Log.w("TAG", "signInResult:failed code=" + e.statusCode)
+            Log.w("TAG", "signInResult:failed message=" + e.message)
             updateUI(null)
         }
     }

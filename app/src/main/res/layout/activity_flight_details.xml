@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.FlightDetailsActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/base_black"
+        android:paddingTop="40dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/selected_flight"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ef_ic_arrow_back"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="64dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_flight_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/base_black"
+                android:padding="40dp"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <ImageView
+                    android:id="@+id/iv_flight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_line"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_details_arrival"
+                    style="@style/H6.Semibold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="CGK"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toEndOf="@+id/iv_flight"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_details_departure"
+                    style="@style/H6.Semibold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="YIA"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_flight"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_passenger_count"
+                    style="@style/TextS.Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/_2_passenger"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_details_arrival" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_one_way"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/cl_flight_details">
+
+
+                <TextView
+                    android:id="@+id/tv_depart"
+                    style="@style/Text.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/depart"
+                    android:textColor="@color/primary_500"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_depart_date_details"
+                    style="@style/TextS.Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/tue_18_dec_2018"
+                    android:textColor="@color/base_black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/tv_depart"
+                    app:layout_constraintTop_toTopOf="@id/tv_depart" />
+
+                <TextView
+                    android:id="@+id/tv_non_stop"
+                    style="@style/TextXS.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/bg_nonstop"
+                    android:paddingHorizontal="8dp"
+                    android:paddingTop="2dp"
+                    android:text="@string/non_stop"
+                    android:textAlignment="center"
+                    android:textColor="@color/gray_500"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_departure"
+                    style="@style/H6.Semibold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="52dp"
+                    android:layout_marginTop="38dp"
+                    android:text="YIA"
+                    android:textColor="@color/base_black"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_depart_date_details" />
+
+                <TextView
+                    android:id="@+id/tv_time_departure"
+                    style="@style/TextS.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_08_00_am"
+                    android:textColor="@color/gray_500"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@id/tv_departure"
+                    app:layout_constraintTop_toBottomOf="@id/tv_departure" />
+
+                <TextView
+                    android:id="@+id/tv_duration_departure"
+                    style="@style/Text.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="1h 30m"
+                    android:textColor="@color/base_black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/img_line_depart_arrive"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/img_line_depart_arrive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="40dp"
+                    android:src="@drawable/img_line_depart_arrive"
+                    app:layout_constraintStart_toEndOf="@id/tv_departure"
+                    app:layout_constraintTop_toBottomOf="@id/tv_depart" />
+
+                <TextView
+                    android:id="@+id/tv_city_departure"
+                    style="@style/TextS.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/yogyakarta_kulon_progo"
+                    android:textColor="@color/base_black"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@id/img_line_depart_arrive"
+                    app:layout_constraintTop_toTopOf="@id/img_line_depart_arrive" />
+
+                <TextView
+                    android:id="@+id/terminal_domestic_departure"
+                    style="@style/TextXS.Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/terminal_1_domestic"
+                    android:textColor="@color/gray_500"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toEndOf="@id/img_line_depart_arrive"
+                    app:layout_constraintTop_toBottomOf="@id/tv_city_departure" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_flight_details_departure"
+                    android:layout_width="244dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/bg_details"
+                    android:padding="16dp"
+                    app:layout_constraintStart_toEndOf="@id/img_line_depart_arrive"
+                    app:layout_constraintTop_toBottomOf="@id/terminal_domestic_departure">
+
+
+                    <ImageView
+                        android:id="@+id/img_departure_flight"
+                        android:layout_width="58dp"
+                        android:layout_height="27dp"
+                        android:src="@drawable/img_plane"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_plane_departure"
+                        style="@style/Text.Medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Garuda Indonesia"
+                        android:textColor="@color/base_black"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toEndOf="@id/img_departure_flight"
+                        app:layout_constraintTop_toTopOf="@id/img_departure_flight" />
+
+                    <TextView
+                        android:id="@+id/tv_plane_type_departure"
+                        style="@style/TextXS.Regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="GA207-Economy"
+                        android:textColor="@color/base_black"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@id/img_departure_flight"
+                        app:layout_constraintTop_toBottomOf="@id/tv_plane_departure" />
+
+                    <TextView
+                        android:id="@+id/what_include_departure"
+                        style="@style/TextS.Medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:text="@string/what_s_included"
+                        android:textColor="@color/base_black"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_plane_type_departure" />
+
+                    <ImageView
+                        android:id="@+id/img_cabin_baggage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/ic_cabin_baggage"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/what_include_departure" />
+
+                    <TextView
+                        android:id="@+id/tv_cabin_baggage"
+                        style="@style/TextXS.Regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Cabin Baggage: 10kg"
+                        android:textColor="@color/base_black"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@id/img_cabin_baggage"
+                        app:layout_constraintTop_toTopOf="@id/img_cabin_baggage" />
+
+                    <TextView
+                        android:id="@+id/tv_price_baggage"
+                        android:layout_width="184dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/excess_baggage_idr_25_000_kg"
+                        android:textColor="@color/base_black"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@id/img_cabin_baggage"
+                        app:layout_constraintTop_toBottomOf="@id/img_cabin_baggage" />
+
+                    <ImageView
+                        android:id="@+id/img_meal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:src="@drawable/ic_free_meals"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_price_baggage" />
+
+                    <TextView
+                        android:id="@+id/tv_meal"
+                        style="@style/TextXS.Regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/free_meals"
+                        android:textColor="@color/base_black"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@id/img_meal"
+                        app:layout_constraintTop_toTopOf="@id/img_meal" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/tv_arrive"
+                    style="@style/Text.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="CGK"
+                    android:textColor="@color/base_black"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toStartOf="@id/img_line_depart_arrive"
+                    app:layout_constraintTop_toBottomOf="@id/cl_flight_details_departure" />
+
+                <TextView
+                    android:id="@+id/tv_time_arrive"
+                    style="@style/TextS.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10:00 AM"
+                    android:textColor="@color/gray_500"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@id/tv_arrive"
+                    app:layout_constraintTop_toBottomOf="@id/tv_arrive" />
+
+                <TextView
+                    android:id="@+id/tv_airport_arrive"
+                    style="@style/TextS.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Soekarno Hatta"
+                    android:textColor="@color/base_black"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@id/img_line_depart_arrive"
+                    app:layout_constraintTop_toBottomOf="@id/cl_flight_details_departure" />
+
+                <TextView
+                    android:id="@+id/terminal_domestic_arrive"
+                    style="@style/TextXS.Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:text="Terminal 1 Domestic"
+                    android:textColor="@color/gray_500"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toEndOf="@id/img_line_depart_arrive"
+                    app:layout_constraintTop_toBottomOf="@id/tv_airport_arrive" />
+
+                <TextView
+                    android:id="@+id/tv_arrival"
+                    style="@style/Text.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:text="Arrive"
+                    android:textColor="@color/primary_500"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_time_arrive" />
+
+                <TextView
+                    android:id="@+id/tv_arrival_date_details"
+                    style="@style/Text.Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Tue, 18 Dec 2018"
+                    android:textColor="@color/base_black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/tv_arrival"
+                    app:layout_constraintTop_toTopOf="@id/tv_arrival" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/img_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="60dp"
+                android:background="@color/gray_300"
+                app:layout_constraintTop_toBottomOf="@id/cl_one_way" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/total"
+                android:textColor="@color/base_black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/img_line" />
+
+            <TextView
+                android:id="@+id/tv_total_price"
+                style="@style/Text.Semibold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/idr_1_000_000"
+                android:textColor="@color/primary_500"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/img_line" />
+
+            <Button
+                android:id="@+id/btn_select_flight"
+                style="@style/Button.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/select_flight"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@+id/tv_total_price" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
