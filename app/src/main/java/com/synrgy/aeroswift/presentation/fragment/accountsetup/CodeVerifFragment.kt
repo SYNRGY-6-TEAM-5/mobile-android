@@ -186,7 +186,7 @@ class CodeVerifFragment : Fragment() {
             response.success) {
 
             Helper.showToast(requireActivity(), requireContext(), response.message, isSuccess = true)
-            authViewModel.setRegToken(response.token)
+            authViewModel.setToken(response.token)
             findNavController().navigate(R.id.action_codeVerifFragment_to_accountDetailFragment)
         }
     }

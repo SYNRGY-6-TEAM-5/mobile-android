@@ -9,6 +9,7 @@ import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -109,8 +110,20 @@ class LoginFragment: Fragment() {
 
             for (error in errors) {
                 when (error?.field) {
-                    "emailAddress" -> emailMessage += error.defaultMessage + "\n"
-                    "password" -> passwordMessage += error.defaultMessage + "\n"
+                    "emailAddress" -> {
+                        emailMessage += if (error.defaultMessage?.last() != '.') {
+                            "${error.defaultMessage}.\n"
+                        } else {
+                            "${error.defaultMessage}\n"
+                        }
+                    }
+                    "password" -> {
+                        passwordMessage += if (error.defaultMessage?.last() != '.') {
+                            "${error.defaultMessage}.\n"
+                        } else {
+                            "${error.defaultMessage}\n"
+                        }
+                    }
                 }
             }
 

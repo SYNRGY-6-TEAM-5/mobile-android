@@ -2,13 +2,16 @@ package com.synrgy.aeroswift.presentation.fragment.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.TextWatcher
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +32,7 @@ import com.synrgy.aeroswift.presentation.AccountSetupActivity
 import com.synrgy.aeroswift.presentation.AuthActivity
 import com.synrgy.aeroswift.presentation.TermOfServicesActivity
 import com.synrgy.aeroswift.presentation.viewmodel.auth.RegisterViewModel
+import com.synrgy.data.helper.Helper as HelperData
 import com.synrgy.domain.body.auth.RegisterBody
 import com.synrgy.domain.response.auth.RegisterResponse
 import com.synrgy.domain.response.error.ErrorItem
@@ -45,6 +49,9 @@ class RegisterFragment: Fragment() {
     private val registerViewModel: RegisterViewModel by viewModels()
 
     private lateinit var loadingDialog: LoadingDialog
+
+    private var emailMessage = ""
+    private var passwordMessage = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,7 +74,7 @@ class RegisterFragment: Fragment() {
         binding.btnSignInGoogle.setOnClickListener { signUp() }
         binding.btnRegister.setOnClickListener { handleRegister() }
 
-        handlePasswordChange()
+        handleInputChange()
     }
 
     private fun observeViewModel() {
@@ -75,6 +82,7 @@ class RegisterFragment: Fragment() {
         registerViewModel.errors.observe(viewLifecycleOwner, ::handleErrors)
         registerViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
         registerViewModel.register.observe(viewLifecycleOwner, ::handleSuccess)
+        registerViewModel.localError.observe(viewLifecycleOwner, ::handleLocalError)
     }
 
     private fun handleError(error: String) {
@@ -85,20 +93,27 @@ class RegisterFragment: Fragment() {
 
     private fun handleErrors(errors: List<ErrorItem?>?) {
         if (!errors.isNullOrEmpty()) {
-            var emailMessage = ""
-            var passwordMessage = ""
-
             for (error in errors) {
                 when (error?.field) {
-                    "email" -> emailMessage += error.defaultMessage + "\n"
-                    "password" -> passwordMessage += error.defaultMessage + "\n"
+                    "email" -> {
+                        emailMessage += if (error.defaultMessage?.last() != '.') {
+                            "${error.defaultMessage}.\n"
+                        } else {
+                            "${error.defaultMessage}\n"
+                        }
+                    }
+                    "password" -> {
+                        passwordMessage += if (error.defaultMessage?.last() != '.') {
+                            "${error.defaultMessage}.\n"
+                        } else {
+                            "${error.defaultMessage}\n"
+                        }
+                    }
                 }
             }
-
-            binding.registerTilEmail.error = emailMessage.replace(",", "\n")
-            binding.registerTilPassword.error = passwordMessage.replace(",", "\n")
-            binding.registerTilPassword.errorIconDrawable = null
         }
+
+        handleSetInputMessage()
     }
 
     private fun handleLoading(loading: Boolean) {
@@ -124,12 +139,16 @@ class RegisterFragment: Fragment() {
             bundle.putString(AccountSetupActivity.KEY_EMAIL_SETUP, email)
             bundle.putString(AccountSetupActivity.KEY_PASSWORD_SETUP, password)
             bundle.putLong(AccountSetupActivity.KEY_TIMESTAMP_SETUP, response.expiredOTP)
+            bundle.putInt(AuthActivity.KEY_TAB_INDEX, 1)
 
-            handleNavigateToAccountSetup(bundle)
+            handleNavigateTOS(bundle)
         }
     }
 
     private fun handleRegister() {
+        emailMessage = ""
+        passwordMessage = ""
+
         val email = binding.registerTiEmail.text.toString()
         val password = binding.registerTiPassword.text.toString()
 
@@ -141,8 +160,19 @@ class RegisterFragment: Fragment() {
         )
     }
 
-    private fun handleNavigateToAccountSetup(bundle: Bundle) {
-        AccountSetupActivity.startActivity(requireActivity(), bundle)
+    private fun handleLocalError(error: Boolean) {
+        if (error) {
+            val email = binding.registerTiEmail.text.toString()
+            val password = binding.registerTiPassword.text.toString()
+
+            validateEmail(email)
+            validatePassword(password)
+            handleSetInputMessage()
+        }
+    }
+
+    private fun handleNavigateTOS(bundle: Bundle) {
+        TermOfServicesActivity.startActivity(requireActivity(), bundle)
         requireActivity().finish()
     }
 
@@ -156,8 +186,7 @@ class RegisterFragment: Fragment() {
                 val bundle = Bundle()
                 bundle.putInt(AuthActivity.KEY_TAB_INDEX, 1)
 
-                TermOfServicesActivity.startActivity(requireActivity(), bundle)
-                requireActivity().finish()
+                handleNavigateTOS(bundle)
             }
         }
 
@@ -239,23 +268,85 @@ class RegisterFragment: Fragment() {
             val bundle = Bundle()
             bundle.putString(AccountSetupActivity.KEY_EMAIL_SETUP, email)
             bundle.putString(AccountSetupActivity.KEY_NAME_SETUP, displayName)
-            bundle.putString(AccountSetupActivity.KEY_PASSWORD_SETUP, "")
+            bundle.putString(AccountSetupActivity.KEY_PASSWORD_SETUP, "password")
             bundle.putString(AccountSetupActivity.KEY_PHOTO_SETUP, photoUrl)
             bundle.putLong(AccountSetupActivity.KEY_TIMESTAMP_SETUP,
                 (System.currentTimeMillis() + 300000)
             )
+            bundle.putInt(AuthActivity.KEY_TAB_INDEX, 1)
 
-            handleNavigateToAccountSetup(bundle)
+            handleNavigateTOS(bundle)
         }
     }
 
-    private fun handlePasswordChange() {
-        binding.registerTiPassword.addTextChangedListener { calculatePasswordStrength(it.toString()) }
+    private fun handleInputChange() {
+        binding.registerTiEmail.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                emailMessage = ""
+                validateEmail(p0.toString())
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                binding.registerTilEmail.error = emailMessage
+            }
+        })
+
+        binding.registerTiPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                passwordMessage = ""
+                calculatePasswordStrength(p0.toString())
+                validatePassword(p0.toString())
+                validatePasswordLength(p0.toString())
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                binding.registerTilPassword.error = passwordMessage
+                binding.registerTilPassword.errorIconDrawable = null
+            }
+        })
     }
 
     private fun calculatePasswordStrength(password: String) {
         val passwordStrength = PasswordStrength.calculate(password)
         binding.tvStrength.text = getString(passwordStrength.message)
         binding.tvStrength.setTextColor(ContextCompat.getColor(requireContext(), passwordStrength.color))
+    }
+
+    private fun validateEmail(email: String) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailMessage += "Email is not valid.\n"
+        }
+    }
+
+    private fun validatePassword(password: String) {
+        if (!HelperData.containsSpecialCharacter(password)) {
+            passwordMessage += "Password should contain a special character.\n"
+        }
+        if (!HelperData.containsAlphanumeric(password)) {
+            passwordMessage += "Password should contain both letters and numbers.\n"
+        }
+        if (!HelperData.containsUppercaseLetter(password)) {
+            passwordMessage += "Password should contain at least one uppercase letter.\n"
+        }
+    }
+
+    private fun validatePasswordLength(password: String) {
+        if (!HelperData.checkPasswordLength(password)) {
+            passwordMessage += "Password length min 8 character.\n"
+        }
+    }
+
+    private fun handleSetInputMessage() {
+        if ((emailMessage.isNotEmpty() && emailMessage.isNotBlank()) ||
+            (passwordMessage.isNotEmpty() && passwordMessage.isNotBlank())) {
+
+            binding.registerTilEmail.error = emailMessage.replace(",", "\n")
+            binding.registerTilPassword.error = passwordMessage.replace(",", "\n")
+            binding.registerTilPassword.errorIconDrawable = null
+        }
     }
 }

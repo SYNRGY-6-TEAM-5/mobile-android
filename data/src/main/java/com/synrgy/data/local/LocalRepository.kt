@@ -1,5 +1,7 @@
 package com.synrgy.data.local
 
+import android.util.Patterns
+import com.synrgy.data.helper.Helper
 import com.synrgy.domain.repository.AuthRepository
 import com.synrgy.domain.repository.LoginRepository
 import com.synrgy.domain.repository.NewUserRepository
@@ -13,8 +15,12 @@ class LocalRepository @Inject constructor (
     override suspend fun validateInput(email: String, password: String): Boolean {
         return email.isNotEmpty()
                 && email.isNotBlank()
+                && Patterns.EMAIL_ADDRESS.matcher(email).matches()
                 && password.isNotEmpty()
                 && password.isNotBlank()
+                && Helper.containsSpecialCharacter(password)
+                && Helper.containsAlphanumeric(password)
+                && Helper.containsUppercaseLetter(password)
     }
 
     override suspend fun setToken(token: String) {

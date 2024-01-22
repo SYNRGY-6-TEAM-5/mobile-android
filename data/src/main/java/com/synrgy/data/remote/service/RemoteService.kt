@@ -7,10 +7,13 @@ import com.synrgy.domain.body.forgotpassword.EditPasswordFpBody
 import com.synrgy.domain.body.forgotpassword.ForgotPasswordBody
 import com.synrgy.domain.body.forgotpassword.ValidateOtpFpBody
 import com.synrgy.domain.body.user.EditProfileBody
+import com.synrgy.domain.response.airport.AirportDetailResponse
+import com.synrgy.domain.response.airport.AirportResponse
 import com.synrgy.domain.response.auth.LoginResponse
 import com.synrgy.domain.response.auth.RegisterResponse
 import com.synrgy.domain.response.auth.UploadProfileImageResponse
 import com.synrgy.domain.response.auth.ValidateOtpResponse
+import com.synrgy.domain.response.departure.DepartureResponse
 import com.synrgy.domain.response.forgotpassword.EditPasswordFpResponse
 import com.synrgy.domain.response.forgotpassword.ForgotPasswordResponse
 import com.synrgy.domain.response.forgotpassword.ValidateOtpFpResponse
@@ -18,11 +21,13 @@ import com.synrgy.domain.response.user.EditProfileResponse
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface RemoteService {
@@ -60,4 +65,13 @@ interface RemoteService {
         @Header("Authorization") token: String,
         @Body body: EditPasswordFpBody
     ): Response<EditPasswordFpResponse>
+
+    @GET("departure")
+    suspend fun getDeparture(): Response<DepartureResponse>
+
+    @GET("airport")
+    suspend fun getAirport(): Response<AirportResponse>
+
+    @GET("airport/{id}/departures-arrivals")
+    suspend fun getAirportDetail(@Path("id") id: Int): Response<AirportDetailResponse>
 }

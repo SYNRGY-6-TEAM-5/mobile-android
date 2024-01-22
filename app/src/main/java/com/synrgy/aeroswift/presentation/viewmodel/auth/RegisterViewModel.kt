@@ -9,6 +9,7 @@ import com.synrgy.domain.body.auth.RegisterBody
 import com.synrgy.domain.response.auth.RegisterResponse
 import com.synrgy.domain.response.error.ErrorItem
 import com.synrgy.presentation.usecase.register.RegisterUseCase
+import com.synrgy.presentation.usecase.register.RegisterValidateInputUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,7 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
-    private val registerUseCase: RegisterUseCase
+    private val registerUseCase: RegisterUseCase,
+    private val validateInputUseCase: RegisterValidateInputUseCase
 ): ViewModel() {
     private val _register: MutableLiveData<RegisterResponse> = MutableLiveData()
     val register: LiveData<RegisterResponse> = _register
@@ -31,8 +33,13 @@ class RegisterViewModel @Inject constructor(
     private val _errors: MutableLiveData<List<ErrorItem?>?> = MutableLiveData()
     val errors: LiveData<List<ErrorItem?>?> = _errors
 
+    private val _localError: MutableLiveData<Boolean> = MutableLiveData()
+    val localError: LiveData<Boolean> = _localError
+
     fun register(user: RegisterBody) {
         _loading.value = true
+        _localError.value = false
+
         viewModelScope.launch(Dispatchers.IO) {
             when (val response = registerUseCase.invoke(user)) {
                 is Resource.Success -> {
@@ -41,7 +48,7 @@ class RegisterViewModel @Inject constructor(
                         _register.value = RegisterResponse(
                             expiredOTP = response.data?.expiredOTP ?: 0L,
                             otp = response.data?.otp ?: "",
-                            success = response.data?.success ?: true
+                            success = validateInputUseCase.invoke(user.email, user.password)
                         )
                     }
                 }
@@ -60,6 +67,10 @@ class RegisterViewModel @Inject constructor(
                         _error.value = response.exceptionRes?.message ?: ""
                     }
                 }
+            }
+
+            withContext(Dispatchers.Main) {
+                _localError.value = !validateInputUseCase.invoke(user.email, user.password)
             }
         }
     }
