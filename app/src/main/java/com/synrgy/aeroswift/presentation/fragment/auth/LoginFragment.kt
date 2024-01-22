@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.util.Log
@@ -25,9 +27,15 @@ import com.synrgy.aeroswift.dialog.ForgotPassDialog
 import com.synrgy.aeroswift.dialog.LoadingDialog
 import com.synrgy.aeroswift.presentation.HomeActivity
 import com.synrgy.aeroswift.presentation.AuthActivity
-import com.synrgy.aeroswift.presentation.viewmodel.AuthViewModel
-import com.synrgy.aeroswift.presentation.viewmodel.LoginViewModel
-import com.synrgy.domain.LoginBody
+import com.synrgy.aeroswift.presentation.ForgotPasswordActivity
+import com.synrgy.aeroswift.presentation.TermOfServicesActivity
+import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
+import com.synrgy.aeroswift.presentation.viewmodel.auth.LoginViewModel
+import com.synrgy.aeroswift.presentation.viewmodel.forgotpassword.ForgotPasswordViewModel
+import com.synrgy.domain.body.auth.LoginBody
+import com.synrgy.domain.response.auth.LoginResponse
+import com.synrgy.domain.response.error.ErrorItem
+import com.synrgy.domain.response.forgotpassword.ForgotPasswordResponse
 import com.synrgy.presentation.helper.Helper
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,6 +47,7 @@ class LoginFragment: Fragment() {
 
     private val authViewModel: AuthViewModel by viewModels()
     private val loginViewModel: LoginViewModel by viewModels()
+    private val forgotPassViewModel: ForgotPasswordViewModel by viewModels()
 
     private lateinit var loadingDialog: LoadingDialog
     private lateinit var forgotPassDialog: ForgotPassDialog
@@ -56,11 +65,13 @@ class LoginFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         loadingDialog = LoadingDialog(requireActivity())
-        forgotPassDialog = ForgotPassDialog(requireActivity())
+        forgotPassDialog = ForgotPassDialog(
+            requireActivity(),
+            forgotPassViewModel,
+            viewLifecycleOwner
+        )
 
-        authViewModel.checkAuth()
-
-        observeLogin()
+        observeViewModel()
         setupGso()
         setTextSpan()
 
@@ -74,30 +85,38 @@ class LoginFragment: Fragment() {
         }
     }
 
-    private fun observeLogin() {
+    private fun observeViewModel() {
+        loginViewModel.errors.observe(viewLifecycleOwner, ::handleErrors)
         loginViewModel.error.observe(viewLifecycleOwner, ::handleError)
         loginViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
-        loginViewModel.authentication.observe(viewLifecycleOwner, ::handleAuthentication)
         loginViewModel.login.observe(viewLifecycleOwner, ::handleSuccess)
 
-        authViewModel.authentication.observe(viewLifecycleOwner, ::handleAuthentication)
+        forgotPassViewModel.forgotPassword.observe(viewLifecycleOwner, ::handleForgotPassword)
+        forgotPassViewModel.error.observe(viewLifecycleOwner, ::handleError)
+        forgotPassViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
     }
 
     private fun handleError(error: String) {
         if (error.isNotBlank() && error.isNotEmpty()) {
-            val email = binding.loginTiEmail.text.toString()
-            val password = binding.loginTiPassword.text.toString()
-
-            if (email.isBlank() && email.isEmpty()) {
-                binding.loginTilEmail.error = "Required"
-            }
-
-            if (password.isBlank() && password.isEmpty()) {
-                binding.loginTilPassword.error = "Required"
-                binding.loginTilPassword.errorIconDrawable = null
-            }
-
             Helper.showToast(requireActivity(), requireContext(), error, isSuccess = false)
+        }
+    }
+
+    private fun handleErrors(errors: List<ErrorItem?>?) {
+        if (!errors.isNullOrEmpty()) {
+            var emailMessage = ""
+            var passwordMessage = ""
+
+            for (error in errors) {
+                when (error?.field) {
+                    "emailAddress" -> emailMessage += error.defaultMessage + "\n"
+                    "password" -> passwordMessage += error.defaultMessage + "\n"
+                }
+            }
+
+            binding.loginTilEmail.error = emailMessage.replace(",", "\n")
+            binding.loginTilPassword.error = passwordMessage.replace(",", "\n")
+            binding.loginTilPassword.errorIconDrawable = null
         }
     }
 
@@ -109,9 +128,36 @@ class LoginFragment: Fragment() {
         }
     }
 
-    private fun handleSuccess(message: String) {
-        if (message.isNotEmpty() && message.isNotBlank()) {
-            Helper.showToast(requireActivity(), requireContext(), message, isSuccess = true)
+    private fun handleSuccess(response: LoginResponse) {
+        if (!response.message.isNullOrEmpty() &&
+            !response.message.isNullOrBlank() &&
+            response.token.isNotEmpty() &&
+            response.token.isNotBlank()) {
+
+            Helper.showToast(requireActivity(), requireContext(), response.message!!, isSuccess = true)
+            handleAuthentication(response.token)
+        }
+    }
+
+    private fun handleAuthentication(token: String) {
+        authViewModel.setToken(token)
+        handleNavigateToHome()
+    }
+
+    private fun handleForgotPassword(response: ForgotPasswordResponse) {
+        if (!response.otp.isNullOrEmpty() &&
+            !response.otp.isNullOrBlank() &&
+            response.expiredOTP != 0L &&
+            !response.email.isNullOrEmpty() &&
+            !response.email.isNullOrBlank() &&
+            response.success == true) {
+
+            val bundle = Bundle()
+            bundle.putString(ForgotPasswordActivity.KEY_EMAIL_RECOVERY, response.email)
+            bundle.putLong(ForgotPasswordActivity.KEY_TIMESTAMP_RECOVERY, response.expiredOTP!!)
+
+            ForgotPasswordActivity.startActivity(requireActivity(), bundle)
+            requireActivity().finish()
         }
     }
 
@@ -119,18 +165,12 @@ class LoginFragment: Fragment() {
         val email = binding.loginTiEmail.text.toString()
         val password = binding.loginTiPassword.text.toString()
 
+        binding.loginTilEmail.error = null
+        binding.loginTilPassword.error = null
+
         loginViewModel.login(
             LoginBody(email, password)
         )
-
-        authViewModel.setName("zachriek")
-    }
-
-    private fun handleAuthentication(token: String) {
-        if (token.isNotEmpty() && token.isNotBlank()) {
-            authViewModel.setToken(token)
-            handleNavigateToHome()
-        }
     }
 
     private fun handleNavigateToHome() {
@@ -143,16 +183,30 @@ class LoginFragment: Fragment() {
             SpannableString(resources.getString(R.string.t_and_c))
         val loginGoogleText: Spannable = SpannableString(resources.getString(R.string.login_google_text))
 
+        val clickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                TermOfServicesActivity.startActivity(requireActivity())
+                requireActivity().finish()
+            }
+        }
+
+        loginDescText.setSpan(
+            clickableSpan,
+            31,
+            35,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
         loginDescText.setSpan(
             ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.primary_500)),
-            30,
+            31,
             35,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
         loginDescText.setSpan(
             StyleSpan(R.style.TextXS_Medium),
-            30,
+            31,
             35,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
@@ -165,6 +219,7 @@ class LoginFragment: Fragment() {
         )
 
         binding.loginDesc.text = loginDescText
+        binding.loginDesc.movementMethod = LinkMovementMethod.getInstance()
         binding.loginGoogleText.text = loginGoogleText
     }
 

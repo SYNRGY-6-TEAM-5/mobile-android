@@ -21,4 +21,8 @@
     <color name="gray_600">#4A5578</color>
     <color name="gray_700">#404968</color>
     <color name="no_color" />
+
+    <color name="password_weak">#F04438</color>
+    <color name="password_okay">#FDB022</color>
+    <color name="password_strong">#12B76A</color>
 </resources>

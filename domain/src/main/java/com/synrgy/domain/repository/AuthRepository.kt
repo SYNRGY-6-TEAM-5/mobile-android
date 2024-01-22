@@ -8,4 +8,6 @@ interface AuthRepository {
     suspend fun setName(name: String)
     suspend fun getPhoto(): Flow<String?>
     suspend fun setPhoto(photoUrl: String)
+    suspend fun getRegToken(): Flow<String?>
+    suspend fun setRegToken(token: String)
 }

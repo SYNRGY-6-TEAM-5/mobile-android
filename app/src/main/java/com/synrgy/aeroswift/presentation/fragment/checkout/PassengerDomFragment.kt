@@ -13,9 +13,19 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentPassengerDomBinding
+import com.synrgy.aeroswift.dialog.TravelDocsDialog
+import com.synrgy.presentation.helper.Helper
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class PassengerDomFragment : Fragment() {
     private lateinit var binding: FragmentPassengerDomBinding
+
+    private lateinit var travelDocsDialog: TravelDocsDialog
+
+    private val dateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    private var selectedDate = Calendar.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,6 +40,12 @@ class PassengerDomFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         handleTextSpan()
+
+        binding.btnSave.setOnClickListener { travelDocsDialog.show() }
+
+        binding.tiBirth.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) Helper.showDatePicker(requireContext(), selectedDate, ::updateBirthInput)
+        }
     }
 
     private fun handleTextSpan() {
@@ -65,5 +81,9 @@ class PassengerDomFragment : Fragment() {
 
         binding.tvCovid19Details.text = covidText
         binding.tvCovid19Details.movementMethod = android.text.method.LinkMovementMethod.getInstance()
+    }
+
+    private fun updateBirthInput() {
+        binding.tiBirth.setText(dateFormatter.format(selectedDate.time))
     }
 }

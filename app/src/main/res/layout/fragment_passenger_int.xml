@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.fragment.checkout.PassengerIntFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_passenger_int"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="?attr/homeAsUpIndicator">
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/Text.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/passenger_details"
+            android:textColor="@color/base_black"
+            android:layout_gravity="center"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_passenger_int">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="32dp"
+            android:paddingBottom="200dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextL.Medium"
+                android:id="@+id/tv_covid19_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/covid19_details"
+                android:textColor="@color/base_black"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/Text.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/passenger_info"
+                android:textColor="@color/base_black"
+                android:layout_marginTop="40dp"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/full_name"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="20dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/TextField"
+                    android:id="@+id/ti_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_birth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/date_of_birth_dd_mm_yyyy"
+                android:layout_marginBottom="20dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/TextField"
+                    android:id="@+id/ti_birth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <RadioGroup
+                android:id="@+id/rg_surname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_mr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/primary_500"
+                    android:hint="@string/mr"
+                    android:textAppearance="@style/TextS.Medium"
+                    android:textColorHint="@color/base_black"
+                    android:layout_marginEnd="12dp"
+                    android:paddingStart="6dp"
+                    tools:ignore="RtlSymmetry"
+                    android:checked="true"/>
+
+                <RadioButton
+                    android:id="@+id/rb_mrs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/primary_500"
+                    android:hint="@string/mrs"
+                    android:textAppearance="@style/TextS.Medium"
+                    android:textColorHint="@color/base_black"
+                    android:layout_marginEnd="12dp"
+                    android:paddingStart="6dp"
+                    tools:ignore="RtlSymmetry" />
+
+                <RadioButton
+                    android:id="@+id/rb_ms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/primary_500"
+                    android:hint="@string/ms"
+                    android:textAppearance="@style/TextS.Medium"
+                    android:textColorHint="@color/base_black"
+                    android:paddingStart="6dp"
+                    tools:ignore="RtlSymmetry" />
+            </RadioGroup>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/Text.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/your_travel_documents_1"
+                android:textColor="@color/base_black"
+                android:layout_marginTop="28dp"
+                android:layout_marginBottom="16dp"/>
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                style="@style/AutoCompleteTextView"
+                android:id="@+id/ti_document_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/document_type"
+                android:inputType="text"
+                android:drawableEnd="@drawable/ic_arrow_down"
+                android:drawableTint="@color/primary_500"/>
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                style="@style/AutoCompleteTextView"
+                android:id="@+id/ti_nationality"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/nationality"
+                android:inputType="text"
+                android:drawableEnd="@drawable/ic_arrow_down"
+                android:drawableTint="@color/primary_500"
+                android:layout_marginBottom="10dp"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_doc_num"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/document_number"
+                android:layout_marginBottom="20dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/TextField"
+                    android:id="@+id/ti_doc_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_expiry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/expiry_date_dd_mm_yyyy"
+                android:layout_marginBottom="20dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/TextField"
+                    android:id="@+id/ti_expiry"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_gray_dashed"
+                android:padding="12dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextS.Semibold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/upload_your_scanned_documents"
+                    android:textColor="@color/gray_300"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextXS.Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/accepted_file_types_pdf_png_or_jpeg"
+                    android:textColor="@color/gray_300"
+                    android:layout_marginTop="4dp"/>
+
+                <com.google.android.material.chip.Chip
+                    style="@style/ChipOutline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/browse_files"
+                    android:layout_marginTop="6dp"/>
+
+            </LinearLayout>
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/cg_docs"
+                android:layout_width="235dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                app:singleSelection="false">
+
+                <com.google.android.material.chip.Chip
+                    style="@style/ChipOutline.Primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_visa"
+                    app:chipIconEnabled="true"
+                    app:chipIcon="@drawable/ic_add"
+                    app:chipIconSize="20dp"
+                    android:checked="true"/>
+
+                <com.google.android.material.chip.Chip
+                    style="@style/ChipOutline.Primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_residence_permit"
+                    app:chipIconEnabled="true"
+                    app:chipIcon="@drawable/ic_add"
+                    app:chipIconSize="20dp"
+                    android:checked="true"/>
+
+                <com.google.android.material.chip.Chip
+                    style="@style/ChipOutline.Primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_other_travel_documents"
+                    app:chipIconEnabled="true"
+                    app:chipIcon="@drawable/ic_add"
+                    app:chipIconSize="20dp"/>
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/Text.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/are_you_vaccinated"
+                android:textColor="@color/base_black"
+                android:layout_marginTop="28dp"
+                android:layout_marginBottom="16dp"/>
+
+            <RadioGroup
+                android:id="@+id/rg_vaccine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/rb_yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/primary_500"
+                    android:hint="@string/yes"
+                    android:textAppearance="@style/TextS.Medium"
+                    android:textColorHint="@color/base_black"
+                    android:paddingStart="6dp"
+                    tools:ignore="RtlSymmetry"
+                    android:checked="true"/>
+
+                <RadioButton
+                    android:id="@+id/rb_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/primary_500"
+                    android:hint="@string/no"
+                    android:textAppearance="@style/TextS.Medium"
+                    android:textColorHint="@color/base_black"
+                    android:paddingStart="6dp"
+                    tools:ignore="RtlSymmetry" />
+            </RadioGroup>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_save"
+        style="@style/Button.Primary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/save"
+        android:layout_margin="16dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

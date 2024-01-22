@@ -1,4 +1,4 @@
-package com.synrgy.aeroswift.presentation.viewmodel
+package com.synrgy.aeroswift.presentation.viewmodel.auth
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,6 +9,7 @@ import com.synrgy.presentation.usecase.auth.GetNameUseCase
 import com.synrgy.presentation.usecase.auth.GetPhotoUseCase
 import com.synrgy.presentation.usecase.auth.SetNameUseCase
 import com.synrgy.presentation.usecase.auth.SetPhotoUseCase
+import com.synrgy.presentation.usecase.auth.SetRegTokenUseCase
 import com.synrgy.presentation.usecase.login.GetTokenUseCase
 import com.synrgy.presentation.usecase.login.SetTokenUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,7 +27,8 @@ class AuthViewModel @Inject constructor(
     private val getNameUseCase: GetNameUseCase,
     private val setNameUseCase: SetNameUseCase,
     private val getPhotoUseCase: GetPhotoUseCase,
-    private val setPhotoUseCase: SetPhotoUseCase
+    private val setPhotoUseCase: SetPhotoUseCase,
+    private val setRegTokenUseCase: SetRegTokenUseCase
 ): ViewModel() {
     private val _logoutLoading: MutableLiveData<Boolean> = MutableLiveData()
     val logoutLoading: LiveData<Boolean> = _logoutLoading
@@ -51,6 +53,12 @@ class AuthViewModel @Inject constructor(
     fun setToken(token: String) {
         viewModelScope.launch(Dispatchers.IO) {
             setTokenUseCase.invoke(token)
+        }
+    }
+
+    fun setRegToken(token: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            setRegTokenUseCase.invoke(token)
         }
     }
 

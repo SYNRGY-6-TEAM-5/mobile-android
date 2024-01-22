@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.util.Log
@@ -11,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -21,15 +24,16 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentRegisterBinding
-import com.synrgy.aeroswift.dialog.ForgotPassDialog
 import com.synrgy.aeroswift.dialog.LoadingDialog
 import com.synrgy.aeroswift.presentation.AccountSetupActivity
 import com.synrgy.aeroswift.presentation.AuthActivity
-import com.synrgy.aeroswift.presentation.HomeActivity
-import com.synrgy.aeroswift.presentation.viewmodel.AuthViewModel
-import com.synrgy.aeroswift.presentation.viewmodel.RegisterViewModel
-import com.synrgy.domain.RegisterBody
+import com.synrgy.aeroswift.presentation.TermOfServicesActivity
+import com.synrgy.aeroswift.presentation.viewmodel.auth.RegisterViewModel
+import com.synrgy.domain.body.auth.RegisterBody
+import com.synrgy.domain.response.auth.RegisterResponse
+import com.synrgy.domain.response.error.ErrorItem
 import com.synrgy.presentation.helper.Helper
+import com.synrgy.presentation.helper.PasswordStrength
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,11 +42,9 @@ class RegisterFragment: Fragment() {
 
     private lateinit var mGoogleSignInClient: GoogleSignInClient
 
-    private val authViewModel: AuthViewModel by viewModels()
     private val registerViewModel: RegisterViewModel by viewModels()
 
     private lateinit var loadingDialog: LoadingDialog
-    private lateinit var forgotPassDialog: ForgotPassDialog
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,41 +59,45 @@ class RegisterFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         loadingDialog = LoadingDialog(requireActivity())
-        forgotPassDialog = ForgotPassDialog(requireActivity())
 
-        authViewModel.checkAuth()
-
-        observeLogin()
+        observeViewModel()
         setupGso()
         setTextSpan()
 
         binding.btnSignInGoogle.setOnClickListener { signUp() }
         binding.btnRegister.setOnClickListener { handleRegister() }
+
+        handlePasswordChange()
     }
 
-    private fun observeLogin() {
+    private fun observeViewModel() {
         registerViewModel.error.observe(viewLifecycleOwner, ::handleError)
+        registerViewModel.errors.observe(viewLifecycleOwner, ::handleErrors)
         registerViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
         registerViewModel.register.observe(viewLifecycleOwner, ::handleSuccess)
-
-        authViewModel.authentication.observe(viewLifecycleOwner, ::handleAuthentication)
     }
 
     private fun handleError(error: String) {
-        if (error.isNotBlank() && error.isNotEmpty()) {
-            val email = binding.registerTiEmail.text.toString()
-            val password = binding.registerTiPassword.text.toString()
-
-            if (email.isBlank() && email.isEmpty()) {
-                binding.registerTilEmail.error = "Required"
-            }
-
-            if (password.isBlank() && password.isEmpty()) {
-                binding.registerTilPassword.error = "Required"
-                binding.registerTilPassword.errorIconDrawable = null
-            }
-
+        if (error.isNotEmpty() && error.isNotBlank()) {
             Helper.showToast(requireActivity(), requireContext(), error, isSuccess = false)
+        }
+    }
+
+    private fun handleErrors(errors: List<ErrorItem?>?) {
+        if (!errors.isNullOrEmpty()) {
+            var emailMessage = ""
+            var passwordMessage = ""
+
+            for (error in errors) {
+                when (error?.field) {
+                    "email" -> emailMessage += error.defaultMessage + "\n"
+                    "password" -> passwordMessage += error.defaultMessage + "\n"
+                }
+            }
+
+            binding.registerTilEmail.error = emailMessage.replace(",", "\n")
+            binding.registerTilPassword.error = passwordMessage.replace(",", "\n")
+            binding.registerTilPassword.errorIconDrawable = null
         }
     }
 
@@ -103,13 +109,21 @@ class RegisterFragment: Fragment() {
         }
     }
 
-    private fun handleSuccess(message: String) {
-        if (message.isNotEmpty() && message.isNotBlank()) {
-            val email = binding.registerTiEmail.text.toString().takeIf { it.isNotEmpty() }
-                ?: "test@gmail.com"
+    private fun handleSuccess(response: RegisterResponse) {
+        if (response.otp.isNotBlank() &&
+            response.otp.isNotEmpty() &&
+            response.expiredOTP != 0L &&
+            response.success) {
+
+            Log.d("OTP", response.otp)
+
+            val email = binding.registerTiEmail.text.toString()
+            val password = binding.registerTiPassword.text.toString()
 
             val bundle = Bundle()
             bundle.putString(AccountSetupActivity.KEY_EMAIL_SETUP, email)
+            bundle.putString(AccountSetupActivity.KEY_PASSWORD_SETUP, password)
+            bundle.putLong(AccountSetupActivity.KEY_TIMESTAMP_SETUP, response.expiredOTP)
 
             handleNavigateToAccountSetup(bundle)
         }
@@ -119,25 +133,16 @@ class RegisterFragment: Fragment() {
         val email = binding.registerTiEmail.text.toString()
         val password = binding.registerTiPassword.text.toString()
 
+        binding.registerTilEmail.error = null
+        binding.registerTilPassword.error = null
+
         registerViewModel.register(
             RegisterBody(email, password)
         )
     }
 
-    private fun handleAuthentication(token: String) {
-        if (token.isNotEmpty() && token.isNotBlank()) {
-            authViewModel.setToken(token)
-            handleNavigateToHome()
-        }
-    }
-
     private fun handleNavigateToAccountSetup(bundle: Bundle) {
         AccountSetupActivity.startActivity(requireActivity(), bundle)
-        requireActivity().finish()
-    }
-
-    private fun handleNavigateToHome() {
-        HomeActivity.startActivity(requireActivity())
         requireActivity().finish()
     }
 
@@ -146,16 +151,33 @@ class RegisterFragment: Fragment() {
             SpannableString(resources.getString(R.string.t_and_c))
         val registerGoogleText: Spannable = SpannableString(resources.getString(R.string.register_google_text))
 
+        val clickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                val bundle = Bundle()
+                bundle.putInt(AuthActivity.KEY_TAB_INDEX, 1)
+
+                TermOfServicesActivity.startActivity(requireActivity(), bundle)
+                requireActivity().finish()
+            }
+        }
+
+        registerDescText.setSpan(
+            clickableSpan,
+            31,
+            35,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
         registerDescText.setSpan(
             ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.primary_500)),
-            30,
+            31,
             35,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
         registerDescText.setSpan(
             StyleSpan(R.style.TextXS_Medium),
-            30,
+            31,
             35,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
@@ -168,6 +190,7 @@ class RegisterFragment: Fragment() {
         )
 
         binding.registerDesc.text = registerDescText
+        binding.registerDesc.movementMethod = LinkMovementMethod.getInstance()
         binding.registerGoogleText.text = registerGoogleText
     }
 
@@ -216,9 +239,23 @@ class RegisterFragment: Fragment() {
             val bundle = Bundle()
             bundle.putString(AccountSetupActivity.KEY_EMAIL_SETUP, email)
             bundle.putString(AccountSetupActivity.KEY_NAME_SETUP, displayName)
+            bundle.putString(AccountSetupActivity.KEY_PASSWORD_SETUP, "")
             bundle.putString(AccountSetupActivity.KEY_PHOTO_SETUP, photoUrl)
+            bundle.putLong(AccountSetupActivity.KEY_TIMESTAMP_SETUP,
+                (System.currentTimeMillis() + 300000)
+            )
 
             handleNavigateToAccountSetup(bundle)
         }
+    }
+
+    private fun handlePasswordChange() {
+        binding.registerTiPassword.addTextChangedListener { calculatePasswordStrength(it.toString()) }
+    }
+
+    private fun calculatePasswordStrength(password: String) {
+        val passwordStrength = PasswordStrength.calculate(password)
+        binding.tvStrength.text = getString(passwordStrength.message)
+        binding.tvStrength.setTextColor(ContextCompat.getColor(requireContext(), passwordStrength.color))
     }
 }

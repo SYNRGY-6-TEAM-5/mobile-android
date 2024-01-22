@@ -13,7 +13,7 @@ import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentProfileBinding
 import com.synrgy.aeroswift.dialog.LoadingDialog
 import com.synrgy.aeroswift.presentation.AuthActivity
-import com.synrgy.aeroswift.presentation.viewmodel.AuthViewModel
+import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
 import com.synrgy.presentation.helper.Helper
 import dagger.hilt.android.AndroidEntryPoint
 

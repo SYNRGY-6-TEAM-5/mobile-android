@@ -3,19 +3,21 @@ package com.synrgy.aeroswift.dialog
 import android.app.Activity
 import android.app.AlertDialog
 import android.graphics.drawable.ColorDrawable
-import com.synrgy.aeroswift.R
+import com.synrgy.aeroswift.databinding.DialogLoadingBinding
 
 class LoadingDialog(
     private val activity: Activity
 ) {
 
     private lateinit var dialog: AlertDialog
+    private lateinit var binding: DialogLoadingBinding
 
     fun startLoadingDialog() {
         val builder = AlertDialog.Builder(activity)
-        val inflater = activity.layoutInflater
+        binding = DialogLoadingBinding.inflate(activity.layoutInflater)
+        val view = binding.root
 
-        builder.setView(inflater.inflate(R.layout.dialog_loading, null))
+        builder.setView(view)
         builder.setCancelable(false)
 
         dialog = builder.create()

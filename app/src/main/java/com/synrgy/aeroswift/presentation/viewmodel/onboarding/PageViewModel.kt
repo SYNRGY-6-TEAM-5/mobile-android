@@ -1,4 +1,4 @@
-package com.synrgy.aeroswift.presentation.viewmodel
+package com.synrgy.aeroswift.presentation.viewmodel.onboarding
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
