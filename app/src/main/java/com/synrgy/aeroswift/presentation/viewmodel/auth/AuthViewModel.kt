@@ -45,7 +45,7 @@ class AuthViewModel @Inject constructor(
     fun checkAuth() {
         viewModelScope.launch(Dispatchers.Main) {
             _authentication.value = getTokenUseCase.invoke().first() ?: ""
-            _name.value = getNameUseCase.invoke().first() ?: ""
+            _name.value = getNameUseCase.invoke().first() ?: "User"
             _photo.value = getPhotoUseCase.invoke().first() ?: ""
         }
     }

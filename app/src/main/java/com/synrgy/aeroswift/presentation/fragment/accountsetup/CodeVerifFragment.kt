@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,77 +79,48 @@ class CodeVerifFragment : Fragment() {
     }
 
     private fun handleInputCode() {
-        binding.regVc1.requestFocus()
+        val vcInputs = listOf(
+            binding.regVc1,
+            binding.regVc2,
+            binding.regVc3,
+            binding.regVc4
+        )
+        val vcLength = vcInputs.size
 
-        binding.regVc1.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s?.length == 1) {
-                    binding.regVc2.requestFocus()
-                    binding.regVc1.setBackgroundResource(R.drawable.bg_verif_code_filled)
-                    binding.regVc1.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                }
+        vcInputs[0].requestFocus()
 
-                if (s?.length == 0) {
-                    binding.regVc1.setBackgroundResource(R.drawable.bg_verif_code)
-                    binding.regVc1.setTextColor(ContextCompat.getColor(requireContext(), R.color.base_black))
-                }
-            }
-            override fun afterTextChanged(s: Editable?) {}
-        })
+        for (index in 0 until vcLength) {
+            vcInputs[index].addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    if (count >= 1) {
+                        if (index != vcLength - 1) {
+                            vcInputs[index + 1].requestFocus()
+                        }
+                        vcInputs[index].setBackgroundResource(R.drawable.bg_verif_code_filled)
+                        vcInputs[index].setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                    }
 
-        binding.regVc2.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s?.length == 1) {
-                    binding.regVc3.requestFocus()
-                    binding.regVc2.setBackgroundResource(R.drawable.bg_verif_code_filled)
-                    binding.regVc2.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                    if (count == 0) {
+                        if (index != 0) {
+                            vcInputs[index - 1].requestFocus()
+                        }
+                        vcInputs[index].setBackgroundResource(R.drawable.bg_verif_code)
+                        vcInputs[index].setTextColor(ContextCompat.getColor(requireContext(), R.color.base_black))
+                    }
                 }
+                override fun afterTextChanged(s: Editable?) {}
+            })
 
-                if (s?.length == 0) {
-                    binding.regVc1.requestFocus()
-                    binding.regVc2.setBackgroundResource(R.drawable.bg_verif_code)
-                    binding.regVc2.setTextColor(ContextCompat.getColor(requireContext(), R.color.base_black))
+            vcInputs[index].setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+                if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DEL
+                    && index > 0 && vcInputs[index].text.toString().isEmpty()) {
+                    vcInputs[index - 1].requestFocus()
+                    return@OnKeyListener true
                 }
-            }
-            override fun afterTextChanged(s: Editable?) {}
-        })
-
-        binding.regVc3.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s?.length == 1) {
-                    binding.regVc4.requestFocus()
-                    binding.regVc3.setBackgroundResource(R.drawable.bg_verif_code_filled)
-                    binding.regVc3.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                }
-
-                if (s?.length == 0) {
-                    binding.regVc2.requestFocus()
-                    binding.regVc3.setBackgroundResource(R.drawable.bg_verif_code)
-                    binding.regVc3.setTextColor(ContextCompat.getColor(requireContext(), R.color.base_black))
-                }
-            }
-            override fun afterTextChanged(s: Editable?) {}
-        })
-
-        binding.regVc4.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s?.length == 1) {
-                    binding.regVc4.setBackgroundResource(R.drawable.bg_verif_code_filled)
-                    binding.regVc4.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                }
-
-                if (s?.length == 0) {
-                    binding.regVc3.requestFocus()
-                    binding.regVc4.setBackgroundResource(R.drawable.bg_verif_code)
-                    binding.regVc4.setTextColor(ContextCompat.getColor(requireContext(), R.color.base_black))
-                }
-            }
-            override fun afterTextChanged(s: Editable?) {}
-        })
+                false
+            })
+        }
     }
 
     private fun handleTimer() {
@@ -214,7 +186,7 @@ class CodeVerifFragment : Fragment() {
             response.success) {
 
             Helper.showToast(requireActivity(), requireContext(), response.message, isSuccess = true)
-            authViewModel.setRegToken(response.token)
+            authViewModel.setToken(response.token)
             findNavController().navigate(R.id.action_codeVerifFragment_to_accountDetailFragment)
         }
     }

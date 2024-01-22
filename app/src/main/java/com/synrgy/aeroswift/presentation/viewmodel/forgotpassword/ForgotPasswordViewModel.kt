@@ -49,8 +49,10 @@ class ForgotPasswordViewModel @Inject constructor(
                 is Resource.ErrorRes -> {
                     withContext(Dispatchers.Main) {
                         _loading.value = false
-                        _error.value = response.errorRes?.message ?: ""
                         _errors.value = response.errorRes?.errors ?: emptyList()
+                        if (response.errorRes?.errors == null) {
+                            _error.value = response.errorRes?.message ?: ""
+                        }
                     }
                 }
                 is Resource.ExceptionRes -> {

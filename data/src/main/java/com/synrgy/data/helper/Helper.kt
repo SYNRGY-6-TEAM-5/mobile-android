@@ -26,4 +26,48 @@ object Helper {
     private fun <T> getErrorResponse(response: String, errorClass: Class<T>): T {
         return Gson().fromJson(response, errorClass)
     }
+
+    fun containsSpecialCharacter(sentence: String): Boolean {
+        val specialCharacters = "!\"#\$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
+        for (ch in sentence) {
+            if (specialCharacters.contains(ch)) {
+                return true
+            }
+        }
+        return false
+    }
+
+    fun containsAlphanumeric(sentence: String): Boolean {
+        var containsLetter = false
+        var containsNumber = false
+
+        for (ch in sentence) {
+            if (ch.isLetter()) {
+                containsLetter = true
+            }
+
+            if (ch.isDigit()) {
+                containsNumber = true
+            }
+
+            if (containsLetter && containsNumber) {
+                break
+            }
+        }
+
+        return containsLetter && containsNumber
+    }
+
+    fun containsUppercaseLetter(sentence: String): Boolean {
+        for (ch in sentence) {
+            if (ch.isUpperCase()) {
+                return true
+            }
+        }
+        return false
+    }
+
+    fun checkPasswordLength(password: String): Boolean {
+        return password.length >= 8
+    }
 }

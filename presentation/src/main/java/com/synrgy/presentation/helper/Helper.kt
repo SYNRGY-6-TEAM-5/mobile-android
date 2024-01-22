@@ -19,7 +19,6 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
-import java.util.regex.Pattern
 
 object Helper {
     private const val REQUEST_CODE_PERMISSION = 0
@@ -119,7 +118,7 @@ object Helper {
     fun showDatePicker(
         context: Context,
         selectedDate: Calendar,
-        doAfterSelected: () -> Unit = {}
+        doAfterSelected: () -> Unit = {},
     ) {
         val datePickerDialog = DatePickerDialog(
             context,

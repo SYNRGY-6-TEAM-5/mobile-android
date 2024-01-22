@@ -3,6 +3,7 @@ package com.synrgy.di.domain
 import com.synrgy.data.local.LocalRepository
 import com.synrgy.data.remote.RemoteRepository
 import com.synrgy.domain.repository.AuthRepository
+import com.synrgy.domain.repository.DepartureRepository
 import com.synrgy.domain.repository.GuestRepository
 import com.synrgy.domain.repository.LoginRepository
 import com.synrgy.domain.repository.NewUserRepository
@@ -23,6 +24,15 @@ object DomainModule {
     ): GuestRepository {
         return remoteRepository
     }
+
+    @Singleton
+    @Provides
+    fun provideDepartureRepository(
+        remoteRepository: RemoteRepository
+    ): DepartureRepository {
+        return remoteRepository
+    }
+
     @Singleton
     @Provides
     fun provideLoginRepository(

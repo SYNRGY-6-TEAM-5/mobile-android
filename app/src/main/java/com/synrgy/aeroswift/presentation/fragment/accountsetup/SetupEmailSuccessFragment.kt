@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.synrgy.aeroswift.databinding.FragmentSetupEmailSuccessBinding
-import com.synrgy.aeroswift.presentation.AuthActivity
+import com.synrgy.aeroswift.presentation.HomeActivity
 
 class SetupEmailSuccessFragment : Fragment() {
     private lateinit var binding: FragmentSetupEmailSuccessBinding
@@ -40,14 +40,14 @@ class SetupEmailSuccessFragment : Fragment() {
                 binding.tvTimerAccountSetup.text = timeString
             }
 
-            override fun onFinish() { handleNavigateToLogin() }
+            override fun onFinish() { handleNavigateToHome() }
         }
 
         countDownTimer.start()
     }
 
-    private fun handleNavigateToLogin() {
-        AuthActivity.startActivity(requireActivity())
+    private fun handleNavigateToHome() {
+        HomeActivity.startActivity(requireActivity())
         requireActivity().finish()
     }
 

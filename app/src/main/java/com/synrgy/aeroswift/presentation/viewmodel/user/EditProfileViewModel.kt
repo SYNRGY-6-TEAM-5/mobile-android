@@ -8,7 +8,7 @@ import com.synrgy.domain.Resource
 import com.synrgy.domain.body.user.EditProfileBody
 import com.synrgy.domain.response.error.ErrorItem
 import com.synrgy.domain.response.user.EditProfileResponse
-import com.synrgy.presentation.usecase.auth.GetRegTokenUseCase
+import com.synrgy.presentation.usecase.login.GetTokenUseCase
 import com.synrgy.presentation.usecase.user.EditProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class EditProfileViewModel @Inject constructor(
     private val editProfileUseCase: EditProfileUseCase,
-    private val getRegTokenUseCase: GetRegTokenUseCase
+    private val getTokenUseCase: GetTokenUseCase
 ): ViewModel() {
     private val _editProfile: MutableLiveData<EditProfileResponse> = MutableLiveData()
     val editProfile: LiveData<EditProfileResponse> = _editProfile
@@ -38,7 +38,7 @@ class EditProfileViewModel @Inject constructor(
         _loading.value = true
         viewModelScope.launch(Dispatchers.IO) {
             when (val response = editProfileUseCase.invoke(
-                getRegTokenUseCase.invoke().first() ?: "",
+                getTokenUseCase.invoke().first() ?: "",
                 body
             )) {
                 is Resource.Success -> {
@@ -53,8 +53,10 @@ class EditProfileViewModel @Inject constructor(
                 is Resource.ErrorRes -> {
                     withContext(Dispatchers.Main) {
                         _loading.value = false
-                        _error.value = response.errorRes?.message ?: ""
                         _errors.value = response.errorRes?.errors ?: emptyList()
+                        if (response.errorRes?.errors == null) {
+                            _error.value = response.errorRes?.message ?: ""
+                        }
                     }
                 }
                 is Resource.ExceptionRes -> {
