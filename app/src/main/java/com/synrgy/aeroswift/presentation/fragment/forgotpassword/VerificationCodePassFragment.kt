@@ -5,6 +5,7 @@ import android.os.CountDownTimer
 import android.text.Editable
 import android.text.Html
 import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -72,77 +73,48 @@ class VerificationCodePassFragment : Fragment() {
     }
 
     private fun handleInputCode() {
-        binding.vc1.requestFocus()
+        val vcInputs = listOf(
+            binding.vc1,
+            binding.vc2,
+            binding.vc3,
+            binding.vc4
+        )
+        val vcLength = vcInputs.size
 
-        binding.vc1.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s?.length == 1) {
-                    binding.vc2.requestFocus()
-                    binding.vc1.setBackgroundResource(R.drawable.bg_verif_code_filled)
-                    binding.vc1.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                }
+        vcInputs[0].requestFocus()
 
-                if (s?.length == 0) {
-                    binding.vc1.setBackgroundResource(R.drawable.bg_verif_code)
-                    binding.vc1.setTextColor(ContextCompat.getColor(requireContext(), R.color.base_black))
-                }
-            }
-            override fun afterTextChanged(s: Editable?) {}
-        })
+        for (index in 0 until vcLength) {
+            vcInputs[index].addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    if (count >= 1) {
+                        if (index != vcLength - 1) {
+                            vcInputs[index + 1].requestFocus()
+                        }
+                        vcInputs[index].setBackgroundResource(R.drawable.bg_verif_code_filled)
+                        vcInputs[index].setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                    }
 
-        binding.vc2.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s?.length == 1) {
-                    binding.vc3.requestFocus()
-                    binding.vc2.setBackgroundResource(R.drawable.bg_verif_code_filled)
-                    binding.vc2.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                    if (count == 0) {
+                        if (index != 0) {
+                            vcInputs[index - 1].requestFocus()
+                        }
+                        vcInputs[index].setBackgroundResource(R.drawable.bg_verif_code)
+                        vcInputs[index].setTextColor(ContextCompat.getColor(requireContext(), R.color.base_black))
+                    }
                 }
+                override fun afterTextChanged(s: Editable?) {}
+            })
 
-                if (s?.length == 0) {
-                    binding.vc1.requestFocus()
-                    binding.vc2.setBackgroundResource(R.drawable.bg_verif_code)
-                    binding.vc2.setTextColor(ContextCompat.getColor(requireContext(), R.color.base_black))
+            vcInputs[index].setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+                if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DEL
+                    && index > 0 && vcInputs[index].text.toString().isEmpty()) {
+                    vcInputs[index - 1].requestFocus()
+                    return@OnKeyListener true
                 }
-            }
-            override fun afterTextChanged(s: Editable?) {}
-        })
-
-        binding.vc3.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s?.length == 1) {
-                    binding.vc4.requestFocus()
-                    binding.vc3.setBackgroundResource(R.drawable.bg_verif_code_filled)
-                    binding.vc3.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                }
-
-                if (s?.length == 0) {
-                    binding.vc2.requestFocus()
-                    binding.vc3.setBackgroundResource(R.drawable.bg_verif_code)
-                    binding.vc3.setTextColor(ContextCompat.getColor(requireContext(), R.color.base_black))
-                }
-            }
-            override fun afterTextChanged(s: Editable?) {}
-        })
-
-        binding.vc4.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s?.length == 1) {
-                    binding.vc4.setBackgroundResource(R.drawable.bg_verif_code_filled)
-                    binding.vc4.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                }
-
-                if (s?.length == 0) {
-                    binding.vc3.requestFocus()
-                    binding.vc4.setBackgroundResource(R.drawable.bg_verif_code)
-                    binding.vc4.setTextColor(ContextCompat.getColor(requireContext(), R.color.base_black))
-                }
-            }
-            override fun afterTextChanged(s: Editable?) {}
-        })
+                false
+            })
+        }
     }
 
     private fun handleTimer() {
