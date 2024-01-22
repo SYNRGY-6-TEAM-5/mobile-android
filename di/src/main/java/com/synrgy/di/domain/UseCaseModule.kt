@@ -1,6 +1,7 @@
 package com.synrgy.di.domain
 
 import com.synrgy.domain.repository.AuthRepository
+import com.synrgy.domain.repository.DepartureRepository
 import com.synrgy.domain.repository.GuestRepository
 import com.synrgy.domain.repository.LoginRepository
 import com.synrgy.domain.repository.NewUserRepository
@@ -12,6 +13,7 @@ import com.synrgy.presentation.usecase.auth.GetRegTokenUseCase
 import com.synrgy.presentation.usecase.auth.SetNameUseCase
 import com.synrgy.presentation.usecase.auth.SetPhotoUseCase
 import com.synrgy.presentation.usecase.auth.SetRegTokenUseCase
+import com.synrgy.presentation.usecase.departure.GetDepartureUseCase
 import com.synrgy.presentation.usecase.forgotpassword.EditPasswordFpUseCase
 import com.synrgy.presentation.usecase.forgotpassword.ForgotPasswordUseCase
 import com.synrgy.presentation.usecase.forgotpassword.ValidateOtpFpUseCase
@@ -112,6 +114,14 @@ object UseCaseModule {
         guestRepository: GuestRepository
     ): EditPasswordFpUseCase {
         return EditPasswordFpUseCase(guestRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetDepartureUseCase(
+        departureRepository: DepartureRepository
+    ): GetDepartureUseCase {
+        return GetDepartureUseCase(departureRepository)
     }
 
     @Singleton
