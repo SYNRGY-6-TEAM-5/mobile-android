@@ -93,7 +93,7 @@ class CodeVerifFragment : Fragment() {
             vcInputs[index].addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    if (count >= 1) {
+                    if (count == 1) {
                         if (index != vcLength - 1) {
                             vcInputs[index + 1].requestFocus()
                         }
@@ -116,6 +116,12 @@ class CodeVerifFragment : Fragment() {
                 if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DEL
                     && index > 0 && vcInputs[index].text.toString().isEmpty()) {
                     vcInputs[index - 1].requestFocus()
+                    return@OnKeyListener true
+                }
+                if (event.action == KeyEvent.ACTION_DOWN &&
+                    (keyCode >= KeyEvent.KEYCODE_0 && keyCode <= KeyEvent.KEYCODE_9)
+                    && index < vcLength - 1 && vcInputs[index].text.length == 1) {
+                    vcInputs[index + 1].requestFocus()
                     return@OnKeyListener true
                 }
                 false

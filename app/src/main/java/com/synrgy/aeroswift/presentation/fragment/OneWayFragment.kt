@@ -4,20 +4,31 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Spinner
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentOneWayBinding
+import com.synrgy.aeroswift.dialog.AirportListDialog
+import com.synrgy.aeroswift.dialog.LoadingDialog
+import com.synrgy.aeroswift.presentation.viewmodel.airport.AirportListViewModel
+import com.synrgy.domain.response.airport.AirportData
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class OneWayFragment : Fragment() {
 
     private lateinit var binding: FragmentOneWayBinding
+
+    private lateinit var airportListDialog: AirportListDialog
+    private lateinit var loadingDialog: LoadingDialog
+
+    private val airportViewModel: AirportListViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = FragmentOneWayBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -25,28 +36,58 @@ class OneWayFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val spOrigin = binding.spOrigin
-        val spDestination = binding.spDestination
+        loadingDialog = LoadingDialog(requireActivity())
+        airportListDialog = AirportListDialog(requireActivity(), airportViewModel, viewLifecycleOwner)
 
-        initSpinner(spDestination)
-        initSpinner(spOrigin)
+        observeViewModel()
+
+        binding.spOrigin.setOnClickListener {
+            airportViewModel.getAirport()
+            airportViewModel.setIsDest(false)
+        }
+        binding.spDestination.setOnClickListener {
+            airportViewModel.getAirport()
+            airportViewModel.setIsDest(true)
+        }
 
         binding.btnSwap.setOnClickListener {
-            val temp = spOrigin.selectedItemPosition
-            spOrigin.setSelection(spDestination.selectedItemPosition)
-            spDestination.setSelection(temp)
+            if (binding.spOrigin.text == getString(R.string.select)) {
+                binding.spDestination.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray_200))
+                binding.spOrigin.setTextColor(ContextCompat.getColor(requireContext(), R.color.base_black))
+            }
+            if (binding.spDestination.text == getString(R.string.select)) {
+                binding.spOrigin.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray_200))
+                binding.spDestination.setTextColor(ContextCompat.getColor(requireContext(), R.color.base_black))
+            }
+
+            val temp = binding.spOrigin.text
+            binding.spOrigin.text = binding.spDestination.text
+            binding.spDestination.text = temp
         }
     }
 
-    private fun initSpinner(spinner: Spinner) {
-        val adapter = ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.origin,
-            android.R.layout.simple_spinner_item
-        )
-
-        spinner.adapter = adapter
-        spinner.setSelection(0)
+    private fun observeViewModel() {
+        airportViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
+        airportViewModel.origin.observe(viewLifecycleOwner, ::handleGetOrigin)
+        airportViewModel.destination.observe(viewLifecycleOwner, ::handleGetDestination)
     }
 
+    private fun handleLoading(loading: Boolean) {
+        if (loading) {
+            loadingDialog.startLoadingDialog()
+        } else {
+            loadingDialog.dismissDialog()
+            airportListDialog.show()
+        }
+    }
+
+    private fun handleGetOrigin(data: AirportData) {
+        binding.spOrigin.text = data.iataCode
+        binding.spOrigin.setTextColor(ContextCompat.getColor(requireContext(), R.color.base_black))
+    }
+
+    private fun handleGetDestination(data: AirportData) {
+        binding.spDestination.text = data.iataCode
+        binding.spDestination.setTextColor(ContextCompat.getColor(requireContext(), R.color.base_black))
+    }
 }

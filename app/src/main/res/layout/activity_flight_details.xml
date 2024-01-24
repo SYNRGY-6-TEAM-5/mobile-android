@@ -4,26 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.FlightDetailsActivity">
+    tools:context=".presentation.FlightDetailsActivity"
+    android:paddingTop="50dp"
+    android:background="@color/base_black">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/base_black"
-        android:paddingTop="40dp"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_toolbar_title"
+            style="@style/Text.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/selected_flight"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
+            android:textColor="@color/white" />
 
         <ImageView
             android:id="@+id/iv_back"
@@ -42,23 +41,24 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="64dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingBottom="80dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_flight_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/base_black"
-                android:padding="40dp"
-                app:layout_constraintTop_toTopOf="parent">
-
+                app:layout_constraintTop_toTopOf="parent"
+                android:paddingTop="32dp"
+                android:paddingBottom="40dp">
 
                 <ImageView
                     android:id="@+id/iv_flight"
@@ -69,40 +69,36 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_details_arrival"
                     style="@style/H6.Semibold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="CGK"
+                    android:text="@string/cgk"
                     android:textColor="@color/white"
-                    android:textSize="24sp"
                     app:layout_constraintStart_toEndOf="@+id/iv_flight"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_details_departure"
                     style="@style/H6.Semibold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:text="YIA"
+                    android:text="@string/yia"
                     android:textColor="@color/white"
-                    android:textSize="24sp"
                     app:layout_constraintEnd_toStartOf="@+id/iv_flight"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_passenger_count"
-                    style="@style/TextS.Regular"
+                    style="@style/Text.Regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:text="@string/_2_passenger"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_details_arrival" />
@@ -115,8 +111,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/cl_flight_details">
 
-
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_depart"
                     style="@style/Text.Medium"
                     android:layout_width="wrap_content"
@@ -125,28 +120,25 @@
                     android:layout_marginTop="16dp"
                     android:text="@string/depart"
                     android:textColor="@color/primary_500"
-                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_depart_date_details"
-                    style="@style/TextS.Regular"
+                    style="@style/Text.Regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="@string/tue_18_dec_2018"
                     android:textColor="@color/base_black"
-                    android:textSize="16sp"
                     app:layout_constraintStart_toEndOf="@id/tv_depart"
                     app:layout_constraintTop_toTopOf="@id/tv_depart" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_non_stop"
                     style="@style/TextXS.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="24dp"
                     android:background="@drawable/bg_nonstop"
                     android:paddingHorizontal="8dp"
@@ -154,44 +146,40 @@
                     android:text="@string/non_stop"
                     android:textAlignment="center"
                     android:textColor="@color/gray_500"
-                    android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@id/tv_depart" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_departure"
                     style="@style/H6.Semibold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="52dp"
                     android:layout_marginTop="38dp"
-                    android:text="YIA"
+                    android:text="@string/yia"
                     android:textColor="@color/base_black"
-                    android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_depart_date_details" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_time_departure"
                     style="@style/TextS.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/_08_00_am"
-                    android:textColor="@color/gray_500"
-                    android:textSize="16sp"
+                    android:textColor="@color/gray_300"
                     app:layout_constraintEnd_toEndOf="@id/tv_departure"
                     app:layout_constraintTop_toBottomOf="@id/tv_departure" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_duration_departure"
                     style="@style/Text.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="16dp"
-                    android:text="1h 30m"
+                    android:text="@string/_1h_30m"
                     android:textColor="@color/base_black"
-                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/img_line_depart_arrive"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -206,7 +194,7 @@
                     app:layout_constraintStart_toEndOf="@id/tv_departure"
                     app:layout_constraintTop_toBottomOf="@id/tv_depart" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_city_departure"
                     style="@style/TextS.Medium"
                     android:layout_width="wrap_content"
@@ -214,11 +202,10 @@
                     android:layout_marginStart="16dp"
                     android:text="@string/yogyakarta_kulon_progo"
                     android:textColor="@color/base_black"
-                    android:textSize="14sp"
                     app:layout_constraintStart_toEndOf="@id/img_line_depart_arrive"
                     app:layout_constraintTop_toTopOf="@id/img_line_depart_arrive" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/terminal_domestic_departure"
                     style="@style/TextXS.Regular"
                     android:layout_width="wrap_content"
@@ -226,22 +213,22 @@
                     android:layout_marginStart="16dp"
                     android:text="@string/terminal_1_domestic"
                     android:textColor="@color/gray_500"
-                    android:textSize="12sp"
                     app:layout_constraintStart_toEndOf="@id/img_line_depart_arrive"
                     app:layout_constraintTop_toBottomOf="@id/tv_city_departure" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_flight_details_departure"
-                    android:layout_width="244dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxWidth="244dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/bg_details"
                     android:padding="16dp"
                     app:layout_constraintStart_toEndOf="@id/img_line_depart_arrive"
-                    app:layout_constraintTop_toBottomOf="@id/terminal_domestic_departure">
-
+                    app:layout_constraintTop_toBottomOf="@id/terminal_domestic_departure"
+                    app:layout_constraintEnd_toEndOf="parent">
 
                     <ImageView
                         android:id="@+id/img_departure_flight"
@@ -251,31 +238,29 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_plane_departure"
                         style="@style/Text.Medium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:text="Garuda Indonesia"
+                        android:text="@string/garuda_indonesia"
                         android:textColor="@color/base_black"
-                        android:textSize="16sp"
                         app:layout_constraintStart_toEndOf="@id/img_departure_flight"
                         app:layout_constraintTop_toTopOf="@id/img_departure_flight" />
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_plane_type_departure"
                         style="@style/TextXS.Regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:text="GA207-Economy"
+                        android:text="@string/ga207_economy"
                         android:textColor="@color/base_black"
-                        android:textSize="12sp"
                         app:layout_constraintStart_toEndOf="@id/img_departure_flight"
                         app:layout_constraintTop_toBottomOf="@id/tv_plane_departure" />
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/what_include_departure"
                         style="@style/TextS.Medium"
                         android:layout_width="wrap_content"
@@ -283,7 +268,6 @@
                         android:layout_marginTop="32dp"
                         android:text="@string/what_s_included"
                         android:textColor="@color/base_black"
-                        android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_plane_type_departure" />
 
@@ -296,27 +280,26 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/what_include_departure" />
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_cabin_baggage"
                         style="@style/TextXS.Regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:text="Cabin Baggage: 10kg"
+                        android:text="@string/cabin_baggage_10kg"
                         android:textColor="@color/base_black"
-                        android:textSize="12sp"
                         app:layout_constraintStart_toEndOf="@id/img_cabin_baggage"
                         app:layout_constraintTop_toTopOf="@id/img_cabin_baggage" />
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_price_baggage"
+                        style="@style/TextXS.Regular"
                         android:layout_width="184dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="4dp"
                         android:text="@string/excess_baggage_idr_25_000_kg"
                         android:textColor="@color/base_black"
-                        android:textSize="12sp"
                         app:layout_constraintStart_toEndOf="@id/img_cabin_baggage"
                         app:layout_constraintTop_toBottomOf="@id/img_cabin_baggage" />
 
@@ -329,7 +312,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_price_baggage" />
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_meal"
                         style="@style/TextXS.Regular"
                         android:layout_width="wrap_content"
@@ -337,81 +320,75 @@
                         android:layout_marginStart="8dp"
                         android:text="@string/free_meals"
                         android:textColor="@color/base_black"
-                        android:textSize="12sp"
                         app:layout_constraintStart_toEndOf="@id/img_meal"
-                        app:layout_constraintTop_toTopOf="@id/img_meal" />
+                        app:layout_constraintTop_toTopOf="@id/img_meal"
+                        app:layout_constraintBottom_toBottomOf="@id/img_meal"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_arrive"
-                    style="@style/Text.Medium"
+                    style="@style/H6.Semibold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:text="CGK"
+                    android:text="@string/cgk"
                     android:textColor="@color/base_black"
-                    android:textSize="24sp"
                     app:layout_constraintEnd_toStartOf="@id/img_line_depart_arrive"
-                    app:layout_constraintTop_toBottomOf="@id/cl_flight_details_departure" />
+                    app:layout_constraintBottom_toTopOf="@id/tv_time_arrive" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_time_arrive"
                     style="@style/TextS.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10:00 AM"
-                    android:textColor="@color/gray_500"
-                    android:textSize="16sp"
+                    android:text="@string/_10_00_am"
+                    android:textColor="@color/gray_300"
                     app:layout_constraintEnd_toEndOf="@id/tv_arrive"
-                    app:layout_constraintTop_toBottomOf="@id/tv_arrive" />
+                    app:layout_constraintBottom_toBottomOf="@id/img_line_depart_arrive"/>
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_airport_arrive"
                     style="@style/TextS.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="18dp"
                     android:layout_marginTop="16dp"
-                    android:text="Soekarno Hatta"
+                    android:text="@string/soekarno_hatta"
                     android:textColor="@color/base_black"
-                    android:textSize="14sp"
                     app:layout_constraintStart_toEndOf="@id/img_line_depart_arrive"
-                    app:layout_constraintTop_toBottomOf="@id/cl_flight_details_departure" />
+                    app:layout_constraintBottom_toTopOf="@id/terminal_domestic_arrive" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/terminal_domestic_arrive"
                     style="@style/TextXS.Regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="18dp"
-                    android:text="Terminal 1 Domestic"
+                    android:text="@string/terminal_1_domestic"
                     android:textColor="@color/gray_500"
-                    android:textSize="12sp"
                     app:layout_constraintStart_toEndOf="@id/img_line_depart_arrive"
-                    app:layout_constraintTop_toBottomOf="@id/tv_airport_arrive" />
+                    app:layout_constraintBottom_toBottomOf="@id/img_line_depart_arrive" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_arrival"
                     style="@style/Text.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="24dp"
-                    android:text="Arrive"
+                    android:layout_marginTop="30dp"
+                    android:text="@string/arrived"
                     android:textColor="@color/primary_500"
-                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_time_arrive" />
+                    app:layout_constraintTop_toBottomOf="@id/img_line_depart_arrive" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_arrival_date_details"
                     style="@style/Text.Regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Tue, 18 Dec 2018"
+                    android:text="@string/tue_18_dec_2018"
                     android:textColor="@color/base_black"
-                    android:textSize="16sp"
                     app:layout_constraintStart_toEndOf="@id/tv_arrival"
                     app:layout_constraintTop_toTopOf="@id/tv_arrival" />
 
@@ -425,18 +402,18 @@
                 android:background="@color/gray_300"
                 app:layout_constraintTop_toBottomOf="@id/cl_one_way" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextS.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:text="@string/total"
                 android:textColor="@color/base_black"
-                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/img_line" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_total_price"
                 style="@style/Text.Semibold"
                 android:layout_width="wrap_content"
@@ -445,11 +422,10 @@
                 android:layout_marginEnd="16dp"
                 android:text="@string/idr_1_000_000"
                 android:textColor="@color/primary_500"
-                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/img_line" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_select_flight"
                 style="@style/Button.Primary"
                 android:layout_width="match_parent"
@@ -459,9 +435,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="@string/select_flight"
                 android:textColor="@color/white"
-                android:textSize="16sp"
                 app:layout_constraintTop_toBottomOf="@+id/tv_total_price" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

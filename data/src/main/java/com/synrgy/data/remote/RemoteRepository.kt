@@ -10,8 +10,10 @@ import com.synrgy.domain.body.forgotpassword.EditPasswordFpBody
 import com.synrgy.domain.body.forgotpassword.ForgotPasswordBody
 import com.synrgy.domain.body.forgotpassword.ValidateOtpFpBody
 import com.synrgy.domain.body.user.EditProfileBody
+import com.synrgy.domain.repository.AirportRepository
 import com.synrgy.domain.repository.DepartureRepository
 import com.synrgy.domain.repository.GuestRepository
+import com.synrgy.domain.response.airport.AirportResponse
 import com.synrgy.domain.response.auth.LoginResponse
 import com.synrgy.domain.response.auth.RegisterResponse
 import com.synrgy.domain.response.auth.UploadProfileImageResponse
@@ -26,7 +28,7 @@ import javax.inject.Inject
 
 class RemoteRepository @Inject constructor(
     private val remoteService: RemoteService
-): GuestRepository, DepartureRepository {
+): GuestRepository, DepartureRepository, AirportRepository {
     override suspend fun register(user: RegisterBody): Resource<RegisterResponse> {
         val response = remoteService.register(user)
         val result = response.body()
@@ -87,6 +89,12 @@ class RemoteRepository @Inject constructor(
 
     override suspend fun getDeparture(): Resource<DepartureResponse> {
         val response = remoteService.getDeparture()
+        val result = response.body()
+        return Helper.getResult(response, result)
+    }
+
+    override suspend fun airportList(): Resource<AirportResponse> {
+        val response = remoteService.getAirport()
         val result = response.body()
         return Helper.getResult(response, result)
     }

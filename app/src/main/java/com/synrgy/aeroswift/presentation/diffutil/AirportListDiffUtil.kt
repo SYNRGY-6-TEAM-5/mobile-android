@@ -2,13 +2,14 @@ package com.synrgy.aeroswift.presentation.diffutil
 
 import androidx.recyclerview.widget.DiffUtil
 import com.synrgy.domain.AirportList
+import com.synrgy.domain.response.airport.AirportData
 
-class AirportListDiffUtil: DiffUtil.ItemCallback<AirportList>() {
-    override fun areItemsTheSame(oldItem: AirportList, newItem: AirportList): Boolean {
+class AirportListDiffUtil: DiffUtil.ItemCallback<AirportData>() {
+    override fun areItemsTheSame(oldItem: AirportData, newItem: AirportData): Boolean {
         return oldItem == newItem
     }
 
-    override fun areContentsTheSame(oldItem: AirportList, newItem: AirportList): Boolean {
-        return oldItem.title == newItem.title
+    override fun areContentsTheSame(oldItem: AirportData, newItem: AirportData): Boolean {
+        return oldItem.id == newItem.id
     }
 }

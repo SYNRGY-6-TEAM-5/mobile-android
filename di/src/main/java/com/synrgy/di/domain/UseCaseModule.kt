@@ -1,11 +1,15 @@
 package com.synrgy.di.domain
 
+import com.synrgy.domain.repository.AirportRepository
 import com.synrgy.domain.repository.AuthRepository
 import com.synrgy.domain.repository.DepartureRepository
 import com.synrgy.domain.repository.GuestRepository
 import com.synrgy.domain.repository.LoginRepository
 import com.synrgy.domain.repository.NewUserRepository
 import com.synrgy.domain.repository.RegisterRepository
+import com.synrgy.presentation.usecase.airport.AirportListUseCase
+import com.synrgy.presentation.usecase.airport.GetRecentAirportUseCase
+import com.synrgy.presentation.usecase.airport.SetRecentAirportUseCase
 import com.synrgy.presentation.usecase.auth.ClearTokenUseCase
 import com.synrgy.presentation.usecase.auth.GetNameUseCase
 import com.synrgy.presentation.usecase.auth.GetPhotoUseCase
@@ -126,6 +130,14 @@ object UseCaseModule {
 
     @Singleton
     @Provides
+    fun provideAirportListUseCase(
+        airportRepository: AirportRepository
+    ): AirportListUseCase {
+        return AirportListUseCase(airportRepository)
+    }
+
+    @Singleton
+    @Provides
     fun provideSetTokenUseCase(
         loginRepository: LoginRepository
     ): SetTokenUseCase {
@@ -210,5 +222,21 @@ object UseCaseModule {
         authRepository: AuthRepository
     ): GetRegTokenUseCase {
         return GetRegTokenUseCase(authRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSetRecentAirportUseCase(
+        authRepository: AuthRepository
+    ): SetRecentAirportUseCase {
+        return SetRecentAirportUseCase(authRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetRecentAirportUseCase(
+        authRepository: AuthRepository
+    ): GetRecentAirportUseCase {
+        return GetRecentAirportUseCase(authRepository)
     }
 }

@@ -8,9 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentPassengerBinding
+import com.synrgy.aeroswift.dialog.TravelDocsDialog
+import com.synrgy.aeroswift.presentation.FlightDetailsActivity
 
 class PassengerFragment : Fragment() {
     private lateinit var binding: FragmentPassengerBinding
+
+    private lateinit var travelDocsDialog: TravelDocsDialog
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,10 +28,23 @@ class PassengerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        travelDocsDialog = TravelDocsDialog(requireActivity(), findNavController())
+
+        binding.passengerBaby.setOnClickListener {
+            findNavController().navigate(R.id.action_passengerFragment_to_passengerDomFragment)
+        }
+
+        binding.passengerAdult.setOnClickListener { travelDocsDialog.show() }
+
         binding.btnNext.setOnClickListener { handleNavigate() }
+
+        binding.toolbarPassenger.setNavigationOnClickListener {
+            FlightDetailsActivity.startActivity(requireActivity())
+            requireActivity().finish()
+        }
     }
 
     private fun handleNavigate() {
-        findNavController().navigate(R.id.action_passengerFragment_to_passengerDomFragment)
+//        findNavController().navigate(R.id.action_passengerFragment_to_passengerDomFragment)
     }
 }
