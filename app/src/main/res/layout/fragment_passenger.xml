@@ -285,6 +285,7 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/passenger_adult"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
@@ -334,6 +335,7 @@
                             android:padding="8dp">
 
                             <LinearLayout
+                                android:id="@+id/passenger_baby"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"

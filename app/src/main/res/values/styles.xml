@@ -124,11 +124,10 @@
         <item name="backgroundTint">@color/white</item>
     </style>
   
-    <style name="spinnerStyle" parent="Widget.AppCompat.Spinner">
+    <style name="spinnerStyle">
         <item name="android:background">@drawable/bg_dropdown_trip</item>
-        <item name="android:textSize">24sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:spinnerMode">dropdown</item>
+        <item name="android:textAppearance">@style/TextXL.Medium</item>
+        <item name="android:textColor">@color/gray_200</item>
     </style>
 
     <style name="CustomChipChoice" parent="Widget.MaterialComponents.Chip.Choice">
@@ -176,6 +175,14 @@
         <item name="android:paddingTop">20dp</item>
         <item name="android:paddingBottom">20dp</item>
         <item name="android:textAppearance">@style/Text</item>
+    </style>
+
+    <style name="AppSearchView" parent="Widget.AppCompat.SearchView">
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">@drawable/shape_gray_100</item>
+        <item name="android:searchIcon">@drawable/ic_search</item>
+        <item name="android:closeIcon">@drawable/ic_close</item>
+        <item name="android:iconifiedByDefault">false</item>
     </style>
 
 </resources>

@@ -161,7 +161,41 @@
     <string name="latest_update_dec_2023">Latest update Dec 2023</string>
     <string name="accept">Accept</string>
     <string name="i_agree_to_the_terms_of_service">I Agree to the Terms of Service</string>
-  
+    <string name="recent_airport">Recent Airport</string>
+    <string name="clear">Clear</string>
+    <string name="all_airport">All Airport</string>
+    <string name="select">Select</string>
+    <string name="search_city_country_or_airport">Search city, country or airport</string>
+    <string name="garuda_indonesia">Garuda Indonesia</string>
+    <string name="ga207_economy">GA207-Economy</string>
+    <string name="cabin_baggage_10kg">Cabin Baggage: 10kg</string>
+    <string name="_10_00_am">10:00 AM</string>
+    <string name="soekarno_hatta">Soekarno Hatta</string>
+    <string name="arrived">Arrived</string>
+    <string name="_1h_30m">1h 30m</string>
+    <string name="covid_19_infopage">Covid-19 infopage</string>
+    <string name="title_covid_1">Traveling During the COVID-19 Pandemic</string>
+    <string name="desc_covid_1">As of the latest update (January 14, 2024), the COVID-19 pandemic continues to impact travel worldwide. It\'s essential to stay informed about the latest developments, travel restrictions, and safety guidelines to ensure a smooth and secure journey. Please note that the situation is dynamic, and information may change rapidly.</string>
+    <string name="title_covid_2">General Guidelines</string>
+    <string name="_1">1.</string>
+    <string name="desc_covid_2_1">Stay Informed: Check official government sources, health organizations, and reliable travel websites for the latest information on COVID-19 and travel advisories.</string>
+    <string name="_2">2.</string>
+    <string name="desc_covid_2_2">Vaccination: Ensure you are fully vaccinated against COVID-19 before traveling. Check the vaccine requirements of your destination and keep a copy of your vaccination card.</string>
+    <string name="_3">3.</string>
+    <string name="desc_covid_2_3">Health Insurance: Consider purchasing travel insurance that covers COVID-19-related medical expenses and trip cancellations due to the pandemic.</string>
+    <string name="title_covid_3">Before You Travel</string>
+    <string name="desc_covid_3_1">Check Entry Requirements: Review the entry requirements of your destination, including any visa, testing, or quarantine requirements. This information may vary based on your nationality and the country you are visiting.</string>
+    <string name="desc_covid_3_2">COVID-19 Test: Some destinations may require a negative COVID-19 test result before entry. Ensure you understand the type of test accepted, the timing of the test, and where to get tested.</string>
+    <string name="desc_covid_3_3">Travel Authorization: Some countries may require travelers to obtain specific travel authorizations or permits before entry. Check the official government website of your destination for details.</string>
+    <string name="title_covid_4">During Your Journey</string>
+    <string name="desc_covid_4_1">Mask and Hygiene Practices: Follow the recommended hygiene practices, including wearing masks, using hand sanitizers, and practicing social distancing in crowded places.</string>
+    <string name="desc_covid_4_2">Monitor Your Health: Be vigilant about any symptoms associated with COVID-19. If you feel unwell, seek medical attention and follow the local health protocols.</string>
+    <string name="desc_covid_4_3">Travel Updates: Stay connected with your airline and monitor travel advisories for any sudden changes in regulations or flight schedules.</string>
+    <string name="covid_title_5">Upon Arrival</string>
+    <string name="desc_covid_5_1">Quarantine Requirements: Be aware of any quarantine or isolation requirements at your destination. Plan accordingly and ensure you have the necessary resources during this period.</string>
+    <string name="desc_covid_5_2">Local Regulations: Familiarize yourself with local COVID-19 regulations, including mask mandates, curfews, and social distancing guidelines.</string>
+    <string name="desc_covid_5_3">Emergency Contacts: Save local emergency numbers and contact information for your country\'s embassy or consulate at your destination.</string>
+
     <string-array name="origin">
         <item>Select</item>
         <item>JKT</item>

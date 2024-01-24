@@ -1,25 +1,15 @@
 package com.synrgy.aeroswift.presentation.viewholder
 
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.textview.MaterialTextView
-import com.synrgy.aeroswift.R
-import com.synrgy.domain.AirportList
+import com.synrgy.aeroswift.databinding.ItemAirportListBinding
+import com.synrgy.domain.response.airport.AirportData
 
 class AirportListViewHolder(
-    private val alItemView: View
-): RecyclerView.ViewHolder(alItemView) {
-    private var title: MaterialTextView? = null
-    private var subtitle: MaterialTextView? = null
-    private var category: MaterialTextView? = null
-
-    fun bindData(data: AirportList) {
-        title = alItemView.findViewById(R.id.tv1_airport_list)
-        subtitle = alItemView.findViewById(R.id.tv2_airport_list)
-        category = alItemView.findViewById(R.id.tv3_airport_list)
-
-        title?.text = data.title
-        subtitle?.text = data.subtitle
-        category?.text = data.category
+    private val binding: ItemAirportListBinding
+): RecyclerView.ViewHolder(binding.root) {
+    fun bindData(data: AirportData) {
+        binding.tv1AirportList.text = "${data.cityName} (${data.cityIataCode}), ${data.countryIsoCode}"
+        binding.tv2AirportList.text = "${data.airPortName} (${data.iataCode})"
+        binding.tv3AirportList.text = data.iataCode
     }
 }

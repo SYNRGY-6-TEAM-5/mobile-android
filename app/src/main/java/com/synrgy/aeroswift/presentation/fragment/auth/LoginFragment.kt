@@ -9,7 +9,6 @@ import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.util.Log
-import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,9 +25,9 @@ import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentLoginBinding
 import com.synrgy.aeroswift.dialog.ForgotPassDialog
 import com.synrgy.aeroswift.dialog.LoadingDialog
-import com.synrgy.aeroswift.presentation.HomeActivity
 import com.synrgy.aeroswift.presentation.AuthActivity
 import com.synrgy.aeroswift.presentation.ForgotPasswordActivity
+import com.synrgy.aeroswift.presentation.HomeActivity
 import com.synrgy.aeroswift.presentation.TermOfServicesActivity
 import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
 import com.synrgy.aeroswift.presentation.viewmodel.auth.LoginViewModel

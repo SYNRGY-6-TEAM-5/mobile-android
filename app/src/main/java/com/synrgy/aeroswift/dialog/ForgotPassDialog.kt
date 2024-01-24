@@ -45,7 +45,7 @@ class ForgotPassDialog(
             viewModel.forgotPassword(ForgotPasswordBody(email))
         }
 
-        binding.toolbarPassRecovery.setOnClickListener {
+        binding.toolbarPassRecovery.setNavigationOnClickListener {
             dialog.dismiss()
         }
     }

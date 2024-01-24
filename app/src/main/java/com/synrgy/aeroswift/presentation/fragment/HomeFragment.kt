@@ -15,12 +15,12 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentHomeBinding
 import com.synrgy.aeroswift.dialog.PassengersAndCabinClassDialog
-import com.synrgy.aeroswift.presentation.AirportListActivity
+import com.synrgy.aeroswift.presentation.FlightDetailsActivity
 import com.synrgy.aeroswift.presentation.adapter.DiscountAdapter
 import com.synrgy.aeroswift.presentation.adapter.TabTripAdapter
 import com.synrgy.aeroswift.presentation.adapter.TicketPromoAdapter
-import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
 import com.synrgy.aeroswift.presentation.viewmodel.HomeViewModel
+import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -93,7 +93,7 @@ class HomeFragment : Fragment() {
         }
 
         binding.btnSearchFlight.setOnClickListener {
-            AirportListActivity.startActivity(requireActivity())
+            FlightDetailsActivity.startActivity(requireActivity())
         }
     }
 

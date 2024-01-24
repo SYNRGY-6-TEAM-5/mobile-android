@@ -4,22 +4,23 @@ import android.app.Activity
 import android.view.View
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.NavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.button.MaterialButton
 import com.synrgy.aeroswift.R
+import com.synrgy.aeroswift.databinding.DialogTravelDocsBinding
 
 class TravelDocsDialog(
-    private val activity: Activity
+    private val activity: Activity,
+    private val navController: NavController
 ): DialogFragment() {
     private lateinit var dialog: BottomSheetDialog
+    private lateinit var binding: DialogTravelDocsBinding
 
     fun show() {
         dialog = BottomSheetDialog(activity)
-        val inflater = activity.layoutInflater
-        val view = inflater.inflate(R.layout.dialog_travel_docs, null)
+        binding = DialogTravelDocsBinding.inflate(activity.layoutInflater)
+        val view = binding.root
 
         dialog.setContentView(view)
         dialog.setCancelable(true)
@@ -34,14 +35,12 @@ class TravelDocsDialog(
             behaviour.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
-        val navHostFragment = parentFragmentManager.findFragmentById(R.id.nav_container_checkout) as NavHostFragment
-        val navController = navHostFragment.findNavController()
-
-        val btnContinue = view?.findViewById<MaterialButton>(R.id.btn_continue)
-
-        btnContinue?.setOnClickListener {
-            navController.navigate(R.id.action_passengerDomFragment_to_passengerIntFragment)
+        binding.btnContinue.setOnClickListener {
+            dialog.dismiss()
+            navController.navigate(R.id.action_passengerFragment_to_passengerIntFragment)
         }
+
+        binding.ivClose.setOnClickListener { dialog.dismiss() }
     }
 
     private fun setupFullHeight(bottomSheet: View) {

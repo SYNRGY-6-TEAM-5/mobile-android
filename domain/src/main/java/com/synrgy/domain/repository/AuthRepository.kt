@@ -1,5 +1,6 @@
 package com.synrgy.domain.repository
 
+import com.synrgy.domain.response.airport.AirportData
 import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
@@ -10,4 +11,6 @@ interface AuthRepository {
     suspend fun setPhoto(photoUrl: String)
     suspend fun getRegToken(): Flow<String?>
     suspend fun setRegToken(token: String)
+    suspend fun setRecentAirport(data: AirportData)
+    suspend fun getRecentAirport(): MutableSet<String>?
 }

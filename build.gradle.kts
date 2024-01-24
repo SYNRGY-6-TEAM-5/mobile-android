@@ -5,6 +5,7 @@ buildscript {
         classpath("com.google.firebase:perf-plugin:1.4.1") {
             exclude(group = "com.google.guava", module = "guava-jdk5")
         }
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.7.6")
     }
 }
 
