@@ -41,36 +41,39 @@ class RegisterViewModel @Inject constructor(
         _localError.value = false
 
         viewModelScope.launch(Dispatchers.IO) {
-            when (val response = registerUseCase.invoke(user)) {
-                is Resource.Success -> {
-                    withContext(Dispatchers.Main) {
-                        _loading.value = false
-                        _register.value = RegisterResponse(
-                            expiredOTP = response.data?.expiredOTP ?: 0L,
-                            otp = response.data?.otp ?: "",
-                            success = validateInputUseCase.invoke(user.email, user.password)
-                        )
-                    }
+            if (!validateInputUseCase.invoke(user.email, user.password)) {
+                withContext(Dispatchers.Main) {
+                    _loading.value = false
+                    _localError.value = true
                 }
-                is Resource.ErrorRes -> {
-                    withContext(Dispatchers.Main) {
-                        _loading.value = false
-                        _errors.value = response.errorRes?.errors ?: emptyList()
-                        if (response.errorRes?.errors == null) {
-                            _error.value = response.errorRes?.message ?: ""
+            } else {
+                when (val response = registerUseCase.invoke(user)) {
+                    is Resource.Success -> {
+                        withContext(Dispatchers.Main) {
+                            _loading.value = false
+                            _register.value = RegisterResponse(
+                                expiredOTP = response.data?.expiredOTP ?: 0L,
+                                otp = response.data?.otp ?: "",
+                                success = response.data?.success ?: true
+                            )
+                        }
+                    }
+                    is Resource.ErrorRes -> {
+                        withContext(Dispatchers.Main) {
+                            _loading.value = false
+                            _errors.value = response.errorRes?.errors ?: emptyList()
+                            if (response.errorRes?.errors == null) {
+                                _error.value = response.errorRes?.message ?: ""
+                            }
+                        }
+                    }
+                    is Resource.ExceptionRes -> {
+                        withContext(Dispatchers.Main) {
+                            _loading.value = false
+                            _error.value = response.exceptionRes?.message ?: ""
                         }
                     }
                 }
-                is Resource.ExceptionRes -> {
-                    withContext(Dispatchers.Main) {
-                        _loading.value = false
-                        _error.value = response.exceptionRes?.message ?: ""
-                    }
-                }
-            }
-
-            withContext(Dispatchers.Main) {
-                _localError.value = !validateInputUseCase.invoke(user.email, user.password)
             }
         }
     }

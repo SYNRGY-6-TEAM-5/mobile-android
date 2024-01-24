@@ -7,6 +7,7 @@ import com.synrgy.domain.repository.GuestRepository
 import com.synrgy.domain.repository.LoginRepository
 import com.synrgy.domain.repository.NewUserRepository
 import com.synrgy.domain.repository.RegisterRepository
+import com.synrgy.domain.repository.UserRepository
 import com.synrgy.presentation.usecase.airport.AirportListUseCase
 import com.synrgy.presentation.usecase.airport.GetRecentAirportUseCase
 import com.synrgy.presentation.usecase.airport.SetRecentAirportUseCase
@@ -31,6 +32,7 @@ import com.synrgy.presentation.usecase.register.RegisterUseCase
 import com.synrgy.presentation.usecase.register.RegisterValidateInputUseCase
 import com.synrgy.presentation.usecase.register.ValidateOtpUseCase
 import com.synrgy.presentation.usecase.user.EditProfileUseCase
+import com.synrgy.presentation.usecase.user.GetUserDetailUseCase
 import com.synrgy.presentation.usecase.user.UploadProfileImageUseCase
 import dagger.Module
 import dagger.Provides
@@ -134,6 +136,14 @@ object UseCaseModule {
         airportRepository: AirportRepository
     ): AirportListUseCase {
         return AirportListUseCase(airportRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetUserDetailUseCase(
+        userRepository: UserRepository
+    ): GetUserDetailUseCase {
+        return GetUserDetailUseCase(userRepository)
     }
 
     @Singleton

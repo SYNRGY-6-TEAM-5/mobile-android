@@ -16,7 +16,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -32,13 +31,13 @@ import com.synrgy.aeroswift.presentation.AccountSetupActivity
 import com.synrgy.aeroswift.presentation.AuthActivity
 import com.synrgy.aeroswift.presentation.TermOfServicesActivity
 import com.synrgy.aeroswift.presentation.viewmodel.auth.RegisterViewModel
-import com.synrgy.data.helper.Helper as HelperData
 import com.synrgy.domain.body.auth.RegisterBody
 import com.synrgy.domain.response.auth.RegisterResponse
 import com.synrgy.domain.response.error.ErrorItem
 import com.synrgy.presentation.helper.Helper
 import com.synrgy.presentation.helper.PasswordStrength
 import dagger.hilt.android.AndroidEntryPoint
+import com.synrgy.data.helper.Helper as HelperData
 
 @AndroidEntryPoint
 class RegisterFragment: Fragment() {
@@ -300,7 +299,6 @@ class RegisterFragment: Fragment() {
                 passwordMessage = ""
                 calculatePasswordStrength(p0.toString())
                 validatePassword(p0.toString())
-                validatePasswordLength(p0.toString())
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -317,12 +315,21 @@ class RegisterFragment: Fragment() {
     }
 
     private fun validateEmail(email: String) {
+        if (email.isEmpty() && email.isBlank()) {
+            emailMessage += "Email is required.\n"
+        }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             emailMessage += "Email is not valid.\n"
         }
     }
 
     private fun validatePassword(password: String) {
+        if (password.isEmpty() && password.isBlank()) {
+            passwordMessage += "Password is required.\n"
+        }
+        if (!HelperData.checkPasswordLength(password)) {
+            passwordMessage += "Password length min 8 character.\n"
+        }
         if (!HelperData.containsSpecialCharacter(password)) {
             passwordMessage += "Password should contain a special character.\n"
         }
@@ -331,12 +338,6 @@ class RegisterFragment: Fragment() {
         }
         if (!HelperData.containsUppercaseLetter(password)) {
             passwordMessage += "Password should contain at least one uppercase letter.\n"
-        }
-    }
-
-    private fun validatePasswordLength(password: String) {
-        if (!HelperData.checkPasswordLength(password)) {
-            passwordMessage += "Password length min 8 character.\n"
         }
     }
 
