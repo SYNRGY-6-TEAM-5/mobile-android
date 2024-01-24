@@ -85,6 +85,8 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
     implementation("com.github.esafirm:android-image-picker:3.0.0")
+
+    implementation("com.ericktijerou.koleton:koleton:1.0.0-beta01")
 }
 
 // Allow references to generated code

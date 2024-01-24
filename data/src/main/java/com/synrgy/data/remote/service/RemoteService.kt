@@ -18,6 +18,7 @@ import com.synrgy.domain.response.forgotpassword.EditPasswordFpResponse
 import com.synrgy.domain.response.forgotpassword.ForgotPasswordResponse
 import com.synrgy.domain.response.forgotpassword.ValidateOtpFpResponse
 import com.synrgy.domain.response.user.EditProfileResponse
+import com.synrgy.domain.response.user.UserDetailResponse
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
@@ -74,4 +75,7 @@ interface RemoteService {
 
     @GET("airport/{id}/departures-arrivals")
     suspend fun getAirportDetail(@Path("id") id: Int): Response<AirportDetailResponse>
+
+    @GET("user/detail-user")
+    suspend fun getUserDetail(@Header("Authorization") token: String): Response<UserDetailResponse>
 }

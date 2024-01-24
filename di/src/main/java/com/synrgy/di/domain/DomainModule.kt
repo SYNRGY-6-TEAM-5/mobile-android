@@ -9,6 +9,7 @@ import com.synrgy.domain.repository.GuestRepository
 import com.synrgy.domain.repository.LoginRepository
 import com.synrgy.domain.repository.NewUserRepository
 import com.synrgy.domain.repository.RegisterRepository
+import com.synrgy.domain.repository.UserRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -39,6 +40,14 @@ object DomainModule {
     fun provideAirportRepository(
         remoteRepository: RemoteRepository
     ): AirportRepository {
+        return remoteRepository
+    }
+
+    @Singleton
+    @Provides
+    fun provideUserRepository(
+        remoteRepository: RemoteRepository
+    ): UserRepository {
         return remoteRepository
     }
 

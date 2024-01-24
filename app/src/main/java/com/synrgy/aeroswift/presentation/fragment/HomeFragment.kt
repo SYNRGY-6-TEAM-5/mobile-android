@@ -22,6 +22,8 @@ import com.synrgy.aeroswift.presentation.adapter.TicketPromoAdapter
 import com.synrgy.aeroswift.presentation.viewmodel.HomeViewModel
 import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import koleton.api.hideSkeleton
+import koleton.api.loadSkeleton
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -41,7 +43,6 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -76,21 +77,10 @@ class HomeFragment : Fragment() {
         }
 
         authViewModel.checkAuth()
-
-        authViewModel.name.observe(viewLifecycleOwner) {
-            binding.tvName.text = it
-        }
-
-        authViewModel.photo.observe(viewLifecycleOwner) {
-            if (it.isNotBlank() && it.isNotEmpty()) {
-                Glide
-                    .with(this)
-                    .load(it)
-                    .centerCrop()
-                    .circleCrop()
-                    .into(binding.ivProfile)
-            }
-        }
+        authViewModel.getUser()
+        authViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
+        authViewModel.name.observe(viewLifecycleOwner, ::handleGetName)
+        authViewModel.photo.observe(viewLifecycleOwner, ::handleLoadImage)
 
         binding.btnSearchFlight.setOnClickListener {
             FlightDetailsActivity.startActivity(requireActivity())
@@ -138,13 +128,8 @@ class HomeFragment : Fragment() {
         })
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when (position) {
-                0 -> {
-                    tab.text = "One-Way"
-                }
-
-                else -> {
-                    tab.text = "Roundtrip"
-                }
+                0 -> tab.text = "One-Way"
+                else -> tab.text = "Roundtrip"
             }
         }.attach()
     }
@@ -180,4 +165,30 @@ class HomeFragment : Fragment() {
         datePickerDialog.show()
     }
 
+    private fun handleLoading(loading: Boolean) {
+        if (loading) {
+            binding.tvName.loadSkeleton()
+            binding.ivProfile.loadSkeleton()
+        } else {
+            binding.tvName.hideSkeleton()
+            binding.ivProfile.hideSkeleton()
+        }
+    }
+
+    private fun handleLoadImage(image: String) {
+        if (image.isNotBlank() && image.isNotEmpty()) {
+            Glide
+                .with(this)
+                .load(image)
+                .centerCrop()
+                .circleCrop()
+                .into(binding.ivProfile)
+        }
+    }
+
+    private fun handleGetName(name: String) {
+        if (name.isNotBlank() && name.isNotEmpty()) {
+            binding.tvName.text = name
+        }
+    }
 }

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.synrgy.domain.Resource
 import com.synrgy.presentation.usecase.auth.ClearTokenUseCase
 import com.synrgy.presentation.usecase.auth.GetNameUseCase
 import com.synrgy.presentation.usecase.auth.GetPhotoUseCase
@@ -12,6 +13,7 @@ import com.synrgy.presentation.usecase.auth.SetPhotoUseCase
 import com.synrgy.presentation.usecase.auth.SetRegTokenUseCase
 import com.synrgy.presentation.usecase.login.GetTokenUseCase
 import com.synrgy.presentation.usecase.login.SetTokenUseCase
+import com.synrgy.presentation.usecase.user.GetUserDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
@@ -28,7 +30,8 @@ class AuthViewModel @Inject constructor(
     private val setNameUseCase: SetNameUseCase,
     private val getPhotoUseCase: GetPhotoUseCase,
     private val setPhotoUseCase: SetPhotoUseCase,
-    private val setRegTokenUseCase: SetRegTokenUseCase
+    private val setRegTokenUseCase: SetRegTokenUseCase,
+    private val getUserDetailUseCase: GetUserDetailUseCase
 ): ViewModel() {
     private val _logoutLoading: MutableLiveData<Boolean> = MutableLiveData()
     val logoutLoading: LiveData<Boolean> = _logoutLoading
@@ -41,6 +44,12 @@ class AuthViewModel @Inject constructor(
 
     private val _photo = MutableLiveData<String>()
     val photo: LiveData<String> = _photo
+
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> = _loading
+
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String> = _error
 
     fun checkAuth() {
         viewModelScope.launch(Dispatchers.Main) {
@@ -81,6 +90,37 @@ class AuthViewModel @Inject constructor(
     fun setPhoto(photoUrl: String) {
         viewModelScope.launch(Dispatchers.IO) {
             setPhotoUseCase.invoke(photoUrl)
+        }
+    }
+
+    fun getUser() {
+        _loading.value = true
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val response = getUserDetailUseCase.invoke(
+                getTokenUseCase.invoke().first() ?: ""
+            )) {
+                is Resource.Success -> {
+                    viewModelScope.launch(Dispatchers.Main) {
+                        _loading.value = false
+                        _name.value = (response.data?.fullName ?: "User").toString()
+                        _photo.value = (response.data?.imageUrl ?: "").toString()
+                    }
+                }
+                is Resource.ErrorRes -> {
+                    withContext(Dispatchers.Main) {
+                        _loading.value = false
+                        if (response.errorRes?.errors == null) {
+                            _error.value = response.errorRes?.message ?: ""
+                        }
+                    }
+                }
+                is Resource.ExceptionRes -> {
+                    withContext(Dispatchers.Main) {
+                        _loading.value = false
+                        _error.value = response.exceptionRes?.message ?: ""
+                    }
+                }
+            }
         }
     }
 }

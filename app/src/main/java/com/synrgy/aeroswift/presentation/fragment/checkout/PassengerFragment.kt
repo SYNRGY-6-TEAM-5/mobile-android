@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentPassengerBinding
 import com.synrgy.aeroswift.dialog.TravelDocsDialog
-import com.synrgy.aeroswift.presentation.FlightDetailsActivity
 
 class PassengerFragment : Fragment() {
     private lateinit var binding: FragmentPassengerBinding
@@ -39,8 +38,7 @@ class PassengerFragment : Fragment() {
         binding.btnNext.setOnClickListener { handleNavigate() }
 
         binding.toolbarPassenger.setNavigationOnClickListener {
-            FlightDetailsActivity.startActivity(requireActivity())
-            requireActivity().finish()
+            requireActivity().onBackPressed()
         }
     }
 
