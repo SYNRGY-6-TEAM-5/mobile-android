@@ -14,6 +14,7 @@
         <!-- Customize your theme here. -->
         <item name="android:windowTranslucentStatus">true</item>
         <item name="fontFamily">@font/inter</item>
+        <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
     </style>
 
     <style name="Theme.AeroSwift.ImagePicker" parent="Theme.MaterialComponents.Light.NoActionBar">
