@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="12dp"
+            android:paddingHorizontal="16dp"
+            android:gravity="center_vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/Text.Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/extra_protection"
+                android:textColor="@color/gray_900"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/iv_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_close"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_100"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="32dp">
+
+            <ImageView
+                android:id="@+id/iv_protection"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/img_protection"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/Text.Medium"
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/iv_protection"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/full_protection"
+                android:textColor="@color/black"
+                android:layout_marginStart="12dp"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextXS.Regular"
+                android:id="@+id/tv_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                android:text="@string/protection_desc"
+                android:textColor="@color/black"
+                android:layout_marginTop="16dp"/>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_desc"
+                android:layout_marginTop="16dp"
+                android:stretchColumns="*">
+
+                <TableRow>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextXS.Semibold"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:text="@string/coverage"
+                        android:textColor="@color/white"
+                        android:paddingEnd="12dp"
+                        tools:ignore="RtlSymmetry"
+                        android:background="@drawable/bg_table_head_left"/>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextXS.Semibold"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:text="@string/compensation"
+                        android:textColor="@color/white"
+                        android:paddingEnd="12dp"
+                        tools:ignore="RtlSymmetry"
+                        android:background="@drawable/bg_table_head_right"/>
+
+                </TableRow>
+
+                <TableRow>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextXS.Regular"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:text="@string/coverage_1"
+                        android:textColor="@color/base_black"
+                        android:paddingEnd="12dp"
+                        tools:ignore="RtlSymmetry"
+                        android:background="@drawable/bg_table_body"/>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextXS.Regular"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:text="@string/compensasion_1"
+                        android:textColor="@color/base_black"
+                        android:paddingEnd="12dp"
+                        tools:ignore="RtlSymmetry"
+                        android:background="@drawable/bg_table_body"/>
+
+                </TableRow>
+
+                <TableRow>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextXS.Regular"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:text="@string/coverage_2"
+                        android:textColor="@color/base_black"
+                        android:paddingEnd="12dp"
+                        tools:ignore="RtlSymmetry"
+                        android:background="@drawable/bg_table_body"/>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextXS.Regular"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:text="@string/compensasion_2"
+                        android:textColor="@color/base_black"
+                        android:paddingEnd="12dp"
+                        tools:ignore="RtlSymmetry"
+                        android:background="@drawable/bg_table_body"/>
+
+                </TableRow>
+
+                <TableRow>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextXS.Regular"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:text="@string/coverage_3"
+                        android:textColor="@color/base_black"
+                        android:paddingEnd="12dp"
+                        tools:ignore="RtlSymmetry"
+                        android:background="@drawable/bg_table_body_bottom_left"/>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextXS.Regular"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:text="@string/compensasion_3"
+                        android:textColor="@color/base_black"
+                        android:paddingEnd="12dp"
+                        tools:ignore="RtlSymmetry"
+                        android:background="@drawable/bg_table_body_bottom_right"/>
+
+                </TableRow>
+
+            </TableLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

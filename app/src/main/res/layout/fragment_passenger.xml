@@ -137,7 +137,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/base_black"
+                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="16dp"
                 android:layout_marginTop="24dp">
 
@@ -152,7 +152,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/contact_details"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/base_black"/>
 
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="match_parent"
@@ -225,7 +225,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/base_black"
+                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="16dp"
                 android:layout_marginTop="24dp">
 
@@ -240,7 +240,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/passenger_details"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/base_black"/>
 
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="match_parent"

@@ -208,7 +208,7 @@
     <string name="meal">Meal</string>
     <string name="meal_desc">Don’t let others hear your tummy growl for the whole flight</string>
     <string name="extra_protection">Extra Protection</string>
-    <string name="full_protection">Full protection</string>
+    <string name="full_protection">Full Protection</string>
     <string name="more_info">More Info</string>
     <string name="idr_95_000_pax">IDR 95,000/pax</string>
     <string name="cover_your_trip">Cover your trip</string>
@@ -220,8 +220,26 @@
     <string name="idr_2_230_900">IDR 2,230,900</string>
     <string name="continue_to_payment">Continue to Payment</string>
     <string name="your_trip_confirmation">Your Trip Confirmation</string>
-    <string name="before_we_procedd">Before We Procedd</string>
+    <string name="before_we_proceed">Before We Proceed</string>
     <string name="trip_confirmation_desc">Please make sure your booking details are correct. You will not be able to change your booking details once you proceed the payment. Do you want to continue?</string>
+    <string name="protection_desc">Delay, cancellation, baggage loss/damage, and accidents might happening during trips. This protection will cover you from most of that risks and issues.</string>
+    <string name="coverage">Coverage</string>
+    <string name="coverage_1">Travel delay due to technical/weather issues</string>
+    <string name="compensasion_1">IDR 350,000 per 2 consecutive hours</string>
+    <string name="compensation">Compensation</string>
+    <string name="coverage_2">Cancellation by passenger due to specified reason</string>
+    <string name="compensasion_2">As per ticket price, max IDR 100,000,000</string>
+    <string name="coverage_3">Baggage loss/damage</string>
+    <string name="compensasion_3">Up to IDR 5,000,000</string>
+    <string name="price_details">Price Details</string>
+    <string name="jakarta">Jakarta</string>
+    <string name="passenger">Passenger</string>
+    <string name="price">Price</string>
+    <string name="adult_1">Adult (1)</string>
+    <string name="idr_730_000">IDR 730,000</string>
+    <string name="child_1">Child (1)</string>
+    <string name="other_add_on">Other add on</string>
+    <string name="type">Type</string>
 
     <string-array name="origin">
         <item>Select</item>
