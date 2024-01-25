@@ -195,6 +195,33 @@
     <string name="desc_covid_5_1">Quarantine Requirements: Be aware of any quarantine or isolation requirements at your destination. Plan accordingly and ensure you have the necessary resources during this period.</string>
     <string name="desc_covid_5_2">Local Regulations: Familiarize yourself with local COVID-19 regulations, including mask mandates, curfews, and social distancing guidelines.</string>
     <string name="desc_covid_5_3">Emergency Contacts: Save local emergency numbers and contact information for your country\'s embassy or consulate at your destination.</string>
+    <string name="logout">Logout</string>
+    <string name="tko">TKO</string>
+    <string name="your_flight">Your Flight</string>
+    <string name="history">History</string>
+    <string name="no_active_flight">No Active Flight</string>
+    <string name="no_active_flight_desc">You can see all your e-tickets from previous orders on this page. Let’s plan your unforgettable trip with us!</string>
+    <string name="edit_passenger_details">Edit passenger details</string>
+    <string name="travel_add_ons">Travel Add-ons</string>
+    <string name="baggage">Baggage</string>
+    <string name="baggage_desc">Adding baggage here is cheaper that at the airport</string>
+    <string name="meal">Meal</string>
+    <string name="meal_desc">Don’t let others hear your tummy growl for the whole flight</string>
+    <string name="extra_protection">Extra Protection</string>
+    <string name="full_protection">Full protection</string>
+    <string name="more_info">More Info</string>
+    <string name="idr_95_000_pax">IDR 95,000/pax</string>
+    <string name="cover_your_trip">Cover your trip</string>
+    <string name="baggage_insurance">Baggage Insurance</string>
+    <string name="issurance_desc">Protect baggage from damage or loss up to IDR 25,000,0000</string>
+    <string name="idr_16_000_pax">IDR 16,000/pax</string>
+    <string name="flight_delay">Flight Delay</string>
+    <string name="flight_delay_desc">Compensation IDR 200,000 per 2 hour for any delay risk</string>
+    <string name="idr_2_230_900">IDR 2,230,900</string>
+    <string name="continue_to_payment">Continue to Payment</string>
+    <string name="your_trip_confirmation">Your Trip Confirmation</string>
+    <string name="before_we_procedd">Before We Procedd</string>
+    <string name="trip_confirmation_desc">Please make sure your booking details are correct. You will not be able to change your booking details once you proceed the payment. Do you want to continue?</string>
 
     <string-array name="origin">
         <item>Select</item>

@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_passengerFragment_to_passengerIntFragment"
             app:destination="@id/passengerIntFragment" />
+        <action
+            android:id="@+id/action_passengerFragment_to_addonsFragment"
+            app:destination="@id/addonsFragment" />
     </fragment>
     <fragment
         android:id="@+id/passengerDomFragment"
@@ -40,4 +43,9 @@
         android:name="com.synrgy.aeroswift.presentation.fragment.checkout.CovidFragment"
         android:label="fragment_covid"
         tools:layout="@layout/fragment_covid" />
+    <fragment
+        android:id="@+id/addonsFragment"
+        android:name="com.synrgy.aeroswift.presentation.fragment.checkout.AddonsFragment"
+        android:label="fragment_addons"
+        tools:layout="@layout/fragment_addons" />
 </navigation>
