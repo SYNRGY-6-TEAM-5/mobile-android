@@ -20,7 +20,7 @@
                 style="@style/Button.Primary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Logout"
+                android:text="@string/logout"
                 android:layout_gravity="center"/>
 
         </LinearLayout>

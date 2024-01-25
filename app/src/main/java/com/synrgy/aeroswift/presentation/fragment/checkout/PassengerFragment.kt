@@ -43,6 +43,6 @@ class PassengerFragment : Fragment() {
     }
 
     private fun handleNavigate() {
-//        findNavController().navigate(R.id.action_passengerFragment_to_passengerDomFragment)
+        findNavController().navigate(R.id.action_passengerFragment_to_addonsFragment)
     }
 }
