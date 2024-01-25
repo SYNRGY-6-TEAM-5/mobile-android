@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.CompoundButton
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentAddonsBinding
 import com.synrgy.aeroswift.dialog.ExtraProtectionDialog
@@ -69,6 +70,10 @@ class AddonsFragment : Fragment() {
         }
 
         binding.toolbarIcon.setOnClickListener { requireActivity().onBackPressed() }
+
+        binding.icBaggage.setOnClickListener {
+            findNavController().navigate(R.id.action_addonsFragment_to_addBaggageFragment)
+        }
 
         binding.btnContinue.setOnClickListener { confirmationDialog.show() }
     }

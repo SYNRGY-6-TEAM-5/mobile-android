@@ -25,8 +25,8 @@ class AirportListDialog(
 
     private lateinit var airportList: List<AirportData?>
 
-    private val allAirportListAdapter = AirportListAdapter { handleAirportClick(it) }
-    private val recentAirportListAdapter = AirportListAdapter { handleAirportClick(it) }
+    private val allAirportListAdapter = AirportListAdapter(::handleAirportClick)
+    private val recentAirportListAdapter = AirportListAdapter(::handleAirportClick)
 
     private var isDest = false
 

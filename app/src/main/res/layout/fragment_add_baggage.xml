@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.fragment.checkout.AddBaggageFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_add_baggage"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="?attr/homeAsUpIndicator">
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/Text.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_baggage"
+            android:textColor="@color/base_black"
+            android:layout_gravity="center"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_add_baggage">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="32dp"
+            android:paddingBottom="200dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/Text.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/depart"
+                android:textColor="@color/base_black"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="16dp"
+                android:layout_marginTop="12dp"
+                app:cardElevation="4dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="16dp">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/H6.Semibold"
+                        android:id="@+id/tv_depart_origin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/iv_depart_arrow"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed"
+                        android:text="@string/yia"
+                        android:textColor="@color/base_black"
+                        android:layout_marginEnd="16dp"
+                        android:paddingVertical="4dp"/>
+
+                    <ImageView
+                        android:id="@+id/iv_depart_arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toEndOf="@id/tv_depart_origin"
+                        app:layout_constraintEnd_toStartOf="@id/tv_depart_dest"
+                        app:layout_constraintTop_toTopOf="@id/tv_depart_origin"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_depart_origin"
+                        android:src="@drawable/img_arrow_left"/>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/H6.Semibold"
+                        android:id="@+id/tv_depart_dest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toEndOf="@id/iv_depart_arrow"
+                        app:layout_constraintTop_toTopOf="@id/tv_depart_origin"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_depart_origin"
+                        android:text="@string/cgk"
+                        android:textColor="@color/base_black"
+                        android:layout_marginStart="16dp"/>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextXS.Medium"
+                        android:id="@+id/tv_depart_select"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_depart_origin"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_depart_origin"
+                        android:text="@string/select"
+                        android:textColor="@color/primary_500"/>
+
+                    <View
+                        android:id="@+id/separator_depart"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_depart_origin"
+                        app:layout_constraintBottom_toTopOf="@id/iv_depart_plane"
+                        android:background="@color/gray_100"
+                        android:layout_marginTop="12dp"/>
+
+                    <ImageView
+                        android:id="@+id/iv_depart_plane"
+                        android:layout_width="24dp"
+                        android:layout_height="11dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/chip_depart"
+                        app:layout_constraintBottom_toBottomOf="@id/chip_depart"
+                        android:src="@drawable/img_plane"/>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/Text.Medium"
+                        android:id="@+id/tv_depart_plane_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toEndOf="@id/iv_depart_plane"
+                        app:layout_constraintTop_toTopOf="@id/chip_depart"
+                        app:layout_constraintBottom_toBottomOf="@id/chip_depart"
+                        android:text="@string/ga207"
+                        android:textColor="@color/base_black"
+                        android:layout_marginStart="8dp"/>
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/ChipGrayXSMedium"
+                        android:id="@+id/chip_depart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/separator_depart"
+                        android:text="@string/non_stop"
+                        android:layout_marginTop="6dp"/>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextXS.Medium"
+                        android:id="@+id/tv_depart_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/chip_depart"
+                        android:text="@string/time_add_baggage"
+                        android:textColor="@color/gray_400"
+                        android:layout_marginTop="8dp"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/Text.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/return_"
+                android:textColor="@color/base_black"
+                android:layout_marginTop="32dp"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="16dp"
+                android:layout_marginTop="12dp"
+                app:cardElevation="4dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="16dp">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/H6.Semibold"
+                        android:id="@+id/tv_return_origin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/iv_return_arrow"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed"
+                        android:text="@string/cgk"
+                        android:textColor="@color/base_black"
+                        android:layout_marginEnd="16dp"
+                        android:paddingVertical="4dp"/>
+
+                    <ImageView
+                        android:id="@+id/iv_return_arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toEndOf="@id/tv_return_origin"
+                        app:layout_constraintEnd_toStartOf="@id/tv_return_dest"
+                        app:layout_constraintTop_toTopOf="@id/tv_return_origin"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_return_origin"
+                        android:src="@drawable/img_arrow_left"/>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/H6.Semibold"
+                        android:id="@+id/tv_return_dest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toEndOf="@id/iv_return_arrow"
+                        app:layout_constraintTop_toTopOf="@id/tv_return_origin"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_return_origin"
+                        android:text="@string/yia"
+                        android:textColor="@color/base_black"
+                        android:layout_marginStart="16dp"/>
+
+                    <View
+                        android:id="@+id/separator_return"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_return_origin"
+                        app:layout_constraintBottom_toTopOf="@id/iv_return_plane"
+                        android:background="@color/gray_100"
+                        android:layout_marginTop="12dp"/>
+
+                    <ImageView
+                        android:id="@+id/iv_return_plane"
+                        android:layout_width="24dp"
+                        android:layout_height="11dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/chip_return"
+                        app:layout_constraintBottom_toBottomOf="@id/chip_return"
+                        android:src="@drawable/img_plane"/>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/Text.Medium"
+                        android:id="@+id/tv_return_plane_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toEndOf="@id/iv_return_plane"
+                        app:layout_constraintTop_toTopOf="@id/chip_return"
+                        app:layout_constraintBottom_toBottomOf="@id/chip_return"
+                        android:text="@string/ga207"
+                        android:textColor="@color/base_black"
+                        android:layout_marginStart="8dp"/>
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/ChipGrayXSMedium"
+                        android:id="@+id/chip_return"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/separator_return"
+                        android:text="@string/non_stop"
+                        android:layout_marginTop="6dp"/>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextXS.Medium"
+                        android:id="@+id/tv_return_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/chip_return"
+                        android:text="@string/time_add_baggage"
+                        android:textColor="@color/gray_400"
+                        android:layout_marginTop="8dp"/>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_return_time"
+                        app:cardBackgroundColor="@color/warning_100"
+                        app:cardCornerRadius="12dp"
+                        android:layout_marginTop="12dp"
+                        app:cardElevation="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="12dp">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                style="@style/TextXS.Regular"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/baggage_return_desc"
+                                android:textColor="@color/warning_500"/>
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="6dp"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_done"
+        style="@style/Button.Primary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/done_selecting"
+        android:layout_margin="16dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
