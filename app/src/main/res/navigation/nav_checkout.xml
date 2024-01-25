@@ -47,5 +47,23 @@
         android:id="@+id/addonsFragment"
         android:name="com.synrgy.aeroswift.presentation.fragment.checkout.AddonsFragment"
         android:label="fragment_addons"
-        tools:layout="@layout/fragment_addons" />
+        tools:layout="@layout/fragment_addons" >
+        <action
+            android:id="@+id/action_addonsFragment_to_addBaggageFragment"
+            app:destination="@id/addBaggageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addBaggageFragment"
+        android:name="com.synrgy.aeroswift.presentation.fragment.checkout.AddBaggageFragment"
+        android:label="fragment_add_baggage"
+        tools:layout="@layout/fragment_add_baggage" >
+        <action
+            android:id="@+id/action_addBaggageFragment_to_addDepartBaggageFragment"
+            app:destination="@id/addDepartBaggageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addDepartBaggageFragment"
+        android:name="com.synrgy.aeroswift.presentation.fragment.checkout.AddDepartBaggageFragment"
+        android:label="fragment_add_depart_baggage"
+        tools:layout="@layout/fragment_add_depart_baggage" />
 </navigation>

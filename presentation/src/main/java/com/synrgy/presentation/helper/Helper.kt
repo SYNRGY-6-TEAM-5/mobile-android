@@ -158,4 +158,8 @@ object Helper {
             false
         }
     }
+
+    fun formatPrice(number: Long): String {
+        return String.format(Locale.US, "%,d", number)
+    }
 }

@@ -240,6 +240,27 @@
     <string name="child_1">Child (1)</string>
     <string name="other_add_on">Other add on</string>
     <string name="type">Type</string>
+    <string name="add_baggage">Add Baggage</string>
+    <string name="ga207">GA207</string>
+    <string name="time_add_baggage">Fri, 19 Jan • 16:20 - 17:40</string>
+    <string name="return_">Return</string>
+    <string name="baggage_return_desc">Currently, additional baggage is unavailable for this flight</string>
+    <string name="done_selecting">Done Selecting</string>
+    <string name="add_depart_baggage">Add Depart Baggage</string>
+    <string name="bella_hadid">Bella Hadid</string>
+    <string name="_1_meal">1 Meal</string>
+    <string name="idr_49_000">IDR 49,000</string>
+    <string name="_10_kg">10 KG</string>
+    <string name="idr_99_000">IDR 99,000</string>
+    <string name="_16_kg">16 KG</string>
+    <string name="idr_199_000">IDR 199,000</string>
+    <string name="_24_kg">24 KG</string>
+    <string name="idr_299_000">IDR 299,000</string>
+    <string name="_32_kg">32 KG</string>
+    <string name="idr_399_000">IDR 399,000</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="depart_baggage_price">IDR %1$s</string>
+    <string name="depart_baggage_weight">%1$s KG</string>
 
     <string-array name="origin">
         <item>Select</item>
