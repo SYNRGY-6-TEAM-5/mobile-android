@@ -74,6 +74,9 @@ class AddonsFragment : Fragment() {
         binding.icBaggage.setOnClickListener {
             findNavController().navigate(R.id.action_addonsFragment_to_addBaggageFragment)
         }
+        binding.icMeal.setOnClickListener {
+            findNavController().navigate(R.id.action_addonsFragment_to_addMealsFragment)
+        }
 
         binding.btnContinue.setOnClickListener { confirmationDialog.show() }
     }
