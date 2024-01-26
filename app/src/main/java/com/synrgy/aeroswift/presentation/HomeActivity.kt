@@ -15,8 +15,13 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
     companion object {
-        fun startActivity(context: Context) {
-            context.startActivity(Intent(context, HomeActivity::class.java))
+        const val KEY_FRAGMENT_INDEX = "key_fragment_index"
+
+        fun startActivity(context: Context, bundle: Bundle? = null) {
+            val intent = Intent(context, HomeActivity::class.java)
+            if (bundle != null) intent.putExtras(bundle)
+
+            context.startActivity(intent)
         }
     }
 
@@ -28,7 +33,18 @@ class HomeActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        replaceFragment(HomeFragment())
+        val bundle = intent.extras
+
+        when (bundle?.getInt(KEY_FRAGMENT_INDEX) ?: 0) {
+            0 -> {
+                replaceFragment(HomeFragment())
+                binding.homeBottomNavigation.selectedItemId = R.id.navigation_home
+            }
+            2 -> {
+                replaceFragment(ProfileFragment())
+                binding.homeBottomNavigation.selectedItemId = R.id.navigation_profile
+            }
+        }
 
         binding.homeBottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {

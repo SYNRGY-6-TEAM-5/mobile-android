@@ -78,13 +78,18 @@ class HomeFragment : Fragment() {
 
         authViewModel.checkAuth()
         authViewModel.getUser()
-        authViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
-        authViewModel.name.observe(viewLifecycleOwner, ::handleGetName)
-        authViewModel.photo.observe(viewLifecycleOwner, ::handleLoadImage)
+
+        observeViewModel()
 
         binding.btnSearchFlight.setOnClickListener {
             FlightDetailsActivity.startActivity(requireActivity())
         }
+    }
+
+    private fun observeViewModel() {
+        authViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
+        authViewModel.name.observe(viewLifecycleOwner, ::handleGetName)
+        authViewModel.photo.observe(viewLifecycleOwner, ::handleLoadImage)
     }
 
     private fun tabController() {
@@ -177,6 +182,7 @@ class HomeFragment : Fragment() {
 
     private fun handleLoadImage(image: String) {
         if (image.isNotBlank() && image.isNotEmpty()) {
+            authViewModel.setPhoto(image)
             Glide
                 .with(this)
                 .load(image)
@@ -188,6 +194,7 @@ class HomeFragment : Fragment() {
 
     private fun handleGetName(name: String) {
         if (name.isNotBlank() && name.isNotEmpty()) {
+            authViewModel.setName(name)
             binding.tvName.text = name
         }
     }

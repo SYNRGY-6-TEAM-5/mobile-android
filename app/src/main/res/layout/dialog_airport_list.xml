@@ -84,7 +84,8 @@
                 android:layout_height="wrap_content"
                 android:maxHeight="160dp"
                 tools:listitem="@layout/item_airport_list"
-                android:nestedScrollingEnabled="true"/>
+                android:nestedScrollingEnabled="true"
+                tools:itemCount="3"/>
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/Text.Regular"

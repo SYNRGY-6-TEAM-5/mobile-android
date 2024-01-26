@@ -17,6 +17,7 @@ import com.synrgy.domain.response.departure.DepartureResponse
 import com.synrgy.domain.response.forgotpassword.EditPasswordFpResponse
 import com.synrgy.domain.response.forgotpassword.ForgotPasswordResponse
 import com.synrgy.domain.response.forgotpassword.ValidateOtpFpResponse
+import com.synrgy.domain.response.user.EditProfileImageResponse
 import com.synrgy.domain.response.user.EditProfileResponse
 import com.synrgy.domain.response.user.UserDetailResponse
 import okhttp3.MultipartBody
@@ -54,6 +55,13 @@ interface RemoteService {
         @Part file: MultipartBody.Part,
         @Query("name") name: String
     ): Response<UploadProfileImageResponse>
+
+    @Multipart
+    @PUT("user/profile-image")
+    suspend fun editProfileImage(
+        @Header("Authorization") token: String,
+        @Part file: MultipartBody.Part
+    ): Response<EditProfileImageResponse>
 
     @POST("auth/forgot-password")
     suspend fun forgotPassword(@Body body: ForgotPasswordBody): Response<ForgotPasswordResponse>

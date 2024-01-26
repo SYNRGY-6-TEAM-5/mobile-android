@@ -195,7 +195,7 @@
     <string name="desc_covid_5_1">Quarantine Requirements: Be aware of any quarantine or isolation requirements at your destination. Plan accordingly and ensure you have the necessary resources during this period.</string>
     <string name="desc_covid_5_2">Local Regulations: Familiarize yourself with local COVID-19 regulations, including mask mandates, curfews, and social distancing guidelines.</string>
     <string name="desc_covid_5_3">Emergency Contacts: Save local emergency numbers and contact information for your country\'s embassy or consulate at your destination.</string>
-    <string name="logout">Logout</string>
+    <string name="logout">Log Out</string>
     <string name="tko">TKO</string>
     <string name="your_flight">Your Flight</string>
     <string name="history">History</string>
@@ -268,6 +268,14 @@
     <string name="fried_noodle">Fried Noodle</string>
     <string name="idr_99_000_portion">IDR 99,000/portion</string>
     <string name="meals_price">IDR %1$s/portion</string>
+    <string name="one_way">One-Way</string>
+    <string name="order_id_143740283">Order ID: 143740283</string>
+    <string name="completed">Completed</string>
+    <string name="profile">Profile</string>
+    <string name="anggataufik_gmail_com">Anggataufik@gmail.com</string>
+    <string name="angga">Angga</string>
+    <string name="flight_order">Flight Order</string>
+    <string name="edit_profile">Edit Profile</string>
 
     <string-array name="origin">
         <item>Select</item>
