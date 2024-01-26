@@ -31,6 +31,7 @@ import com.synrgy.presentation.usecase.onboarding.SetNewUserUseCase
 import com.synrgy.presentation.usecase.register.RegisterUseCase
 import com.synrgy.presentation.usecase.register.RegisterValidateInputUseCase
 import com.synrgy.presentation.usecase.register.ValidateOtpUseCase
+import com.synrgy.presentation.usecase.user.EditProfileImageUseCase
 import com.synrgy.presentation.usecase.user.EditProfileUseCase
 import com.synrgy.presentation.usecase.user.GetUserDetailUseCase
 import com.synrgy.presentation.usecase.user.UploadProfileImageUseCase
@@ -85,17 +86,25 @@ object UseCaseModule {
     @Singleton
     @Provides
     fun provideEditProfileUseCase(
-        guestRepository: GuestRepository
+        userRepository: UserRepository
     ): EditProfileUseCase {
-        return EditProfileUseCase(guestRepository)
+        return EditProfileUseCase(userRepository)
     }
 
     @Singleton
     @Provides
     fun provideUploadProfileImageUseCase(
-        guestRepository: GuestRepository
+        userRepository: UserRepository
     ): UploadProfileImageUseCase {
-        return UploadProfileImageUseCase(guestRepository)
+        return UploadProfileImageUseCase(userRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideEditProfileImageUseCase(
+        userRepository: UserRepository
+    ): EditProfileImageUseCase {
+        return EditProfileImageUseCase(userRepository)
     }
 
     @Singleton

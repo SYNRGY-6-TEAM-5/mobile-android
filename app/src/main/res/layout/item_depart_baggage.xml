@@ -5,8 +5,6 @@
     android:id="@+id/item_baggage_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/tv_return_time"
     app:cardBackgroundColor="@color/gray_50"
     app:strokeColor="@color/gray_200"
     app:strokeWidth="1dp"

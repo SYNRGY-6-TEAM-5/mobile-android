@@ -1,11 +1,14 @@
 package com.synrgy.aeroswift.presentation.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -13,9 +16,15 @@ import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentProfileBinding
 import com.synrgy.aeroswift.dialog.LoadingDialog
 import com.synrgy.aeroswift.presentation.AuthActivity
+import com.synrgy.aeroswift.presentation.EditProfileActivity
+import com.synrgy.aeroswift.presentation.adapter.ProfileMenuAdapter
 import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
+import com.synrgy.domain.ProfileMenu
+import com.synrgy.presentation.constant.ProfileMenuConstant
 import com.synrgy.presentation.helper.Helper
 import dagger.hilt.android.AndroidEntryPoint
+import koleton.api.hideSkeleton
+import koleton.api.loadSkeleton
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
@@ -27,6 +36,8 @@ class ProfileFragment : Fragment() {
     private lateinit var mGoogleSignInClient: GoogleSignInClient
 
     private lateinit var loadingDialog: LoadingDialog
+
+    private val adapter = ProfileMenuAdapter(::handleClickMenu)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,12 +52,22 @@ class ProfileFragment : Fragment() {
 
         loadingDialog = LoadingDialog(requireActivity())
 
-        setupGso()
-        observeHome()
+        binding.rvProfileMenu.layoutManager = LinearLayoutManager(requireActivity())
+        binding.rvProfileMenu.adapter = this.adapter
+        this.adapter.submitList(ProfileMenuConstant.getData())
 
-        binding.btnLogout.setOnClickListener {
-            authViewModel.logout()
+        setupGso()
+
+        authViewModel.checkAuth()
+        authViewModel.getUser()
+
+        observeViewModels()
+
+        binding.cardProfile.setOnClickListener {
+            EditProfileActivity.startActivity(requireActivity())
+            requireActivity().finish()
         }
+        binding.btnLogout.setOnClickListener { authViewModel.logout() }
     }
 
     private fun setupGso() {
@@ -57,7 +78,10 @@ class ProfileFragment : Fragment() {
         mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
     }
 
-    private fun observeHome() {
+    private fun observeViewModels() {
+        authViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
+        authViewModel.name.observe(viewLifecycleOwner, ::handleGetName)
+        authViewModel.photo.observe(viewLifecycleOwner, ::handleLoadImage)
         authViewModel.logoutLoading.observe(viewLifecycleOwner, ::handleLogout)
     }
 
@@ -72,6 +96,37 @@ class ProfileFragment : Fragment() {
                 AuthActivity.startActivity(requireActivity())
                 requireActivity().finish()
             }
+        }
+    }
+
+    private fun handleClickMenu(data: ProfileMenu) {
+        Log.d("POSITION", data.position.toString())
+    }
+
+    private fun handleLoading(loading: Boolean) {
+        if (loading) {
+            binding.tvName.loadSkeleton()
+            binding.ivProfile.loadSkeleton()
+        } else {
+            binding.tvName.hideSkeleton()
+            binding.ivProfile.hideSkeleton()
+        }
+    }
+
+    private fun handleGetName(name: String) {
+        authViewModel.setName(name)
+        binding.tvName.text = name
+    }
+
+    private fun handleLoadImage(image: String) {
+        if (image.isNotBlank() && image.isNotEmpty()) {
+            authViewModel.setPhoto(image)
+            Glide
+                .with(this)
+                .load(image)
+                .centerCrop()
+                .circleCrop()
+                .into(binding.ivProfile)
         }
     }
 }

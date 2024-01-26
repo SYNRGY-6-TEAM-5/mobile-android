@@ -23,6 +23,7 @@ import com.synrgy.domain.response.departure.DepartureResponse
 import com.synrgy.domain.response.forgotpassword.EditPasswordFpResponse
 import com.synrgy.domain.response.forgotpassword.ForgotPasswordResponse
 import com.synrgy.domain.response.forgotpassword.ValidateOtpFpResponse
+import com.synrgy.domain.response.user.EditProfileImageResponse
 import com.synrgy.domain.response.user.EditProfileResponse
 import com.synrgy.domain.response.user.UserDetailResponse
 import okhttp3.MultipartBody
@@ -64,6 +65,15 @@ class RemoteRepository @Inject constructor(
         file: MultipartBody.Part
     ): Resource<UploadProfileImageResponse> {
         val response = remoteService.uploadProfileImage("Bearer $token", file, name)
+        val result = response.body()
+        return Helper.getResult(response, result)
+    }
+
+    override suspend fun editProfileImage(
+        token: String,
+        file: MultipartBody.Part,
+    ): Resource<EditProfileImageResponse> {
+        val response = remoteService.editProfileImage("Bearer $token", file)
         val result = response.body()
         return Helper.getResult(response, result)
     }
