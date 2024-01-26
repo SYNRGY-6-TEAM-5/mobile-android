@@ -261,6 +261,13 @@
     <string name="subtotal">Subtotal</string>
     <string name="depart_baggage_price">IDR %1$s</string>
     <string name="depart_baggage_weight">%1$s KG</string>
+    <string name="add_meals">Add Meals</string>
+    <string name="meals_return_desc">Currently, additional meals is unavailable for this flight</string>
+    <string name="add_depart_meals">Add Depart Meals</string>
+    <string name="idr_0">IDR 0</string>
+    <string name="fried_noodle">Fried Noodle</string>
+    <string name="idr_99_000_portion">IDR 99,000/portion</string>
+    <string name="meals_price">IDR %1$s/portion</string>
 
     <string-array name="origin">
         <item>Select</item>

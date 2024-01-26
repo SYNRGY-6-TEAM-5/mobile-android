@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.fragment.checkout.AddDepartBaggageFragment">
+    tools:context=".presentation.fragment.checkout.AddDepartMealsFragment">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_add_baggage"
+        android:id="@+id/toolbar_add_meals"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,7 +18,7 @@
             style="@style/Text.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add_depart_baggage"
+            android:text="@string/add_depart_meals"
             android:textColor="@color/base_black"
             android:layout_gravity="center"/>
 
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/iv_name_arrow"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_add_baggage"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_add_meals"
         app:layout_constraintHorizontal_chainStyle="packed"
         android:text="@string/bella_hadid"
         android:textColor="@color/base_black"
@@ -95,7 +95,7 @@
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="16dp"
                 android:layout_marginTop="12dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="32dp"
                 app:cardElevation="4dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -150,10 +150,10 @@
             </com.google.android.material.card.MaterialCardView>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/baggage_recycler"
+                android:id="@+id/meals_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/item_depart_baggage"
+                tools:listitem="@layout/item_depart_meals"
                 android:nestedScrollingEnabled="true"
                 android:layout_marginBottom="200dp"/>
 

@@ -51,6 +51,9 @@
         <action
             android:id="@+id/action_addonsFragment_to_addBaggageFragment"
             app:destination="@id/addBaggageFragment" />
+        <action
+            android:id="@+id/action_addonsFragment_to_addMealsFragment"
+            app:destination="@id/addMealsFragment" />
     </fragment>
     <fragment
         android:id="@+id/addBaggageFragment"
@@ -66,4 +69,18 @@
         android:name="com.synrgy.aeroswift.presentation.fragment.checkout.AddDepartBaggageFragment"
         android:label="fragment_add_depart_baggage"
         tools:layout="@layout/fragment_add_depart_baggage" />
+    <fragment
+        android:id="@+id/addMealsFragment"
+        android:name="com.synrgy.aeroswift.presentation.fragment.checkout.AddMealsFragment"
+        android:label="fragment_add_meals"
+        tools:layout="@layout/fragment_add_meals" >
+        <action
+            android:id="@+id/action_addMealsFragment_to_addDepartMealsFragment"
+            app:destination="@id/addDepartMealsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addDepartMealsFragment"
+        android:name="com.synrgy.aeroswift.presentation.fragment.checkout.AddDepartMealsFragment"
+        android:label="fragment_add_depart_meals"
+        tools:layout="@layout/fragment_add_depart_meals" />
 </navigation>
