@@ -7,7 +7,7 @@ data class UserDetailResponse(
     @SerializedName("createdAt")
     val createdAt: Long?,
     @SerializedName("dob")
-    val dob: Any?,
+    val dob: Long?,
     @SerializedName("fullName")
     val fullName: Any?,
     @SerializedName("id")

@@ -9,7 +9,7 @@ import com.synrgy.domain.body.auth.RegisterBody
 import com.synrgy.domain.response.auth.RegisterResponse
 import com.synrgy.domain.response.error.ErrorItem
 import com.synrgy.presentation.usecase.register.RegisterUseCase
-import com.synrgy.presentation.usecase.register.RegisterValidateInputUseCase
+import com.synrgy.presentation.usecase.register.ValidateRegisterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
     private val registerUseCase: RegisterUseCase,
-    private val validateInputUseCase: RegisterValidateInputUseCase
+    private val validateRegisterUseCase: ValidateRegisterUseCase
 ): ViewModel() {
     private val _register: MutableLiveData<RegisterResponse> = MutableLiveData()
     val register: LiveData<RegisterResponse> = _register
@@ -41,7 +41,7 @@ class RegisterViewModel @Inject constructor(
         _localError.value = false
 
         viewModelScope.launch(Dispatchers.IO) {
-            if (!validateInputUseCase.invoke(user.email, user.password)) {
+            if (!validateRegisterUseCase.invoke(user.email, user.password)) {
                 withContext(Dispatchers.Main) {
                     _loading.value = false
                     _localError.value = true

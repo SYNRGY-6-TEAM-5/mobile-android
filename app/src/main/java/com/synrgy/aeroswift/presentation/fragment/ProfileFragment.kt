@@ -63,7 +63,7 @@ class ProfileFragment : Fragment() {
 
         observeViewModels()
 
-        binding.cardProfile.setOnClickListener {
+        binding.ivEdit.setOnClickListener {
             EditProfileActivity.startActivity(requireActivity())
             requireActivity().finish()
         }

@@ -67,12 +67,13 @@
                     app:layout_constraintBottom_toBottomOf="@id/iv_profile"/>
 
                 <ImageView
-                    android:layout_width="9dp"
-                    android:layout_height="15dp"
+                    android:id="@+id/iv_edit"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/iv_profile"
                     app:layout_constraintBottom_toBottomOf="@id/iv_profile"
-                    android:src="@drawable/ic_arrow_right_bold"
+                    android:src="@drawable/ic_edit"
                     app:tint="@color/gray_400"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

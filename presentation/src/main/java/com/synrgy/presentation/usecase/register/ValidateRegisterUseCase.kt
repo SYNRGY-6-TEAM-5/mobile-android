@@ -1,13 +1,13 @@
 package com.synrgy.presentation.usecase.register
 
 import com.synrgy.domain.repository.RegisterRepository
-import com.synrgy.domain.usecase.register.RegisterValidateInputUseCase
+import com.synrgy.domain.usecase.register.ValidateRegisterUseCase
 import javax.inject.Inject
 
-class RegisterValidateInputUseCase @Inject constructor(
+class ValidateRegisterUseCase @Inject constructor(
     private val registerRepository: RegisterRepository
-): RegisterValidateInputUseCase {
+): ValidateRegisterUseCase {
     override suspend operator fun invoke(email: String, password: String): Boolean {
-        return registerRepository.validateInput(email, password)
+        return registerRepository.validateRegister(email, password)
     }
 }
