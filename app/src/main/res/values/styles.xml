@@ -138,9 +138,8 @@
     </style>
   
     <style name="spinnerStyle">
-        <item name="android:background">@drawable/bg_dropdown_trip</item>
-        <item name="android:textAppearance">@style/TextXL.Medium</item>
-        <item name="android:textColor">@color/gray_200</item>
+        <item name="android:textAppearance">@style/TextXS.Medium</item>
+        <item name="android:textColor">@color/base_black</item>
     </style>
 
     <style name="CustomChipChoice" parent="Widget.MaterialComponents.Chip.Choice">

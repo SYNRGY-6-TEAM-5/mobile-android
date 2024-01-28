@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.ListAdapter
 import com.synrgy.aeroswift.databinding.ItemAirportListBinding
 import com.synrgy.aeroswift.presentation.diffutil.AirportListDiffUtil
 import com.synrgy.aeroswift.presentation.viewholder.AirportListViewHolder
-import com.synrgy.domain.AirportList
 import com.synrgy.domain.response.airport.AirportData
 
 

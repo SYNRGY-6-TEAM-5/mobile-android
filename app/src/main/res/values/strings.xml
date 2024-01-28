@@ -279,6 +279,12 @@
     <string name="change">Change</string>
     <string name="logout_confirmation_desc">Are you sure want to log out?</string>
     <string name="log_out_confirmation">Log Out Confirmation</string>
+    <string name="notification">Notification</string>
+    <string name="no_notification">No Notification</string>
+    <string name="no_notification_desc">You don\'t have notifications at the moment, notifications will appear if there are notifications related to your account</string>
+    <string name="_1_min_ago">1 min ago</string>
+    <string name="notification_title">Enjoy new user promos now, get discounts up to 50%</string>
+    <string name="today_25_jan_2024">Today, 25 Jan 2024</string>
 
     <string-array name="origin">
         <item>Select</item>
@@ -291,6 +297,10 @@
         <item>2 Passengers -  Economy Class</item>
         <item>1 Passenger -  Economy Class</item>
         <item>1 Passenger -  Business Class</item>
+    </string-array>
+
+    <string-array name="notification_dropdown">
+        <item>Mark all read</item>
     </string-array>
 
 </resources>

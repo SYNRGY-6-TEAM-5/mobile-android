@@ -16,6 +16,7 @@ import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentHomeBinding
 import com.synrgy.aeroswift.dialog.PassengersAndCabinClassDialog
 import com.synrgy.aeroswift.presentation.FlightDetailsActivity
+import com.synrgy.aeroswift.presentation.NotificationActivity
 import com.synrgy.aeroswift.presentation.adapter.DiscountAdapter
 import com.synrgy.aeroswift.presentation.adapter.TabTripAdapter
 import com.synrgy.aeroswift.presentation.adapter.TicketPromoAdapter
@@ -83,6 +84,10 @@ class HomeFragment : Fragment() {
 
         binding.btnSearchFlight.setOnClickListener {
             FlightDetailsActivity.startActivity(requireActivity())
+        }
+        binding.ivNotification.setOnClickListener {
+            NotificationActivity.startActivity(requireActivity())
+            requireActivity().finish()
         }
     }
 
