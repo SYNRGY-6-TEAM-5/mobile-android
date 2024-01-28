@@ -3,6 +3,8 @@ package com.synrgy.presentation.helper
 import android.Manifest
 import android.app.Activity
 import android.app.DatePickerDialog
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
@@ -167,5 +169,15 @@ object Helper {
 
     fun formatPrice(number: Long): String {
         return String.format(Locale.US, "%,d", number)
+    }
+
+    fun copyToClipboard(
+        context: Context,
+        label: String,
+        text: String,
+    ){
+        val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clip = ClipData.newPlainText(label, text)
+        clipboard.setPrimaryClip(clip)
     }
 }

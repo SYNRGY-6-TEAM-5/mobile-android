@@ -1,105 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:paddingTop="50dp"
     tools:context=".presentation.NotificationActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_notification"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:navigationIcon="?attr/homeAsUpIndicator">
+    <fragment
+        android:id="@+id/nav_container_notification"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/nav_notification" />
 
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/Text.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/notification"
-            android:textColor="@color/base_black"
-            android:layout_gravity="center"/>
-
-        <Spinner
-            style="@style/spinnerStyle"
-            android:id="@+id/spinner_more"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:background="@drawable/ic_dots_three_circle"
-            android:layout_gravity="end"
-            android:layout_marginEnd="16dp"
-            android:dropDownVerticalOffset="35dp"
-            android:dropDownWidth="wrap_content"/>
-
-    </androidx.appcompat.widget.Toolbar>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="16dp"
-        android:layout_marginTop="28dp">
-
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/TextS.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/today_25_jan_2024"
-            android:textColor="@color/gray_400"
-            android:layout_marginBottom="16dp"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_notification"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/item_notification"
-            tools:itemCount="9"/>
-
-    </LinearLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="140dp"
-            android:paddingHorizontal="29dp"
-            android:paddingBottom="50dp">
-
-            <ImageView
-                android:layout_width="212dp"
-                android:layout_height="172dp"
-                android:src="@drawable/img_notification"
-                android:layout_gravity="center"/>
-
-            <com.google.android.material.textview.MaterialTextView
-                style="@style/H6.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/no_notification"
-                android:textColor="@color/base_black"
-                android:layout_gravity="center"
-                android:textAlignment="center"
-                android:layout_marginTop="146dp"/>
-
-            <com.google.android.material.textview.MaterialTextView
-                style="@style/TextXS.Regular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/no_notification_desc"
-                android:textColor="@color/base_black"
-                android:layout_gravity="center"
-                android:textAlignment="center"
-                android:layout_marginTop="12dp"/>
-
-        </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
