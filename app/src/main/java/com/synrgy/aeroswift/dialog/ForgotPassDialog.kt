@@ -20,6 +20,8 @@ class ForgotPassDialog(
     private lateinit var dialog: BottomSheetDialog
     private lateinit var binding: DialogPassRecoveryBinding
 
+    private var emailMessage = ""
+
     fun show() {
         dialog = BottomSheetDialog(activity)
         binding = DialogPassRecoveryBinding.inflate(activity.layoutInflater)
@@ -41,6 +43,7 @@ class ForgotPassDialog(
         observeViewModel()
 
         binding.btnNextPassRecovery.setOnClickListener {
+            emailMessage = ""
             val email = binding.passwordTiEmail.text.toString()
             viewModel.forgotPassword(ForgotPasswordBody(email))
         }
@@ -59,6 +62,7 @@ class ForgotPassDialog(
     private fun observeViewModel() {
         viewModel.error.observe(viewLifecycleOwner, ::handleError)
         viewModel.errors.observe(viewLifecycleOwner, ::handleErrors)
+        viewModel.localError.observe(viewLifecycleOwner, ::handleLocalError)
     }
 
     private fun handleError(error: String) {
@@ -69,14 +73,34 @@ class ForgotPassDialog(
 
     private fun handleErrors(errors: List<ErrorItem?>?) {
         if (!errors.isNullOrEmpty()) {
-            var emailMessage = ""
-
             for (error in errors) {
                 when (error?.field) {
                     "email" -> emailMessage += error.defaultMessage + "\n"
                 }
             }
 
+            binding.passwordTilEmail.error = emailMessage.replace(",", "\n")
+        }
+    }
+
+    private fun handleLocalError(error: Boolean) {
+        if (error) {
+            val email = binding.passwordTiEmail.text.toString()
+
+            validateEmail(email)
+            handleSetInputMessage()
+        }
+    }
+
+    private fun validateEmail(email: String) {
+        if (email.isEmpty() && email.isBlank()) {
+            emailMessage += "Email is required.\n"
+            emailMessage += "Email cannot be blank.\n"
+        }
+    }
+
+    private fun handleSetInputMessage() {
+        if (emailMessage.isNotEmpty() && emailMessage.isNotBlank()) {
             binding.passwordTilEmail.error = emailMessage.replace(",", "\n")
         }
     }

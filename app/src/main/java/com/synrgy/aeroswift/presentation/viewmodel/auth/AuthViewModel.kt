@@ -45,6 +45,9 @@ class AuthViewModel @Inject constructor(
     private val _photo = MutableLiveData<String>()
     val photo: LiveData<String> = _photo
 
+    private val _dateBirth = MutableLiveData<Long>()
+    val dateBirth: LiveData<Long> = _dateBirth
+
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> = _loading
 
@@ -104,6 +107,7 @@ class AuthViewModel @Inject constructor(
                         _loading.value = false
                         _name.value = (response.data?.fullName ?: "User").toString()
                         _photo.value = (response.data?.imageUrl ?: "").toString()
+                        _dateBirth.value = response.data?.dob ?: 0L
                     }
                 }
                 is Resource.ErrorRes -> {

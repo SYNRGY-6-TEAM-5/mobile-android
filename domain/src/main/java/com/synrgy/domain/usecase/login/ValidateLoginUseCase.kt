@@ -1,6 +1,6 @@
-package com.synrgy.domain.usecase.register
+package com.synrgy.domain.usecase.login
 
-interface RegisterValidateInputUseCase {
+interface ValidateLoginUseCase {
     suspend fun invoke(
         email: String,
         password: String,

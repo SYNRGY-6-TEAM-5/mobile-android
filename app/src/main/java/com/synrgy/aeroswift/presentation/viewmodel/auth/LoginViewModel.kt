@@ -9,6 +9,7 @@ import com.synrgy.domain.body.auth.LoginBody
 import com.synrgy.domain.response.auth.LoginResponse
 import com.synrgy.domain.response.error.ErrorItem
 import com.synrgy.presentation.usecase.login.LoginUseCase
+import com.synrgy.presentation.usecase.login.ValidateLoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,7 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val validateLoginUseCase: ValidateLoginUseCase
 ): ViewModel() {
     private val _login: MutableLiveData<LoginResponse> = MutableLiveData()
     val login: LiveData<LoginResponse> = _login
@@ -31,35 +33,47 @@ class LoginViewModel @Inject constructor(
     private val _errors: MutableLiveData<List<ErrorItem?>?> = MutableLiveData()
     val errors: LiveData<List<ErrorItem?>?> = _errors
 
+    private val _localError: MutableLiveData<Boolean> = MutableLiveData()
+    val localError: LiveData<Boolean> = _localError
+
     fun login(user: LoginBody) {
         _loading.value = true
+        _localError.value = false
+
         viewModelScope.launch(Dispatchers.IO) {
-            when (val response = loginUseCase.invoke(user)) {
-                is Resource.Success -> {
-                    withContext(Dispatchers.Main) {
-                        _loading.value = false
-                        _login.value = LoginResponse(
-                            email = response.data?.email ?: "",
-                            roles = response.data?.roles ?: emptyList(),
-                            token = response.data?.token ?: "",
-                            type = response.data?.type ?: "",
-                            message = "Login success!"
-                        )
-                    }
+            if (!validateLoginUseCase(user.emailAddress, user.password)) {
+                withContext(Dispatchers.Main) {
+                    _loading.value = false
+                    _localError.value = true
                 }
-                is Resource.ErrorRes -> {
-                    withContext(Dispatchers.Main) {
-                        _loading.value = false
-                        _errors.value = response.errorRes?.errors ?: emptyList()
-                        if (response.errorRes?.errors == null) {
-                            _error.value = response.errorRes?.message ?: ""
+            } else {
+                when (val response = loginUseCase.invoke(user)) {
+                    is Resource.Success -> {
+                        withContext(Dispatchers.Main) {
+                            _loading.value = false
+                            _login.value = LoginResponse(
+                                email = response.data?.email ?: "",
+                                roles = response.data?.roles ?: emptyList(),
+                                token = response.data?.token ?: "",
+                                type = response.data?.type ?: "",
+                                message = "Login success!"
+                            )
                         }
                     }
-                }
-                is Resource.ExceptionRes -> {
-                    withContext(Dispatchers.Main) {
-                        _loading.value = false
-                        _error.value = response.exceptionRes?.message ?: ""
+                    is Resource.ErrorRes -> {
+                        withContext(Dispatchers.Main) {
+                            _loading.value = false
+                            _errors.value = response.errorRes?.errors ?: emptyList()
+                            if (response.errorRes?.errors == null) {
+                                _error.value = response.errorRes?.message ?: ""
+                            }
+                        }
+                    }
+                    is Resource.ExceptionRes -> {
+                        withContext(Dispatchers.Main) {
+                            _loading.value = false
+                            _error.value = response.exceptionRes?.message ?: ""
+                        }
                     }
                 }
             }

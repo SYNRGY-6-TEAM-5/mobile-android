@@ -15,6 +15,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentProfileBinding
 import com.synrgy.aeroswift.dialog.LoadingDialog
+import com.synrgy.aeroswift.dialog.LogoutDialog
 import com.synrgy.aeroswift.presentation.AuthActivity
 import com.synrgy.aeroswift.presentation.EditProfileActivity
 import com.synrgy.aeroswift.presentation.adapter.ProfileMenuAdapter
@@ -36,6 +37,7 @@ class ProfileFragment : Fragment() {
     private lateinit var mGoogleSignInClient: GoogleSignInClient
 
     private lateinit var loadingDialog: LoadingDialog
+    private lateinit var logoutDialog: LogoutDialog
 
     private val adapter = ProfileMenuAdapter(::handleClickMenu)
 
@@ -51,6 +53,7 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         loadingDialog = LoadingDialog(requireActivity())
+        logoutDialog = LogoutDialog(requireActivity(), authViewModel)
 
         binding.rvProfileMenu.layoutManager = LinearLayoutManager(requireActivity())
         binding.rvProfileMenu.adapter = this.adapter
@@ -63,11 +66,11 @@ class ProfileFragment : Fragment() {
 
         observeViewModels()
 
-        binding.cardProfile.setOnClickListener {
+        binding.ivEdit.setOnClickListener {
             EditProfileActivity.startActivity(requireActivity())
             requireActivity().finish()
         }
-        binding.btnLogout.setOnClickListener { authViewModel.logout() }
+        binding.btnLogout.setOnClickListener { logoutDialog.show() }
     }
 
     private fun setupGso() {

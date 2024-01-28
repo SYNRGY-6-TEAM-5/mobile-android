@@ -24,13 +24,15 @@ import com.synrgy.presentation.usecase.forgotpassword.ForgotPasswordUseCase
 import com.synrgy.presentation.usecase.forgotpassword.ValidateOtpFpUseCase
 import com.synrgy.presentation.usecase.login.GetTokenUseCase
 import com.synrgy.presentation.usecase.login.LoginUseCase
-import com.synrgy.presentation.usecase.login.LoginValidateInputUseCase
+import com.synrgy.presentation.usecase.login.ValidateLoginUseCase
 import com.synrgy.presentation.usecase.login.SetTokenUseCase
+import com.synrgy.presentation.usecase.login.ValidateChangePassUseCase
+import com.synrgy.presentation.usecase.login.ValidateEmailUseCase
 import com.synrgy.presentation.usecase.onboarding.GetNewUserUseCase
 import com.synrgy.presentation.usecase.onboarding.SetNewUserUseCase
 import com.synrgy.presentation.usecase.register.RegisterUseCase
-import com.synrgy.presentation.usecase.register.RegisterValidateInputUseCase
 import com.synrgy.presentation.usecase.register.ValidateOtpUseCase
+import com.synrgy.presentation.usecase.register.ValidateRegisterUseCase
 import com.synrgy.presentation.usecase.user.EditProfileImageUseCase
 import com.synrgy.presentation.usecase.user.EditProfileUseCase
 import com.synrgy.presentation.usecase.user.GetUserDetailUseCase
@@ -54,11 +56,28 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun provideLoginValidateInputUseCase(
+    fun provideValidateLoginUseCase(
         loginRepository: LoginRepository
-    ): LoginValidateInputUseCase {
-        return LoginValidateInputUseCase(loginRepository)
+    ): ValidateLoginUseCase {
+        return ValidateLoginUseCase(loginRepository)
     }
+
+    @Singleton
+    @Provides
+    fun provideValidateEmailUseCase(
+        loginRepository: LoginRepository
+    ): ValidateEmailUseCase {
+        return ValidateEmailUseCase(loginRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideValidateChangePassUseCase(
+        loginRepository: LoginRepository
+    ): ValidateChangePassUseCase {
+        return ValidateChangePassUseCase(loginRepository)
+    }
+
     @Singleton
     @Provides
     fun provideRegisterUseCase(
@@ -69,10 +88,10 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun provideRegisterValidateInputUseCase(
+    fun provideValidateRegisterUseCase(
         registerRepository: RegisterRepository
-    ): RegisterValidateInputUseCase {
-        return RegisterValidateInputUseCase(registerRepository)
+    ): ValidateRegisterUseCase {
+        return ValidateRegisterUseCase(registerRepository)
     }
 
     @Singleton

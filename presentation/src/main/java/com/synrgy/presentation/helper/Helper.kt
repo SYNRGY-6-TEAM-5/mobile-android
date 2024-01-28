@@ -147,6 +147,12 @@ object Helper {
         return outputDateFormat.format(date)
     }
 
+    fun convertTimestampToDate(timestamp: Long): String {
+        val date = Date(timestamp)
+        val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        return sdf.format(date)
+    }
+
     fun isValidDateFormat(dateString: String): Boolean {
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         dateFormat.isLenient = false

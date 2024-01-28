@@ -14,7 +14,30 @@ class LocalRepository @Inject constructor (
     private val dataStoreManager: DataStoreManager,
     private val sharedPreferences: SharedPreferences
 ): LoginRepository, RegisterRepository, AuthRepository, NewUserRepository {
-    override suspend fun validateInput(email: String, password: String): Boolean {
+    override suspend fun validateLogin(email: String, password: String): Boolean {
+        return email.isNotEmpty()
+                && email.isNotBlank()
+                && password.isNotEmpty()
+                && password.isNotBlank()
+    }
+
+    override suspend fun validateEmail(email: String): Boolean {
+        return email.isNotEmpty()
+                && email.isNotBlank()
+    }
+
+    override suspend fun validateChangePass(newPassword: String, retypePassword: String): Boolean {
+        return newPassword.isNotEmpty()
+                && newPassword.isNotBlank()
+                && Helper.containsSpecialCharacter(newPassword)
+                && Helper.containsAlphanumeric(newPassword)
+                && Helper.containsUppercaseLetter(newPassword)
+                && retypePassword.isNotEmpty()
+                && retypePassword.isNotBlank()
+                && newPassword == retypePassword
+    }
+
+    override suspend fun validateRegister(email: String, password: String): Boolean {
         return email.isNotEmpty()
                 && email.isNotBlank()
                 && Patterns.EMAIL_ADDRESS.matcher(email).matches()

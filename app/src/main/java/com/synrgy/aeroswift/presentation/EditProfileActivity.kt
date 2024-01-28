@@ -84,14 +84,14 @@ class EditProfileActivity : AppCompatActivity() {
         observeViewModel()
 
         binding.ivProfile.setOnClickListener { checkPermissions() }
-        binding.tvUploadImage.setOnClickListener { checkPermissions() }
+        binding.tvChange.setOnClickListener { checkPermissions() }
         binding.toolbarProfile.setNavigationOnClickListener { handleNavigate() }
 
         binding.tiBirth.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) Helper.showDatePicker(this, selectedDate, ::updateBirthInput)
         }
 
-        binding.btnConfirm.setOnClickListener { handleConfirmProfile() }
+        binding.btnSave.setOnClickListener { handleSaveProfile() }
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -104,6 +104,7 @@ class EditProfileActivity : AppCompatActivity() {
         authViewModel.loading.observe(this, ::handleLoading)
         authViewModel.name.observe(this, ::handleGetName)
         authViewModel.photo.observe(this, ::handleLoadImage)
+        authViewModel.dateBirth.observe(this, ::handleGetDateBirth)
 
         editProfileViewModel.errors.observe(this, ::handleErrors)
         editProfileViewModel.error.observe(this, ::handleError)
@@ -168,6 +169,11 @@ class EditProfileActivity : AppCompatActivity() {
         binding.tiFullName.setText(name)
     }
 
+    private fun handleGetDateBirth(timestamp: Long) {
+        val date = Helper.convertTimestampToDate(timestamp)
+        binding.tiBirth.setText(date)
+    }
+
     private fun handleLoadImage(image: String) {
         if (image.isNotBlank() && image.isNotEmpty()) {
             isEditImage = true
@@ -178,7 +184,7 @@ class EditProfileActivity : AppCompatActivity() {
                 .load(image)
                 .centerCrop()
                 .circleCrop()
-                .into(binding.ivProfilePlaceholder)
+                .into(binding.ivProfile)
         }
     }
 
@@ -218,7 +224,7 @@ class EditProfileActivity : AppCompatActivity() {
         imagePickerLauncher.launch(imagePickerConfig)
     }
 
-    private fun handleConfirmProfile() {
+    private fun handleSaveProfile() {
         val name = binding.tiFullName.text.toString()
         var birthDate = binding.tiBirth.text.toString()
         val phone = binding.tiPhone.text.toString()
