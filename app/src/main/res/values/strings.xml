@@ -285,6 +285,26 @@
     <string name="_1_min_ago">1 min ago</string>
     <string name="notification_title">Enjoy new user promos now, get discounts up to 50%</string>
     <string name="today_25_jan_2024">Today, 25 Jan 2024</string>
+    <string name="notification_details">Notification Details</string>
+    <string name="notification_detail_1">Unlock incredible savings on your air travel with our exclusive offer</string>
+    <string name="notification_detail_2">Discount Extra Flight Ticket up to IDR 250K! Elevate your travel experience without breaking the bank. Enjoy the convenience of substantial discounts on your next flight, making your journey even more affordable.</string>
+    <string name="notification_detail_3">Seize the opportunity to explore new destinations, create lasting memories, and fly with extra savings. Hurry, limited seats available. Book now and soar to your dream destination with extra savings in your pocket!</string>
+    <string name="promo_period">Promo Period</string>
+    <string name="_24_30_jan_2024">24 - 30 Jan, 2024</string>
+    <string name="minimum_transaction">Minimum Transaction</string>
+    <string name="idr_500_000">IDR 500,000</string>
+    <string name="usage_period">Usage Period</string>
+    <string name="anytime">Anytime</string>
+    <string name="platform">Platform</string>
+    <string name="all_platform">All platform</string>
+    <string name="copy_the_code_below">Copy the code below</string>
+    <string name="cpid82739sh">CPID82739SH</string>
+    <string name="terms_and_conditions">Terms and Conditions:</string>
+    <string name="notification_term_1">The discount is only applicable to specified train routes and travel dates.</string>
+    <string name="notification_term_2">This promo cannot be combined with any other promotions or discounts.</string>
+    <string name="notification_term_3">The payment method accepted is only through credit card.</string>
+    <string name="notification_term_4">Refund is calculated according to the total paid amount after the discount, not the initial price.</string>
+    <string name="_4">4.</string>
 
     <string-array name="origin">
         <item>Select</item>

@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.fragment.notification.NotificationDetailFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_notification"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:navigationIcon="?attr/homeAsUpIndicator">
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/Text.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/notification_details"
+            android:textColor="@color/base_black"
+            android:layout_gravity="center"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="28dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:src="@drawable/img_discount" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextS.Semibold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/notification_detail_1"
+                android:textColor="@color/base_black"
+                android:layout_marginTop="24dp"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextXS.Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/notification_detail_2"
+                android:textColor="@color/base_black"
+                android:layout_marginTop="16dp"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextXS.Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/notification_detail_3"
+                android:textColor="@color/base_black"
+                android:layout_marginTop="12dp"/>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_origin_1"
+                android:layout_marginTop="24dp"
+                android:stretchColumns="*">
+
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:background="@drawable/bg_table_body_top_left"
+                        android:paddingEnd="12dp"
+                        tools:ignore="RtlSymmetry">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/TextXS.Regular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/promo_period"
+                            android:textColor="@color/base_black"/>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/TextXS.Semibold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/_24_30_jan_2024"
+                            android:textColor="@color/base_black"
+                            android:layout_marginTop="10dp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:background="@drawable/bg_table_body_top_right"
+                        android:paddingEnd="12dp"
+                        tools:ignore="RtlSymmetry">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/TextXS.Regular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/minimum_transaction"
+                            android:textColor="@color/base_black"/>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/TextXS.Semibold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/idr_500_000"
+                            android:textColor="@color/base_black"
+                            android:layout_marginTop="10dp"/>
+
+                    </LinearLayout>
+
+                </TableRow>
+
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:background="@drawable/bg_table_body_bottom_left"
+                        android:paddingEnd="12dp"
+                        tools:ignore="RtlSymmetry">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/TextXS.Regular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/usage_period"
+                            android:textColor="@color/base_black"/>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/TextXS.Semibold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/anytime"
+                            android:textColor="@color/base_black"
+                            android:layout_marginTop="10dp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:background="@drawable/bg_table_body_bottom_right"
+                        android:paddingEnd="12dp"
+                        tools:ignore="RtlSymmetry">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/TextXS.Regular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/platform"
+                            android:textColor="@color/base_black"/>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/TextXS.Semibold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/all_platform"
+                            android:textColor="@color/base_black"
+                            android:layout_marginTop="10dp"/>
+
+                    </LinearLayout>
+
+                </TableRow>
+
+            </TableLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="16dp"
+                android:layout_marginTop="24dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextXS.Semibold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/copy_the_code_below"
+                        android:textColor="@color/base_black"/>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardBackgroundColor="@color/gray_100"
+                        app:cardCornerRadius="12dp"
+                        android:layout_marginTop="12dp"
+                        app:cardElevation="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingVertical="7dp"
+                            android:paddingHorizontal="4dp"
+                            android:gravity="center_vertical">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                style="@style/TextS.Medium"
+                                android:id="@+id/tv_promo_code"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/cpid82739sh"
+                                android:textColor="@color/base_black"/>
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"/>
+
+                            <ImageView
+                                android:id="@+id/iv_copy"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_copy"/>
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextXS.Semibold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/terms_and_conditions"
+                        android:textColor="@color/base_black"
+                        android:layout_marginTop="12dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/TextXS.Regular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/_1"
+                            android:textColor="@color/base_black" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/TextXS.Regular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/notification_term_1"
+                            android:textColor="@color/base_black"
+                            android:layout_marginStart="6dp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="4dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/TextXS.Regular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/_2"
+                            android:textColor="@color/base_black" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/TextXS.Regular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/notification_term_2"
+                            android:textColor="@color/base_black"
+                            android:layout_marginStart="6dp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="4dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/TextXS.Regular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/_3"
+                            android:textColor="@color/base_black" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/TextXS.Regular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/notification_term_3"
+                            android:textColor="@color/base_black"
+                            android:layout_marginStart="6dp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="4dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/TextXS.Regular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/_4"
+                            android:textColor="@color/base_black" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/TextXS.Regular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/notification_term_4"
+                            android:textColor="@color/base_black"
+                            android:layout_marginStart="6dp"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
