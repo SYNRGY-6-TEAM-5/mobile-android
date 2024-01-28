@@ -277,6 +277,8 @@
     <string name="flight_order">Flight Order</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="change">Change</string>
+    <string name="logout_confirmation_desc">Are you sure want to log out?</string>
+    <string name="log_out_confirmation">Log Out Confirmation</string>
 
     <string-array name="origin">
         <item>Select</item>

@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="50dp"
-    tools:context=".presentation.FlightHistoryActivity">
+    tools:context=".presentation.NotificationActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_history"
@@ -23,12 +22,5 @@
             android:layout_gravity="center"/>
 
     </androidx.appcompat.widget.Toolbar>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/flight_history_recycler"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:listitem="@layout/item_flight_history"
-        android:paddingBottom="50dp"/>
 
 </LinearLayout>
