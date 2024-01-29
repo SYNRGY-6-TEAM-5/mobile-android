@@ -66,6 +66,12 @@ class EditProfileActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                handleNavigate()
+            }
+        })
+
         loadingDialog = LoadingDialog(this)
 
         imagePickerConfig = ImagePickerConfig {
@@ -85,19 +91,13 @@ class EditProfileActivity : AppCompatActivity() {
 
         binding.ivProfile.setOnClickListener { checkPermissions() }
         binding.tvChange.setOnClickListener { checkPermissions() }
-        binding.toolbarProfile.setNavigationOnClickListener { handleNavigate() }
+        binding.toolbarProfile.setNavigationOnClickListener { onBackPressed() }
 
         binding.tiBirth.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) Helper.showDatePicker(this, selectedDate, ::updateBirthInput)
         }
 
         binding.btnSave.setOnClickListener { handleSaveProfile() }
-
-        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                handleNavigate()
-            }
-        })
     }
 
     private fun observeViewModel() {

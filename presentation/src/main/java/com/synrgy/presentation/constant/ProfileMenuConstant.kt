@@ -22,14 +22,9 @@ object ProfileMenuConstant {
                 position = 3
             ),
             ProfileMenu(
-                icon = R.drawable.ic_location,
-                title = "Location Setting",
-                position = 4
-            ),
-            ProfileMenu(
                 icon = R.drawable.ic_message_question,
                 title = "Frequently Ask Question (FAQ)",
-                position = 5
+                position = 4
             ),
         )
     }
