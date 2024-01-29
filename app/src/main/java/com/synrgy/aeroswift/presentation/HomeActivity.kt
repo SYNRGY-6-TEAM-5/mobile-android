@@ -23,6 +23,16 @@ class HomeActivity : AppCompatActivity() {
 
             context.startActivity(intent)
         }
+
+        fun startProfileFragment(context: Context) {
+            val bundle = Bundle()
+            bundle.putInt(KEY_FRAGMENT_INDEX, 2)
+
+            val intent = Intent(context, HomeActivity::class.java)
+            intent.putExtras(bundle)
+
+            context.startActivity(intent)
+        }
     }
 
     private lateinit var binding: ActivityHomeBinding

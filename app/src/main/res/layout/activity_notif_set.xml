@@ -1,8 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="50dp"
+    tools:context=".presentation.NotifSetActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_notif"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:navigationIcon="?attr/homeAsUpIndicator">
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/Text.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/notification_permission"
+            android:textColor="@color/base_black"
+            android:layout_gravity="center"/>
+
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -11,7 +31,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="32dp"
             android:orientation="vertical">
 
             <ImageView
@@ -72,16 +94,8 @@
 
             </LinearLayout>
 
-            <com.google.android.material.button.MaterialButton
-                style="@style/Button.Primary"
-                android:id="@+id/btn_notif_perm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/continue_"
-                android:layout_marginTop="60dp" />
-
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 
-</com.google.android.material.card.MaterialCardView>
+</LinearLayout>
