@@ -309,6 +309,8 @@
     <string name="how_can_i_order">How can I order?</string>
     <string name="faq_1">You can order easily using our online platform. When you find a flight you need, you can add it to cart, login and go through the ordering process. After the order is ready, you will receive order summary to your email. Order summary will also be stored to your account.</string>
     <string name="what_information_should_i_input_when_ordering">What information should I input when ordering?</string>
+    <string name="notification_permission">Notification Permission</string>
+    <string name="notifications">Notifications</string>
 
     <string-array name="origin">
         <item>Select</item>

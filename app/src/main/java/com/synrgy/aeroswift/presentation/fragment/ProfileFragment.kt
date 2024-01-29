@@ -19,6 +19,7 @@ import com.synrgy.aeroswift.dialog.LogoutDialog
 import com.synrgy.aeroswift.presentation.AuthActivity
 import com.synrgy.aeroswift.presentation.EditProfileActivity
 import com.synrgy.aeroswift.presentation.FaqActivity
+import com.synrgy.aeroswift.presentation.NotifSetActivity
 import com.synrgy.aeroswift.presentation.adapter.ProfileMenuAdapter
 import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
 import com.synrgy.domain.ProfileMenu
@@ -105,6 +106,10 @@ class ProfileFragment : Fragment() {
 
     private fun handleClickMenu(data: ProfileMenu) {
         when (data.position) {
+            3 -> {
+                NotifSetActivity.startActivity(requireActivity())
+                requireActivity().finish()
+            }
             4 -> {
                 FaqActivity.startActivity(requireActivity())
                 requireActivity().finish()

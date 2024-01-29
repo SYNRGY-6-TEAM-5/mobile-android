@@ -68,7 +68,8 @@ class EditProfileActivity : AppCompatActivity() {
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                handleNavigate()
+                HomeActivity.startProfileFragment(this@EditProfileActivity)
+                this@EditProfileActivity.finish()
             }
         })
 
@@ -152,7 +153,7 @@ class EditProfileActivity : AppCompatActivity() {
 
             authViewModel.setName(binding.tiFullName.text.toString())
             Helper.showToast(this, this, response.message, isSuccess = true)
-            handleNavigate()
+            onBackPressed()
         }
     }
 
@@ -268,13 +269,5 @@ class EditProfileActivity : AppCompatActivity() {
 
     private fun updateBirthInput() {
         binding.tiBirth.setText(dateFormatter.format(selectedDate.time))
-    }
-
-    private fun handleNavigate() {
-        val bundle = Bundle()
-        bundle.putInt(HomeActivity.KEY_FRAGMENT_INDEX, 2)
-
-        HomeActivity.startActivity(this, bundle)
-        this.finish()
     }
 }

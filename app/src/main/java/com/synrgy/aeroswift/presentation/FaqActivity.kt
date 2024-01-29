@@ -29,7 +29,8 @@ class FaqActivity : AppCompatActivity() {
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                handleNavigate()
+                HomeActivity.startProfileFragment(this@FaqActivity)
+                this@FaqActivity.finish()
             }
         })
 
@@ -42,13 +43,5 @@ class FaqActivity : AppCompatActivity() {
         binding.rvFaq.layoutManager = LinearLayoutManager(this)
         binding.rvFaq.adapter = faqAdapter
         faqAdapter.submitList(FaqConstant.getData())
-    }
-
-    private fun handleNavigate() {
-        val bundle = Bundle()
-        bundle.putInt(HomeActivity.KEY_FRAGMENT_INDEX, 2)
-
-        HomeActivity.startActivity(this, bundle)
-        this.finish()
     }
 }
