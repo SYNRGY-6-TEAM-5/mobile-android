@@ -18,6 +18,7 @@ import com.synrgy.aeroswift.dialog.LoadingDialog
 import com.synrgy.aeroswift.dialog.LogoutDialog
 import com.synrgy.aeroswift.presentation.AuthActivity
 import com.synrgy.aeroswift.presentation.EditProfileActivity
+import com.synrgy.aeroswift.presentation.FaqActivity
 import com.synrgy.aeroswift.presentation.adapter.ProfileMenuAdapter
 import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
 import com.synrgy.domain.ProfileMenu
@@ -103,7 +104,13 @@ class ProfileFragment : Fragment() {
     }
 
     private fun handleClickMenu(data: ProfileMenu) {
-        Log.d("POSITION", data.position.toString())
+        when (data.position) {
+            4 -> {
+                FaqActivity.startActivity(requireActivity())
+                requireActivity().finish()
+            }
+            else -> {}
+        }
     }
 
     private fun handleLoading(loading: Boolean) {

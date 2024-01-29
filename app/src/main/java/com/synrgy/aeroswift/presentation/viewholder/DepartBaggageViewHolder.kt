@@ -23,7 +23,7 @@ class DepartBaggageViewHolder(
         binding.baggageWeight.text = context.getString(R.string.depart_baggage_weight, data.weight.toString())
         binding.baggagePrice.text = context.getString(R.string.depart_baggage_price, Helper.formatPrice(data.price))
 
-        binding.itemBaggageCard.setOnClickListener {
+        cardView.setOnClickListener {
             clickListener(data)
 
             cardViewList.forEach {
