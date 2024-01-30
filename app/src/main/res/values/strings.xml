@@ -311,6 +311,7 @@
     <string name="what_information_should_i_input_when_ordering">What information should I input when ordering?</string>
     <string name="notification_permission">Notification Permission</string>
     <string name="notifications">Notifications</string>
+    <string name="awaiting_payment">Awaiting Payment</string>
 
     <string-array name="origin">
         <item>Select</item>

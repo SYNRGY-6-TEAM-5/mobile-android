@@ -178,15 +178,22 @@
         <item name="chipEndPadding">8dp</item>
     </style>
 
+    <style name="ChipPrimaryXSMedium" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/primary_500</item>
+        <item name="chipCornerRadius">33dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAppearance">@style/TextXS.Medium</item>
+        <item name="chipStartPadding">8dp</item>
+        <item name="chipEndPadding">8dp</item>
+    </style>
+
     <style name="ChipGrayPrimaryXSMedium" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="chipBackgroundColor">@color/gray_100</item>
         <item name="chipCornerRadius">33dp</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@color/primary_500</item>
-        <item name="android:textSize">12sp</item>
-        <item name="fontWeight">500</item>
-        <item name="lineHeight">18sp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">@style/TextXS.Medium</item>
         <item name="chipStartPadding">8dp</item>
         <item name="chipEndPadding">8dp</item>
     </style>
