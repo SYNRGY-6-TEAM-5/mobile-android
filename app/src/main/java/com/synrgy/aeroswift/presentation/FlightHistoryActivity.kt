@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.synrgy.aeroswift.databinding.ActivityFlightHistoryBinding
 import com.synrgy.aeroswift.presentation.adapter.FlightHistoryAdapter
+import com.synrgy.presentation.constant.Constant
+import com.synrgy.presentation.constant.FlightHistoryConstant
 
 class FlightHistoryActivity : AppCompatActivity() {
     companion object {
@@ -32,5 +34,8 @@ class FlightHistoryActivity : AppCompatActivity() {
         val adapter = FlightHistoryAdapter()
         binding.flightHistoryRecycler.layoutManager = LinearLayoutManager(this)
         binding.flightHistoryRecycler.adapter = adapter
+        adapter.submitList(FlightHistoryConstant.getData().filter {
+            it.category == Constant.FlightHistoryCategory.COMPLETED.value
+        })
     }
 }
