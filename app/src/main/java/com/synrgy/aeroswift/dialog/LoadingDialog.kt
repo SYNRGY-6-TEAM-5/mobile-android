@@ -2,6 +2,7 @@ package com.synrgy.aeroswift.dialog
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import com.synrgy.aeroswift.databinding.DialogLoadingBinding
 
@@ -21,7 +22,7 @@ class LoadingDialog(
         builder.setCancelable(false)
 
         dialog = builder.create()
-        dialog.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.show()
     }
 

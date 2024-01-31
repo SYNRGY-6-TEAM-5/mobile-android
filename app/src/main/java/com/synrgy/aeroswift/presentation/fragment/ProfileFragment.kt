@@ -1,7 +1,6 @@
 package com.synrgy.aeroswift.presentation.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,13 +13,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentProfileBinding
+import com.synrgy.aeroswift.dialog.AuthDialog
 import com.synrgy.aeroswift.dialog.LoadingDialog
-import com.synrgy.aeroswift.dialog.LogoutDialog
+import com.synrgy.aeroswift.dialog.ConfirmationDialog
 import com.synrgy.aeroswift.presentation.AuthActivity
 import com.synrgy.aeroswift.presentation.EditProfileActivity
 import com.synrgy.aeroswift.presentation.FaqActivity
 import com.synrgy.aeroswift.presentation.FlightOrderActivity
 import com.synrgy.aeroswift.presentation.NotifSetActivity
+import com.synrgy.aeroswift.presentation.PassengerActivity
 import com.synrgy.aeroswift.presentation.adapter.ProfileMenuAdapter
 import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
 import com.synrgy.domain.ProfileMenu
@@ -40,7 +41,8 @@ class ProfileFragment : Fragment() {
     private lateinit var mGoogleSignInClient: GoogleSignInClient
 
     private lateinit var loadingDialog: LoadingDialog
-    private lateinit var logoutDialog: LogoutDialog
+    private lateinit var confirmationDialog: ConfirmationDialog
+    private lateinit var authDialog: AuthDialog
 
     private val adapter = ProfileMenuAdapter(::handleClickMenu)
 
@@ -55,8 +57,9 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        authDialog = AuthDialog(requireActivity())
         loadingDialog = LoadingDialog(requireActivity())
-        logoutDialog = LogoutDialog(requireActivity(), authViewModel)
+        confirmationDialog = ConfirmationDialog(requireActivity()) { authViewModel.logout() }
 
         binding.rvProfileMenu.layoutManager = LinearLayoutManager(requireActivity())
         binding.rvProfileMenu.adapter = this.adapter
@@ -64,8 +67,8 @@ class ProfileFragment : Fragment() {
 
         setupGso()
 
-        authViewModel.checkAuth()
         authViewModel.getUser()
+        authViewModel.checkAuth()
 
         observeViewModels()
 
@@ -73,7 +76,13 @@ class ProfileFragment : Fragment() {
             EditProfileActivity.startActivity(requireActivity())
             requireActivity().finish()
         }
-        binding.btnLogout.setOnClickListener { logoutDialog.show() }
+        binding.btnLogout.setOnClickListener {
+            confirmationDialog.show(
+                heading = "Log Out Confirmation",
+                title = "Are you sure want to log out?",
+                description = null
+            )
+        }
     }
 
     private fun setupGso() {
@@ -89,15 +98,21 @@ class ProfileFragment : Fragment() {
         authViewModel.name.observe(viewLifecycleOwner, ::handleGetName)
         authViewModel.photo.observe(viewLifecycleOwner, ::handleLoadImage)
         authViewModel.logoutLoading.observe(viewLifecycleOwner, ::handleLogout)
+        authViewModel.authentication.observe(viewLifecycleOwner, ::handleAuthAlert)
+    }
+
+    private fun handleAuthAlert(token: String) {
+        if (token.isEmpty() || token.isBlank()) authDialog.show()
     }
 
     private fun handleLogout(loading: Boolean) {
         if (loading) {
             loadingDialog.startLoadingDialog()
         } else {
-            loadingDialog.dismissDialog()
-
             mGoogleSignInClient.revokeAccess().addOnCompleteListener {
+                loadingDialog.dismissDialog()
+                confirmationDialog.dismiss()
+
                 Helper.showToast(requireActivity(), requireActivity(), getString(R.string.message_logout), isSuccess = true)
                 AuthActivity.startActivity(requireActivity())
                 requireActivity().finish()
@@ -109,6 +124,10 @@ class ProfileFragment : Fragment() {
         when (data.position) {
             1 -> {
                 FlightOrderActivity.startActivity(requireActivity())
+                requireActivity().finish()
+            }
+            2 -> {
+                PassengerActivity.startActivity(requireActivity())
                 requireActivity().finish()
             }
             3 -> {

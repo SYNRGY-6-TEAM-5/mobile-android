@@ -21,6 +21,7 @@
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/Text.Regular"
+                android:id="@+id/tv_heading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/log_out_confirmation"
@@ -54,12 +55,24 @@
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/Text.Medium"
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/logout_confirmation_desc"
-                android:textColor="@color/gray_900"
+                android:textColor="@color/base_black"
                 android:textAlignment="center"
                 android:layout_gravity="center"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextXS.Regular"
+                android:id="@+id/tv_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delete_passenger_desc"
+                android:textColor="@color/base_black"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_continue"

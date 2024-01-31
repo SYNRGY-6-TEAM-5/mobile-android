@@ -50,6 +50,10 @@ class HomeActivity : AppCompatActivity() {
                 replaceFragment(HomeFragment())
                 binding.homeBottomNavigation.selectedItemId = R.id.navigation_home
             }
+            1 -> {
+                replaceFragment(FlightFragment())
+                binding.homeBottomNavigation.selectedItemId = R.id.navigation_flight
+            }
             2 -> {
                 replaceFragment(ProfileFragment())
                 binding.homeBottomNavigation.selectedItemId = R.id.navigation_profile

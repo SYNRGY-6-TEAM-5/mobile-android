@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_passenger"
+    app:startDestination="@id/passengerListFragment">
+
+    <fragment
+        android:id="@+id/passengerListFragment"
+        android:name="com.synrgy.aeroswift.presentation.fragment.passenger.PassengerListFragment"
+        android:label="fragment_passenger_list"
+        tools:layout="@layout/fragment_passenger_list" >
+        <action
+            android:id="@+id/action_passengerListFragment_to_passengerDetailsFragment"
+            app:destination="@id/passengerDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/passengerDetailsFragment"
+        android:name="com.synrgy.aeroswift.presentation.fragment.passenger.PassengerDetailsFragment"
+        android:label="fragment_passenger_details"
+        tools:layout="@layout/fragment_passenger_details" />
+</navigation>

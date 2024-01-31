@@ -16,6 +16,7 @@ import com.synrgy.presentation.usecase.login.SetTokenUseCase
 import com.synrgy.presentation.usecase.user.GetUserDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -77,6 +78,7 @@ class AuthViewModel @Inject constructor(
     fun logout() {
         _logoutLoading.value = true
         viewModelScope.launch(Dispatchers.IO) {
+            delay(1000)
             clearTokenUseCase.invoke()
             withContext(Dispatchers.Main) {
                 _logoutLoading.value = false
@@ -111,6 +113,7 @@ class AuthViewModel @Inject constructor(
                     }
                 }
                 is Resource.ErrorRes -> {
+                    clearTokenUseCase.invoke()
                     withContext(Dispatchers.Main) {
                         _loading.value = false
                         if (response.errorRes?.errors == null) {
@@ -119,6 +122,7 @@ class AuthViewModel @Inject constructor(
                     }
                 }
                 is Resource.ExceptionRes -> {
+                    clearTokenUseCase.invoke()
                     withContext(Dispatchers.Main) {
                         _loading.value = false
                         _error.value = response.exceptionRes?.message ?: ""
