@@ -312,6 +312,13 @@
     <string name="notification_permission">Notification Permission</string>
     <string name="notifications">Notifications</string>
     <string name="awaiting_payment">Awaiting Payment</string>
+    <string name="save_passenger_data">Save Passenger Data</string>
+    <string name="account_owner">Account Owner</string>
+    <string name="add_passenger_data">Add Passenger Data</string>
+    <string name="delete">Delete</string>
+    <string name="delete_passenger_desc">When you book later, you need to manually enter the profile details</string>
+    <string name="can_t_access">Can’t Access</string>
+    <string name="auth_dialog_desc">You must sign in first to be able to use all the features</string>
 
     <string-array name="origin">
         <item>Select</item>
