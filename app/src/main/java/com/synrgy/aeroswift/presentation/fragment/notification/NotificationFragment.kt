@@ -13,7 +13,7 @@ import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentNotificationBinding
 import com.synrgy.aeroswift.presentation.HomeActivity
 import com.synrgy.aeroswift.presentation.adapter.NotificationAdapter
-import com.synrgy.domain.NotificationData
+import com.synrgy.domain.local.NotificationData
 import com.synrgy.presentation.constant.NotificationConstant
 
 class NotificationFragment : Fragment() {

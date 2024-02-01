@@ -1,7 +1,7 @@
 package com.synrgy.aeroswift.presentation.diffutil
 
 import androidx.recyclerview.widget.DiffUtil
-import com.synrgy.domain.DepartBaggage
+import com.synrgy.domain.local.DepartBaggage
 
 class DepartBaggageDiffUtil: DiffUtil.ItemCallback<DepartBaggage>() {
     override fun areItemsTheSame(oldItem: DepartBaggage, newItem: DepartBaggage): Boolean {

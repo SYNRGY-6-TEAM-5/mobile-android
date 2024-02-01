@@ -2,7 +2,7 @@ package com.synrgy.aeroswift.presentation.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.synrgy.aeroswift.databinding.ItemNotificationBinding
-import com.synrgy.domain.NotificationData
+import com.synrgy.domain.local.NotificationData
 
 class NotificationViewHolder(
     private val binding: ItemNotificationBinding

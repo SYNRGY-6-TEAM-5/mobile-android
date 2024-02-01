@@ -13,4 +13,6 @@ interface AuthRepository {
     suspend fun setRegToken(token: String)
     suspend fun setRecentAirport(data: AirportData)
     suspend fun getRecentAirport(): MutableSet<String>?
+    suspend fun getUserId(): Flow<String?>
+    suspend fun setUserId(id: String)
 }

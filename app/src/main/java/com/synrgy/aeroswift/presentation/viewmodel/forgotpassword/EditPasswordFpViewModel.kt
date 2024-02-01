@@ -49,7 +49,6 @@ class EditPasswordFpViewModel @Inject constructor(
                 body.retypePassword
             )) {
                 withContext(Dispatchers.Main) {
-                    _loading.value = false
                     _localError.value = true
                 }
             } else {
@@ -59,7 +58,6 @@ class EditPasswordFpViewModel @Inject constructor(
                 )) {
                     is Resource.Success -> {
                         withContext(Dispatchers.Main) {
-                            _loading.value = false
                             _editPassword.value = EditPasswordFpResponse(
                                 message = response.data?.message ?: "",
                                 status = response.data?.status ?: true
@@ -68,7 +66,6 @@ class EditPasswordFpViewModel @Inject constructor(
                     }
                     is Resource.ErrorRes -> {
                         withContext(Dispatchers.Main) {
-                            _loading.value = false
                             _errors.value = response.errorRes?.errors ?: emptyList()
                             if (response.errorRes?.errors == null) {
                                 _error.value = response.errorRes?.message ?: ""
@@ -77,11 +74,14 @@ class EditPasswordFpViewModel @Inject constructor(
                     }
                     is Resource.ExceptionRes -> {
                         withContext(Dispatchers.Main) {
-                            _loading.value = false
-                            _error.value = response.exceptionRes?.message ?: ""
+                            _error.value = response.exceptionRes?.message ?: "Server error"
                         }
                     }
                 }
+            }
+
+            withContext(Dispatchers.Main) {
+                _loading.value = false
             }
         }
     }

@@ -1,6 +1,6 @@
 package com.synrgy.presentation.constant
 
-import com.synrgy.domain.FlightHistory
+import com.synrgy.domain.local.FlightHistory
 
 object FlightHistoryConstant {
     fun getData(): ArrayList<FlightHistory> {

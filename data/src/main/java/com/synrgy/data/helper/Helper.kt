@@ -23,7 +23,7 @@ object Helper {
         }
     }
 
-    private fun <T> getErrorResponse(response: String, errorClass: Class<T>): T {
+    fun <T> getErrorResponse(response: String, errorClass: Class<T>): T {
         return Gson().fromJson(response, errorClass)
     }
 

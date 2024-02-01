@@ -12,7 +12,7 @@ import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentFlightOrderBinding
 import com.synrgy.aeroswift.presentation.HomeActivity
 import com.synrgy.aeroswift.presentation.adapter.FlightOrderAdapter
-import com.synrgy.domain.FlightOrder
+import com.synrgy.domain.local.FlightOrder
 import com.synrgy.presentation.constant.FlightOrderConstant
 
 

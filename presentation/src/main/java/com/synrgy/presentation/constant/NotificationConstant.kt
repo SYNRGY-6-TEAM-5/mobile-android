@@ -1,6 +1,6 @@
 package com.synrgy.presentation.constant
 
-import com.synrgy.domain.NotificationData
+import com.synrgy.domain.local.NotificationData
 import com.synrgy.presentation.R
 
 object NotificationConstant {

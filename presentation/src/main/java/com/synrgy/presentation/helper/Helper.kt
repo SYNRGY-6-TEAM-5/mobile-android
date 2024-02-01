@@ -12,6 +12,7 @@ import android.widget.DatePicker
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.res.ResourcesCompat
+import com.synrgy.domain.local.FlightSearch
 import com.synrgy.presentation.R
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
@@ -179,5 +180,27 @@ object Helper {
         val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip = ClipData.newPlainText(label, text)
         clipboard.setPrimaryClip(clip)
+    }
+
+    fun isValidFlightSearch(data: FlightSearch): Boolean {
+        return !data.id.isNullOrEmpty() &&
+                !data.origin.isNullOrEmpty() &&
+                !data.destination.isNullOrEmpty() &&
+                !data.oCity.isNullOrEmpty() &&
+                !data.dCity.isNullOrEmpty() &&
+                !data.depDate.isNullOrEmpty() &&
+                !data.tripType.isNullOrEmpty() &&
+                !data.ticketClass.isNullOrEmpty() &&
+                data.adultSeat != null &&
+                data.childSeat != null &&
+                data.totalSeat != null &&
+                data.infantSeat != null
+    }
+
+    fun formatDateDay(dateString: String): String {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("EEE, d MMM yyyy", Locale.US)
+        val date: Date = inputFormat.parse(dateString) ?: return ""
+        return outputFormat.format(date)
     }
 }

@@ -1,6 +1,6 @@
 package com.synrgy.presentation.constant
 
-import com.synrgy.domain.FlightOrder
+import com.synrgy.domain.local.FlightOrder
 
 object FlightOrderConstant {
     fun getData(): ArrayList<FlightOrder> {

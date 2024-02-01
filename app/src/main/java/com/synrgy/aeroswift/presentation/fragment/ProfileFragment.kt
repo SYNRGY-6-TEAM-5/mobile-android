@@ -24,7 +24,7 @@ import com.synrgy.aeroswift.presentation.NotifSetActivity
 import com.synrgy.aeroswift.presentation.PassengerActivity
 import com.synrgy.aeroswift.presentation.adapter.ProfileMenuAdapter
 import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
-import com.synrgy.domain.ProfileMenu
+import com.synrgy.domain.local.ProfileMenu
 import com.synrgy.presentation.constant.ProfileMenuConstant
 import com.synrgy.presentation.helper.Helper
 import dagger.hilt.android.AndroidEntryPoint

@@ -15,9 +15,11 @@ import com.synrgy.presentation.usecase.auth.ClearTokenUseCase
 import com.synrgy.presentation.usecase.auth.GetNameUseCase
 import com.synrgy.presentation.usecase.auth.GetPhotoUseCase
 import com.synrgy.presentation.usecase.auth.GetRegTokenUseCase
+import com.synrgy.presentation.usecase.auth.GetUserIdUseCase
 import com.synrgy.presentation.usecase.auth.SetNameUseCase
 import com.synrgy.presentation.usecase.auth.SetPhotoUseCase
 import com.synrgy.presentation.usecase.auth.SetRegTokenUseCase
+import com.synrgy.presentation.usecase.auth.SetUserIdUseCase
 import com.synrgy.presentation.usecase.departure.GetDepartureUseCase
 import com.synrgy.presentation.usecase.forgotpassword.EditPasswordFpUseCase
 import com.synrgy.presentation.usecase.forgotpassword.ForgotPasswordUseCase
@@ -260,6 +262,22 @@ object UseCaseModule {
         authRepository: AuthRepository
     ): GetRegTokenUseCase {
         return GetRegTokenUseCase(authRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSetUserIdUseCase(
+        authRepository: AuthRepository
+    ): SetUserIdUseCase {
+        return SetUserIdUseCase(authRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetUserIdUseCase(
+        authRepository: AuthRepository
+    ): GetUserIdUseCase {
+        return GetUserIdUseCase(authRepository)
     }
 
     @Singleton

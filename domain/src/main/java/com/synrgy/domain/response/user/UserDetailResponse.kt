@@ -9,11 +9,11 @@ data class UserDetailResponse(
     @SerializedName("dob")
     val dob: Long?,
     @SerializedName("fullName")
-    val fullName: Any?,
+    val fullName: String?,
     @SerializedName("id")
     val id: String?,
     @SerializedName("imageUrl")
-    val imageUrl: Any?,
+    val imageUrl: String?,
     @SerializedName("roleName")
     val roleName: String?,
     @SerializedName("success")

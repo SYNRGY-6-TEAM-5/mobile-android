@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.synrgy.aeroswift.databinding.ItemFlightOrderBinding
 import com.synrgy.aeroswift.presentation.diffutil.FlightOrderDiffUtil
 import com.synrgy.aeroswift.presentation.viewholder.FlightOrderViewHolder
-import com.synrgy.domain.FlightOrder
+import com.synrgy.domain.local.FlightOrder
 
 class FlightOrderAdapter(
     private val clickListener: (FlightOrder) -> Unit

@@ -7,7 +7,7 @@ import com.google.android.material.textview.MaterialTextView
 import com.synrgy.aeroswift.databinding.ItemFaqCardBinding
 import com.synrgy.aeroswift.presentation.diffutil.FaqDiffUtil
 import com.synrgy.aeroswift.presentation.viewholder.FaqViewHolder
-import com.synrgy.domain.FaqData
+import com.synrgy.domain.local.FaqData
 
 class FaqAdapter(): ListAdapter<FaqData, FaqViewHolder>(
     FaqDiffUtil()

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.synrgy.aeroswift.databinding.ItemNotificationBinding
 import com.synrgy.aeroswift.presentation.diffutil.NotificationDiffUtil
 import com.synrgy.aeroswift.presentation.viewholder.NotificationViewHolder
-import com.synrgy.domain.NotificationData
+import com.synrgy.domain.local.NotificationData
 
 class NotificationAdapter(
     private val clickListener: (NotificationData) -> Unit

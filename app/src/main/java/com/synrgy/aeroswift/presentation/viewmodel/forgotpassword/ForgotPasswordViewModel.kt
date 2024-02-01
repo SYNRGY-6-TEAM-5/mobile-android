@@ -43,14 +43,12 @@ class ForgotPasswordViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             if (!validateEmailUseCase.invoke(body.email)) {
                 withContext(Dispatchers.Main) {
-                    _loading.value = false
                     _localError.value = true
                 }
             } else {
                 when (val response = forgotPasswordUseCase.invoke(body)) {
                     is Resource.Success -> {
                         withContext(Dispatchers.Main) {
-                            _loading.value = false
                             _forgotPassword.value = ForgotPasswordResponse(
                                 success = response.data?.success ?: true,
                                 otp = response.data?.otp ?: "",
@@ -61,7 +59,6 @@ class ForgotPasswordViewModel @Inject constructor(
                     }
                     is Resource.ErrorRes -> {
                         withContext(Dispatchers.Main) {
-                            _loading.value = false
                             _errors.value = response.errorRes?.errors ?: emptyList()
                             if (response.errorRes?.errors == null) {
                                 _error.value = response.errorRes?.message ?: ""
@@ -70,11 +67,14 @@ class ForgotPasswordViewModel @Inject constructor(
                     }
                     is Resource.ExceptionRes -> {
                         withContext(Dispatchers.Main) {
-                            _loading.value = false
-                            _error.value = response.exceptionRes?.message ?: ""
+                            _error.value = response.exceptionRes?.message ?: "Server error"
                         }
                     }
                 }
+            }
+
+            withContext(Dispatchers.Main) {
+                _loading.value = false
             }
         }
     }

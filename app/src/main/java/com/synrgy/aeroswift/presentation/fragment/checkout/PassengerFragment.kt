@@ -5,15 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentPassengerBinding
+import com.synrgy.aeroswift.dialog.PassengerDialog
 import com.synrgy.aeroswift.dialog.TravelDocsDialog
+import com.synrgy.aeroswift.presentation.viewmodel.HomeViewModel
+import com.synrgy.domain.local.FlightSearch
+import com.synrgy.presentation.helper.Helper
+import dagger.hilt.android.AndroidEntryPoint
+import koleton.api.hideSkeleton
+import koleton.api.loadSkeleton
 
+@AndroidEntryPoint
 class PassengerFragment : Fragment() {
     private lateinit var binding: FragmentPassengerBinding
 
     private lateinit var travelDocsDialog: TravelDocsDialog
+    private lateinit var passengerDialog: PassengerDialog
+
+    private val homeViewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,12 +40,24 @@ class PassengerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         travelDocsDialog = TravelDocsDialog(requireActivity(), findNavController())
+        passengerDialog = PassengerDialog(requireActivity())
+
+        homeViewModel.getFlightSearch()
+        observeViewModel()
 
         binding.passengerBaby.setOnClickListener {
-            findNavController().navigate(R.id.action_passengerFragment_to_passengerDomFragment)
+            passengerDialog.show {
+                passengerDialog.dismiss()
+                findNavController().navigate(R.id.action_passengerFragment_to_passengerDomFragment)
+            }
         }
 
-        binding.passengerAdult.setOnClickListener { travelDocsDialog.show() }
+        binding.passengerAdult.setOnClickListener {
+            passengerDialog.show {
+                passengerDialog.dismiss()
+                travelDocsDialog.show()
+            }
+        }
 
         binding.btnNext.setOnClickListener { handleNavigate() }
 
@@ -44,5 +68,21 @@ class PassengerFragment : Fragment() {
 
     private fun handleNavigate() {
         findNavController().navigate(R.id.action_passengerFragment_to_addonsFragment)
+    }
+
+    private fun observeViewModel() {
+        homeViewModel.flightSearch.observe(viewLifecycleOwner, ::handleFlightSearch)
+        homeViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
+    }
+
+    private fun handleFlightSearch(data: FlightSearch) {
+        if (Helper.isValidFlightSearch(data)) {
+            binding.tv1Origin.text = data.origin
+            binding.tv1Dest.text = data.destination
+        }
+    }
+
+    private fun handleLoading(loading: Boolean) {
+        if (loading) binding.layoutFlight.loadSkeleton() else binding.layoutFlight.hideSkeleton()
     }
 }

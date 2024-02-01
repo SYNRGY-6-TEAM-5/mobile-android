@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.ItemFaqCardBinding
-import com.synrgy.domain.FaqData
+import com.synrgy.domain.local.FaqData
 
 class FaqViewHolder(
     private val binding: ItemFaqCardBinding

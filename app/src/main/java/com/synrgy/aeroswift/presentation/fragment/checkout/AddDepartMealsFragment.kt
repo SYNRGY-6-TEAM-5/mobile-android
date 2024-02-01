@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentAddDepartMealsBinding
 import com.synrgy.aeroswift.presentation.adapter.DepartMealsAdapter
-import com.synrgy.domain.DepartMeals
+import com.synrgy.domain.local.DepartMeals
 import com.synrgy.presentation.constant.DepartMealsConstant
 import com.synrgy.presentation.helper.Helper
 

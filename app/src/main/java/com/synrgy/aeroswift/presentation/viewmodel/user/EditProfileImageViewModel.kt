@@ -39,7 +39,6 @@ class EditProfileImageViewModel @Inject constructor(
             )) {
                 is Resource.Success -> {
                     withContext(Dispatchers.Main) {
-                        _loading.value = false
                         _profileImage.value = EditProfileImageResponse(
                             message = response.data?.message ?: "",
                             success = response.data?.success ?: true,
@@ -49,16 +48,18 @@ class EditProfileImageViewModel @Inject constructor(
                 }
                 is Resource.ErrorRes -> {
                     withContext(Dispatchers.Main) {
-                        _loading.value = false
                         _error.value = response.errorRes?.message ?: ""
                     }
                 }
                 is Resource.ExceptionRes -> {
                     withContext(Dispatchers.Main) {
-                        _loading.value = false
-                        _error.value = response.exceptionRes?.message ?: ""
+                        _error.value = response.exceptionRes?.message ?: "Server error"
                     }
                 }
+            }
+
+            withContext(Dispatchers.Main) {
+                _loading.value = false
             }
         }
     }

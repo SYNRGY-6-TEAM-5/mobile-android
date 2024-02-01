@@ -43,14 +43,12 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             if (!validateLoginUseCase(user.emailAddress, user.password)) {
                 withContext(Dispatchers.Main) {
-                    _loading.value = false
                     _localError.value = true
                 }
             } else {
                 when (val response = loginUseCase.invoke(user)) {
                     is Resource.Success -> {
                         withContext(Dispatchers.Main) {
-                            _loading.value = false
                             _login.value = LoginResponse(
                                 email = response.data?.email ?: "",
                                 roles = response.data?.roles ?: emptyList(),
@@ -62,7 +60,6 @@ class LoginViewModel @Inject constructor(
                     }
                     is Resource.ErrorRes -> {
                         withContext(Dispatchers.Main) {
-                            _loading.value = false
                             _errors.value = response.errorRes?.errors ?: emptyList()
                             if (response.errorRes?.errors == null) {
                                 _error.value = response.errorRes?.message ?: ""
@@ -71,11 +68,14 @@ class LoginViewModel @Inject constructor(
                     }
                     is Resource.ExceptionRes -> {
                         withContext(Dispatchers.Main) {
-                            _loading.value = false
-                            _error.value = response.exceptionRes?.message ?: ""
+                            _error.value = response.exceptionRes?.message ?: "Server error"
                         }
                     }
                 }
+            }
+
+            withContext(Dispatchers.Main) {
+                _loading.value = false
             }
         }
     }

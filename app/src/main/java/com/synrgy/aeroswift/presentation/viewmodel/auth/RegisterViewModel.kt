@@ -43,14 +43,12 @@ class RegisterViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             if (!validateRegisterUseCase.invoke(user.email, user.password)) {
                 withContext(Dispatchers.Main) {
-                    _loading.value = false
                     _localError.value = true
                 }
             } else {
                 when (val response = registerUseCase.invoke(user)) {
                     is Resource.Success -> {
                         withContext(Dispatchers.Main) {
-                            _loading.value = false
                             _register.value = RegisterResponse(
                                 expiredOTP = response.data?.expiredOTP ?: 0L,
                                 otp = response.data?.otp ?: "",
@@ -60,7 +58,6 @@ class RegisterViewModel @Inject constructor(
                     }
                     is Resource.ErrorRes -> {
                         withContext(Dispatchers.Main) {
-                            _loading.value = false
                             _errors.value = response.errorRes?.errors ?: emptyList()
                             if (response.errorRes?.errors == null) {
                                 _error.value = response.errorRes?.message ?: ""
@@ -69,11 +66,14 @@ class RegisterViewModel @Inject constructor(
                     }
                     is Resource.ExceptionRes -> {
                         withContext(Dispatchers.Main) {
-                            _loading.value = false
-                            _error.value = response.exceptionRes?.message ?: ""
+                            _error.value = response.exceptionRes?.message ?: "Server error"
                         }
                     }
                 }
+            }
+
+            withContext(Dispatchers.Main) {
+                _loading.value = false
             }
         }
     }

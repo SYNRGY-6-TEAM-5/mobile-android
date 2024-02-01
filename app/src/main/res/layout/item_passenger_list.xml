@@ -6,17 +6,12 @@
     android:orientation="vertical"
     android:layout_marginBottom="8dp">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray_200"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingVertical="12dp"
-        android:layout_marginTop="8dp">
+        android:layout_marginBottom="8dp">
 
         <com.google.android.material.textview.MaterialTextView
             style="@style/Text.Medium"
@@ -38,5 +33,11 @@
             app:tint="@color/primary_500"/>
 
     </LinearLayout>
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_200"/>
 
 </LinearLayout>

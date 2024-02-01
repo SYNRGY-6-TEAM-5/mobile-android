@@ -10,14 +10,18 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.synrgy.aeroswift.databinding.DialogAirportListBinding
 import com.synrgy.aeroswift.presentation.adapter.AirportListAdapter
+import com.synrgy.aeroswift.presentation.viewmodel.HomeViewModel
 import com.synrgy.aeroswift.presentation.viewmodel.airport.AirportListViewModel
 import com.synrgy.domain.response.airport.AirportData
 import com.synrgy.domain.response.airport.AirportResponse
+import koleton.api.hideSkeleton
+import koleton.api.loadSkeleton
 import java.util.Locale
 
 class AirportListDialog(
     private val activity: Activity,
     private val viewModel: AirportListViewModel,
+    private val homeViewModel: HomeViewModel,
     private val viewLifecycleOwner: LifecycleOwner
 ) {
     private lateinit var dialog: BottomSheetDialog
@@ -68,10 +72,7 @@ class AirportListDialog(
             }
         })
 
-        binding.tvClearAl.setOnClickListener {
-            this.recentAirportListAdapter.submitList(ArrayList<AirportData>())
-        }
-
+        binding.tvClearAl.setOnClickListener { viewModel.clearRecentAirport() }
         binding.ivClose.setOnClickListener { dialog.dismiss() }
     }
 
@@ -79,6 +80,8 @@ class AirportListDialog(
         viewModel.isDest.observe(viewLifecycleOwner) { isDest = it }
         viewModel.airport.observe(viewLifecycleOwner, ::handleGetAirportList)
         viewModel.recentAirport.observe(viewLifecycleOwner, ::handleGetRecentAirport)
+        viewModel.clearLoading.observe(viewLifecycleOwner, ::handleClearLoading)
+        viewModel.error.observe(viewLifecycleOwner, ::handleError)
     }
 
     private fun setupFullHeight(bottomSheet: View) {
@@ -87,11 +90,18 @@ class AirportListDialog(
         bottomSheet.layoutParams = layoutParams
     }
 
+    private fun handleError(error: Boolean) {
+        binding.tvNoAirport.visibility = if (error) View.VISIBLE else View.GONE
+    }
+
     private fun handleSearchAirport(text: String) {
         val filteredList = ArrayList<AirportData>()
 
         for (item in airportList) {
-            if (item?.airPortName?.lowercase()?.contains(text.lowercase(Locale.getDefault())) == true) {
+            if (item?.cityName?.lowercase()?.contains(text.lowercase()) == true ||
+                item?.countryName?.lowercase()?.contains(text.lowercase()) == true ||
+                item?.airPortName?.lowercase()?.contains(text.lowercase()) == true) {
+
                 filteredList.add(item)
             }
         }
@@ -100,24 +110,35 @@ class AirportListDialog(
     }
 
     private fun handleAirportClick(data: AirportData) {
-        if (!isDest) viewModel.setOrigin(data) else viewModel.setDestination(data)
+        if (!isDest) {
+            homeViewModel.setOrigin(data.iataCode!!)
+            homeViewModel.setOCity(data.cityName!!)
+        } else {
+            homeViewModel.setDestination(data.iataCode!!)
+            homeViewModel.setDCity(data.cityName!!)
+        }
         viewModel.addRecentAirport(data)
         dialog.dismiss()
     }
 
     private fun handleGetAirportList(response: AirportResponse) {
+        binding.tvNoAirport.visibility = if (response.data.isNullOrEmpty()) View.VISIBLE else View.GONE
         if (response.status == true) {
             this.airportList = response.data!!
             this.allAirportListAdapter.submitList(this.airportList)
-            this.recentAirportListAdapter.submitList(this.airportList.takeLast(3))
         }
     }
 
-    private fun handleGetRecentAirport(data: MutableSet<String>?) {
-//        if (data != null) {
-//            this.recentAirportListAdapter.submitList(this.airportList.filter {
-//                data.contains(it!!.id.toString())
-//            })
-//        }
+    private fun handleGetRecentAirport(data: List<AirportData>) {
+        binding.tvNoRecent.visibility = if (data.isEmpty()) View.VISIBLE else View.GONE
+        this.recentAirportListAdapter.submitList(data.take(3))
+    }
+
+    private fun handleClearLoading(loading: Boolean) {
+        if (loading) {
+            binding.recentAirportListRecycler.loadSkeleton()
+        } else {
+            binding.recentAirportListRecycler.hideSkeleton()
+        }
     }
 }

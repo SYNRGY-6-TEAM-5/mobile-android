@@ -1,6 +1,6 @@
 package com.synrgy.presentation.constant
 
-import com.synrgy.domain.PassengerData
+import com.synrgy.domain.local.PassengerData
 
 object PassengerConstant {
     fun getData(): ArrayList<PassengerData> {

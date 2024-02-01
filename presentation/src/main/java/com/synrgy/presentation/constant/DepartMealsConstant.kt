@@ -1,6 +1,6 @@
 package com.synrgy.presentation.constant
 
-import com.synrgy.domain.DepartMeals
+import com.synrgy.domain.local.DepartMeals
 import com.synrgy.presentation.R
 
 object DepartMealsConstant {

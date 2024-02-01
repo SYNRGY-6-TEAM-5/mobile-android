@@ -1,7 +1,7 @@
 package com.synrgy.aeroswift.presentation.diffutil
 
 import androidx.recyclerview.widget.DiffUtil
-import com.synrgy.domain.FaqData
+import com.synrgy.domain.local.FaqData
 
 class FaqDiffUtil: DiffUtil.ItemCallback<FaqData>() {
     override fun areItemsTheSame(oldItem: FaqData, newItem: FaqData): Boolean {
