@@ -7,7 +7,7 @@ import com.google.android.material.card.MaterialCardView
 import com.synrgy.aeroswift.databinding.ItemDepartBaggageBinding
 import com.synrgy.aeroswift.presentation.diffutil.DepartBaggageDiffUtil
 import com.synrgy.aeroswift.presentation.viewholder.DepartBaggageViewHolder
-import com.synrgy.domain.DepartBaggage
+import com.synrgy.domain.local.DepartBaggage
 
 class DepartBaggageAdapter(
     private val clickListener: (DepartBaggage) -> Unit

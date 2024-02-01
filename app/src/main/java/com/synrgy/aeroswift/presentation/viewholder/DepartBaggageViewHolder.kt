@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.android.material.card.MaterialCardView
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.ItemDepartBaggageBinding
-import com.synrgy.domain.DepartBaggage
+import com.synrgy.domain.local.DepartBaggage
 import com.synrgy.presentation.helper.Helper
 
 class DepartBaggageViewHolder(

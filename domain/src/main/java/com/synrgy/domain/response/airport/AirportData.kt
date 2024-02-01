@@ -21,7 +21,7 @@ data class AirportData(
     @SerializedName("iataCode")
     val iataCode: String?,
     @SerializedName("id")
-    val id: Int?,
+    val id: Int,
     @SerializedName("updatedAt")
-    val updatedAt: Any?
+    val updatedAt: Long?
 )

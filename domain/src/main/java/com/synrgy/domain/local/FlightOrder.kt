@@ -1,4 +1,4 @@
-package com.synrgy.domain
+package com.synrgy.domain.local
 
 data class FlightOrder(
     val title: String,

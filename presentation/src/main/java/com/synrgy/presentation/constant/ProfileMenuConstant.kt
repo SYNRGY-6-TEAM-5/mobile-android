@@ -1,6 +1,6 @@
 package com.synrgy.presentation.constant
 
-import com.synrgy.domain.ProfileMenu
+import com.synrgy.domain.local.ProfileMenu
 import com.synrgy.presentation.R
 
 object ProfileMenuConstant {

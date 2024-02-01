@@ -319,6 +319,13 @@
     <string name="delete_passenger_desc">When you book later, you need to manually enter the profile details</string>
     <string name="can_t_access">Can’t Access</string>
     <string name="auth_dialog_desc">You must sign in first to be able to use all the features</string>
+    <string name="no_recent_airport">No recent airport</string>
+    <string name="no_airport">No airport</string>
+    <string name="select_passenger">Select Passenger</string>
+    <string name="new_passenger">New Passenger</string>
+    <string name="price_pax">Price/pax</string>
+    <string name="idr_1_165_450">IDR 1,165,450</string>
+    <string name="infant_1">Infant (1)</string>
 
     <string-array name="origin">
         <item>Select</item>

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.synrgy.aeroswift.databinding.ItemProfileMenuBinding
 import com.synrgy.aeroswift.presentation.diffutil.ProfileMenuDiffUtil
 import com.synrgy.aeroswift.presentation.viewholder.ProfileMenuViewHolder
-import com.synrgy.domain.ProfileMenu
+import com.synrgy.domain.local.ProfileMenu
 
 class ProfileMenuAdapter(
     private val clickListener: (ProfileMenu) -> Unit

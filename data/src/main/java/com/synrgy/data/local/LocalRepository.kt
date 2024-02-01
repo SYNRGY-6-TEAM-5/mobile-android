@@ -99,4 +99,12 @@ class LocalRepository @Inject constructor (
     override suspend fun getRecentAirport(): MutableSet<String>? {
         return sharedPreferences.getRecentAirport()
     }
+
+    override suspend fun getUserId(): Flow<String?> {
+        return dataStoreManager.getUserId()
+    }
+
+    override suspend fun setUserId(id: String) {
+        dataStoreManager.setUserId(id)
+    }
 }

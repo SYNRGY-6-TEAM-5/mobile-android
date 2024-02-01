@@ -3,13 +3,16 @@ package com.synrgy.aeroswift.presentation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.ActivityHomeBinding
+import com.synrgy.aeroswift.dialog.AuthDialog
 import com.synrgy.aeroswift.presentation.fragment.FlightFragment
 import com.synrgy.aeroswift.presentation.fragment.HomeFragment
 import com.synrgy.aeroswift.presentation.fragment.ProfileFragment
+import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,11 +40,23 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
 
+    private val authViewModel: AuthViewModel by viewModels()
+
+    private lateinit var authDialog: AuthDialog
+
+    private lateinit var token: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        authDialog = AuthDialog(this)
+
+        authViewModel.getUser()
+        authViewModel.checkAuth()
+        observeViewModel()
 
         val bundle = intent.extras
 
@@ -63,8 +78,20 @@ class HomeActivity : AppCompatActivity() {
         binding.homeBottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.navigation_home -> replaceFragment(HomeFragment())
-                R.id.navigation_flight -> replaceFragment(FlightFragment())
-                R.id.navigation_profile -> replaceFragment(ProfileFragment())
+                R.id.navigation_flight -> {
+                    if (token.isNotEmpty() && token.isNotBlank()) {
+                        replaceFragment(FlightFragment())
+                    } else {
+                        authDialog.show()
+                    }
+                }
+                R.id.navigation_profile -> {
+                    if (token.isNotEmpty() && token.isNotBlank()) {
+                        replaceFragment(ProfileFragment())
+                    } else {
+                        authDialog.show()
+                    }
+                }
                 else -> {
                 }
             }
@@ -77,5 +104,9 @@ class HomeActivity : AppCompatActivity() {
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.home_frame_layout, fragment)
         fragmentTransaction.commit()
+    }
+
+    private fun observeViewModel() {
+        authViewModel.authentication.observe(this) { token = it }
     }
 }

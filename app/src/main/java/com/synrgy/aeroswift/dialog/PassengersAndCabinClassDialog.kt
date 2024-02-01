@@ -20,6 +20,7 @@ class PassengersAndCabinClassDialog(
         BottomSheetDialog(activity).apply {
             binding = DialogPassengersAndClassBinding.inflate(layoutInflater)
             setContentView(binding.root)
+
             binding.btnClose.setOnClickListener {
                 dismiss()
             }
@@ -37,8 +38,15 @@ class PassengersAndCabinClassDialog(
                 val selectedClass: Chip? =
                     binding.cgPassengers.findViewById(binding.cgPassengers.checkedChipId)
                 val sumCount = passengers.sumOf { it.count }
+                val adultSeat = passengers[0].count
+                val childSeat = passengers[1].count
+                val infantSeat = passengers[2].count
 
-                if (selectedClass == null) {
+                if (selectedClass == null && sumCount == 0) {
+                    Toast.makeText(activity, "Please select passenger and cabin class", Toast.LENGTH_SHORT)
+                        .show()
+                    return@setOnClickListener
+                } else if (selectedClass == null) {
                     Toast.makeText(activity, "Please select cabin class", Toast.LENGTH_SHORT)
                         .show()
                     return@setOnClickListener
@@ -47,12 +55,11 @@ class PassengersAndCabinClassDialog(
                         .show()
                     return@setOnClickListener
                 } else {
-                    selectedClass.let {
-                        homeViewModel.setSelectedClass(it.text.toString())
-                    }
-                    sumCount.let {
-                        homeViewModel.setTotalPassengers(it)
-                    }
+                    homeViewModel.setTicketClass(selectedClass.text.toString())
+                    homeViewModel.setAdultSeat(adultSeat)
+                    homeViewModel.setChildSeat(childSeat)
+                    homeViewModel.setInfantSeat(infantSeat)
+                    homeViewModel.setTotalSeat(sumCount)
                     dismiss()
                 }
 

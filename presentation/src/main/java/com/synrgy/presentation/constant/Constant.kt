@@ -9,4 +9,9 @@ object Constant {
         COMPLETED("Completed"),
         CANCELED("Canceled")
     }
+
+    enum class TripType(val value: String) {
+        ONE_WAY("one-way"),
+        ROUNDTRIP("roundtrip")
+    }
 }

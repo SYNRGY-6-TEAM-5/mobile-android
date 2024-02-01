@@ -1,6 +1,6 @@
 package com.synrgy.presentation.constant
 
-import com.synrgy.domain.FaqData
+import com.synrgy.domain.local.FaqData
 import com.synrgy.presentation.R
 
 object FaqConstant {

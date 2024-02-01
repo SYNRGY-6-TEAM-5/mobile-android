@@ -3,7 +3,7 @@ package com.synrgy.aeroswift.presentation.viewholder
 import androidx.recyclerview.widget.RecyclerView
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.ItemFlightOrderBinding
-import com.synrgy.domain.FlightOrder
+import com.synrgy.domain.local.FlightOrder
 
 class FlightOrderViewHolder(
     private val binding: ItemFlightOrderBinding

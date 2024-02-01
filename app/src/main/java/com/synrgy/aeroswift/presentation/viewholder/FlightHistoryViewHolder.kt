@@ -2,7 +2,7 @@ package com.synrgy.aeroswift.presentation.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.synrgy.aeroswift.databinding.ItemFlightHistoryBinding
-import com.synrgy.domain.FlightHistory
+import com.synrgy.domain.local.FlightHistory
 
 class FlightHistoryViewHolder(
     private val binding: ItemFlightHistoryBinding

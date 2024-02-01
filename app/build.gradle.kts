@@ -87,6 +87,10 @@ dependencies {
     implementation("com.github.esafirm:android-image-picker:3.0.0")
 
     implementation("com.ericktijerou.koleton:koleton:1.0.0-beta01")
+
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
 }
 
 // Allow references to generated code

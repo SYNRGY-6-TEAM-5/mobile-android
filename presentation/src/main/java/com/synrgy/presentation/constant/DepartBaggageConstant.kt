@@ -1,6 +1,6 @@
 package com.synrgy.presentation.constant
 
-import com.synrgy.domain.DepartBaggage
+import com.synrgy.domain.local.DepartBaggage
 
 object DepartBaggageConstant {
     fun getData(): ArrayList<DepartBaggage> {

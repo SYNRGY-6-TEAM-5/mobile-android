@@ -14,7 +14,7 @@ import com.synrgy.aeroswift.databinding.FragmentPassengerListBinding
 import com.synrgy.aeroswift.presentation.HomeActivity
 import com.synrgy.aeroswift.presentation.adapter.PassengerAdapter
 import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
-import com.synrgy.domain.PassengerData
+import com.synrgy.domain.local.PassengerData
 import com.synrgy.presentation.constant.PassengerConstant
 import dagger.hilt.android.AndroidEntryPoint
 import koleton.api.hideSkeleton

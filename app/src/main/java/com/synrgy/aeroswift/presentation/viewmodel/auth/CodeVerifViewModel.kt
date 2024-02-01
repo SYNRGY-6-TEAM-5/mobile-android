@@ -33,7 +33,6 @@ class CodeVerifViewModel @Inject constructor(
             when (val response = validateOtpUseCase.invoke(body)) {
                 is Resource.Success -> {
                     withContext(Dispatchers.Main) {
-                        _loading.value = false
                         _validateOtp.value = ValidateOtpResponse(
                             message = response.data?.message ?: "",
                             token = response.data?.token ?: "",
@@ -43,16 +42,18 @@ class CodeVerifViewModel @Inject constructor(
                 }
                 is Resource.ErrorRes -> {
                     withContext(Dispatchers.Main) {
-                        _loading.value = false
                         _error.value = response.errorRes?.message ?: ""
                     }
                 }
                 is Resource.ExceptionRes -> {
                     withContext(Dispatchers.Main) {
-                        _loading.value = false
-                        _error.value = response.exceptionRes?.message ?: ""
+                        _error.value = response.exceptionRes?.message ?: "Server error"
                     }
                 }
+            }
+
+            withContext(Dispatchers.Main) {
+                _loading.value = false
             }
         }
     }

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentAddDepartBaggageBinding
 import com.synrgy.aeroswift.presentation.adapter.DepartBaggageAdapter
-import com.synrgy.domain.DepartBaggage
+import com.synrgy.domain.local.DepartBaggage
 import com.synrgy.presentation.constant.DepartBaggageConstant
 import com.synrgy.presentation.helper.Helper
 

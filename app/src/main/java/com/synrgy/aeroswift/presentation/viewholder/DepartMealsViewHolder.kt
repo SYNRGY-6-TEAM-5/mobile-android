@@ -3,7 +3,7 @@ package com.synrgy.aeroswift.presentation.viewholder
 import androidx.recyclerview.widget.RecyclerView
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.ItemDepartMealsBinding
-import com.synrgy.domain.DepartMeals
+import com.synrgy.domain.local.DepartMeals
 import com.synrgy.presentation.helper.Helper
 
 class DepartMealsViewHolder(

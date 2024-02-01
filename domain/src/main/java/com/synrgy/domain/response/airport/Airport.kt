@@ -23,5 +23,5 @@ data class Airport(
     @SerializedName("id")
     val id: Int?,
     @SerializedName("updatedAt")
-    val updatedAt: Any?
+    val updatedAt: Long?
 )

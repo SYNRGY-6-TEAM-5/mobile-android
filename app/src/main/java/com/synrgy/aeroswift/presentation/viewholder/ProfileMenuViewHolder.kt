@@ -2,7 +2,7 @@ package com.synrgy.aeroswift.presentation.viewholder
 
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.synrgy.aeroswift.databinding.ItemProfileMenuBinding
-import com.synrgy.domain.ProfileMenu
+import com.synrgy.domain.local.ProfileMenu
 
 class ProfileMenuViewHolder(
     private val binding: ItemProfileMenuBinding
