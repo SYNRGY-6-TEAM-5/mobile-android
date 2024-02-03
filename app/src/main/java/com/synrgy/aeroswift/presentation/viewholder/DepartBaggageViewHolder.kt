@@ -12,6 +12,7 @@ class DepartBaggageViewHolder(
     private val binding: ItemDepartBaggageBinding
 ): ViewHolder(binding.root) {
     val cardView = binding.itemBaggageCard
+    val item = binding
 
     fun bindData(
         data: DepartBaggage,
@@ -31,8 +32,14 @@ class DepartBaggageViewHolder(
                 it.setCardBackgroundColor(ContextCompat.getColor(context, R.color.gray_50))
             }
 
-            binding.itemBaggageCard.strokeColor = ContextCompat.getColor(context, R.color.error_500)
-            binding.itemBaggageCard.setCardBackgroundColor(ContextCompat.getColor(context, R.color.error_50))
+            setActive(binding.itemBaggageCard)
         }
+    }
+
+    fun setActive(cardView: MaterialCardView) {
+        val context = binding.root.context
+
+        cardView.strokeColor = ContextCompat.getColor(context, R.color.error_500)
+        cardView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.error_50))
     }
 }

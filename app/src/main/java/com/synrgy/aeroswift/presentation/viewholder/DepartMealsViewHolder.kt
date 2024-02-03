@@ -9,6 +9,7 @@ import com.synrgy.presentation.helper.Helper
 class DepartMealsViewHolder(
     private val binding: ItemDepartMealsBinding
 ): RecyclerView.ViewHolder(binding.root) {
+    val item = binding
     fun bindData(
         data: DepartMeals,
         clickListener: (DepartMeals, isChecked: Boolean) -> Unit,

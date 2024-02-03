@@ -14,4 +14,9 @@ object Constant {
         ONE_WAY("one-way"),
         ROUNDTRIP("roundtrip")
     }
+
+    enum class AddonType(val value: String) {
+        BAGGAGE("baggage"),
+        MEALS("meals")
+    }
 }

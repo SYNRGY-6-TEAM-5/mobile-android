@@ -12,6 +12,7 @@ import android.widget.DatePicker
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.res.ResourcesCompat
+import com.synrgy.domain.local.AddonData
 import com.synrgy.domain.local.FlightSearch
 import com.synrgy.presentation.R
 import www.sanju.motiontoast.MotionToast
@@ -195,6 +196,15 @@ object Helper {
                 data.childSeat != null &&
                 data.totalSeat != null &&
                 data.infantSeat != null
+    }
+
+    fun isValidBaggage(data: AddonData): Boolean {
+        return data.userName.isNotEmpty() &&
+                data.userName.isNotBlank() &&
+                data.category.isNotEmpty() &&
+                data.category.isNotBlank() &&
+                data.weight != null &&
+                data.price != 0L
     }
 
     fun formatDateDay(dateString: String): String {

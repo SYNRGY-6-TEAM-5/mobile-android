@@ -159,6 +159,16 @@
                         android:textColor="@color/gray_400"
                         android:layout_marginTop="8dp"/>
 
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_meals"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_depart_time"
+                        tools:listitem="@layout/item_addon_card"
+                        tools:itemCount="1"
+                        android:nestedScrollingEnabled="true"/>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>

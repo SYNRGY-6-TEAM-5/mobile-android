@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -195,6 +196,7 @@ class CodeVerifFragment : Fragment() {
             response.message.isNotEmpty() &&
             response.success) {
 
+            loadingDialog.dismissDialog()
             Helper.showToast(requireActivity(), requireContext(), response.message, isSuccess = true)
             authViewModel.setToken(response.token)
             findNavController().navigate(R.id.action_codeVerifFragment_to_accountDetailFragment)

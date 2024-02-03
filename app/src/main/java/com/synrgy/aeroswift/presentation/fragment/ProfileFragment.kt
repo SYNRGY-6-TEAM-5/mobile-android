@@ -96,6 +96,7 @@ class ProfileFragment : Fragment() {
     private fun observeViewModels() {
         authViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
         authViewModel.name.observe(viewLifecycleOwner, ::handleGetName)
+        authViewModel.email.observe(viewLifecycleOwner, ::handleGetEmail)
         authViewModel.photo.observe(viewLifecycleOwner, ::handleLoadImage)
         authViewModel.logoutLoading.observe(viewLifecycleOwner, ::handleLogout)
         authViewModel.authentication.observe(viewLifecycleOwner, ::handleAuthAlert)
@@ -145,9 +146,11 @@ class ProfileFragment : Fragment() {
     private fun handleLoading(loading: Boolean) {
         if (loading) {
             binding.tvName.loadSkeleton()
+            binding.tvEmail.loadSkeleton()
             binding.ivProfile.loadSkeleton()
         } else {
             binding.tvName.hideSkeleton()
+            binding.tvEmail.hideSkeleton()
             binding.ivProfile.hideSkeleton()
         }
     }
@@ -155,6 +158,10 @@ class ProfileFragment : Fragment() {
     private fun handleGetName(name: String) {
         authViewModel.setName(name)
         binding.tvName.text = name
+    }
+
+    private fun handleGetEmail(email: String) {
+        binding.tvEmail.text = email
     }
 
     private fun handleLoadImage(image: String) {

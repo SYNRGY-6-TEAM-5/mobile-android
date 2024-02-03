@@ -129,6 +129,8 @@ class RegisterFragment: Fragment() {
             response.expiredOTP != 0L &&
             response.success) {
 
+            loadingDialog.dismissDialog()
+
             Log.d("OTP", response.otp)
 
             val email = binding.registerTiEmail.text.toString()

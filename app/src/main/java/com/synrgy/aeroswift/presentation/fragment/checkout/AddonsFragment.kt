@@ -1,22 +1,26 @@
 package com.synrgy.aeroswift.presentation.fragment.checkout
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
-import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentAddonsBinding
 import com.synrgy.aeroswift.dialog.ExtraProtectionDialog
 import com.synrgy.aeroswift.dialog.PriceDetailsDialog
 import com.synrgy.aeroswift.dialog.TripConfirmationDialog
+import com.synrgy.aeroswift.models.AddonTravelModels
+import com.synrgy.aeroswift.presentation.adapter.AddonTravelAdapter
 import com.synrgy.aeroswift.presentation.viewmodel.HomeViewModel
-import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
+import com.synrgy.aeroswift.presentation.viewmodel.checkout.AddonViewModel
+import com.synrgy.domain.local.AddonData
 import com.synrgy.domain.local.FlightSearch
 import com.synrgy.domain.local.PriceDetails
 import com.synrgy.presentation.constant.Constant
@@ -32,8 +36,16 @@ class AddonsFragment : Fragment() {
     private lateinit var priceDialog: PriceDetailsDialog
 
     private val homeViewModel: HomeViewModel by viewModels()
+    private val addonViewModel: AddonViewModel by viewModels()
+
+    private val baggageAdapter = AddonTravelAdapter()
+    private val mealsAdapter = AddonTravelAdapter()
 
     private val priceList = ArrayList<PriceDetails>()
+
+    private var origin = ""
+    private var destination = ""
+    private var tripType = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +63,14 @@ class AddonsFragment : Fragment() {
         priceDialog = PriceDetailsDialog(requireActivity())
 
         homeViewModel.getFlightSearch()
+        addonViewModel.getAddons()
         observeViewModel()
+
+        binding.rvBaggage.layoutManager = LinearLayoutManager(requireActivity())
+        binding.rvBaggage.adapter = this.baggageAdapter
+
+        binding.rvMeals.layoutManager = LinearLayoutManager(requireActivity())
+        binding.rvMeals.adapter = this.mealsAdapter
 
         binding.infoFullProtection.setOnClickListener {
             protectionDialog.show(
@@ -87,7 +106,9 @@ class AddonsFragment : Fragment() {
             )
         }
 
-        binding.toolbarIcon.setOnClickListener { requireActivity().onBackPressed() }
+        binding.toolbarIcon.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
 
         binding.icBaggage.setOnClickListener {
             findNavController().navigate(R.id.action_addonsFragment_to_addBaggageFragment)
@@ -106,10 +127,17 @@ class AddonsFragment : Fragment() {
 
     private fun observeViewModel() {
         homeViewModel.flightSearch.observe(viewLifecycleOwner, ::handleFlightSearch)
+        addonViewModel.addons.observe(viewLifecycleOwner, ::handleAddons)
     }
 
     private fun handleFlightSearch(data: FlightSearch) {
         if (Helper.isValidFlightSearch(data)) {
+            origin = data.origin!!
+            destination = data.destination!!
+            tripType = data.tripType!!
+
+            priceList.clear()
+
             priceList.add(
                 PriceDetails(
                     id = Constant.TripType.ONE_WAY.value,
@@ -138,6 +166,111 @@ class AddonsFragment : Fragment() {
                         infantPrice = if (data.infantSeat == 0) null else (730000 * data.infantSeat!!).toLong()
                     )
                 )
+            }
+        }
+    }
+
+    private fun handleAddons(data: List<AddonData>) {
+        val baggageList = ArrayList<AddonTravelModels>()
+        val mealsList = ArrayList<AddonTravelModels>()
+
+        var baggagePrice = 0L
+        var baggageName = ""
+        var baggageCount = ""
+
+        var mealsPrice = 0L
+        var mealsName = ""
+        var mealsCount = ""
+
+        if (data.isNotEmpty()) {
+            val baggageAddons = data
+                .filter { it.category == Constant.AddonType.BAGGAGE.value }
+                .groupBy { it.userId }
+
+            if (baggageAddons.isNotEmpty()) {
+                baggageAddons.forEach { (_, value) ->
+                    value.forEachIndexed { index, item ->
+                        baggagePrice += item.price
+                        baggageName += item.userName + if (value.lastIndex != index) "\n" else ""
+                        baggageCount += "${item.weight} KG" + if (value.lastIndex != index) "\n" else ""
+                    }
+                }
+
+                baggageList.add(
+                    AddonTravelModels(
+                        id = Constant.TripType.ONE_WAY.value,
+                        trip = "Depart",
+                        price = baggagePrice,
+                        origin = origin,
+                        destination = destination,
+                        name = baggageName,
+                        count = baggageCount
+                    )
+                )
+
+                if (tripType == Constant.TripType.ROUNDTRIP.value) {
+                    baggageList.add(
+                        AddonTravelModels(
+                            id = Constant.TripType.ROUNDTRIP.value,
+                            trip = "Return",
+                            price = 0,
+                            origin = destination,
+                            destination = origin
+                        )
+                    )
+                }
+
+                this.baggageAdapter.submitList(baggageList)
+                binding.cardBaggageEmpty.visibility = View.GONE
+            } else {
+                this.baggageAdapter.submitList(emptyList())
+            }
+
+            val mealAddons = data
+                .filter { it.category == Constant.AddonType.MEALS.value }
+                .groupBy { it.userId }
+
+            if (mealAddons.isNotEmpty()) {
+                mealAddons.forEach { (_, value) ->
+                    value.forEachIndexed { index, item ->
+                        mealsPrice += item.price
+                    }
+
+                    val meals = if (value.size > 1) "Meals" else "Meal"
+                    mealsName = value[0].userName
+                    mealsCount = "${value.size} $meals"
+                }
+
+                mealsList.clear()
+
+                mealsList.add(
+                    AddonTravelModels(
+                        id = Constant.TripType.ONE_WAY.value,
+                        trip = "Depart",
+                        price = mealsPrice,
+                        origin = origin,
+                        destination = destination,
+                        name = mealsName,
+                        count = mealsCount
+                    )
+                )
+
+                if (tripType == Constant.TripType.ROUNDTRIP.value) {
+                    mealsList.add(
+                        AddonTravelModels(
+                            id = Constant.TripType.ROUNDTRIP.value,
+                            trip = "Return",
+                            price = 0,
+                            origin = destination,
+                            destination = origin
+                        )
+                    )
+                }
+
+                this.mealsAdapter.submitList(mealsList)
+                binding.cardMealEmpty.visibility = View.GONE
+            } else {
+                this.mealsAdapter.submitList(emptyList())
             }
         }
     }

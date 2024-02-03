@@ -41,6 +41,8 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModels()
     private val authViewModel: AuthViewModel by viewModels()
 
+    private var departTime = 0L
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -64,6 +66,10 @@ class HomeFragment : Fragment() {
         }
 
         binding.clReturnDate.setOnClickListener {
+            if (departTime == 0L) {
+                Toast.makeText(requireActivity(), "Select depart date", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
             showDatePicker(binding.tvSelectedReturnDate, false)
         }
 
@@ -164,6 +170,7 @@ class HomeFragment : Fragment() {
 
                 val date = simpleDateFormat.format(calendar.time)
                 textView.text = date
+                if (isDepart) departTime = calendar.timeInMillis
 
                 val numberDate = numberDateFormat.format(calendar.time)
                 if (isDepart) viewModel.setDepDate(numberDate) else viewModel.setRetDate(numberDate)
@@ -174,6 +181,7 @@ class HomeFragment : Fragment() {
             Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
         )
         // Show the DatePickerDialog
+        datePickerDialog.datePicker.minDate = if (isDepart) System.currentTimeMillis() else departTime
         datePickerDialog.show()
     }
 
@@ -207,17 +215,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun handleFlightSearch(data: FlightSearch) {
-        if (Helper.isValidFlightSearch(data)) {
-            FlightDetailsActivity.startActivity(requireActivity())
-        } else {
-            Toast
-                .makeText(
-                    requireActivity(),
-                    "Please fill all field!",
-                    Toast.LENGTH_SHORT
-                )
-                .show()
+        if (!Helper.isValidFlightSearch(data)) {
+            Toast.makeText(requireActivity(), "Please fill all field", Toast.LENGTH_SHORT).show()
+            return
         }
+        FlightDetailsActivity.startActivity(requireActivity())
     }
 
     private fun handlePassengerInput(totalSeat: Int) {

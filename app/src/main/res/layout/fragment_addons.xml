@@ -106,6 +106,7 @@
                     </LinearLayout>
 
                     <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/card_baggage_empty"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:cardBackgroundColor="@color/gray_50"
@@ -129,6 +130,13 @@
                         </LinearLayout>
 
                     </com.google.android.material.card.MaterialCardView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_baggage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:listitem="@layout/item_addon_travel"
+                        tools:itemCount="1"/>
 
                 </LinearLayout>
 
@@ -176,6 +184,7 @@
                     </LinearLayout>
 
                     <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/card_meal_empty"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:cardBackgroundColor="@color/gray_50"
@@ -199,6 +208,13 @@
                         </LinearLayout>
 
                     </com.google.android.material.card.MaterialCardView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_meals"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:listitem="@layout/item_addon_travel"
+                        tools:itemCount="1"/>
 
                 </LinearLayout>
 

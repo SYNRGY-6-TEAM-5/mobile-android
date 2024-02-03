@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.synrgy.aeroswift.databinding.ActivityFlightDetailsBinding
 import com.synrgy.aeroswift.presentation.adapter.TicketDetailsAdapter
 import com.synrgy.aeroswift.presentation.viewmodel.HomeViewModel
+import com.synrgy.aeroswift.presentation.viewmodel.checkout.AddonViewModel
 import com.synrgy.domain.local.FlightSearch
 import com.synrgy.domain.local.TicketDetails
 import com.synrgy.presentation.constant.Constant
@@ -28,6 +29,7 @@ class FlightDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFlightDetailsBinding
 
     private val homeViewModel: HomeViewModel by viewModels()
+    private val addonViewModel: AddonViewModel by viewModels()
 
     private val adapter = TicketDetailsAdapter()
 
@@ -44,6 +46,7 @@ class FlightDetailsActivity : AppCompatActivity() {
         binding.rvFlightDetails.adapter = this.adapter
 
         binding.btnSelectFlight.setOnClickListener {
+            addonViewModel.deleteAddons()
             CheckoutActivity.startActivity(this)
         }
 

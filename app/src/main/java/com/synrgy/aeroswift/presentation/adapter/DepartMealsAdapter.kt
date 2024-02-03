@@ -9,6 +9,7 @@ import com.synrgy.aeroswift.presentation.viewholder.DepartMealsViewHolder
 import com.synrgy.domain.local.DepartMeals
 
 class DepartMealsAdapter(
+    private val selectedIndexes: IntArray,
     private val clickListener: (DepartMeals, isChecked: Boolean) -> Unit
 ): ListAdapter<DepartMeals, DepartMealsViewHolder>(
     DepartMealsDiffUtil()
@@ -22,6 +23,10 @@ class DepartMealsAdapter(
     }
 
     override fun onBindViewHolder(holder: DepartMealsViewHolder, position: Int) {
+        if (selectedIndexes.contains(position)) {
+            holder.item.cbMeals.isChecked = true
+        }
+
         holder.bindData(getItem(position), clickListener)
     }
 }
