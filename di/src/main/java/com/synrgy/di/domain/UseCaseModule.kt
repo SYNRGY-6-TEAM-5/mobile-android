@@ -9,8 +9,6 @@ import com.synrgy.domain.repository.NewUserRepository
 import com.synrgy.domain.repository.RegisterRepository
 import com.synrgy.domain.repository.UserRepository
 import com.synrgy.presentation.usecase.airport.AirportListUseCase
-import com.synrgy.presentation.usecase.airport.GetRecentAirportUseCase
-import com.synrgy.presentation.usecase.airport.SetRecentAirportUseCase
 import com.synrgy.presentation.usecase.auth.ClearTokenUseCase
 import com.synrgy.presentation.usecase.auth.GetNameUseCase
 import com.synrgy.presentation.usecase.auth.GetPhotoUseCase
@@ -26,10 +24,10 @@ import com.synrgy.presentation.usecase.forgotpassword.ForgotPasswordUseCase
 import com.synrgy.presentation.usecase.forgotpassword.ValidateOtpFpUseCase
 import com.synrgy.presentation.usecase.login.GetTokenUseCase
 import com.synrgy.presentation.usecase.login.LoginUseCase
-import com.synrgy.presentation.usecase.login.ValidateLoginUseCase
 import com.synrgy.presentation.usecase.login.SetTokenUseCase
 import com.synrgy.presentation.usecase.login.ValidateChangePassUseCase
 import com.synrgy.presentation.usecase.login.ValidateEmailUseCase
+import com.synrgy.presentation.usecase.login.ValidateLoginUseCase
 import com.synrgy.presentation.usecase.onboarding.GetNewUserUseCase
 import com.synrgy.presentation.usecase.onboarding.SetNewUserUseCase
 import com.synrgy.presentation.usecase.register.RegisterUseCase
@@ -278,21 +276,5 @@ object UseCaseModule {
         authRepository: AuthRepository
     ): GetUserIdUseCase {
         return GetUserIdUseCase(authRepository)
-    }
-
-    @Singleton
-    @Provides
-    fun provideSetRecentAirportUseCase(
-        authRepository: AuthRepository
-    ): SetRecentAirportUseCase {
-        return SetRecentAirportUseCase(authRepository)
-    }
-
-    @Singleton
-    @Provides
-    fun provideGetRecentAirportUseCase(
-        authRepository: AuthRepository
-    ): GetRecentAirportUseCase {
-        return GetRecentAirportUseCase(authRepository)
     }
 }
