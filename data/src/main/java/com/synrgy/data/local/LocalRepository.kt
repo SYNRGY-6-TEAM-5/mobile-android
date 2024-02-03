@@ -6,13 +6,11 @@ import com.synrgy.domain.repository.AuthRepository
 import com.synrgy.domain.repository.LoginRepository
 import com.synrgy.domain.repository.NewUserRepository
 import com.synrgy.domain.repository.RegisterRepository
-import com.synrgy.domain.response.airport.AirportData
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class LocalRepository @Inject constructor (
-    private val dataStoreManager: DataStoreManager,
-    private val sharedPreferences: SharedPreferences
+    private val dataStoreManager: DataStoreManager
 ): LoginRepository, RegisterRepository, AuthRepository, NewUserRepository {
     override suspend fun validateLogin(email: String, password: String): Boolean {
         return email.isNotEmpty()
@@ -43,6 +41,7 @@ class LocalRepository @Inject constructor (
                 && Patterns.EMAIL_ADDRESS.matcher(email).matches()
                 && password.isNotEmpty()
                 && password.isNotBlank()
+                && Helper.checkPasswordLength(password)
                 && Helper.containsSpecialCharacter(password)
                 && Helper.containsAlphanumeric(password)
                 && Helper.containsUppercaseLetter(password)
@@ -90,14 +89,6 @@ class LocalRepository @Inject constructor (
 
     override suspend fun setRegToken(token: String) {
         dataStoreManager.setRegToken(token)
-    }
-
-    override suspend fun setRecentAirport(data: AirportData) {
-        sharedPreferences.setRecentAirport(data)
-    }
-
-    override suspend fun getRecentAirport(): MutableSet<String>? {
-        return sharedPreferences.getRecentAirport()
     }
 
     override suspend fun getUserId(): Flow<String?> {
