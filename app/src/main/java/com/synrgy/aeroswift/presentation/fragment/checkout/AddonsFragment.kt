@@ -1,7 +1,6 @@
 package com.synrgy.aeroswift.presentation.fragment.checkout
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +25,8 @@ import com.synrgy.domain.local.PriceDetails
 import com.synrgy.presentation.constant.Constant
 import com.synrgy.presentation.helper.Helper
 import dagger.hilt.android.AndroidEntryPoint
+import koleton.api.hideSkeleton
+import koleton.api.loadSkeleton
 
 
 @AndroidEntryPoint
@@ -128,6 +129,11 @@ class AddonsFragment : Fragment() {
     private fun observeViewModel() {
         homeViewModel.flightSearch.observe(viewLifecycleOwner, ::handleFlightSearch)
         addonViewModel.addons.observe(viewLifecycleOwner, ::handleAddons)
+        addonViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
+    }
+
+    private fun handleLoading(loading: Boolean) {
+        if (loading) binding.layout.loadSkeleton() else binding.layout.hideSkeleton()
     }
 
     private fun handleFlightSearch(data: FlightSearch) {
@@ -182,7 +188,7 @@ class AddonsFragment : Fragment() {
         var mealsName = ""
         var mealsCount = ""
 
-        if (data.isNotEmpty()) {
+        if (data.isNotEmpty() && origin.isNotEmpty() && destination.isNotEmpty() && tripType.isNotEmpty()) {
             val baggageAddons = data
                 .filter { it.category == Constant.AddonType.BAGGAGE.value }
                 .groupBy { it.userId }
@@ -232,7 +238,7 @@ class AddonsFragment : Fragment() {
 
             if (mealAddons.isNotEmpty()) {
                 mealAddons.forEach { (_, value) ->
-                    value.forEachIndexed { index, item ->
+                    value.forEachIndexed { _, item ->
                         mealsPrice += item.price
                     }
 

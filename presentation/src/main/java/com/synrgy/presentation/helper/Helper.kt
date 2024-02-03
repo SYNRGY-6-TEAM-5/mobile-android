@@ -213,4 +213,17 @@ object Helper {
         val date: Date = inputFormat.parse(dateString) ?: return ""
         return outputFormat.format(date)
     }
+
+    fun formatPhoneNumber(input: String): String {
+        val cleanNumber = input.replace(Regex("[^\\d]"), "")
+        return if (cleanNumber.isNotEmpty()) {
+            when (cleanNumber.length) {
+                in 5..7 -> "+${cleanNumber.substring(0, 2)} ${cleanNumber.substring(2)}"
+                in 8..11 -> "+${cleanNumber.substring(0, 2)} ${cleanNumber.substring(2, 6)}-${cleanNumber.substring(6)}"
+                else -> "+${cleanNumber.substring(0, 2)} ${cleanNumber.substring(2, 6)}-${cleanNumber.substring(6, 10)}-${cleanNumber.substring(10)}"
+            }
+        } else {
+            input
+        }
+    }
 }
