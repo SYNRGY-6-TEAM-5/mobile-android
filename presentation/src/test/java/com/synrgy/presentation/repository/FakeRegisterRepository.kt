@@ -1,6 +1,5 @@
 package com.synrgy.presentation.repository
 
-import android.util.Patterns
 import com.synrgy.domain.repository.RegisterRepository
 import com.synrgy.presentation.helper.Helper
 

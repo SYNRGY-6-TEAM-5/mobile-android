@@ -1,7 +1,6 @@
 package com.synrgy.presentation.usecase.login
 
 import com.synrgy.presentation.repository.FakeLoginRepository
-import com.synrgy.presentation.usecase.login.ValidateLoginUseCase
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before

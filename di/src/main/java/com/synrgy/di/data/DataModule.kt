@@ -92,10 +92,9 @@ object DataModule {
     @Singleton
     @Provides
     fun provideLocalRepository(
-        dataStoreManager: DataStoreManager,
-        sharedPreferences: SharedPreferences
+        dataStoreManager: DataStoreManager
     ): LocalRepository {
-        return LocalRepository(dataStoreManager, sharedPreferences)
+        return LocalRepository(dataStoreManager)
     }
 
     @Singleton
