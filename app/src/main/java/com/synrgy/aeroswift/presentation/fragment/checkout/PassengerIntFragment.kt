@@ -41,6 +41,9 @@ class PassengerIntFragment : Fragment() {
         binding.tiBirth.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) Helper.showDatePicker(requireContext(), selectedDate, ::updateBirthInput)
         }
+        binding.tiExpiry.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) Helper.showDatePicker(requireContext(), selectedDate, ::updateBirthInput)
+        }
 
         binding.btnSave.setOnClickListener { handleNavigate() }
         binding.toolbarPassengerInt.setNavigationOnClickListener { handleNavigate() }

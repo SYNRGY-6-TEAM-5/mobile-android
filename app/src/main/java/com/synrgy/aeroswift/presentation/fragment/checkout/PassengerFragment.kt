@@ -12,6 +12,7 @@ import com.synrgy.aeroswift.databinding.FragmentPassengerBinding
 import com.synrgy.aeroswift.dialog.PassengerDialog
 import com.synrgy.aeroswift.dialog.TravelDocsDialog
 import com.synrgy.aeroswift.presentation.viewmodel.HomeViewModel
+import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
 import com.synrgy.domain.local.FlightSearch
 import com.synrgy.presentation.helper.Helper
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +26,7 @@ class PassengerFragment : Fragment() {
     private lateinit var travelDocsDialog: TravelDocsDialog
     private lateinit var passengerDialog: PassengerDialog
 
+    private val authViewModel: AuthViewModel by viewModels()
     private val homeViewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
@@ -42,6 +44,8 @@ class PassengerFragment : Fragment() {
         travelDocsDialog = TravelDocsDialog(requireActivity(), findNavController())
         passengerDialog = PassengerDialog(requireActivity())
 
+        authViewModel.getUser()
+        authViewModel.checkAuth()
         homeViewModel.getFlightSearch()
         observeViewModel()
 
@@ -73,6 +77,13 @@ class PassengerFragment : Fragment() {
     private fun observeViewModel() {
         homeViewModel.flightSearch.observe(viewLifecycleOwner, ::handleFlightSearch)
         homeViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
+
+        authViewModel.loading.observe(viewLifecycleOwner, ::handleContactLoading)
+        authViewModel.name.observe(viewLifecycleOwner) { binding.tvName.text = it }
+        authViewModel.email.observe(viewLifecycleOwner) { binding.tvEmail.text = it }
+        authViewModel.phoneNumber.observe(viewLifecycleOwner) {
+            binding.tvPhone.text = Helper.formatPhoneNumber("+62$it")
+        }
     }
 
     private fun handleFlightSearch(data: FlightSearch) {
@@ -84,5 +95,9 @@ class PassengerFragment : Fragment() {
 
     private fun handleLoading(loading: Boolean) {
         if (loading) binding.layoutFlight.loadSkeleton() else binding.layoutFlight.hideSkeleton()
+    }
+
+    private fun handleContactLoading(loading: Boolean) {
+        if (loading) binding.layoutContact.loadSkeleton() else binding.layoutContact.hideSkeleton()
     }
 }

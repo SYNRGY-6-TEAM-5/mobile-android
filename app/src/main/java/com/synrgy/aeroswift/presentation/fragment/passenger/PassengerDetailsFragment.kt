@@ -9,9 +9,12 @@ import androidx.fragment.app.viewModels
 import com.synrgy.aeroswift.databinding.FragmentPassengerDetailsBinding
 import com.synrgy.aeroswift.dialog.ConfirmationDialog
 import com.synrgy.aeroswift.dialog.LoadingDialog
-import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
 import com.synrgy.aeroswift.presentation.viewmodel.passenger.PassengerDetailsViewModel
+import com.synrgy.presentation.helper.Helper
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 @AndroidEntryPoint
 class PassengerDetailsFragment : Fragment() {
@@ -21,6 +24,9 @@ class PassengerDetailsFragment : Fragment() {
     private lateinit var confirmationDialog: ConfirmationDialog
 
     private val passengerViewModel: PassengerDetailsViewModel by viewModels()
+
+    private val dateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    private var selectedDate = Calendar.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +53,13 @@ class PassengerDetailsFragment : Fragment() {
         }
         binding.btnSave.setOnClickListener { requireActivity().onBackPressed() }
         binding.toolbarPassenger.setNavigationOnClickListener { requireActivity().onBackPressed() }
+
+        binding.tiBirth.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) Helper.showDatePicker(requireContext(), selectedDate, ::updateBirthInput)
+        }
+        binding.tiExpiry.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) Helper.showDatePicker(requireContext(), selectedDate, ::updateBirthInput)
+        }
     }
 
     private fun observeViewModel() {
@@ -59,5 +72,9 @@ class PassengerDetailsFragment : Fragment() {
                 requireActivity().onBackPressed()
             }
         }
+    }
+
+    private fun updateBirthInput() {
+        binding.tiBirth.setText(dateFormatter.format(selectedDate.time))
     }
 }

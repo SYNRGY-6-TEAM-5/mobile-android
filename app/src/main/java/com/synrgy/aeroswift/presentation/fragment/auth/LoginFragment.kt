@@ -145,6 +145,7 @@ class LoginFragment: Fragment() {
             response.token.isNotEmpty() &&
             response.token.isNotBlank()) {
 
+            loadingDialog.dismissDialog()
             Helper.showToast(requireActivity(), requireContext(), response.message!!, isSuccess = true)
             handleAuthentication(response.token)
         }

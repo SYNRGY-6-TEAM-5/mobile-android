@@ -79,6 +79,7 @@ class HomeActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.navigation_home -> replaceFragment(HomeFragment())
                 R.id.navigation_flight -> {
+//                    replaceFragment(FlightFragment())
                     if (token.isNotEmpty() && token.isNotBlank()) {
                         replaceFragment(FlightFragment())
                     } else {
@@ -86,6 +87,7 @@ class HomeActivity : AppCompatActivity() {
                     }
                 }
                 R.id.navigation_profile -> {
+//                    replaceFragment(ProfileFragment())
                     if (token.isNotEmpty() && token.isNotBlank()) {
                         replaceFragment(ProfileFragment())
                     } else {

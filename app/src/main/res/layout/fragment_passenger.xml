@@ -164,6 +164,7 @@
                         app:cardElevation="0dp">
 
                         <LinearLayout
+                            android:id="@+id/layout_contact"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
@@ -171,6 +172,7 @@
 
                             <com.google.android.material.textview.MaterialTextView
                                 style="@style/Text.Medium"
+                                android:id="@+id/tv_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/jessica_jane"
@@ -184,6 +186,7 @@
 
                             <com.google.android.material.textview.MaterialTextView
                                 style="@style/Text.Medium"
+                                android:id="@+id/tv_email"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/j_jane_gmail_com"
@@ -197,6 +200,7 @@
 
                             <com.google.android.material.textview.MaterialTextView
                                 style="@style/Text.Medium"
+                                android:id="@+id/tv_phone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/_62_8723_9873_9837"
@@ -365,11 +369,6 @@
 
                             </LinearLayout>
 
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/gray_200"/>
-
                         </LinearLayout>
 
                     </com.google.android.material.card.MaterialCardView>
@@ -377,6 +376,10 @@
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
 
         </LinearLayout>
 

@@ -12,6 +12,7 @@ import android.widget.DatePicker
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.res.ResourcesCompat
+import com.synrgy.domain.local.AddonData
 import com.synrgy.domain.local.FlightSearch
 import com.synrgy.presentation.R
 import www.sanju.motiontoast.MotionToast
@@ -197,10 +198,32 @@ object Helper {
                 data.infantSeat != null
     }
 
+    fun isValidBaggage(data: AddonData): Boolean {
+        return data.userName.isNotEmpty() &&
+                data.userName.isNotBlank() &&
+                data.category.isNotEmpty() &&
+                data.category.isNotBlank() &&
+                data.weight != null &&
+                data.price != 0L
+    }
+
     fun formatDateDay(dateString: String): String {
         val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val outputFormat = SimpleDateFormat("EEE, d MMM yyyy", Locale.US)
         val date: Date = inputFormat.parse(dateString) ?: return ""
         return outputFormat.format(date)
+    }
+
+    fun formatPhoneNumber(input: String): String {
+        val cleanNumber = input.replace(Regex("[^\\d]"), "")
+        return if (cleanNumber.isNotEmpty()) {
+            when (cleanNumber.length) {
+                in 5..7 -> "+${cleanNumber.substring(0, 2)} ${cleanNumber.substring(2)}"
+                in 8..11 -> "+${cleanNumber.substring(0, 2)} ${cleanNumber.substring(2, 6)}-${cleanNumber.substring(6)}"
+                else -> "+${cleanNumber.substring(0, 2)} ${cleanNumber.substring(2, 6)}-${cleanNumber.substring(6, 10)}-${cleanNumber.substring(10)}"
+            }
+        } else {
+            input
+        }
     }
 }

@@ -31,6 +31,7 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar_add_meals">
 
         <LinearLayout
+            android:id="@+id/layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -159,12 +160,24 @@
                         android:textColor="@color/gray_400"
                         android:layout_marginTop="8dp"/>
 
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_meals"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_depart_time"
+                        tools:listitem="@layout/item_addon_card"
+                        tools:itemCount="1"
+                        android:nestedScrollingEnabled="true"/>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.textview.MaterialTextView
+                android:visibility="gone"
                 style="@style/Text.Medium"
+                android:id="@+id/tv_return"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/return_"
@@ -180,6 +193,8 @@
                 app:cardElevation="4dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:visibility="gone"
+                    android:id="@+id/layout_return"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="12dp"

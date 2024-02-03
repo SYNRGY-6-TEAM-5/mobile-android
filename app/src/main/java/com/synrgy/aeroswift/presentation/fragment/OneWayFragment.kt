@@ -64,22 +64,10 @@ class OneWayFragment(
         }
 
         binding.btnSwap.setOnClickListener {
-            if (binding.spOrigin.text == getString(R.string.select)) {
-                binding.spDestination.setTextColor(lightGrayColor)
-                binding.spOrigin.setTextColor(blackColor)
-            }
-            if (binding.spDestination.text == getString(R.string.select)) {
-                binding.spOrigin.setTextColor(lightGrayColor)
-                binding.spDestination.setTextColor(blackColor)
-            }
-
             val origin = binding.spOrigin.text.toString()
             val destination = binding.spDestination.text.toString()
 
-            binding.spOrigin.text = destination
             homeViewModel.setOrigin(destination)
-
-            binding.spDestination.text = origin
             homeViewModel.setDestination(origin)
         }
     }
@@ -102,14 +90,22 @@ class OneWayFragment(
     private fun handleGetOrigin(data: String) {
         if (data.isNotEmpty() && data.isNotBlank()) {
             binding.spOrigin.text = data
-            binding.spOrigin.setTextColor(blackColor)
+            if (binding.spOrigin.text == getString(R.string.select)) {
+                binding.spOrigin.setTextColor(lightGrayColor)
+            } else {
+                binding.spOrigin.setTextColor(blackColor)
+            }
         }
     }
 
     private fun handleGetDestination(data: String) {
         if (data.isNotEmpty() && data.isNotBlank()) {
             binding.spDestination.text = data
-            binding.spDestination.setTextColor(blackColor)
+            if (binding.spDestination.text == getString(R.string.select)) {
+                binding.spDestination.setTextColor(lightGrayColor)
+            } else {
+                binding.spDestination.setTextColor(blackColor)
+            }
         }
     }
 }

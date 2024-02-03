@@ -106,6 +106,7 @@ class EditProfileActivity : AppCompatActivity() {
         authViewModel.name.observe(this, ::handleGetName)
         authViewModel.photo.observe(this, ::handleLoadImage)
         authViewModel.dateBirth.observe(this, ::handleGetDateBirth)
+        authViewModel.phoneNumber.observe(this, ::handleGetPhoneNumber)
 
         editProfileViewModel.errors.observe(this, ::handleErrors)
         editProfileViewModel.error.observe(this, ::handleError)
@@ -173,6 +174,10 @@ class EditProfileActivity : AppCompatActivity() {
     private fun handleGetDateBirth(timestamp: Long) {
         val date = Helper.convertTimestampToDate(timestamp)
         binding.tiBirth.setText(date)
+    }
+
+    private fun handleGetPhoneNumber(phoneNumber: Long) {
+        binding.tiPhone.setText(phoneNumber.toString())
     }
 
     private fun handleLoadImage(image: String) {

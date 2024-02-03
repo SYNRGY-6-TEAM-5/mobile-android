@@ -326,6 +326,8 @@
     <string name="price_pax">Price/pax</string>
     <string name="idr_1_165_450">IDR 1,165,450</string>
     <string name="infant_1">Infant (1)</string>
+    <string name="empty_baggage">Currently, additional baggage is unavailable for this flight</string>
+    <string name="_0_meal">0 Meal</string>
 
     <string-array name="origin">
         <item>Select</item>

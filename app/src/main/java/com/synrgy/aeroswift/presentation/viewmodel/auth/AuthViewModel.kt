@@ -56,6 +56,12 @@ class AuthViewModel @Inject constructor(
     private val _name = MutableLiveData<String>()
     val name: LiveData<String> = _name
 
+    private val _email = MutableLiveData<String>()
+    val email: LiveData<String> = _email
+
+    private val _phoneNumber = MutableLiveData<Long>()
+    val phoneNumber: LiveData<Long> = _phoneNumber
+
     private val _photo = MutableLiveData<String>()
     val photo: LiveData<String> = _photo
 
@@ -129,6 +135,8 @@ class AuthViewModel @Inject constructor(
                         _photo.value = (response.data?.imageUrl ?: "").toString()
                         _dateBirth.value = response.data?.dob ?: 0L
                         _userId.value = response.data?.id ?: "guest"
+                        _email.value = response.data?.email ?: ""
+                        _phoneNumber.value = response.data?.phoneNum ?: 0L
 
                         insertUser(response)
                         getData(response.data?.id!!)
@@ -136,7 +144,7 @@ class AuthViewModel @Inject constructor(
                 }
                 is Resource.ErrorRes -> {
                     setUserIdUseCase.invoke("guest")
-                    clearTokenUseCase.invoke()
+//                    clearTokenUseCase.invoke()
                     withContext(Dispatchers.Main) {
                         if (response.errorRes?.errors == null) {
                             _error.value = response.errorRes?.message ?: ""
@@ -145,7 +153,7 @@ class AuthViewModel @Inject constructor(
                 }
                 is Resource.ExceptionRes -> {
                     setUserIdUseCase.invoke("guest")
-                    clearTokenUseCase.invoke()
+//                    clearTokenUseCase.invoke()
                     withContext(Dispatchers.Main) {
                         _error.value = response.exceptionRes?.message ?: "Server error"
                     }
@@ -159,16 +167,20 @@ class AuthViewModel @Inject constructor(
     }
 
     private suspend fun getData(id: String) {
-        _userData.value = flightDatabase.userDao().selectUser(id).toUser()
+        try {
+            _userData.value = flightDatabase.userDao().selectUser(id).toUser()
+        } catch (_: Exception) {}
     }
 
     private suspend fun insertUser(response: Resource<UserDetailResponse>) {
-        flightDatabase.userDao().insertUser(
-            UserEntity(
-                id = response.data?.id!!,
-                name = response.data?.fullName!!,
-                email = ""
+        try {
+            flightDatabase.userDao().insertUser(
+                UserEntity(
+                    id = response.data?.id!!,
+                    name = response.data?.fullName!!,
+                    email = ""
+                )
             )
-        )
+        } catch (_: Exception) {}
     }
 }
