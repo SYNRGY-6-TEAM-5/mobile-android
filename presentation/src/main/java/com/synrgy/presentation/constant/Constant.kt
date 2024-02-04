@@ -19,4 +19,10 @@ object Constant {
         BAGGAGE("baggage"),
         MEALS("meals")
     }
+
+    enum class PassengerType(val value: String) {
+        ADULT("adult"),
+        CHILD("child"),
+        INFANT("infant")
+    }
 }

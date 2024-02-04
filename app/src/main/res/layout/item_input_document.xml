@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/Text.Medium"
+        android:id="@+id/doc_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/your_travel_documents_1"
+        android:textColor="@color/base_black"
+        android:layout_marginTop="28dp"
+        android:layout_marginBottom="16dp"/>
+
+    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+        style="@style/AutoCompleteTextView"
+        android:id="@+id/ti_document_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/document_type"
+        android:inputType="text"
+        android:drawableEnd="@drawable/ic_arrow_down"
+        android:drawableTint="@color/primary_500"/>
+
+    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+        style="@style/AutoCompleteTextView"
+        android:id="@+id/ti_nationality"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/nationality"
+        android:inputType="text"
+        android:drawableEnd="@drawable/ic_arrow_down"
+        android:drawableTint="@color/primary_500"
+        android:layout_marginBottom="10dp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_doc_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/document_number"
+        android:layout_marginBottom="20dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/TextField"
+            android:id="@+id/ti_doc_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_expiry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/expiry_date_dd_mm_yyyy"
+        android:layout_marginBottom="20dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/TextField"
+            android:id="@+id/ti_expiry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_gray_dashed"
+        android:padding="12dp">
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextS.Semibold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/upload_your_scanned_documents"
+            android:textColor="@color/gray_300"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextXS.Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/accepted_file_types_pdf_png_or_jpeg"
+            android:textColor="@color/gray_300"
+            android:layout_marginTop="4dp"/>
+
+        <com.google.android.material.chip.Chip
+            style="@style/ChipOutline"
+            android:id="@+id/btn_browse_file"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/browse_files"
+            android:layout_marginTop="6dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
