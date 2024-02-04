@@ -6,6 +6,7 @@ buildscript {
             exclude(group = "com.google.guava", module = "guava-jdk5")
         }
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.7.6")
+        classpath("com.google.gms:google-services:4.4.0")
     }
 }
 
