@@ -6,12 +6,14 @@ object PassengerConstant {
     fun getData(): ArrayList<PassengerData> {
         return arrayListOf(
             PassengerData(
-                id = 1,
-                name = "Jack Harris"
+                id = "jack harris",
+                name = "Jack Harris",
+                category = Constant.PassengerType.ADULT.value
             ),
             PassengerData(
-                id = 2,
-                name = "Gigi Hadid"
+                id = "gigi hadid",
+                name = "Gigi Hadid",
+                category = Constant.PassengerType.ADULT.value
             )
         )
     }

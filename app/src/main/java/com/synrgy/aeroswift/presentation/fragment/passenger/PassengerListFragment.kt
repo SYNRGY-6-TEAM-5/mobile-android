@@ -10,12 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.synrgy.aeroswift.R
+import com.synrgy.aeroswift.databinding.FragmentPassengerDetailsBinding
 import com.synrgy.aeroswift.databinding.FragmentPassengerListBinding
 import com.synrgy.aeroswift.presentation.HomeActivity
 import com.synrgy.aeroswift.presentation.adapter.PassengerAdapter
 import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
+import com.synrgy.aeroswift.presentation.viewmodel.passenger.PassengerDetailsViewModel
 import com.synrgy.domain.local.PassengerData
-import com.synrgy.presentation.constant.PassengerConstant
 import dagger.hilt.android.AndroidEntryPoint
 import koleton.api.hideSkeleton
 import koleton.api.loadSkeleton
@@ -25,6 +26,7 @@ class PassengerListFragment : Fragment() {
     private lateinit var binding: FragmentPassengerListBinding
 
     private val authViewModel: AuthViewModel by viewModels()
+    private val passengerViewModel: PassengerDetailsViewModel by viewModels()
 
     private val adapter = PassengerAdapter(::handleClickPassenger)
 
@@ -48,9 +50,9 @@ class PassengerListFragment : Fragment() {
 
         authViewModel.checkAuth()
         authViewModel.getUser()
+        passengerViewModel.getPassengers()
 
         observeViewModel()
-        handleSetAdapter()
 
         binding.cardOwner.setOnClickListener { handleNavigate() }
         binding.btnAdd.setOnClickListener { handleNavigate() }
@@ -60,6 +62,7 @@ class PassengerListFragment : Fragment() {
     private fun observeViewModel() {
         authViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
         authViewModel.name.observe(viewLifecycleOwner, ::handleGetName)
+        passengerViewModel.passengers.observe(viewLifecycleOwner, ::handleSetAdapter)
     }
 
     private fun handleLoading(loading: Boolean) {
@@ -75,17 +78,20 @@ class PassengerListFragment : Fragment() {
         binding.tvUserName.text = name
     }
 
-    private fun handleNavigate() {
-        findNavController().navigate(R.id.action_passengerListFragment_to_passengerDetailsFragment)
+    private fun handleNavigate(id: String? = null) {
+        val bundle = Bundle()
+        bundle.putString(PassengerDetailsFragment.KEY_PASSENGER_DETAIL_ID, id)
+
+        findNavController().navigate(R.id.action_passengerListFragment_to_passengerDetailsFragment, bundle)
     }
 
-    private fun handleSetAdapter() {
+    private fun handleSetAdapter(data: List<PassengerData>) {
         binding.rvPassenger.layoutManager = LinearLayoutManager(requireActivity())
         binding.rvPassenger.adapter = this.adapter
-        this.adapter.submitList(PassengerConstant.getData())
+        this.adapter.submitList(data)
     }
 
     private fun handleClickPassenger(data: PassengerData) {
-        handleNavigate()
+        handleNavigate(data.id)
     }
 }
