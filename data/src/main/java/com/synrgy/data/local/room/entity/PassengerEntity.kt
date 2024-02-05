@@ -24,25 +24,28 @@ data class PassengerEntity(
     val dob: String,
 
     @ColumnInfo(name = "category")
-    val category: String
+    val category: String,
+
+    @ColumnInfo(name = "surname")
+    val surname: String
 )
 
 fun PassengerEntity.toPassenger(): PassengerData {
-    return PassengerData(id, userId, nik, name, dob, category)
+    return PassengerData(id, userId, nik, name, dob, category, surname)
 }
 
 fun List<PassengerEntity>.toPassenger(): List<PassengerData> {
     return this.map {
-        PassengerData(it.id, it.userId, it.nik, it.name, it.dob, it.category)
+        PassengerData(it.id, it.userId, it.nik, it.name, it.dob, it.category, it.surname)
     }
 }
 
 fun PassengerData.toEntity(): PassengerEntity {
-    return PassengerEntity(id, userId, nik, name, dob, category)
+    return PassengerEntity(id, userId, nik, name, dob, category, surname)
 }
 
 fun List<PassengerData>.toEntity(): List<PassengerEntity> {
     return this.map {
-        PassengerEntity(it.id, it.userId, it.nik, it.name, it.dob, it.category)
+        PassengerEntity(it.id, it.userId, it.nik, it.name, it.dob, it.category, it.surname)
     }
 }
