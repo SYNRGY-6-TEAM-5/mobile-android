@@ -5,22 +5,25 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.atwa.filepicker.core.FilePicker
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentPassengerIntBinding
 import com.synrgy.aeroswift.dialog.LoadingDialog
 import com.synrgy.aeroswift.presentation.adapter.InputDocAdapter
+import com.synrgy.aeroswift.presentation.viewholder.InputDocViewHolder
 import com.synrgy.aeroswift.presentation.viewmodel.passenger.PassengerDetailsViewModel
 import com.synrgy.domain.local.DocumentData
 import com.synrgy.domain.local.PassengerData
+import com.synrgy.presentation.constant.Constant
 import com.synrgy.presentation.helper.Helper
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
@@ -43,9 +46,18 @@ class PassengerIntFragment : Fragment() {
 
     private val viewModel: PassengerDetailsViewModel by viewModels()
 
-    private val inputDocAdapter = InputDocAdapter()
+    private lateinit var inputDocAdapter: InputDocAdapter
 
-    private val docList = mutableListOf(DocumentData())
+    private var timestamp = Date().time.toString()
+
+    private var docList = mutableListOf(
+        DocumentData(
+            id = timestamp,
+            passengerId = timestamp
+        )
+    )
+
+    private val filePicker = FilePicker.getInstance(this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,11 +72,13 @@ class PassengerIntFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         loadingDialog = LoadingDialog(requireActivity())
+        inputDocAdapter = InputDocAdapter(::handleFilePicker)
 
         observeViewModel()
 
         handleSetAdapter()
         handleTextSpan()
+        handleInputChange()
 
         binding.tiBirth.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) Helper.showDatePicker(requireContext(), selectedDate, ::updateBirthInput)
@@ -73,8 +87,18 @@ class PassengerIntFragment : Fragment() {
         binding.btnSave.setOnClickListener { handleSavePassenger() }
         binding.toolbarPassengerInt.setNavigationOnClickListener { handleNavigate() }
         binding.chipAddOtherDoc.setOnClickListener {
-            docList.add(DocumentData())
-            handleSetAdapter()
+            val newTimestamp = Date().time.toString()
+            val updatedData = DocumentData(
+                id = newTimestamp,
+                passengerId = timestamp
+            )
+            val updatedList = ArrayList(this.inputDocAdapter.currentList)
+
+            updatedList.add(updatedData)
+            docList.add(updatedData)
+
+            this.inputDocAdapter.submitList(updatedList)
+            binding.rvInputDoc.scrollToPosition(0)
         }
     }
 
@@ -144,16 +168,92 @@ class PassengerIntFragment : Fragment() {
         val nik = binding.tiNik.text.toString()
         val name = binding.tiName.text.toString()
         val dob = binding.tiBirth.text.toString()
-        val category = arguments?.getString(KEY_PASSENGER_CATEGORY).toString()
+        val surname = when (binding.rgSurname.checkedRadioButtonId) {
+            R.id.rb_mr -> binding.rbMr.hint.toString()
+            R.id.rb_mrs -> binding.rbMrs.hint.toString()
+            R.id.rb_ms -> binding.rbMs.hint.toString()
+            else -> ""
+        }
 
         val data = PassengerData(
-            id = Date().time.toString(),
+            id = timestamp,
             nik = nik,
             name = name,
             dob = dob,
-            category = category
+            category = Constant.PassengerType.ADULT.value,
+            surname = surname
         )
 
-        viewModel.addPassenger(data)
+        if (Helper.isValidPassenger(data) && Helper.isValidDocument(docList)) {
+            viewModel.addPassenger(data, docList)
+        } else {
+            handleSetInputMessage(data)
+            handleValidateDocumentInput()
+        }
+    }
+
+    private fun handleSetInputMessage(data: PassengerData) {
+        if (data.nik.isEmpty() || data.nik.isBlank()) {
+            binding.tilNik.error = "NIK is required."
+        }
+        if (data.name.isEmpty() || data.name.isBlank()) {
+            binding.tilName.error = "Full name is required."
+        }
+        if (data.dob.isEmpty() || data.dob.isBlank()) {
+            binding.tilBirth.error = "Date of birth is required."
+        }
+    }
+
+    private fun handleInputChange() {
+        binding.tiNik.doOnTextChanged { text, _, _, _ ->
+            if (!text.isNullOrEmpty()) binding.tilNik.error = null
+        }
+        binding.tiName.doOnTextChanged { text, _, _, _ ->
+            if (!text.isNullOrEmpty()) binding.tilName.error = null
+        }
+        binding.tiBirth.doOnTextChanged { text, _, _, _ ->
+            if (!text.isNullOrEmpty()) binding.tilBirth.error = null
+        }
+    }
+
+    private fun handleFilePicker(position: Int) {
+        filePicker.pickFile {
+            val name = it?.name
+
+            if (name != null) {
+                val viewHolder = binding.rvInputDoc.findViewHolderForAdapterPosition(position) as InputDocViewHolder
+                val updatedList = ArrayList(this.inputDocAdapter.currentList)
+
+                updatedList[position].file = name
+                docList[position].file = name
+
+                this.inputDocAdapter.submitList(updatedList)
+
+                viewHolder.item.btnBrowseFile.text = name
+            }
+        }
+    }
+
+    private fun handleValidateDocumentInput() {
+        for (i in 0 until binding.rvInputDoc.childCount) {
+            val viewHolder = binding.rvInputDoc.findViewHolderForAdapterPosition(i) as InputDocViewHolder
+            val docType = viewHolder.item.tilDocumentType
+            val nationality = viewHolder.item.tilNationality
+            val docNum = viewHolder.item.tilDocNum
+            val expiry = viewHolder.item.tilExpiry
+
+            if (docList[i].type.isEmpty() || docList[i].type.isBlank()) {
+                docType.error = "Document type is required."
+            }
+            if (docList[i].nationality.isEmpty() || docList[i].nationality.isBlank()) {
+                nationality.error = "Nationality is required."
+            }
+            if (docList[i].docNum.isEmpty() || docList[i].docNum.isBlank()) {
+                docNum.error = "Document number is required."
+            }
+            if (docList[i].expiry.isEmpty() || docList[i].expiry.isBlank()) {
+                expiry.error = "Expiry date is required."
+            }
+        }
     }
 }

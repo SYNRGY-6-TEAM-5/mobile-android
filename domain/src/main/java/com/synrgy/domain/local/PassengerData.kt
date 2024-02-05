@@ -6,5 +6,6 @@ data class PassengerData(
     var nik: String = "",
     var name: String,
     var dob: String = "",
-    val category: String
+    val category: String,
+    val surname: String = ""
 )

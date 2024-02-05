@@ -3,11 +3,13 @@ package com.synrgy.data.local.room
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.synrgy.data.local.room.dao.AddonDao
+import com.synrgy.data.local.room.dao.DocumentDao
 import com.synrgy.data.local.room.dao.FlightSearchDao
 import com.synrgy.data.local.room.dao.PassengerDao
 import com.synrgy.data.local.room.dao.RecentAirportDao
 import com.synrgy.data.local.room.dao.UserDao
 import com.synrgy.data.local.room.entity.AddonEntity
+import com.synrgy.data.local.room.entity.DocumentEntity
 import com.synrgy.data.local.room.entity.FlightSearchEntity
 import com.synrgy.data.local.room.entity.PassengerEntity
 import com.synrgy.data.local.room.entity.RecentAirportEntity
@@ -19,7 +21,8 @@ import com.synrgy.data.local.room.entity.UserEntity
         RecentAirportEntity::class,
         FlightSearchEntity::class,
         AddonEntity::class,
-        PassengerEntity::class
+        PassengerEntity::class,
+        DocumentEntity::class
     ],
     version = 1,
     exportSchema = true
@@ -34,4 +37,5 @@ abstract class FlightDatabase: RoomDatabase() {
     abstract fun flightSearchDao(): FlightSearchDao
     abstract fun addonDao(): AddonDao
     abstract fun passengerDao(): PassengerDao
+    abstract fun documentDao(): DocumentDao
 }

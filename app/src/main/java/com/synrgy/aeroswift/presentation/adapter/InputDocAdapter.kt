@@ -8,7 +8,9 @@ import com.synrgy.aeroswift.presentation.diffutil.InputDocDiffUtil
 import com.synrgy.aeroswift.presentation.viewholder.InputDocViewHolder
 import com.synrgy.domain.local.DocumentData
 
-class InputDocAdapter: ListAdapter<DocumentData, InputDocViewHolder>(
+class InputDocAdapter(
+    private val onPickFile: (position: Int) -> Unit
+): ListAdapter<DocumentData, InputDocViewHolder>(
     InputDocDiffUtil()
 ) {
 
@@ -22,5 +24,7 @@ class InputDocAdapter: ListAdapter<DocumentData, InputDocViewHolder>(
 
     override fun onBindViewHolder(holder: InputDocViewHolder, position: Int) {
         holder.bindData(getItem(position))
+        holder.setDocName(position)
+        holder.item.btnBrowseFile.setOnClickListener { onPickFile(position) }
     }
 }

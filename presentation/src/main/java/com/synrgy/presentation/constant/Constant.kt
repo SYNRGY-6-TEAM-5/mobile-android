@@ -25,4 +25,10 @@ object Constant {
         CHILD("child"),
         INFANT("infant")
     }
+
+    enum class PassengerSurname(val value: String) {
+        MR("Mr."),
+        MRS("Mrs."),
+        MS("Ms.")
+    }
 }
