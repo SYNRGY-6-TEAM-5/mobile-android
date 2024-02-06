@@ -54,10 +54,11 @@
                 android:id="@+id/rv_price_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:listitem="@layout/item_price_details"
-                tools:itemCount="2"/>
+                tools:itemCount="2"
+                tools:listitem="@layout/item_price_details" />
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/Text.Medium"

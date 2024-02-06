@@ -39,4 +39,5 @@
     <color name="password_weak">#F04438</color>
     <color name="password_okay">#FDB022</color>
     <color name="password_strong">#12B76A</color>
+    <color name="background">#FBFBFB</color>
 </resources>
