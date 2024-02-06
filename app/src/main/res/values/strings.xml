@@ -329,6 +329,8 @@
     <string name="empty_baggage">Currently, additional baggage is unavailable for this flight</string>
     <string name="_0_meal">0 Meal</string>
     <string name="your_travel_documents">Your travel documents %1$s</string>
+    <string name="complete_the_payment_in_00_52_23">Complete the Payment in 00:52:23</string>
+    <string name="complete_the_payment_in">Complete the Payment in %1$s</string>
 
     <string-array name="origin">
         <item>Select</item>

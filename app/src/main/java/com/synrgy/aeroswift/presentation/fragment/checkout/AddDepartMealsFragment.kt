@@ -137,7 +137,7 @@ class AddDepartMealsFragment : Fragment() {
 
     private fun handleSaveAddon() {
         if (addons.isNotEmpty()) {
-            addonViewModel.deleteAndSaveAllMeals(addons)
+            addonViewModel.deleteAndSaveAllAddons(addons, Constant.AddonType.MEALS.value)
         } else {
             addonViewModel.deleteAddons(Constant.AddonType.MEALS.value)
         }
@@ -146,7 +146,6 @@ class AddDepartMealsFragment : Fragment() {
     }
 
     private fun handleAddons(data: List<AddonData>) {
-        Log.d("TAGG", data.toString())
         if (addons.isEmpty()) {
             addons = data.filter {
                 it.category == Constant.AddonType.MEALS.value && it.userId == userId

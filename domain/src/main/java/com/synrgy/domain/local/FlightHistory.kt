@@ -2,5 +2,7 @@ package com.synrgy.domain.local
 
 data class FlightHistory(
     val id: Int,
-    val category: String
+    var category: String,
+    var total: Long? = null,
+    var time: Long? = null
 )

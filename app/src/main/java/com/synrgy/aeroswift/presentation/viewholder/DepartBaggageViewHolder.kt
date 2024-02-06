@@ -17,6 +17,7 @@ class DepartBaggageViewHolder(
     fun bindData(
         data: DepartBaggage,
         cardViewList: ArrayList<MaterialCardView>,
+        dataList: ArrayList<DepartBaggage>,
         clickListener: (DepartBaggage) -> Unit,
     ) {
         val context = binding.root.context
@@ -32,7 +33,10 @@ class DepartBaggageViewHolder(
                 it.setCardBackgroundColor(ContextCompat.getColor(context, R.color.gray_50))
             }
 
-            setActive(binding.itemBaggageCard)
+            if (!data.selected) setActive(binding.itemBaggageCard)
+
+            data.selected = !data.selected
+            dataList.forEach { if (it != data) it.selected = false }
         }
     }
 

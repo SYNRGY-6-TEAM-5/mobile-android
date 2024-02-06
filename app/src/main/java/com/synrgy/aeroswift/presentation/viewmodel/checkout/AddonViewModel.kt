@@ -9,7 +9,6 @@ import com.synrgy.data.local.room.FlightDatabase
 import com.synrgy.data.local.room.entity.toAddon
 import com.synrgy.data.local.room.entity.toEntity
 import com.synrgy.domain.local.AddonData
-import com.synrgy.presentation.constant.Constant
 import com.synrgy.presentation.usecase.auth.GetUserIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -43,20 +42,20 @@ class AddonViewModel @Inject constructor(
         }
     }
 
-    fun deleteAndSaveAllMeals(items: List<AddonData>) {
+    fun deleteAndSaveAllAddons(items: List<AddonData>, category: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val userId = getUserIdUseCase.invoke().first()!!
 
                 items.forEach {
                     it.userId = userId
-                    it.id = "${it.mealName}-${it.passengerId}"
+                    it.id = "${it.mealName ?: "baggage"}-${it.passengerId}"
                 }
 
                 flightDatabase.addonDao().deleteAndInsertAll(
                     items.toEntity(),
                     userId,
-                    Constant.AddonType.MEALS.value
+                    category
                 )
             } catch (e: Exception) {
                 Log.d("ERR_MESSAGE", e.message.toString())
