@@ -1,10 +1,12 @@
 package com.synrgy.aeroswift.presentation.viewholder
 
+import android.widget.ArrayAdapter
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.ItemInputDocumentBinding
 import com.synrgy.domain.local.DocumentData
+import com.synrgy.presentation.constant.Constant
 import com.synrgy.presentation.helper.Helper
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -18,6 +20,8 @@ class InputDocViewHolder(
 
     val item = binding
     fun bindData(data: DocumentData) {
+        setAdapter()
+
         binding.tiDocumentType.setText(data.type)
         binding.tiNationality.setText(data.nationality)
         binding.tiDocNum.setText(data.docNum)
@@ -33,6 +37,21 @@ class InputDocViewHolder(
     fun setDocName(position: Int) {
         val context = binding.root.context
         binding.docName.text = context.getString(R.string.your_travel_documents, (position + 1).toString())
+    }
+
+    private fun setAdapter() {
+        val context = binding.root.context
+        val documentTypes = arrayOf(
+            Constant.DocumentType.PASSPORT.value,
+            Constant.DocumentType.VISA.value,
+            Constant.DocumentType.RESIDENCE_PERMIT.value,
+        )
+        val adapter = ArrayAdapter(
+            context,
+            R.layout.item_dropdown_spinner,
+            documentTypes
+        )
+        binding.tiDocumentType.setAdapter(adapter)
     }
 
     private fun handleInputChange(data: DocumentData) {

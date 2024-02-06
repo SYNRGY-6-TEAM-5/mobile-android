@@ -31,4 +31,10 @@ object Constant {
         MRS("Mrs."),
         MS("Ms.")
     }
+
+    enum class DocumentType(val value: String) {
+        PASSPORT("Passport"),
+        VISA("Visa"),
+        RESIDENCE_PERMIT("Residence Permit")
+    }
 }
