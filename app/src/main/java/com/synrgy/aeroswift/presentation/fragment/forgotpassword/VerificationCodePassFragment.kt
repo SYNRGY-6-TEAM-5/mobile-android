@@ -182,6 +182,7 @@ class VerificationCodePassFragment : Fragment() {
             response.status == true
         ) {
 
+            loadingDialog.dismissDialog()
             Helper.showToast(requireActivity(), requireContext(), response.message!!, isSuccess = true)
             authViewModel.setRegToken(response.token!!)
             findNavController().navigate(R.id.action_verificationCodePassFragment_to_newPasswordFragment)

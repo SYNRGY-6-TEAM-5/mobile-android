@@ -14,9 +14,6 @@ import com.synrgy.aeroswift.presentation.viewmodel.HomeViewModel
 import com.synrgy.aeroswift.presentation.viewmodel.airport.AirportListViewModel
 import com.synrgy.domain.response.airport.AirportData
 import com.synrgy.domain.response.airport.AirportResponse
-import koleton.api.hideSkeleton
-import koleton.api.loadSkeleton
-import java.util.Locale
 
 class AirportListDialog(
     private val activity: Activity,
@@ -80,7 +77,6 @@ class AirportListDialog(
         viewModel.isDest.observe(viewLifecycleOwner) { isDest = it }
         viewModel.airport.observe(viewLifecycleOwner, ::handleGetAirportList)
         viewModel.recentAirport.observe(viewLifecycleOwner, ::handleGetRecentAirport)
-        viewModel.clearLoading.observe(viewLifecycleOwner, ::handleClearLoading)
         viewModel.error.observe(viewLifecycleOwner, ::handleError)
     }
 
@@ -132,13 +128,5 @@ class AirportListDialog(
     private fun handleGetRecentAirport(data: List<AirportData>) {
         binding.tvNoRecent.visibility = if (data.isEmpty()) View.VISIBLE else View.GONE
         this.recentAirportListAdapter.submitList(data.take(3))
-    }
-
-    private fun handleClearLoading(loading: Boolean) {
-        if (loading) {
-            binding.recentAirportListRecycler.loadSkeleton()
-        } else {
-            binding.recentAirportListRecycler.hideSkeleton()
-        }
     }
 }

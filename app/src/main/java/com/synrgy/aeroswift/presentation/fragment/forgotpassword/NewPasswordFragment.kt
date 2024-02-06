@@ -109,6 +109,7 @@ class NewPasswordFragment : Fragment() {
             response.status == true
         ) {
 
+            loadingDialog.dismissDialog()
             Helper.showToast(requireActivity(), requireContext(), response.message!!, isSuccess = true)
             handleNavigate()
         }

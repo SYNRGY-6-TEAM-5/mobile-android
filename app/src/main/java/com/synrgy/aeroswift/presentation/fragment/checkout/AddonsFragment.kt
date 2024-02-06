@@ -234,17 +234,15 @@ class AddonsFragment : Fragment() {
 
             val mealAddons = data
                 .filter { it.category == Constant.AddonType.MEALS.value }
-                .groupBy { it.userId }
+                .groupBy { it.passengerId }
 
             if (mealAddons.isNotEmpty()) {
-                mealAddons.forEach { (_, value) ->
-                    value.forEachIndexed { _, item ->
+                mealAddons.onEachIndexed { index, entry ->
+                    entry.value.forEachIndexed { _, item ->
                         mealsPrice += item.price
                     }
-
-                    val meals = if (value.size > 1) "Meals" else "Meal"
-                    mealsName = value[0].userName
-                    mealsCount = "${value.size} $meals"
+                    mealsName += "${entry.value[index].userName}\n"
+                    mealsCount += "${entry.value.size} ${if (entry.value.size > 1) "Meals" else "Meal"}\n"
                 }
 
                 mealsList.clear()

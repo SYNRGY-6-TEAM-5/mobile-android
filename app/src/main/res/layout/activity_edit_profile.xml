@@ -117,6 +117,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:text="@string/save"
-        android:layout_margin="16dp"/>
+        android:layout_margin="16dp"
+        android:enabled="false"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

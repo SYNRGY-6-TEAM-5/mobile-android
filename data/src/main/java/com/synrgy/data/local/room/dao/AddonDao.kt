@@ -17,6 +17,9 @@ interface AddonDao {
     @Query("SELECT * FROM addons WHERE userId = :userId")
     suspend fun selectData(userId: String): List<AddonEntity>
 
+    @Query("SELECT * FROM addons WHERE passengerId = :passengerId")
+    suspend fun selectDataByPassengerId(passengerId: String): List<AddonEntity>
+
     @Query("DELETE FROM addons WHERE userId = :userId")
     suspend fun deleteData(userId: String)
 

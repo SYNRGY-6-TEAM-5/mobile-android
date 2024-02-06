@@ -3,6 +3,7 @@ package com.synrgy.domain.local
 data class AddonData(
     var id: String = "",
     var userId: String = "",
+    var passengerId: String = "",
     val userName: String,
     val category: String,
     val weight: Int? = null,

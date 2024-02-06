@@ -38,9 +38,6 @@ class AirportListViewModel @Inject constructor(
     private val _loading: MutableLiveData<Boolean> = MutableLiveData()
     val loading: LiveData<Boolean> = _loading
 
-    private val _clearLoading: MutableLiveData<Boolean> = MutableLiveData()
-    val clearLoading: LiveData<Boolean> = _clearLoading
-
     private val _error: MutableLiveData<Boolean> = MutableLiveData()
     val error: LiveData<Boolean> = _error
 
@@ -108,7 +105,6 @@ class AirportListViewModel @Inject constructor(
     }
 
     fun clearRecentAirport() {
-        _clearLoading.value = true
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val userId = getUserIdUseCase.invoke().first()!!
@@ -120,10 +116,6 @@ class AirportListViewModel @Inject constructor(
                 }
             } catch (e: Exception) {
                 Log.d("ERR_MESSAGE", e.message.toString())
-            } finally {
-                withContext(Dispatchers.Main) {
-                    _clearLoading.value = false
-                }
             }
         }
     }

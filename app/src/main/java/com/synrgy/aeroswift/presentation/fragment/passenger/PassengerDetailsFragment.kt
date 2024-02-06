@@ -1,7 +1,6 @@
 package com.synrgy.aeroswift.presentation.fragment.passenger
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +15,7 @@ import com.synrgy.aeroswift.dialog.ConfirmationDialog
 import com.synrgy.aeroswift.dialog.LoadingDialog
 import com.synrgy.aeroswift.presentation.adapter.InputDocAdapter
 import com.synrgy.aeroswift.presentation.viewholder.InputDocViewHolder
+import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
 import com.synrgy.aeroswift.presentation.viewmodel.passenger.PassengerDetailsViewModel
 import com.synrgy.domain.local.DocumentData
 import com.synrgy.domain.local.PassengerData
@@ -31,6 +31,7 @@ import java.util.Locale
 class PassengerDetailsFragment : Fragment() {
     companion object {
         const val KEY_PASSENGER_DETAIL_ID = "key_passenger_detail_id"
+        const val KEY_IS_PASSENGER_OWNER = "key_is_passenger_owner"
     }
 
     private lateinit var binding: FragmentPassengerDetailsBinding
@@ -38,6 +39,7 @@ class PassengerDetailsFragment : Fragment() {
     private lateinit var loadingDialog: LoadingDialog
     private lateinit var confirmationDialog: ConfirmationDialog
 
+    private val authViewModel: AuthViewModel by viewModels()
     private val passengerViewModel: PassengerDetailsViewModel by viewModels()
 
     private lateinit var inputDocAdapter: InputDocAdapter
@@ -46,6 +48,7 @@ class PassengerDetailsFragment : Fragment() {
     private var selectedDate = Calendar.getInstance()
 
     private var passengerId: String? = null
+    private var isOwner = false
     private var timestamp = Date().time.toString()
 
     private var docList = mutableListOf<DocumentData>()
@@ -64,22 +67,21 @@ class PassengerDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         passengerId = arguments?.getString(KEY_PASSENGER_DETAIL_ID)
+        isOwner = arguments?.getBoolean(KEY_IS_PASSENGER_OWNER) ?: false
 
         loadingDialog = LoadingDialog(requireActivity())
         confirmationDialog = ConfirmationDialog(requireActivity()) { passengerViewModel.deletePassenger(passengerId!!) }
         inputDocAdapter = InputDocAdapter(::handleFilePicker)
 
+        authViewModel.getUser()
+        authViewModel.checkAuth()
+
         if (passengerId != null) {
             passengerViewModel.getPassenger(passengerId!!)
             passengerViewModel.getDocuments(passengerId!!)
-            binding.btnDelete.visibility = View.VISIBLE
+            if (!isOwner) binding.btnDelete.visibility = View.VISIBLE
         } else {
-            docList.add(
-                DocumentData(
-                    id = timestamp,
-                    passengerId = timestamp
-                )
-            )
+            handleAddEmptyDoc()
         }
 
         observeViewModel()
@@ -121,6 +123,9 @@ class PassengerDetailsFragment : Fragment() {
         passengerViewModel.documents.observe(viewLifecycleOwner, ::handleGetDocuments)
         passengerViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
         passengerViewModel.success.observe(viewLifecycleOwner, ::handleSuccess)
+
+        authViewModel.name.observe(viewLifecycleOwner) { binding.tiName.setText(it) }
+        authViewModel.dateBirth.observe(viewLifecycleOwner) { binding.tiBirth.setText(Helper.convertTimestampToDate(it)) }
     }
 
     private fun handleSetAdapter() {
@@ -261,7 +266,16 @@ class PassengerDetailsFragment : Fragment() {
     }
 
     private fun handleGetDocuments(data: List<DocumentData>) {
-        docList = data.toMutableList()
-        this.inputDocAdapter.submitList(data)
+        if (data.isEmpty()) handleAddEmptyDoc() else docList = data.toMutableList()
+        this.inputDocAdapter.submitList(docList)
+    }
+
+    private fun handleAddEmptyDoc() {
+        docList = mutableListOf(
+            DocumentData(
+                id = timestamp,
+                passengerId = passengerId ?: timestamp
+            )
+        )
     }
 }
