@@ -167,7 +167,7 @@
     <string name="select">Select</string>
     <string name="search_city_country_or_airport">Search city, country or airport</string>
     <string name="garuda_indonesia">Garuda Indonesia</string>
-    <string name="ga207_economy">GA207-Economy</string>
+    <string name="ga207_economy">GA207 - Economy</string>
     <string name="cabin_baggage_10kg">Cabin Baggage: 10kg</string>
     <string name="_10_00_am">10:00 AM</string>
     <string name="soekarno_hatta">Soekarno Hatta</string>
@@ -331,6 +331,12 @@
     <string name="your_travel_documents">Your travel documents %1$s</string>
     <string name="complete_the_payment_in_00_52_23">Complete the Payment in 00:52:23</string>
     <string name="complete_the_payment_in">Complete the Payment in %1$s</string>
+    <string name="your_e_ticket_is_here">Your e-ticket is here</string>
+    <string name="see">See</string>
+    <string name="booking_code">Booking code</string>
+    <string name="bhjcyaa">BHJCYAA</string>
+    <string name="check_in_online_now">Check-In Online Now</string>
+    <string name="passenger_add_ons"><![CDATA[Passenger & Add-ons]]></string>
 
     <string-array name="origin">
         <item>Select</item>

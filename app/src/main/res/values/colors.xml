@@ -23,6 +23,7 @@
     <color name="error_400">#F97066</color>
     <color name="error_500">#F04438</color>
 
+    <color name="light_gray">#FBFBFB</color>
     <color name="gray_50">#F9F9FB</color>
     <color name="gray_100">#EFF1F5</color>
     <color name="gray_200">#DCDFEA</color>

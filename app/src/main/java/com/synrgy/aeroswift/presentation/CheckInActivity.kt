@@ -1,12 +1,24 @@
 package com.synrgy.aeroswift.presentation
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import com.synrgy.aeroswift.R
+import androidx.appcompat.app.AppCompatActivity
+import com.synrgy.aeroswift.databinding.ActivityCheckInBinding
 
 class CheckInActivity : AppCompatActivity() {
+    companion object {
+        fun startActivity(context: Context) {
+            context.startActivity(Intent(context, CheckInActivity::class.java))
+        }
+    }
+
+    private lateinit var binding: ActivityCheckInBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_check_in)
+        binding = ActivityCheckInBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
     }
 }
