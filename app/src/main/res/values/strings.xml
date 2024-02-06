@@ -20,6 +20,20 @@
     <string name="permission_notification_title">Notify latest offers &amp; flights availability</string>
     <string name="permission_notification_desc">Enable notifications now and never miss out on exclusive deals that are hand-picked just for you. Click  continue to savings!</string>
 
+    //Search flight
+    <string name="time_flight">1h 2m</string>
+    <string name="time_departure">06:25 AM</string>
+    <string name="time_arrival">07:40 AM</string>
+    <string name="garuda_short_name">GA207</string>
+    <string name="excess_search">Excess baggage (+)</string>
+    <string name="excess_price_search">IDR 25,000/kg</string>
+    <string name="search_departure">Yogyakarta</string>
+    <string name="search_arrival">Jakarta</string>
+    <string name="search_date">Tue,3 Jan 2024</string>
+    <string name="search_passenger">2 Passengers</string>
+    <string name="search_class">Economy Class</string>
+
+
     // bottom navigation menu
     <string name="title_home">Home</string>
     <string name="title_flight">My Flight</string>
@@ -328,6 +342,13 @@
     <string name="infant_1">Infant (1)</string>
     <string name="empty_baggage">Currently, additional baggage is unavailable for this flight</string>
     <string name="_0_meal">0 Meal</string>
+
+    <string name="waiting_for_payment">Waiting for Payment</string>
+    <string name="complete_payment_in">Complete payment in</string>
+    <string name="passenger_facilities"><![CDATA[Passenger & Facilities]]></string>
+    <string name="add_ons">Add-ons</string>
+    <string name="evidence">Evidence</string>
+    <string name="extra_baggage">Extra Baggage</string>
     <string name="your_travel_documents">Your travel documents %1$s</string>
     <string name="complete_the_payment_in_00_52_23">Complete the Payment in 00:52:23</string>
     <string name="complete_the_payment_in">Complete the Payment in %1$s</string>

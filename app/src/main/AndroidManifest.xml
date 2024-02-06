@@ -33,6 +33,15 @@
             android:name=".presentation.CheckInActivity"
             android:exported="false" />
         <activity
+            android:name=".presentation.SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.OrderDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.PaymentActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.PassengerActivity"
             android:exported="false" />
         <activity

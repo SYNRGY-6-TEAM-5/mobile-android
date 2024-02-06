@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import com.synrgy.aeroswift.databinding.FragmentFlightBinding
 import com.synrgy.aeroswift.dialog.AuthDialog
 import com.synrgy.aeroswift.presentation.FlightHistoryActivity
+import com.synrgy.aeroswift.presentation.adapter.ActiveOrderAdapter
 import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,6 +21,7 @@ class FlightFragment : Fragment() {
     private val authViewModel: AuthViewModel by viewModels()
 
     private lateinit var authDialog: AuthDialog
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,10 +35,11 @@ class FlightFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         authDialog = AuthDialog(requireActivity())
-
+//
         authViewModel.getUser()
         authViewModel.checkAuth()
         observeViewModel()
+        adapter()
 
         binding.tvHistory.setOnClickListener {
             FlightHistoryActivity.startActivity(requireActivity())
@@ -49,5 +52,10 @@ class FlightFragment : Fragment() {
 
     private fun handleAuthAlert(token: String) {
         if (token.isEmpty() || token.isBlank()) authDialog.show()
+    }
+
+    private fun adapter() {
+        val adapter = ActiveOrderAdapter()
+        binding.rvActiveOrder.adapter = adapter
     }
 }
