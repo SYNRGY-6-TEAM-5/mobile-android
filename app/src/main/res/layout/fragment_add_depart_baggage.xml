@@ -58,7 +58,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_name"
         app:layout_constraintBottom_toTopOf="@id/nested_scroll_view"
         app:layout_constraintHorizontal_chainStyle="packed"
-        android:text="@string/_1_meal"
+        android:text="@string/baggage"
         android:textColor="@color/gray_800"
         android:layout_marginTop="8dp"
         android:paddingBottom="32dp"/>
@@ -72,7 +72,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tv_meal"
         android:layout_marginStart="6dp"
-        android:text="@string/idr_49_000"
+        android:text="@string/idr_0"
         android:textColor="@color/gray_800"/>
 
     <androidx.core.widget.NestedScrollView

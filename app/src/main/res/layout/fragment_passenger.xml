@@ -45,6 +45,7 @@
                 app:cardCornerRadius="16dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_flight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="12dp">
@@ -134,14 +135,23 @@
 
             </com.google.android.material.card.MaterialCardView>
 
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/Text.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/contact_details"
+                android:textColor="@color/base_black"
+                android:layout_marginTop="32dp"/>
+
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="16dp"
-                android:layout_marginTop="24dp">
+                android:layout_marginTop="12dp">
 
                 <LinearLayout
+                    android:id="@+id/layout_contact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -149,86 +159,72 @@
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/Text.Medium"
+                        android:id="@+id/tv_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/contact_details"
-                        android:textColor="@color/base_black"/>
+                        android:text="@string/jessica_jane"
+                        android:textColor="@color/base_black"
+                        android:paddingVertical="12dp"/>
 
-                    <com.google.android.material.card.MaterialCardView
+                    <View
                         android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray_200"/>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/Text.Medium"
+                        android:id="@+id/tv_email"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="16dp"
-                        android:layout_marginTop="8dp"
-                        app:cardElevation="0dp">
+                        android:text="@string/j_jane_gmail_com"
+                        android:textColor="@color/base_black"
+                        android:paddingVertical="12dp"/>
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="8dp">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray_200"/>
 
-                            <com.google.android.material.textview.MaterialTextView
-                                style="@style/Text.Medium"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/jessica_jane"
-                                android:textColor="@color/base_black"
-                                android:paddingVertical="12dp"/>
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/Text.Medium"
+                        android:id="@+id/tv_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/_62_8723_9873_9837"
+                        android:textColor="@color/base_black"
+                        android:paddingVertical="12dp"/>
 
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/gray_200"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray_200"/>
 
-                            <com.google.android.material.textview.MaterialTextView
-                                style="@style/Text.Medium"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/j_jane_gmail_com"
-                                android:textColor="@color/base_black"
-                                android:paddingVertical="12dp"/>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/gray_200"/>
-
-                            <com.google.android.material.textview.MaterialTextView
-                                style="@style/Text.Medium"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/_62_8723_9873_9837"
-                                android:textColor="@color/base_black"
-                                android:paddingVertical="12dp"/>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/gray_200"/>
-
-                            <com.google.android.material.textview.MaterialTextView
-                                style="@style/TextXS.Regular"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/contact_details_desc"
-                                android:textColor="@color/base_black"
-                                android:layout_marginTop="12dp"/>
-
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextXS.Regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/contact_details_desc"
+                        android:textColor="@color/base_black"
+                        android:layout_marginTop="12dp"/>
 
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/Text.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/passenger_details"
+                android:textColor="@color/base_black"
+                android:layout_marginTop="32dp"/>
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="16dp"
-                android:layout_marginTop="24dp">
+                android:layout_marginTop="12dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -236,146 +232,51 @@
                     android:orientation="vertical"
                     android:padding="8dp">
 
-                    <com.google.android.material.textview.MaterialTextView
-                        style="@style/Text.Medium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/passenger_details"
-                        android:textColor="@color/base_black"/>
-
-                    <com.google.android.material.card.MaterialCardView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="16dp"
-                        android:layout_marginTop="8dp"
-                        app:cardElevation="0dp">
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="8dp">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/TextS.Medium"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="8dp">
+                            android:text="@string/same_as_contact_details"
+                            android:textColor="@color/gray_300"
+                            android:paddingVertical="2dp"/>
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"/>
 
-                                <com.google.android.material.textview.MaterialTextView
-                                    style="@style/TextS.Medium"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/same_as_contact_details"
-                                    android:textColor="@color/gray_300"
-                                    android:paddingVertical="2dp"/>
+                        <com.github.angads25.toggle.widget.LabeledSwitch
+                            android:layout_width="40dp"
+                            android:layout_height="24dp"
+                            android:textSize="0sp"
+                            app:on="true"
+                            app:colorOn="@color/primary_500"
+                            app:colorBorder="@color/gray_300"
+                            android:layout_gravity="end"/>
 
-                                <View
-                                    android:layout_width="0dp"
-                                    android:layout_height="0dp"
-                                    android:layout_weight="1"/>
+                    </LinearLayout>
 
-                                <com.github.angads25.toggle.widget.LabeledSwitch
-                                    android:layout_width="40dp"
-                                    android:layout_height="24dp"
-                                    android:textSize="0sp"
-                                    app:on="true"
-                                    app:colorOn="@color/primary_500"
-                                    app:colorBorder="@color/gray_300"
-                                    android:layout_gravity="end"/>
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/passenger_adult"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_marginTop="12dp"
-                                android:gravity="center_vertical">
-
-                                <com.google.android.material.textview.MaterialTextView
-                                    style="@style/Text.Medium"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/passenger_1_adult"
-                                    android:textColor="@color/base_black"
-                                    android:paddingVertical="12dp"/>
-
-                                <View
-                                    android:layout_width="0dp"
-                                    android:layout_height="0dp"
-                                    android:layout_weight="1"/>
-
-                                <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:src="@drawable/ic_arrow_right"/>
-
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/gray_200"/>
-
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <com.google.android.material.card.MaterialCardView
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_passenger"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="16dp"
-                        android:layout_marginTop="8dp"
-                        app:cardElevation="0dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="8dp">
-
-                            <LinearLayout
-                                android:id="@+id/passenger_baby"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:gravity="center_vertical">
-
-                                <com.google.android.material.textview.MaterialTextView
-                                    style="@style/Text.Medium"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/passenger_2_baby"
-                                    android:textColor="@color/base_black"
-                                    android:paddingVertical="12dp"/>
-
-                                <View
-                                    android:layout_width="0dp"
-                                    android:layout_height="0dp"
-                                    android:layout_weight="1"/>
-
-                                <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:src="@drawable/ic_arrow_right"/>
-
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/gray_200"/>
-
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
+                        tools:listitem="@layout/item_passenger_list"
+                        tools:itemCount="3"
+                        android:nestedScrollingEnabled="true"/>
 
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
 
         </LinearLayout>
 

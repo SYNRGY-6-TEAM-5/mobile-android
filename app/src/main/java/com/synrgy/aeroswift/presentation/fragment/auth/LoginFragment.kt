@@ -52,6 +52,9 @@ class LoginFragment: Fragment() {
     private lateinit var loadingDialog: LoadingDialog
     private lateinit var forgotPassDialog: ForgotPassDialog
 
+    private var emailMessage = ""
+    private var passwordMessage = ""
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -90,6 +93,7 @@ class LoginFragment: Fragment() {
         loginViewModel.error.observe(viewLifecycleOwner, ::handleError)
         loginViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
         loginViewModel.login.observe(viewLifecycleOwner, ::handleSuccess)
+        loginViewModel.localError.observe(viewLifecycleOwner, ::handleLocalError)
 
         forgotPassViewModel.forgotPassword.observe(viewLifecycleOwner, ::handleForgotPassword)
         forgotPassViewModel.error.observe(viewLifecycleOwner, ::handleError)
@@ -104,9 +108,6 @@ class LoginFragment: Fragment() {
 
     private fun handleErrors(errors: List<ErrorItem?>?) {
         if (!errors.isNullOrEmpty()) {
-            var emailMessage = ""
-            var passwordMessage = ""
-
             for (error in errors) {
                 when (error?.field) {
                     "emailAddress" -> {
@@ -126,9 +127,7 @@ class LoginFragment: Fragment() {
                 }
             }
 
-            binding.loginTilEmail.error = emailMessage.replace(",", "\n")
-            binding.loginTilPassword.error = passwordMessage.replace(",", "\n")
-            binding.loginTilPassword.errorIconDrawable = null
+            handleSetInputMessage()
         }
     }
 
@@ -146,6 +145,7 @@ class LoginFragment: Fragment() {
             response.token.isNotEmpty() &&
             response.token.isNotBlank()) {
 
+            loadingDialog.dismissDialog()
             Helper.showToast(requireActivity(), requireContext(), response.message!!, isSuccess = true)
             handleAuthentication(response.token)
         }
@@ -174,6 +174,9 @@ class LoginFragment: Fragment() {
     }
 
     private fun handleLogin() {
+        emailMessage = ""
+        passwordMessage = ""
+
         val email = binding.loginTiEmail.text.toString()
         val password = binding.loginTiPassword.text.toString()
 
@@ -183,6 +186,17 @@ class LoginFragment: Fragment() {
         loginViewModel.login(
             LoginBody(email, password)
         )
+    }
+
+    private fun handleLocalError(error: Boolean) {
+        if (error) {
+            val email = binding.loginTiEmail.text.toString()
+            val password = binding.loginTiPassword.text.toString()
+
+            validateEmail(email)
+            validatePassword(password)
+            handleSetInputMessage()
+        }
     }
 
     private fun handleNavigateToHome() {
@@ -282,6 +296,30 @@ class LoginFragment: Fragment() {
             authViewModel.setPhoto(photoUrl)
 
             handleNavigateToHome()
+        }
+    }
+
+    private fun validateEmail(email: String) {
+        if (email.isEmpty() && email.isBlank()) {
+            emailMessage += "Email is required.\n"
+            emailMessage += "Email cannot be blank.\n"
+        }
+    }
+
+    private fun validatePassword(password: String) {
+        if (password.isEmpty() && password.isBlank()) {
+            passwordMessage += "Password is required.\n"
+            passwordMessage += "Password cannot be blank.\n"
+        }
+    }
+
+    private fun handleSetInputMessage() {
+        if ((emailMessage.isNotEmpty() && emailMessage.isNotBlank()) ||
+            (passwordMessage.isNotEmpty() && passwordMessage.isNotBlank())) {
+
+            binding.loginTilEmail.error = emailMessage.replace(",", "\n")
+            binding.loginTilPassword.error = passwordMessage.replace(",", "\n")
+            binding.loginTilPassword.errorIconDrawable = null
         }
     }
 }

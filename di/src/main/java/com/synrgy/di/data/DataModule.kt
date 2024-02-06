@@ -1,10 +1,12 @@
 package com.synrgy.di.data
 
 import android.content.Context
+import androidx.room.Room
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.synrgy.data.local.DataStoreManager
 import com.synrgy.data.local.LocalRepository
 import com.synrgy.data.local.SharedPreferences
+import com.synrgy.data.local.room.FlightDatabase
 import com.synrgy.data.remote.RemoteRepository
 import com.synrgy.data.remote.service.RemoteService
 import dagger.Module
@@ -90,10 +92,9 @@ object DataModule {
     @Singleton
     @Provides
     fun provideLocalRepository(
-        dataStoreManager: DataStoreManager,
-        sharedPreferences: SharedPreferences
+        dataStoreManager: DataStoreManager
     ): LocalRepository {
-        return LocalRepository(dataStoreManager, sharedPreferences)
+        return LocalRepository(dataStoreManager)
     }
 
     @Singleton
@@ -102,5 +103,17 @@ object DataModule {
         remoteService: RemoteService
     ): RemoteRepository {
         return RemoteRepository(remoteService)
+    }
+
+    @Singleton
+    @Provides
+    fun provideFlightDatabase(
+        context: Context
+    ): FlightDatabase {
+        return Room.databaseBuilder(
+            context = context,
+            name = FlightDatabase.DATABASE_NAME,
+            klass = FlightDatabase::class.java,
+        ).build()
     }
 }

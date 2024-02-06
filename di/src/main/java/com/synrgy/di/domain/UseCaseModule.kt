@@ -9,28 +9,31 @@ import com.synrgy.domain.repository.NewUserRepository
 import com.synrgy.domain.repository.RegisterRepository
 import com.synrgy.domain.repository.UserRepository
 import com.synrgy.presentation.usecase.airport.AirportListUseCase
-import com.synrgy.presentation.usecase.airport.GetRecentAirportUseCase
-import com.synrgy.presentation.usecase.airport.SetRecentAirportUseCase
 import com.synrgy.presentation.usecase.auth.ClearTokenUseCase
 import com.synrgy.presentation.usecase.auth.GetNameUseCase
 import com.synrgy.presentation.usecase.auth.GetPhotoUseCase
 import com.synrgy.presentation.usecase.auth.GetRegTokenUseCase
+import com.synrgy.presentation.usecase.auth.GetUserIdUseCase
 import com.synrgy.presentation.usecase.auth.SetNameUseCase
 import com.synrgy.presentation.usecase.auth.SetPhotoUseCase
 import com.synrgy.presentation.usecase.auth.SetRegTokenUseCase
+import com.synrgy.presentation.usecase.auth.SetUserIdUseCase
 import com.synrgy.presentation.usecase.departure.GetDepartureUseCase
 import com.synrgy.presentation.usecase.forgotpassword.EditPasswordFpUseCase
 import com.synrgy.presentation.usecase.forgotpassword.ForgotPasswordUseCase
 import com.synrgy.presentation.usecase.forgotpassword.ValidateOtpFpUseCase
 import com.synrgy.presentation.usecase.login.GetTokenUseCase
 import com.synrgy.presentation.usecase.login.LoginUseCase
-import com.synrgy.presentation.usecase.login.LoginValidateInputUseCase
 import com.synrgy.presentation.usecase.login.SetTokenUseCase
+import com.synrgy.presentation.usecase.login.ValidateChangePassUseCase
+import com.synrgy.presentation.usecase.login.ValidateEmailUseCase
+import com.synrgy.presentation.usecase.login.ValidateLoginUseCase
 import com.synrgy.presentation.usecase.onboarding.GetNewUserUseCase
 import com.synrgy.presentation.usecase.onboarding.SetNewUserUseCase
 import com.synrgy.presentation.usecase.register.RegisterUseCase
-import com.synrgy.presentation.usecase.register.RegisterValidateInputUseCase
 import com.synrgy.presentation.usecase.register.ValidateOtpUseCase
+import com.synrgy.presentation.usecase.register.ValidateRegisterUseCase
+import com.synrgy.presentation.usecase.user.EditProfileImageUseCase
 import com.synrgy.presentation.usecase.user.EditProfileUseCase
 import com.synrgy.presentation.usecase.user.GetUserDetailUseCase
 import com.synrgy.presentation.usecase.user.UploadProfileImageUseCase
@@ -53,11 +56,28 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun provideLoginValidateInputUseCase(
+    fun provideValidateLoginUseCase(
         loginRepository: LoginRepository
-    ): LoginValidateInputUseCase {
-        return LoginValidateInputUseCase(loginRepository)
+    ): ValidateLoginUseCase {
+        return ValidateLoginUseCase(loginRepository)
     }
+
+    @Singleton
+    @Provides
+    fun provideValidateEmailUseCase(
+        loginRepository: LoginRepository
+    ): ValidateEmailUseCase {
+        return ValidateEmailUseCase(loginRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideValidateChangePassUseCase(
+        loginRepository: LoginRepository
+    ): ValidateChangePassUseCase {
+        return ValidateChangePassUseCase(loginRepository)
+    }
+
     @Singleton
     @Provides
     fun provideRegisterUseCase(
@@ -68,10 +88,10 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun provideRegisterValidateInputUseCase(
+    fun provideValidateRegisterUseCase(
         registerRepository: RegisterRepository
-    ): RegisterValidateInputUseCase {
-        return RegisterValidateInputUseCase(registerRepository)
+    ): ValidateRegisterUseCase {
+        return ValidateRegisterUseCase(registerRepository)
     }
 
     @Singleton
@@ -85,17 +105,25 @@ object UseCaseModule {
     @Singleton
     @Provides
     fun provideEditProfileUseCase(
-        guestRepository: GuestRepository
+        userRepository: UserRepository
     ): EditProfileUseCase {
-        return EditProfileUseCase(guestRepository)
+        return EditProfileUseCase(userRepository)
     }
 
     @Singleton
     @Provides
     fun provideUploadProfileImageUseCase(
-        guestRepository: GuestRepository
+        userRepository: UserRepository
     ): UploadProfileImageUseCase {
-        return UploadProfileImageUseCase(guestRepository)
+        return UploadProfileImageUseCase(userRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideEditProfileImageUseCase(
+        userRepository: UserRepository
+    ): EditProfileImageUseCase {
+        return EditProfileImageUseCase(userRepository)
     }
 
     @Singleton
@@ -236,17 +264,17 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun provideSetRecentAirportUseCase(
+    fun provideSetUserIdUseCase(
         authRepository: AuthRepository
-    ): SetRecentAirportUseCase {
-        return SetRecentAirportUseCase(authRepository)
+    ): SetUserIdUseCase {
+        return SetUserIdUseCase(authRepository)
     }
 
     @Singleton
     @Provides
-    fun provideGetRecentAirportUseCase(
+    fun provideGetUserIdUseCase(
         authRepository: AuthRepository
-    ): GetRecentAirportUseCase {
-        return GetRecentAirportUseCase(authRepository)
+    ): GetUserIdUseCase {
+        return GetUserIdUseCase(authRepository)
     }
 }

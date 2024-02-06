@@ -9,7 +9,7 @@ import com.synrgy.domain.body.auth.RegisterBody
 import com.synrgy.domain.response.auth.RegisterResponse
 import com.synrgy.domain.response.error.ErrorItem
 import com.synrgy.presentation.usecase.register.RegisterUseCase
-import com.synrgy.presentation.usecase.register.RegisterValidateInputUseCase
+import com.synrgy.presentation.usecase.register.ValidateRegisterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
     private val registerUseCase: RegisterUseCase,
-    private val validateInputUseCase: RegisterValidateInputUseCase
+    private val validateRegisterUseCase: ValidateRegisterUseCase
 ): ViewModel() {
     private val _register: MutableLiveData<RegisterResponse> = MutableLiveData()
     val register: LiveData<RegisterResponse> = _register
@@ -41,16 +41,14 @@ class RegisterViewModel @Inject constructor(
         _localError.value = false
 
         viewModelScope.launch(Dispatchers.IO) {
-            if (!validateInputUseCase.invoke(user.email, user.password)) {
+            if (!validateRegisterUseCase.invoke(user.email, user.password)) {
                 withContext(Dispatchers.Main) {
-                    _loading.value = false
                     _localError.value = true
                 }
             } else {
                 when (val response = registerUseCase.invoke(user)) {
                     is Resource.Success -> {
                         withContext(Dispatchers.Main) {
-                            _loading.value = false
                             _register.value = RegisterResponse(
                                 expiredOTP = response.data?.expiredOTP ?: 0L,
                                 otp = response.data?.otp ?: "",
@@ -60,7 +58,6 @@ class RegisterViewModel @Inject constructor(
                     }
                     is Resource.ErrorRes -> {
                         withContext(Dispatchers.Main) {
-                            _loading.value = false
                             _errors.value = response.errorRes?.errors ?: emptyList()
                             if (response.errorRes?.errors == null) {
                                 _error.value = response.errorRes?.message ?: ""
@@ -69,11 +66,14 @@ class RegisterViewModel @Inject constructor(
                     }
                     is Resource.ExceptionRes -> {
                         withContext(Dispatchers.Main) {
-                            _loading.value = false
-                            _error.value = response.exceptionRes?.message ?: ""
+                            _error.value = response.exceptionRes?.message ?: "Server error"
                         }
                     }
                 }
+            }
+
+            withContext(Dispatchers.Main) {
+                _loading.value = false
             }
         }
     }

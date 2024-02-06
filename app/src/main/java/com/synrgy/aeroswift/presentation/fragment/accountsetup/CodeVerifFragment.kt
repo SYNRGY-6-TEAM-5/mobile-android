@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -102,9 +103,6 @@ class CodeVerifFragment : Fragment() {
                     }
 
                     if (count == 0) {
-                        if (index != 0) {
-                            vcInputs[index - 1].requestFocus()
-                        }
                         vcInputs[index].setBackgroundResource(R.drawable.bg_verif_code)
                         vcInputs[index].setTextColor(ContextCompat.getColor(requireContext(), R.color.base_black))
                     }
@@ -114,8 +112,15 @@ class CodeVerifFragment : Fragment() {
 
             vcInputs[index].setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
                 if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DEL
-                    && index > 0 && vcInputs[index].text.toString().isEmpty()) {
+                    && index > 0) {
                     vcInputs[index - 1].requestFocus()
+
+                    if (vcInputs[index].text.toString().isEmpty()) {
+                        vcInputs[index - 1].text = null
+                    } else {
+                        vcInputs[index].text = null
+                    }
+
                     return@OnKeyListener true
                 }
                 if (event.action == KeyEvent.ACTION_DOWN &&
@@ -191,6 +196,7 @@ class CodeVerifFragment : Fragment() {
             response.message.isNotEmpty() &&
             response.success) {
 
+            loadingDialog.dismissDialog()
             Helper.showToast(requireActivity(), requireContext(), response.message, isSuccess = true)
             authViewModel.setToken(response.token)
             findNavController().navigate(R.id.action_codeVerifFragment_to_accountDetailFragment)

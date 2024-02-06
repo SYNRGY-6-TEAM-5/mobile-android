@@ -209,7 +209,7 @@
     <string name="desc_covid_5_1">Quarantine Requirements: Be aware of any quarantine or isolation requirements at your destination. Plan accordingly and ensure you have the necessary resources during this period.</string>
     <string name="desc_covid_5_2">Local Regulations: Familiarize yourself with local COVID-19 regulations, including mask mandates, curfews, and social distancing guidelines.</string>
     <string name="desc_covid_5_3">Emergency Contacts: Save local emergency numbers and contact information for your country\'s embassy or consulate at your destination.</string>
-    <string name="logout">Logout</string>
+    <string name="logout">Log Out</string>
     <string name="tko">TKO</string>
     <string name="your_flight">Your Flight</string>
     <string name="history">History</string>
@@ -282,6 +282,67 @@
     <string name="fried_noodle">Fried Noodle</string>
     <string name="idr_99_000_portion">IDR 99,000/portion</string>
     <string name="meals_price">IDR %1$s/portion</string>
+    <string name="one_way">One-Way</string>
+    <string name="order_id_143740283">Order ID: 143740283</string>
+    <string name="completed">Completed</string>
+    <string name="profile">Profile</string>
+    <string name="anggataufik_gmail_com">Anggataufik@gmail.com</string>
+    <string name="angga">Angga</string>
+    <string name="flight_order">Flight Order</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="change">Change</string>
+    <string name="logout_confirmation_desc">Are you sure want to log out?</string>
+    <string name="log_out_confirmation">Log Out Confirmation</string>
+    <string name="notification">Notification</string>
+    <string name="no_notification">No Notification</string>
+    <string name="no_notification_desc">You don\'t have notifications at the moment, notifications will appear if there are notifications related to your account</string>
+    <string name="_1_min_ago">1 min ago</string>
+    <string name="notification_title">Enjoy new user promos now, get discounts up to 50%</string>
+    <string name="today_25_jan_2024">Today, 25 Jan 2024</string>
+    <string name="notification_details">Notification Details</string>
+    <string name="notification_detail_1">Unlock incredible savings on your air travel with our exclusive offer</string>
+    <string name="notification_detail_2">Discount Extra Flight Ticket up to IDR 250K! Elevate your travel experience without breaking the bank. Enjoy the convenience of substantial discounts on your next flight, making your journey even more affordable.</string>
+    <string name="notification_detail_3">Seize the opportunity to explore new destinations, create lasting memories, and fly with extra savings. Hurry, limited seats available. Book now and soar to your dream destination with extra savings in your pocket!</string>
+    <string name="promo_period">Promo Period</string>
+    <string name="_24_30_jan_2024">24 - 30 Jan, 2024</string>
+    <string name="minimum_transaction">Minimum Transaction</string>
+    <string name="idr_500_000">IDR 500,000</string>
+    <string name="usage_period">Usage Period</string>
+    <string name="anytime">Anytime</string>
+    <string name="platform">Platform</string>
+    <string name="all_platform">All platform</string>
+    <string name="copy_the_code_below">Copy the code below</string>
+    <string name="cpid82739sh">CPID82739SH</string>
+    <string name="terms_and_conditions">Terms and Conditions:</string>
+    <string name="notification_term_1">The discount is only applicable to specified train routes and travel dates.</string>
+    <string name="notification_term_2">This promo cannot be combined with any other promotions or discounts.</string>
+    <string name="notification_term_3">The payment method accepted is only through credit card.</string>
+    <string name="notification_term_4">Refund is calculated according to the total paid amount after the discount, not the initial price.</string>
+    <string name="_4">4.</string>
+    <string name="faq">FAQ</string>
+    <string name="how_can_i_order">How can I order?</string>
+    <string name="faq_1">You can order easily using our online platform. When you find a flight you need, you can add it to cart, login and go through the ordering process. After the order is ready, you will receive order summary to your email. Order summary will also be stored to your account.</string>
+    <string name="what_information_should_i_input_when_ordering">What information should I input when ordering?</string>
+    <string name="notification_permission">Notification Permission</string>
+    <string name="notifications">Notifications</string>
+    <string name="awaiting_payment">Awaiting Payment</string>
+    <string name="save_passenger_data">Save Passenger Data</string>
+    <string name="account_owner">Account Owner</string>
+    <string name="add_passenger_data">Add Passenger Data</string>
+    <string name="delete">Delete</string>
+    <string name="delete_passenger_desc">When you book later, you need to manually enter the profile details</string>
+    <string name="can_t_access">Can’t Access</string>
+    <string name="auth_dialog_desc">You must sign in first to be able to use all the features</string>
+    <string name="no_recent_airport">No recent airport</string>
+    <string name="no_airport">No airport</string>
+    <string name="select_passenger">Select Passenger</string>
+    <string name="new_passenger">New Passenger</string>
+    <string name="price_pax">Price/pax</string>
+    <string name="idr_1_165_450">IDR 1,165,450</string>
+    <string name="infant_1">Infant (1)</string>
+    <string name="empty_baggage">Currently, additional baggage is unavailable for this flight</string>
+    <string name="_0_meal">0 Meal</string>
+    <string name="your_travel_documents">Your travel documents %1$s</string>
 
     <string-array name="origin">
         <item>Select</item>
@@ -294,6 +355,10 @@
         <item>2 Passengers -  Economy Class</item>
         <item>1 Passenger -  Economy Class</item>
         <item>1 Passenger -  Business Class</item>
+    </string-array>
+
+    <string-array name="notification_dropdown">
+        <item>Mark all read</item>
     </string-array>
 
 </resources>

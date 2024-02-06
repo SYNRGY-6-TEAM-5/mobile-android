@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
@@ -16,11 +17,15 @@ import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentHomeBinding
 import com.synrgy.aeroswift.dialog.PassengersAndCabinClassDialog
 import com.synrgy.aeroswift.presentation.FlightDetailsActivity
+import com.synrgy.aeroswift.presentation.NotificationActivity
 import com.synrgy.aeroswift.presentation.adapter.DiscountAdapter
 import com.synrgy.aeroswift.presentation.adapter.TabTripAdapter
 import com.synrgy.aeroswift.presentation.adapter.TicketPromoAdapter
 import com.synrgy.aeroswift.presentation.viewmodel.HomeViewModel
 import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
+import com.synrgy.domain.local.FlightSearch
+import com.synrgy.presentation.constant.Constant
+import com.synrgy.presentation.helper.Helper
 import dagger.hilt.android.AndroidEntryPoint
 import koleton.api.hideSkeleton
 import koleton.api.loadSkeleton
@@ -36,8 +41,7 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModels()
     private val authViewModel: AuthViewModel by viewModels()
 
-    private var selectedClass: String? = null
-    private var totalPassenger: String? = null
+    private var departTime = 0L
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,38 +57,41 @@ class HomeFragment : Fragment() {
         adapter()
         tabController()
 
+        authViewModel.checkAuth()
+        authViewModel.getUser()
+        observeViewModel()
+
         binding.clDepartDate.setOnClickListener {
-            showDatePicker(binding.tvSelectedDate)
+            showDatePicker(binding.tvSelectedDate, true)
         }
 
         binding.clReturnDate.setOnClickListener {
-            showDatePicker(binding.tvSelectedReturnDate)
+            if (departTime == 0L) {
+                Toast.makeText(requireActivity(), "Select depart date", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+            showDatePicker(binding.tvSelectedReturnDate, false)
         }
 
         binding.clPassengerAndCabinClass.setOnClickListener {
             PassengersAndCabinClassDialog(requireActivity(), viewModel).show()
         }
-        val tvSelectedClass = binding.tvSelectedPassengerAndCabinClass
 
-        viewModel.selectedClass.observe(viewLifecycleOwner) {
-            selectedClass = it
-            tvSelectedClass.text = "$totalPassenger Passengers - $selectedClass"
+        binding.btnSearchFlight.setOnClickListener { viewModel.setFlightSearch() }
+
+        binding.ivNotification.setOnClickListener {
+            NotificationActivity.startActivity(requireActivity())
+            requireActivity().finish()
         }
+    }
 
-        viewModel.totalPassengers.observe(viewLifecycleOwner) {
-            totalPassenger = it.toString()
-            tvSelectedClass.text = "$totalPassenger Passengers - $selectedClass"
-        }
-
-        authViewModel.checkAuth()
-        authViewModel.getUser()
+    private fun observeViewModel() {
         authViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
         authViewModel.name.observe(viewLifecycleOwner, ::handleGetName)
         authViewModel.photo.observe(viewLifecycleOwner, ::handleLoadImage)
 
-        binding.btnSearchFlight.setOnClickListener {
-            FlightDetailsActivity.startActivity(requireActivity())
-        }
+        viewModel.totalSeat.observe(viewLifecycleOwner, ::handlePassengerInput)
+        viewModel.flightSearch.observe(viewLifecycleOwner, ::handleFlightSearch)
     }
 
     private fun tabController() {
@@ -107,6 +114,8 @@ class HomeFragment : Fragment() {
                     clDepartDate.setBackgroundResource(R.drawable.bg_black)
 
                     clReturnDate.visibility = View.GONE
+
+                    viewModel.setTripType(Constant.TripType.ONE_WAY.value)
                 } else {
                     clReturnDate.visibility = View.VISIBLE
                     clDepartDate.visibility = View.VISIBLE
@@ -116,6 +125,8 @@ class HomeFragment : Fragment() {
 
                     params.width = 0
                     clDepartDate.layoutParams = params
+
+                    viewModel.setTripType(Constant.TripType.ROUNDTRIP.value)
                 }
             }
 
@@ -133,18 +144,19 @@ class HomeFragment : Fragment() {
             }
         }.attach()
     }
+
     private fun adapter() {
         val adapter = DiscountAdapter()
         binding.rvDiscount.adapter = adapter
 
-        val tabAdapter = TabTripAdapter(requireActivity())
+        val tabAdapter = TabTripAdapter(requireActivity(), viewModel)
         binding.viewPager.adapter = tabAdapter
 
         val ticketPromoAdapter = TicketPromoAdapter()
         binding.rvTicketPromo.adapter = ticketPromoAdapter
     }
 
-    private fun showDatePicker(textView: TextView) {
+    private fun showDatePicker(textView: TextView, isDepart: Boolean) {
         // Create the DatePickerFragment
         val datePickerDialog = DatePickerDialog(
             requireContext(),
@@ -152,9 +164,16 @@ class HomeFragment : Fragment() {
                 // Set the selected date in the TextView
                 val calendar = Calendar.getInstance()
                 calendar.set(year, month, dayOfMonth)
-                val simpleDateFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+
+                val simpleDateFormat = SimpleDateFormat("dd MMM yyyy", Locale.US)
+                val numberDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
                 val date = simpleDateFormat.format(calendar.time)
                 textView.text = date
+                if (isDepart) departTime = calendar.timeInMillis
+
+                val numberDate = numberDateFormat.format(calendar.time)
+                if (isDepart) viewModel.setDepDate(numberDate) else viewModel.setRetDate(numberDate)
             },
             // Set the DatePickerDialog to open on the last selected date of the user
             Calendar.getInstance().get(Calendar.YEAR),
@@ -162,6 +181,7 @@ class HomeFragment : Fragment() {
             Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
         )
         // Show the DatePickerDialog
+        datePickerDialog.datePicker.minDate = if (isDepart) System.currentTimeMillis() else departTime
         datePickerDialog.show()
     }
 
@@ -177,6 +197,7 @@ class HomeFragment : Fragment() {
 
     private fun handleLoadImage(image: String) {
         if (image.isNotBlank() && image.isNotEmpty()) {
+            authViewModel.setPhoto(image)
             Glide
                 .with(this)
                 .load(image)
@@ -188,7 +209,27 @@ class HomeFragment : Fragment() {
 
     private fun handleGetName(name: String) {
         if (name.isNotBlank() && name.isNotEmpty()) {
+            authViewModel.setName(name)
             binding.tvName.text = name
+        }
+    }
+
+    private fun handleFlightSearch(data: FlightSearch) {
+        if (!Helper.isValidFlightSearch(data)) {
+            Toast.makeText(requireActivity(), "Please fill all field", Toast.LENGTH_SHORT).show()
+            return
+        }
+        FlightDetailsActivity.startActivity(requireActivity())
+    }
+
+    private fun handlePassengerInput(totalSeat: Int) {
+        if (!totalSeat.equals(null)) {
+            val passenger = if (totalSeat > 1) "Passengers" else "Passenger"
+            viewModel.ticketClass.observe(viewLifecycleOwner) { selectedClass ->
+                if (selectedClass.isNotEmpty() && selectedClass.isNotBlank()) {
+                    binding.tvSelectedPassengerAndCabinClass.text = "${totalSeat} ${passenger} - ${selectedClass}"
+                }
+            }
         }
     }
 }

@@ -6,20 +6,42 @@ import com.synrgy.domain.repository.AuthRepository
 import com.synrgy.domain.repository.LoginRepository
 import com.synrgy.domain.repository.NewUserRepository
 import com.synrgy.domain.repository.RegisterRepository
-import com.synrgy.domain.response.airport.AirportData
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class LocalRepository @Inject constructor (
-    private val dataStoreManager: DataStoreManager,
-    private val sharedPreferences: SharedPreferences
+    private val dataStoreManager: DataStoreManager
 ): LoginRepository, RegisterRepository, AuthRepository, NewUserRepository {
-    override suspend fun validateInput(email: String, password: String): Boolean {
+    override suspend fun validateLogin(email: String, password: String): Boolean {
+        return email.isNotEmpty()
+                && email.isNotBlank()
+                && password.isNotEmpty()
+                && password.isNotBlank()
+    }
+
+    override suspend fun validateEmail(email: String): Boolean {
+        return email.isNotEmpty()
+                && email.isNotBlank()
+    }
+
+    override suspend fun validateChangePass(newPassword: String, retypePassword: String): Boolean {
+        return newPassword.isNotEmpty()
+                && newPassword.isNotBlank()
+                && Helper.containsSpecialCharacter(newPassword)
+                && Helper.containsAlphanumeric(newPassword)
+                && Helper.containsUppercaseLetter(newPassword)
+                && retypePassword.isNotEmpty()
+                && retypePassword.isNotBlank()
+                && newPassword == retypePassword
+    }
+
+    override suspend fun validateRegister(email: String, password: String): Boolean {
         return email.isNotEmpty()
                 && email.isNotBlank()
                 && Patterns.EMAIL_ADDRESS.matcher(email).matches()
                 && password.isNotEmpty()
                 && password.isNotBlank()
+                && Helper.checkPasswordLength(password)
                 && Helper.containsSpecialCharacter(password)
                 && Helper.containsAlphanumeric(password)
                 && Helper.containsUppercaseLetter(password)
@@ -69,11 +91,11 @@ class LocalRepository @Inject constructor (
         dataStoreManager.setRegToken(token)
     }
 
-    override suspend fun setRecentAirport(data: AirportData) {
-        sharedPreferences.setRecentAirport(data)
+    override suspend fun getUserId(): Flow<String?> {
+        return dataStoreManager.getUserId()
     }
 
-    override suspend fun getRecentAirport(): MutableSet<String>? {
-        return sharedPreferences.getRecentAirport()
+    override suspend fun setUserId(id: String) {
+        dataStoreManager.setUserId(id)
     }
 }

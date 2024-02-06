@@ -1,6 +1,7 @@
 package com.synrgy.aeroswift.dialog
 
 import android.app.Activity
+import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
@@ -9,6 +10,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.DialogTravelDocsBinding
+import com.synrgy.aeroswift.presentation.fragment.checkout.PassengerIntFragment
+import com.synrgy.domain.local.PassengerData
 
 class TravelDocsDialog(
     private val activity: Activity,
@@ -17,7 +20,7 @@ class TravelDocsDialog(
     private lateinit var dialog: BottomSheetDialog
     private lateinit var binding: DialogTravelDocsBinding
 
-    fun show() {
+    fun show(passenger: PassengerData) {
         dialog = BottomSheetDialog(activity)
         binding = DialogTravelDocsBinding.inflate(activity.layoutInflater)
         val view = binding.root
@@ -36,8 +39,11 @@ class TravelDocsDialog(
         }
 
         binding.btnContinue.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString(PassengerIntFragment.KEY_PASSENGER_CATEGORY, passenger.category)
+
             dialog.dismiss()
-            navController.navigate(R.id.action_passengerFragment_to_passengerIntFragment)
+            navController.navigate(R.id.action_passengerFragment_to_passengerIntFragment, bundle)
         }
 
         binding.ivClose.setOnClickListener { dialog.dismiss() }

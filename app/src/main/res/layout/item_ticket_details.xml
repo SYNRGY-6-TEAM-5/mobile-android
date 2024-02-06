@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_ticket_details"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_depart"
+        style="@style/Text.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/depart"
+        android:textColor="@color/primary_500"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_depart_date_details"
+        style="@style/Text.Regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/tue_18_dec_2018"
+        android:textColor="@color/base_black"
+        app:layout_constraintStart_toEndOf="@id/tv_depart"
+        app:layout_constraintTop_toTopOf="@id/tv_depart" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_non_stop"
+        style="@style/TextXS.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/bg_nonstop"
+        android:paddingHorizontal="8dp"
+        android:paddingTop="2dp"
+        android:text="@string/non_stop"
+        android:textAlignment="center"
+        android:textColor="@color/gray_500"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_depart" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_departure"
+        style="@style/H6.Semibold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="38dp"
+        android:text="@string/yia"
+        android:textColor="@color/base_black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_depart_date_details" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_time_departure"
+        style="@style/TextS.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_08_00_am"
+        android:textColor="@color/gray_300"
+        app:layout_constraintEnd_toEndOf="@id/tv_departure"
+        app:layout_constraintTop_toBottomOf="@id/tv_departure" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_duration_departure"
+        style="@style/Text.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/_1h_30m"
+        android:textColor="@color/base_black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/img_line_depart_arrive"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/img_line_depart_arrive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/img_line_depart_arrive"
+        app:layout_constraintStart_toEndOf="@id/tv_departure"
+        app:layout_constraintTop_toBottomOf="@id/tv_depart" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_city_departure"
+        style="@style/TextS.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/yogyakarta_kulon_progo"
+        android:textColor="@color/base_black"
+        app:layout_constraintStart_toEndOf="@id/img_line_depart_arrive"
+        app:layout_constraintTop_toTopOf="@id/img_line_depart_arrive" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/terminal_domestic_departure"
+        style="@style/TextXS.Regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/terminal_1_domestic"
+        android:textColor="@color/gray_500"
+        app:layout_constraintStart_toEndOf="@id/img_line_depart_arrive"
+        app:layout_constraintTop_toBottomOf="@id/tv_city_departure" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_flight_details_departure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="244dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_details"
+        android:padding="16dp"
+        app:layout_constraintStart_toEndOf="@id/img_line_depart_arrive"
+        app:layout_constraintTop_toBottomOf="@id/terminal_domestic_departure"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/img_departure_flight"
+            android:layout_width="58dp"
+            android:layout_height="27dp"
+            android:src="@drawable/img_plane"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_plane_departure"
+            style="@style/Text.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/garuda_indonesia"
+            android:textColor="@color/base_black"
+            app:layout_constraintStart_toEndOf="@id/img_departure_flight"
+            app:layout_constraintTop_toTopOf="@id/img_departure_flight" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_plane_type_departure"
+            style="@style/TextXS.Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/ga207_economy"
+            android:textColor="@color/base_black"
+            app:layout_constraintStart_toEndOf="@id/img_departure_flight"
+            app:layout_constraintTop_toBottomOf="@id/tv_plane_departure" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/what_include_departure"
+            style="@style/TextS.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/what_s_included"
+            android:textColor="@color/base_black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_plane_type_departure" />
+
+        <ImageView
+            android:id="@+id/img_cabin_baggage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_cabin_baggage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/what_include_departure" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_cabin_baggage"
+            style="@style/TextXS.Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/cabin_baggage_10kg"
+            android:textColor="@color/base_black"
+            app:layout_constraintStart_toEndOf="@id/img_cabin_baggage"
+            app:layout_constraintTop_toTopOf="@id/img_cabin_baggage" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_price_baggage"
+            style="@style/TextXS.Regular"
+            android:layout_width="184dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/excess_baggage_idr_25_000_kg"
+            android:textColor="@color/base_black"
+            app:layout_constraintStart_toEndOf="@id/img_cabin_baggage"
+            app:layout_constraintTop_toBottomOf="@id/img_cabin_baggage" />
+
+        <ImageView
+            android:id="@+id/img_meal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_free_meals"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_price_baggage" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_meal"
+            style="@style/TextXS.Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/free_meals"
+            android:textColor="@color/base_black"
+            app:layout_constraintStart_toEndOf="@id/img_meal"
+            app:layout_constraintTop_toTopOf="@id/img_meal"
+            app:layout_constraintBottom_toBottomOf="@id/img_meal"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_arrive"
+        style="@style/H6.Semibold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/cgk"
+        android:textColor="@color/base_black"
+        app:layout_constraintEnd_toStartOf="@id/img_line_depart_arrive"
+        app:layout_constraintBottom_toTopOf="@id/tv_time_arrive" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_time_arrive"
+        style="@style/TextS.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_10_00_am"
+        android:textColor="@color/gray_300"
+        app:layout_constraintEnd_toEndOf="@id/tv_arrive"
+        app:layout_constraintBottom_toBottomOf="@id/img_line_depart_arrive"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_airport_arrive"
+        style="@style/TextS.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/soekarno_hatta"
+        android:textColor="@color/base_black"
+        app:layout_constraintStart_toEndOf="@id/img_line_depart_arrive"
+        app:layout_constraintBottom_toTopOf="@id/terminal_domestic_arrive" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/terminal_domestic_arrive"
+        style="@style/TextXS.Regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:text="@string/terminal_1_domestic"
+        android:textColor="@color/gray_500"
+        app:layout_constraintStart_toEndOf="@id/img_line_depart_arrive"
+        app:layout_constraintBottom_toBottomOf="@id/img_line_depart_arrive" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_arrival"
+        style="@style/Text.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/arrived"
+        android:textColor="@color/primary_500"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_line_depart_arrive" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_arrival_date_details"
+        style="@style/Text.Regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/tue_18_dec_2018"
+        android:textColor="@color/base_black"
+        app:layout_constraintStart_toEndOf="@id/tv_arrival"
+        app:layout_constraintTop_toTopOf="@id/tv_arrival" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_arrival"
+        android:background="@color/gray_300"
+        android:layout_marginTop="60dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

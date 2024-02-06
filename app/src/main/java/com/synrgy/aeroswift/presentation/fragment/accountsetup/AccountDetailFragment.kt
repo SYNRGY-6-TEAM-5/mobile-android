@@ -139,6 +139,8 @@ class AccountDetailFragment : Fragment() {
         if (response.message.isNotEmpty() &&
             response.message.isNotBlank()) {
 
+            loadingDialog.dismissDialog()
+            authViewModel.setName(binding.accountDetailTiName.text.toString())
             Helper.showToast(requireActivity(), requireContext(), response.message, isSuccess = true)
             handleNavigate()
         }

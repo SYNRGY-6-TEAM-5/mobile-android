@@ -9,6 +9,7 @@ import com.synrgy.domain.body.forgotpassword.ForgotPasswordBody
 import com.synrgy.domain.response.error.ErrorItem
 import com.synrgy.domain.response.forgotpassword.ForgotPasswordResponse
 import com.synrgy.presentation.usecase.forgotpassword.ForgotPasswordUseCase
+import com.synrgy.presentation.usecase.login.ValidateEmailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,7 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ForgotPasswordViewModel @Inject constructor(
-    private val forgotPasswordUseCase: ForgotPasswordUseCase
+    private val forgotPasswordUseCase: ForgotPasswordUseCase,
+    private val validateEmailUseCase: ValidateEmailUseCase
 ): ViewModel() {
     private val _forgotPassword: MutableLiveData<ForgotPasswordResponse> = MutableLiveData()
     val forgotPassword: LiveData<ForgotPasswordResponse> = _forgotPassword
@@ -31,36 +33,48 @@ class ForgotPasswordViewModel @Inject constructor(
     private val _errors: MutableLiveData<List<ErrorItem?>?> = MutableLiveData()
     val errors: LiveData<List<ErrorItem?>?> = _errors
 
+    private val _localError: MutableLiveData<Boolean> = MutableLiveData()
+    val localError: LiveData<Boolean> = _localError
+
     fun forgotPassword(body: ForgotPasswordBody) {
         _loading.value = true
+        _localError.value = false
+
         viewModelScope.launch(Dispatchers.IO) {
-            when (val response = forgotPasswordUseCase.invoke(body)) {
-                is Resource.Success -> {
-                    withContext(Dispatchers.Main) {
-                        _loading.value = false
-                        _forgotPassword.value = ForgotPasswordResponse(
-                            success = response.data?.success ?: true,
-                            otp = response.data?.otp ?: "",
-                            expiredOTP = response.data?.expiredOTP ?: 0L,
-                            email = body.email
-                        )
-                    }
+            if (!validateEmailUseCase.invoke(body.email)) {
+                withContext(Dispatchers.Main) {
+                    _localError.value = true
                 }
-                is Resource.ErrorRes -> {
-                    withContext(Dispatchers.Main) {
-                        _loading.value = false
-                        _errors.value = response.errorRes?.errors ?: emptyList()
-                        if (response.errorRes?.errors == null) {
-                            _error.value = response.errorRes?.message ?: ""
+            } else {
+                when (val response = forgotPasswordUseCase.invoke(body)) {
+                    is Resource.Success -> {
+                        withContext(Dispatchers.Main) {
+                            _forgotPassword.value = ForgotPasswordResponse(
+                                success = response.data?.success ?: true,
+                                otp = response.data?.otp ?: "",
+                                expiredOTP = response.data?.expiredOTP ?: 0L,
+                                email = body.email
+                            )
+                        }
+                    }
+                    is Resource.ErrorRes -> {
+                        withContext(Dispatchers.Main) {
+                            _errors.value = response.errorRes?.errors ?: emptyList()
+                            if (response.errorRes?.errors == null) {
+                                _error.value = response.errorRes?.message ?: ""
+                            }
+                        }
+                    }
+                    is Resource.ExceptionRes -> {
+                        withContext(Dispatchers.Main) {
+                            _error.value = response.exceptionRes?.message ?: "Server error"
                         }
                     }
                 }
-                is Resource.ExceptionRes -> {
-                    withContext(Dispatchers.Main) {
-                        _loading.value = false
-                        _error.value = response.exceptionRes?.message ?: ""
-                    }
-                }
+            }
+
+            withContext(Dispatchers.Main) {
+                _loading.value = false
             }
         }
     }

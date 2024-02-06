@@ -43,7 +43,6 @@ class EditProfileViewModel @Inject constructor(
             )) {
                 is Resource.Success -> {
                     withContext(Dispatchers.Main) {
-                        _loading.value = false
                         _editProfile.value = EditProfileResponse(
                             message = response.data?.message ?: "",
                             success = response.data?.success ?: true
@@ -52,7 +51,6 @@ class EditProfileViewModel @Inject constructor(
                 }
                 is Resource.ErrorRes -> {
                     withContext(Dispatchers.Main) {
-                        _loading.value = false
                         _errors.value = response.errorRes?.errors ?: emptyList()
                         if (response.errorRes?.errors == null) {
                             _error.value = response.errorRes?.message ?: ""
@@ -61,10 +59,13 @@ class EditProfileViewModel @Inject constructor(
                 }
                 is Resource.ExceptionRes -> {
                     withContext(Dispatchers.Main) {
-                        _loading.value = false
-                        _error.value = response.exceptionRes?.message ?: ""
+                        _error.value = response.exceptionRes?.message ?: "Server error"
                     }
                 }
+            }
+
+            withContext(Dispatchers.Main) {
+                _loading.value = false
             }
         }
     }

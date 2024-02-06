@@ -30,6 +30,7 @@ class SplashActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        authViewModel.getUser()
         mainViewModel.checkNewUser()
         authViewModel.checkAuth()
 

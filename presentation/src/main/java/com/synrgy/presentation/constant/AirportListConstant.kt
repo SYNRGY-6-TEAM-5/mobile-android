@@ -1,6 +1,6 @@
 package com.synrgy.presentation.constant
 
-import com.synrgy.domain.AirportList
+import com.synrgy.domain.local.AirportList
 
 object AirportListConstant {
 

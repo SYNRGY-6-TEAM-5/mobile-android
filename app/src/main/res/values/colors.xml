@@ -19,6 +19,8 @@
     <color name="warning_500">#F79009</color>
 
     <color name="error_50">#FEEBE6</color>
+    <color name="error_100">#FEE4E2</color>
+    <color name="error_400">#F97066</color>
     <color name="error_500">#F04438</color>
 
     <color name="gray_50">#F9F9FB</color>

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.synrgy.domain.Resource
 import com.synrgy.domain.response.auth.UploadProfileImageResponse
-import com.synrgy.presentation.usecase.auth.GetRegTokenUseCase
+import com.synrgy.presentation.usecase.login.GetTokenUseCase
 import com.synrgy.presentation.usecase.user.UploadProfileImageUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class UploadProfileImageViewModel @Inject constructor(
     private val uploadProfileImageUseCase: UploadProfileImageUseCase,
-    private val getRegTokenUseCase: GetRegTokenUseCase
+    private val getTokenUseCase: GetTokenUseCase
 ): ViewModel() {
     private val _profileImage: MutableLiveData<UploadProfileImageResponse> = MutableLiveData()
     val profileImage: LiveData<UploadProfileImageResponse> = _profileImage
@@ -37,13 +37,12 @@ class UploadProfileImageViewModel @Inject constructor(
         _loading.value = true
         viewModelScope.launch(Dispatchers.IO) {
             when (val response = uploadProfileImageUseCase.invoke(
-                getRegTokenUseCase.invoke().first() ?: "",
+                getTokenUseCase.invoke().first() ?: "",
                 name,
                 file
             )) {
                 is Resource.Success -> {
                     withContext(Dispatchers.Main) {
-                        _loading.value = false
                         _profileImage.value = UploadProfileImageResponse(
                             message = response.data?.message ?: "",
                             success = response.data?.success ?: true,
@@ -53,16 +52,18 @@ class UploadProfileImageViewModel @Inject constructor(
                 }
                 is Resource.ErrorRes -> {
                     withContext(Dispatchers.Main) {
-                        _loading.value = false
                         _error.value = response.errorRes?.message ?: ""
                     }
                 }
                 is Resource.ExceptionRes -> {
                     withContext(Dispatchers.Main) {
-                        _loading.value = false
-                        _error.value = response.exceptionRes?.message ?: ""
+                        _error.value = response.exceptionRes?.message ?: "Server error"
                     }
                 }
+            }
+
+            withContext(Dispatchers.Main) {
+                _loading.value = false
             }
         }
     }

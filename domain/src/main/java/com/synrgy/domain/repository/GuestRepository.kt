@@ -25,17 +25,6 @@ interface GuestRepository {
 
     suspend fun login(user: LoginBody): Resource<LoginResponse>
 
-    suspend fun editProfile(
-        token: String,
-        body: EditProfileBody
-    ): Resource<EditProfileResponse>
-
-    suspend fun uploadProfileImage(
-        token: String,
-        name: String,
-        file: MultipartBody.Part
-    ): Resource<UploadProfileImageResponse>
-
     suspend fun forgotPassword(body: ForgotPasswordBody): Resource<ForgotPasswordResponse>
 
     suspend fun validateOtpFp(body: ValidateOtpFpBody): Resource<ValidateOtpFpResponse>

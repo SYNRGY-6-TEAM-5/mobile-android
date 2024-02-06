@@ -3,6 +3,8 @@ package com.synrgy.presentation.helper
 import android.Manifest
 import android.app.Activity
 import android.app.DatePickerDialog
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
@@ -10,6 +12,10 @@ import android.widget.DatePicker
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.res.ResourcesCompat
+import com.synrgy.domain.local.AddonData
+import com.synrgy.domain.local.DocumentData
+import com.synrgy.domain.local.FlightSearch
+import com.synrgy.domain.local.PassengerData
 import com.synrgy.presentation.R
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
@@ -147,6 +153,12 @@ object Helper {
         return outputDateFormat.format(date)
     }
 
+    fun convertTimestampToDate(timestamp: Long): String {
+        val date = Date(timestamp)
+        val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        return sdf.format(date)
+    }
+
     fun isValidDateFormat(dateString: String): Boolean {
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         dateFormat.isLenient = false
@@ -161,5 +173,123 @@ object Helper {
 
     fun formatPrice(number: Long): String {
         return String.format(Locale.US, "%,d", number)
+    }
+
+    fun copyToClipboard(
+        context: Context,
+        label: String,
+        text: String,
+    ){
+        val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clip = ClipData.newPlainText(label, text)
+        clipboard.setPrimaryClip(clip)
+    }
+
+    fun isValidFlightSearch(data: FlightSearch): Boolean {
+        return !data.id.isNullOrEmpty() &&
+                !data.origin.isNullOrEmpty() &&
+                !data.destination.isNullOrEmpty() &&
+                !data.oCity.isNullOrEmpty() &&
+                !data.dCity.isNullOrEmpty() &&
+                !data.depDate.isNullOrEmpty() &&
+                !data.tripType.isNullOrEmpty() &&
+                !data.ticketClass.isNullOrEmpty() &&
+                data.adultSeat != null &&
+                data.childSeat != null &&
+                data.totalSeat != null &&
+                data.infantSeat != null
+    }
+
+    fun isValidBaggage(data: AddonData): Boolean {
+        return data.userName.isNotEmpty() &&
+                data.userName.isNotBlank() &&
+                data.category.isNotEmpty() &&
+                data.category.isNotBlank() &&
+                data.weight != null &&
+                data.price != 0L
+    }
+
+    fun formatDateDay(dateString: String): String {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("EEE, d MMM yyyy", Locale.US)
+        val date: Date = inputFormat.parse(dateString) ?: return ""
+        return outputFormat.format(date)
+    }
+
+    fun formatPhoneNumber(input: String): String {
+        val cleanNumber = input.replace(Regex("[^\\d]"), "")
+        return if (cleanNumber.isNotEmpty()) {
+            when (cleanNumber.length) {
+                in 5..7 -> "+${cleanNumber.substring(0, 2)} ${cleanNumber.substring(2)}"
+                in 8..11 -> "+${cleanNumber.substring(0, 2)} ${cleanNumber.substring(2, 6)}-${cleanNumber.substring(6)}"
+                else -> "+${cleanNumber.substring(0, 2)} ${cleanNumber.substring(2, 6)}-${cleanNumber.substring(6, 10)}-${cleanNumber.substring(10)}"
+            }
+        } else {
+            input
+        }
+    }
+
+    fun containsSpecialCharacter(sentence: String): Boolean {
+        val specialCharacters = "!\"#\$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
+        for (ch in sentence) {
+            if (specialCharacters.contains(ch)) {
+                return true
+            }
+        }
+        return false
+    }
+
+    fun containsAlphanumeric(sentence: String): Boolean {
+        var containsLetter = false
+        var containsNumber = false
+
+        for (ch in sentence) {
+            if (ch.isLetter()) {
+                containsLetter = true
+            }
+
+            if (ch.isDigit()) {
+                containsNumber = true
+            }
+
+            if (containsLetter && containsNumber) {
+                break
+            }
+        }
+
+        return containsLetter && containsNumber
+    }
+
+    fun containsUppercaseLetter(sentence: String): Boolean {
+        for (ch in sentence) {
+            if (ch.isUpperCase()) {
+                return true
+            }
+        }
+        return false
+    }
+
+    fun checkPasswordLength(password: String): Boolean {
+        return password.length >= 8
+    }
+
+    fun isValidPassenger(data: PassengerData): Boolean {
+        return data.id.isNotEmpty() && data.id.isNotBlank() &&
+                data.nik.isNotEmpty() && data.nik.isNotBlank() &&
+                data.name.isNotEmpty() && data.name.isNotBlank() &&
+                data.dob.isNotEmpty() && data.dob.isNotBlank() &&
+                data.category.isNotEmpty() && data.category.isNotBlank() &&
+                data.surname.isNotEmpty() && data.surname.isNotBlank()
+    }
+
+    fun isValidDocument(data: List<DocumentData>): Boolean {
+        return data.all {
+            it.id.isNotEmpty() && it.id.isNotBlank() &&
+                    it.type.isNotEmpty() && it.type.isNotBlank() &&
+                    it.nationality.isNotEmpty() && it.nationality.isNotBlank() &&
+                    it.docNum.isNotEmpty() && it.docNum.isNotBlank() &&
+                    it.expiry.isNotEmpty() && it.expiry.isNotBlank() &&
+                    it.file.isNotEmpty() && it.file.isNotBlank()
+        }
     }
 }

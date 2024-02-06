@@ -5,13 +5,14 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.android.material.card.MaterialCardView
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.ItemDepartBaggageBinding
-import com.synrgy.domain.DepartBaggage
+import com.synrgy.domain.local.DepartBaggage
 import com.synrgy.presentation.helper.Helper
 
 class DepartBaggageViewHolder(
     private val binding: ItemDepartBaggageBinding
 ): ViewHolder(binding.root) {
     val cardView = binding.itemBaggageCard
+    val item = binding
 
     fun bindData(
         data: DepartBaggage,
@@ -23,7 +24,7 @@ class DepartBaggageViewHolder(
         binding.baggageWeight.text = context.getString(R.string.depart_baggage_weight, data.weight.toString())
         binding.baggagePrice.text = context.getString(R.string.depart_baggage_price, Helper.formatPrice(data.price))
 
-        binding.itemBaggageCard.setOnClickListener {
+        cardView.setOnClickListener {
             clickListener(data)
 
             cardViewList.forEach {
@@ -31,8 +32,14 @@ class DepartBaggageViewHolder(
                 it.setCardBackgroundColor(ContextCompat.getColor(context, R.color.gray_50))
             }
 
-            binding.itemBaggageCard.strokeColor = ContextCompat.getColor(context, R.color.error_500)
-            binding.itemBaggageCard.setCardBackgroundColor(ContextCompat.getColor(context, R.color.error_50))
+            setActive(binding.itemBaggageCard)
         }
+    }
+
+    fun setActive(cardView: MaterialCardView) {
+        val context = binding.root.context
+
+        cardView.strokeColor = ContextCompat.getColor(context, R.color.error_500)
+        cardView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.error_50))
     }
 }
