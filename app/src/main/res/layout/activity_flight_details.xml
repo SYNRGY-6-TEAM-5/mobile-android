@@ -110,12 +110,13 @@
                 android:id="@+id/rv_flight_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
+                android:nestedScrollingEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cl_flight_details"
-                tools:listitem="@layout/item_ticket_details"
                 tools:itemCount="2"
-                android:nestedScrollingEnabled="true"/>
+                tools:listitem="@layout/item_ticket_details" />
 
             <View
                 android:id="@+id/separator_rv"

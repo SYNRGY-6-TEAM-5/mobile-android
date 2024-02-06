@@ -342,6 +342,13 @@
     <string name="infant_1">Infant (1)</string>
     <string name="empty_baggage">Currently, additional baggage is unavailable for this flight</string>
     <string name="_0_meal">0 Meal</string>
+
+    <string name="waiting_for_payment">Waiting for Payment</string>
+    <string name="complete_payment_in">Complete payment in</string>
+    <string name="passenger_facilities"><![CDATA[Passenger & Facilities]]></string>
+    <string name="add_ons">Add-ons</string>
+    <string name="evidence">Evidence</string>
+    <string name="extra_baggage">Extra Baggage</string>
     <string name="your_travel_documents">Your travel documents %1$s</string>
 
     <string-array name="origin">
