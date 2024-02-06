@@ -6,8 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.synrgy.data.local.room.FlightDatabase
+import com.synrgy.data.local.room.entity.toDocument
 import com.synrgy.data.local.room.entity.toEntity
 import com.synrgy.data.local.room.entity.toPassenger
+import com.synrgy.domain.local.DocumentData
 import com.synrgy.domain.local.PassengerData
 import com.synrgy.presentation.usecase.auth.GetUserIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,21 +30,26 @@ class PassengerDetailsViewModel @Inject constructor(
     private val _passengers: MutableLiveData<List<PassengerData>> = MutableLiveData()
     val passengers: LiveData<List<PassengerData>> = _passengers
 
+    private val _documents: MutableLiveData<List<DocumentData>> = MutableLiveData()
+    val documents: LiveData<List<DocumentData>> = _documents
+
     private val _loading: MutableLiveData<Boolean> = MutableLiveData()
     val loading: LiveData<Boolean> = _loading
 
     private val _success: MutableLiveData<Boolean> = MutableLiveData()
     val success: LiveData<Boolean> = _success
 
-    fun addPassenger(item: PassengerData) {
+    fun addPassenger(passenger: PassengerData, documents: List<DocumentData>) {
         _loading.value = true
         _success.value = false
 
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val userId = getUserIdUseCase.invoke().first()!!
-                item.userId = userId
-                flightDatabase.passengerDao().insertData(item.toEntity())
+                passenger.userId = userId
+
+                flightDatabase.passengerDao().insertData(passenger.toEntity())
+                flightDatabase.documentDao().insertAll(documents.toEntity())
 
                 withContext(Dispatchers.Main) {
                     _success.value = true
@@ -86,21 +93,36 @@ class PassengerDetailsViewModel @Inject constructor(
         }
     }
 
-    fun deletePassenger() {
+    fun deletePassenger(id: String) {
         _loading.value = true
         viewModelScope.launch(Dispatchers.IO) {
             try {
-//                flightDatabase.passengerDao().deleteData(id)
-//
-//                withContext(Dispatchers.Main) {
-//                    _passengers.value = emptyList()
-//                }
+                flightDatabase.passengerDao().deleteData(id)
+                flightDatabase.documentDao().deleteData(id)
+
+                withContext(Dispatchers.Main) {
+                    _passengers.value = emptyList()
+                }
             } catch (e: Exception) {
                 Log.d("ERR_MESSAGE", e.message.toString())
             } finally {
                 withContext(Dispatchers.Main) {
                     _loading.value = false
                 }
+            }
+        }
+    }
+
+    fun getDocuments(passengerId: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val data = flightDatabase.documentDao().selectData(passengerId).toDocument()
+
+                withContext(Dispatchers.Main) {
+                    _documents.value = data
+                }
+            } catch (e: Exception) {
+                Log.d("ERR_MESSAGE", e.message.toString())
             }
         }
     }

@@ -13,7 +13,9 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.res.ResourcesCompat
 import com.synrgy.domain.local.AddonData
+import com.synrgy.domain.local.DocumentData
 import com.synrgy.domain.local.FlightSearch
+import com.synrgy.domain.local.PassengerData
 import com.synrgy.presentation.R
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
@@ -269,5 +271,25 @@ object Helper {
 
     fun checkPasswordLength(password: String): Boolean {
         return password.length >= 8
+    }
+
+    fun isValidPassenger(data: PassengerData): Boolean {
+        return data.id.isNotEmpty() && data.id.isNotBlank() &&
+                data.nik.isNotEmpty() && data.nik.isNotBlank() &&
+                data.name.isNotEmpty() && data.name.isNotBlank() &&
+                data.dob.isNotEmpty() && data.dob.isNotBlank() &&
+                data.category.isNotEmpty() && data.category.isNotBlank() &&
+                data.surname.isNotEmpty() && data.surname.isNotBlank()
+    }
+
+    fun isValidDocument(data: List<DocumentData>): Boolean {
+        return data.all {
+            it.id.isNotEmpty() && it.id.isNotBlank() &&
+                    it.type.isNotEmpty() && it.type.isNotBlank() &&
+                    it.nationality.isNotEmpty() && it.nationality.isNotBlank() &&
+                    it.docNum.isNotEmpty() && it.docNum.isNotBlank() &&
+                    it.expiry.isNotEmpty() && it.expiry.isNotBlank() &&
+                    it.file.isNotEmpty() && it.file.isNotBlank()
+        }
     }
 }

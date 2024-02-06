@@ -6,13 +6,8 @@ import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.atwa.filepicker.core.FilePicker
 import com.bumptech.glide.Glide
-import com.esafirm.imagepicker.features.ImagePickerConfig
-import com.esafirm.imagepicker.features.ImagePickerLauncher
-import com.esafirm.imagepicker.features.ImagePickerMode
-import com.esafirm.imagepicker.features.registerImagePicker
-import com.esafirm.imagepicker.model.Image
-import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.ActivityEditProfileBinding
 import com.synrgy.aeroswift.dialog.LoadingDialog
 import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
@@ -52,13 +47,12 @@ class EditProfileActivity : AppCompatActivity() {
 
     private lateinit var loadingDialog: LoadingDialog
 
-    private lateinit var imagePickerConfig: ImagePickerConfig
-    private lateinit var imagePickerLauncher: ImagePickerLauncher
-
     private val dateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     private var selectedDate = Calendar.getInstance()
 
     private var isEditImage = false
+
+    private val filePicker = FilePicker.getInstance(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,16 +68,6 @@ class EditProfileActivity : AppCompatActivity() {
         })
 
         loadingDialog = LoadingDialog(this)
-
-        imagePickerConfig = ImagePickerConfig {
-            language = "en"
-            mode = ImagePickerMode.SINGLE
-            theme = R.style.Theme_AeroSwift_ImagePicker
-            isFolderMode = true
-        }
-        imagePickerLauncher = registerImagePicker { results: List<Image> ->
-            results.forEach { handleUploadImage(it) }
-        }
 
         authViewModel.checkAuth()
         authViewModel.getUser()
@@ -227,7 +211,7 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun showGallery() {
-        imagePickerLauncher.launch(imagePickerConfig)
+        filePicker.pickImage { if (it?.file != null) handleUploadImage(it.file!!) }
     }
 
     private fun handleSaveProfile() {
@@ -257,7 +241,7 @@ class EditProfileActivity : AppCompatActivity() {
         )
     }
 
-    private fun handleUploadImage(image: Image) {
+    private fun handleUploadImage(image: File) {
         val imagePart = MultipartBody.Part.createFormData(
             "file", image.name, RequestBody.create(
                 Constant.MIME_TYPE_IMAGE.toMediaTypeOrNull(),
