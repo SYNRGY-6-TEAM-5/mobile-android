@@ -34,6 +34,10 @@ class CheckInSuccessActivity : AppCompatActivity() {
         handleSetAdapter()
 
         binding.btnHome.setOnClickListener { onBackPressed() }
+        binding.btnBoardingPass.setOnClickListener {
+            BoardingPassActivity.startActivity(this)
+            this.finish()
+        }
     }
 
     private fun handleNavigateToHome() {

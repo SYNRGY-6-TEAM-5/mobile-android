@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.synrgy.aeroswift.databinding.FragmentPaymentHistoryBinding
+import com.synrgy.aeroswift.presentation.CheckInActivity
 import com.synrgy.aeroswift.presentation.adapter.FlightHistoryAdapter
+import com.synrgy.presentation.constant.Constant
 import com.synrgy.presentation.constant.FlightHistoryConstant
 
 
@@ -18,7 +20,7 @@ class PaymentHistoryFragment : Fragment() {
 
     private lateinit var binding: FragmentPaymentHistoryBinding
 
-    private val adapter = FlightHistoryAdapter()
+    private val adapter = FlightHistoryAdapter(::handleClickHistory)
 
     private lateinit var category: String
 
@@ -46,5 +48,12 @@ class PaymentHistoryFragment : Fragment() {
         binding.rvPayment.layoutManager = LinearLayoutManager(requireActivity())
         binding.rvPayment.adapter = this.adapter
         this.adapter.submitList(data)
+    }
+
+    private fun handleClickHistory() {
+        if (category == Constant.FlightHistoryCategory.PROCESSING.value) {
+            CheckInActivity.startActivity(requireActivity())
+            requireActivity().finish()
+        }
     }
 }

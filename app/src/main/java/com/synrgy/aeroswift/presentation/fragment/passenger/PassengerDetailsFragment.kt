@@ -73,8 +73,10 @@ class PassengerDetailsFragment : Fragment() {
         confirmationDialog = ConfirmationDialog(requireActivity()) { passengerViewModel.deletePassenger(passengerId!!) }
         inputDocAdapter = InputDocAdapter(::handleFilePicker)
 
-        authViewModel.getUser()
-        authViewModel.checkAuth()
+        if (isOwner) {
+            authViewModel.getUser()
+            authViewModel.checkAuth()
+        }
 
         if (passengerId != null) {
             passengerViewModel.getPassenger(passengerId!!)

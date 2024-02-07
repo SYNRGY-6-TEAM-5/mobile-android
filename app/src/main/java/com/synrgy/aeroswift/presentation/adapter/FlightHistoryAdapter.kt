@@ -8,7 +8,9 @@ import com.synrgy.aeroswift.presentation.diffutil.FlightHistoryDiffUtil
 import com.synrgy.aeroswift.presentation.viewholder.FlightHistoryViewHolder
 import com.synrgy.domain.local.FlightHistory
 
-class FlightHistoryAdapter: ListAdapter<FlightHistory, FlightHistoryViewHolder>(
+class FlightHistoryAdapter(
+    private val clickListener: () -> Unit = {}
+): ListAdapter<FlightHistory, FlightHistoryViewHolder>(
     FlightHistoryDiffUtil()
 ) {
 
@@ -21,6 +23,6 @@ class FlightHistoryAdapter: ListAdapter<FlightHistory, FlightHistoryViewHolder>(
     }
 
     override fun onBindViewHolder(holder: FlightHistoryViewHolder, position: Int) {
-        holder.bindData(getItem(position))
+        holder.bindData(getItem(position), clickListener)
     }
 }

@@ -5,7 +5,6 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.ItemFlightHistoryBinding
-import com.synrgy.aeroswift.presentation.CheckInActivity
 import com.synrgy.domain.local.FlightHistory
 import com.synrgy.presentation.constant.Constant
 import com.synrgy.presentation.helper.Helper
@@ -15,7 +14,10 @@ class FlightHistoryViewHolder(
     private val binding: ItemFlightHistoryBinding
 ): RecyclerView.ViewHolder(binding.root) {
     private lateinit var timer: CountDownTimer
-    fun bindData(data: FlightHistory) {
+    fun bindData(
+        data: FlightHistory,
+        clickListener: () -> Unit
+    ) {
         val context = binding.root.context
 
         if (data.category != Constant.FlightHistoryCategory.AWAITING_PAYMENT.value) {
@@ -23,22 +25,22 @@ class FlightHistoryViewHolder(
             binding.tvStatus.text = data.category
         }
 
-        if (data.category == Constant.FlightHistoryCategory.AWAITING_PAYMENT.value) {
-            if (data.total != null && data.time != null) {
-                binding.layoutTotalPrice.visibility = View.VISIBLE
-                binding.btnComplete.visibility = View.VISIBLE
+        if (data.category == Constant.FlightHistoryCategory.AWAITING_PAYMENT.value &&
+            data.total != null && data.time != null) {
 
-                binding.tvTotalPrice.text = context.getString(R.string.depart_baggage_price, Helper.formatPrice(data.total!!))
-                startTimer(data.time!!)
-            }
+            binding.layoutTotalPrice.visibility = View.VISIBLE
+            binding.btnComplete.visibility = View.VISIBLE
 
+            binding.tvTotalPrice.text = context.getString(R.string.depart_baggage_price, Helper.formatPrice(data.total!!))
+            startTimer(data.time!!)
+        }
+
+        if (data.category == Constant.FlightHistoryCategory.PROCESSING.value) {
             if (data.isCheckIn == true) {
                 binding.cardCheckIn.visibility = View.VISIBLE
                 binding.tvEticket.visibility = View.VISIBLE
 
-                binding.cardCheckIn.setOnClickListener {
-                    CheckInActivity.startActivity(context)
-                }
+                binding.cardCheckIn.setOnClickListener { clickListener() }
             }
         }
     }
