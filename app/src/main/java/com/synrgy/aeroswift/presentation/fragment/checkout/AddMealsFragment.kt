@@ -93,7 +93,7 @@ class AddMealsFragment : Fragment() {
 
             val filteredAddons = addons
                 .filter { it.category == Constant.AddonType.MEALS.value }
-                .groupBy { it.userId }
+                .groupBy { it.passengerId }
 
             val list = mutableListOf<AddonModels>()
 
@@ -101,7 +101,7 @@ class AddMealsFragment : Fragment() {
                 val meals = if (value.size > 1) "Meals" else "Meal"
                 list.add(
                     AddonModels(
-                        id = value[0].userId,
+                        id = value[0].passengerId,
                         name = value[0].userName,
                         count = "${value.size} $meals"
                     )

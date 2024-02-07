@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,8 +13,10 @@ import com.synrgy.aeroswift.databinding.FragmentAddDepartBaggageBinding
 import com.synrgy.aeroswift.presentation.adapter.DepartBaggageAdapter
 import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
 import com.synrgy.aeroswift.presentation.viewmodel.checkout.AddonViewModel
+import com.synrgy.aeroswift.presentation.viewmodel.passenger.PassengerDetailsViewModel
 import com.synrgy.domain.local.AddonData
 import com.synrgy.domain.local.DepartBaggage
+import com.synrgy.domain.local.PassengerData
 import com.synrgy.presentation.constant.Constant
 import com.synrgy.presentation.constant.DepartBaggageConstant
 import com.synrgy.presentation.helper.Helper
@@ -29,10 +32,16 @@ class AddDepartBaggageFragment : Fragment() {
 
     private val addonViewModel: AddonViewModel by viewModels()
     private val authViewModel: AuthViewModel by viewModels()
+    private val passengerViewModel: PassengerDetailsViewModel by viewModels()
 
     private var userName: String? = null
     private var userId: String? = null
-    private var addon: AddonData? = null
+    private var passengerId: String? = null
+    private var addons = mutableListOf<AddonData>()
+    private var filteredAddon: AddonData? = null
+    private var price = 0L
+
+    private var passengerList = mutableListOf<PassengerData>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +56,7 @@ class AddDepartBaggageFragment : Fragment() {
 
         authViewModel.getUser()
         authViewModel.checkAuth()
+        passengerViewModel.getPassengers()
         addonViewModel.getAddons()
         observeViewModel()
 
@@ -55,31 +65,65 @@ class AddDepartBaggageFragment : Fragment() {
         }
 
         binding.btnSave.setOnClickListener { handleSaveAddon() }
+
+        binding.tvName.onItemSelectedListener(
+            onItemSelected = { position, _ ->
+                val passenger = passengerList[position]
+                userName = passenger.name
+                passengerId = passenger.id
+
+                filteredAddon = addons.findLast {
+                    it.category == Constant.AddonType.BAGGAGE.value && it.passengerId == passengerId
+                }
+                handleSetAdapter(false)
+            },
+        )
     }
 
     private fun observeViewModel() {
-        authViewModel.name.observe(viewLifecycleOwner) {
-            userName = it
-            binding.tvName.text = it
-        }
         authViewModel.userId.observe(viewLifecycleOwner) { userId = it }
         addonViewModel.addons.observe(viewLifecycleOwner, ::handleAddons)
         addonViewModel.loading.observe(viewLifecycleOwner, ::handleSetAdapter)
+        passengerViewModel.passengers.observe(viewLifecycleOwner, ::handleSetSpinner)
+    }
+
+    private fun handleSetSpinner(data: List<PassengerData>) {
+        if (data.isNotEmpty()) {
+            passengerList = data.toMutableList()
+            val spinner = binding.tvName
+            val adapter = ArrayAdapter(
+                requireActivity(),
+                R.layout.item_dropdown_spinner,
+                data.map { it.name }
+            )
+            spinner.adapter = adapter
+        }
     }
 
     private fun handleClickBaggage(data: DepartBaggage) {
-        handleSetPrice(data.price)
-        addon = AddonData(
+        val selectedData = AddonData(
+            passengerId = passengerId!!,
             userName = userName!!,
             category = Constant.AddonType.BAGGAGE.value,
             weight = data.weight,
             price = data.price
         )
+
+        if (!data.selected) {
+            price = data.price
+            addons = addons.filter { it.passengerId != selectedData.passengerId }.toMutableList()
+            addons.add(selectedData)
+        } else {
+            price = 0L
+            addons = addons.filter { it.weight != selectedData.weight }.toMutableList()
+        }
+
+        handleSetPrice(price)
     }
 
     private fun handleSaveAddon() {
-        if (addon != null && Helper.isValidBaggage(addon!!)) {
-            addonViewModel.saveAddons(addon!!)
+        if (addons.isNotEmpty()) {
+            addonViewModel.deleteAndSaveAllAddons(addons, Constant.AddonType.BAGGAGE.value)
         } else {
             addonViewModel.deleteAddons(Constant.AddonType.BAGGAGE.value)
         }
@@ -88,9 +132,13 @@ class AddDepartBaggageFragment : Fragment() {
     }
 
     private fun handleAddons(data: List<AddonData>) {
-        if (data.isNotEmpty()) {
-            addon = data.filter { it.category == Constant.AddonType.BAGGAGE.value }
-                .find { it.userId == userId }
+        if (addons.isEmpty()) {
+            addons = data.filter {
+                it.category == Constant.AddonType.BAGGAGE.value && it.userId == userId
+            }.toMutableList()
+        }
+        filteredAddon = data.findLast {
+            it.category == Constant.AddonType.BAGGAGE.value && it.passengerId == passengerId
         }
     }
 
@@ -101,14 +149,15 @@ class AddDepartBaggageFragment : Fragment() {
             binding.baggageRecycler.hideSkeleton()
 
             val data = DepartBaggageConstant.getData()
-            val selectedPosition = data.indexOfFirst { it.weight == addon?.weight }
+            val selectedData = data.find { item -> filteredAddon?.weight == item.weight }
+            val selectedPosition = data.indexOfFirst { it.weight == selectedData?.weight }
 
             this.adapter = DepartBaggageAdapter(selectedPosition, ::handleClickBaggage)
             binding.baggageRecycler.layoutManager = LinearLayoutManager(activity)
             binding.baggageRecycler.adapter = this.adapter
-            this.adapter.submitList(DepartBaggageConstant.getData())
+            this.adapter.submitList(data)
 
-            handleSetPrice(if (addon != null) addon!!.price else 0L)
+            handleSetPrice(if (filteredAddon != null) filteredAddon!!.price else 0L)
         }
     }
 

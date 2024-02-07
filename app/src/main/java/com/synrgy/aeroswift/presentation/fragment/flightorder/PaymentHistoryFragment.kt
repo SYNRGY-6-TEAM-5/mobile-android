@@ -38,14 +38,13 @@ class PaymentHistoryFragment : Fragment() {
         handleSetAdapter()
 
         binding.tvToolbar.text = category
-        binding.toolbarPayment.setNavigationOnClickListener { requireActivity().onBackPressed() }
+        binding.toolbarPayment.setNavigationOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
     }
 
     private fun handleSetAdapter() {
+        val data = FlightHistoryConstant.getData().filter { it.category == category }
         binding.rvPayment.layoutManager = LinearLayoutManager(requireActivity())
         binding.rvPayment.adapter = this.adapter
-        this.adapter.submitList(FlightHistoryConstant.getData().filter {
-            it.category == category
-        })
+        this.adapter.submitList(data)
     }
 }

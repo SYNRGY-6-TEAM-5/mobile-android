@@ -126,6 +126,13 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="Button.OutlinePrimary" parent="Button">
+        <item name="backgroundTint">@color/transparent</item>
+        <item name="android:textColor">@color/primary_500</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="strokeColor">@color/primary_100</item>
+    </style>
+
     <style name="Button.LightError" parent="Button">
         <item name="backgroundTint">@color/error_100</item>
         <item name="android:textColor">@color/error_400</item>
@@ -166,7 +173,7 @@
         <item name="rippleColor">@color/error_50</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@color/text_chip_order_selector</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textAppearance">@style/Text.Medium</item>
     </style>
 
 

@@ -14,6 +14,9 @@ data class AddonEntity(
     @ColumnInfo(name = "userId")
     val userId: String,
 
+    @ColumnInfo(name = "passengerId")
+    val passengerId: String,
+
     @ColumnInfo(name = "userName")
     val userName: String,
 
@@ -32,16 +35,16 @@ data class AddonEntity(
 
 fun List<AddonEntity>.toAddon(): List<AddonData> {
     return this.map {
-        AddonData(it.id, it.userId, it.userName, it.category, it.weight, it.price, it.mealName)
+        AddonData(it.id, it.userId, it.passengerId, it.userName, it.category, it.weight, it.price, it.mealName)
     }
 }
 
 fun AddonData.toEntity(): AddonEntity {
-    return AddonEntity(id, userId, userName, category, weight, price, mealName)
+    return AddonEntity(id, userId, passengerId, userName, category, weight, price, mealName)
 }
 
 fun List<AddonData>.toEntity(): List<AddonEntity> {
     return this.map {
-        AddonEntity(it.id, it.userId, it.userName, it.category, it.weight, it.price, it.mealName)
+        AddonEntity(it.id, it.userId, it.passengerId, it.userName, it.category, it.weight, it.price, it.mealName)
     }
 }

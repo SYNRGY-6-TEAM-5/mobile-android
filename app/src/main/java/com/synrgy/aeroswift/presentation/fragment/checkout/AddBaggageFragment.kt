@@ -94,7 +94,7 @@ class AddBaggageFragment : Fragment() {
 
             val filteredAddons = addons
                 .filter { it.category == Constant.AddonType.BAGGAGE.value }
-                .groupBy { it.userId }
+                .groupBy { it.passengerId }
 
             val list = mutableListOf<AddonModels>()
 

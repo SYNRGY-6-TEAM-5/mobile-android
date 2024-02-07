@@ -48,11 +48,15 @@ class AddonViewModel @Inject constructor(
                 val userId = getUserIdUseCase.invoke().first()!!
 
                 items.forEach {
-                    it.id = "${it.mealName ?: "baggage"}-${userId}"
                     it.userId = userId
+                    it.id = "${it.mealName ?: "baggage"}-${it.passengerId}"
                 }
 
-                flightDatabase.addonDao().deleteAndInsertAll(items.toEntity(), userId, category)
+                flightDatabase.addonDao().deleteAndInsertAll(
+                    items.toEntity(),
+                    userId,
+                    category
+                )
             } catch (e: Exception) {
                 Log.d("ERR_MESSAGE", e.message.toString())
             }
@@ -68,6 +72,28 @@ class AddonViewModel @Inject constructor(
                 val response = flightDatabase
                     .addonDao()
                     .selectData(userId)
+                    .toAddon()
+
+                withContext(Dispatchers.Main) {
+                    _addons.value = response
+                }
+            } catch (e: Exception) {
+                Log.d("ERR_MESSAGE", e.message.toString())
+            } finally {
+                withContext(Dispatchers.Main) {
+                    _loading.value = false
+                }
+            }
+        }
+    }
+
+    fun getAddonsByPassengerId(passengerId: String) {
+        _loading.value = true
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = flightDatabase
+                    .addonDao()
+                    .selectDataByPassengerId(passengerId)
                     .toAddon()
 
                 withContext(Dispatchers.Main) {

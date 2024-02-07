@@ -24,29 +24,18 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <com.google.android.material.textview.MaterialTextView
+    <Spinner
         style="@style/Text.Medium"
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/iv_name_arrow"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar_add_meals"
         app:layout_constraintHorizontal_chainStyle="packed"
-        android:text="@string/bella_hadid"
         android:textColor="@color/base_black"
         android:layout_marginTop="28dp"
-        android:layout_marginEnd="12dp"/>
-
-    <ImageView
-        android:id="@+id/iv_name_arrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/tv_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_name"
-        app:layout_constraintBottom_toBottomOf="@id/tv_name"
-        android:src="@drawable/ic_arrow_down"/>
+        android:backgroundTint="@color/primary_500"/>
 
     <com.google.android.material.textview.MaterialTextView
         style="@style/TextXS.Semibold"

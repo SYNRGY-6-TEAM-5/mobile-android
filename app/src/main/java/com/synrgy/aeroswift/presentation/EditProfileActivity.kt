@@ -6,9 +6,11 @@ import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import com.atwa.filepicker.core.FilePicker
 import com.bumptech.glide.Glide
 import com.synrgy.aeroswift.databinding.ActivityEditProfileBinding
+import com.synrgy.aeroswift.dialog.ConfirmationDialog
 import com.synrgy.aeroswift.dialog.LoadingDialog
 import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
 import com.synrgy.aeroswift.presentation.viewmodel.user.EditProfileImageViewModel
@@ -46,6 +48,7 @@ class EditProfileActivity : AppCompatActivity() {
     private val editProfileImageViewModel: EditProfileImageViewModel by viewModels()
 
     private lateinit var loadingDialog: LoadingDialog
+    private lateinit var confirmationDialog: ConfirmationDialog
 
     private val dateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     private var selectedDate = Calendar.getInstance()
@@ -62,17 +65,19 @@ class EditProfileActivity : AppCompatActivity() {
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                HomeActivity.startProfileFragment(this@EditProfileActivity)
-                this@EditProfileActivity.finish()
+                handleBack()
             }
         })
 
         loadingDialog = LoadingDialog(this)
+        confirmationDialog = ConfirmationDialog(this) { handleNavigate() }
 
         authViewModel.checkAuth()
         authViewModel.getUser()
 
         observeViewModel()
+
+        handleInputChange()
 
         binding.ivProfile.setOnClickListener { checkPermissions() }
         binding.tvChange.setOnClickListener { checkPermissions() }
@@ -138,7 +143,7 @@ class EditProfileActivity : AppCompatActivity() {
 
             authViewModel.setName(binding.tiFullName.text.toString())
             Helper.showToast(this, this, response.message, isSuccess = true)
-            onBackPressed()
+            handleNavigate()
         }
     }
 
@@ -147,6 +152,7 @@ class EditProfileActivity : AppCompatActivity() {
             loadingDialog.startLoadingDialog()
         } else {
             loadingDialog.dismissDialog()
+            binding.btnSave.isEnabled = false
         }
     }
 
@@ -258,5 +264,32 @@ class EditProfileActivity : AppCompatActivity() {
 
     private fun updateBirthInput() {
         binding.tiBirth.setText(dateFormatter.format(selectedDate.time))
+        handleButtonActive()
+    }
+
+    private fun handleInputChange() {
+        binding.tiFullName.addTextChangedListener { handleButtonActive() }
+        binding.tiBirth.addTextChangedListener { handleButtonActive() }
+        binding.tiPhone.addTextChangedListener { handleButtonActive() }
+    }
+
+    private fun handleButtonActive() {
+        binding.btnSave.isEnabled = true
+    }
+
+    private fun handleBack() {
+        when (binding.btnSave.isEnabled) {
+            true -> confirmationDialog.show(
+                heading = "Edit Profile Confirmation",
+                title = "Changes Not Saved",
+                description = "You have modified your profile data. Are you sure you want to go back without saving the changes?"
+            )
+            false -> handleNavigate()
+        }
+    }
+
+    private fun handleNavigate() {
+        HomeActivity.startProfileFragment(this@EditProfileActivity)
+        this@EditProfileActivity.finish()
     }
 }

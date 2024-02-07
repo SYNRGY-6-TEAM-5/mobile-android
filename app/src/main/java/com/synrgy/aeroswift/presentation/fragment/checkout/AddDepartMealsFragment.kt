@@ -2,9 +2,13 @@ package com.synrgy.aeroswift.presentation.fragment.checkout
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,8 +18,10 @@ import com.synrgy.aeroswift.databinding.FragmentAddDepartMealsBinding
 import com.synrgy.aeroswift.presentation.adapter.DepartMealsAdapter
 import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
 import com.synrgy.aeroswift.presentation.viewmodel.checkout.AddonViewModel
+import com.synrgy.aeroswift.presentation.viewmodel.passenger.PassengerDetailsViewModel
 import com.synrgy.domain.local.AddonData
 import com.synrgy.domain.local.DepartMeals
+import com.synrgy.domain.local.PassengerData
 import com.synrgy.presentation.constant.Constant
 import com.synrgy.presentation.constant.DepartMealsConstant
 import com.synrgy.presentation.helper.Helper
@@ -26,17 +32,23 @@ import koleton.api.loadSkeleton
 @AndroidEntryPoint
 class AddDepartMealsFragment : Fragment() {
     private lateinit var binding: FragmentAddDepartMealsBinding
-    private lateinit var adapter: DepartMealsAdapter
 
-    private val addonViewModel: AddonViewModel by viewModels()
+    private lateinit var mealsAdapter: DepartMealsAdapter
+
     private val authViewModel: AuthViewModel by viewModels()
+    private val addonViewModel: AddonViewModel by viewModels()
+    private val passengerViewModel: PassengerDetailsViewModel by viewModels()
 
     private var userName: String? = null
     private var userId: String? = null
+    private var passengerId: String? = null
     private var addons = mutableListOf<AddonData>()
+    private var filteredAddons = mutableListOf<AddonData>()
 
     private var price = 0L
     private var mealCount = 0
+
+    private var passengerList = mutableListOf<PassengerData>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,6 +64,7 @@ class AddDepartMealsFragment : Fragment() {
 
         authViewModel.getUser()
         authViewModel.checkAuth()
+        passengerViewModel.getPassengers()
         addonViewModel.getAddons()
         observeViewModel()
 
@@ -62,22 +75,46 @@ class AddDepartMealsFragment : Fragment() {
         binding.btnSave.setOnClickListener {
             handleSaveAddon()
         }
+
+        binding.tvName.onItemSelectedListener(
+            onItemSelected = { position, _ ->
+                val passenger = passengerList[position]
+                userName = passenger.name
+                passengerId = passenger.id
+
+                filteredAddons = addons.filter {
+                    it.category == Constant.AddonType.MEALS.value && it.passengerId == passengerId
+                }.toMutableList()
+                handleSetAdapter(false)
+            },
+        )
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
     private fun observeViewModel() {
-        authViewModel.name.observe(viewLifecycleOwner) {
-            userName = it
-            binding.tvName.text = it
-        }
         authViewModel.userId.observe(viewLifecycleOwner) { userId = it }
         addonViewModel.addons.observe(viewLifecycleOwner, ::handleAddons)
         addonViewModel.loading.observe(viewLifecycleOwner, ::handleSetAdapter)
+        passengerViewModel.passengers.observe(viewLifecycleOwner, ::handleSetSpinner)
+    }
+
+    private fun handleSetSpinner(data: List<PassengerData>) {
+        if (data.isNotEmpty()) {
+            passengerList = data.toMutableList()
+            val spinner = binding.tvName
+            val adapter = ArrayAdapter(
+                requireActivity(),
+                R.layout.item_dropdown_spinner,
+                data.map { it.name }
+            )
+            spinner.adapter = adapter
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
     private fun handleCheckMeals(data: DepartMeals, isChecked: Boolean) {
         val selectedData = AddonData(
+            passengerId = passengerId!!,
             userName = userName!!,
             category = Constant.AddonType.MEALS.value,
             mealName = data.name,
@@ -109,11 +146,14 @@ class AddDepartMealsFragment : Fragment() {
     }
 
     private fun handleAddons(data: List<AddonData>) {
-        if (data.isNotEmpty()) {
+        if (addons.isEmpty()) {
             addons = data.filter {
                 it.category == Constant.AddonType.MEALS.value && it.userId == userId
             }.toMutableList()
         }
+        filteredAddons = data.filter {
+            it.category == Constant.AddonType.MEALS.value && it.passengerId == passengerId
+        }.toMutableList()
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -125,16 +165,16 @@ class AddDepartMealsFragment : Fragment() {
 
             val data = DepartMealsConstant.getData()
             val selectedData = data.filter { item ->
-                addons.any { addon -> addon.price == item.price }
+                filteredAddons.any { addon -> addon.price == item.price }
             }
             val selectedIndexes = data.indices.filter { index ->
                 data[index] in selectedData
             }.toIntArray()
 
-            this.adapter = DepartMealsAdapter(selectedIndexes, ::handleCheckMeals)
+            this.mealsAdapter = DepartMealsAdapter(selectedIndexes, ::handleCheckMeals)
             binding.mealsRecycler.layoutManager = LinearLayoutManager(activity)
-            binding.mealsRecycler.adapter = this.adapter
-            this.adapter.submitList(data)
+            binding.mealsRecycler.adapter = this.mealsAdapter
+            this.mealsAdapter.submitList(data)
 
             price = selectedData.sumOf { it.price }
             mealCount = selectedData.size
@@ -154,5 +194,21 @@ class AddDepartMealsFragment : Fragment() {
     private fun handleSetMealCount(count: Int) {
         val meals = if (count > 1) "Meals" else "Meal"
         binding.tvMeal.text = "$count $meals"
+    }
+}
+
+fun Spinner.onItemSelectedListener(
+    onItemSelected: (position: Int, item: String) -> Unit,
+    onNothingSelected: () -> Unit = {}
+) {
+    this.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View?, position: Int, id: Long) {
+            val selectedItem = parentView?.getItemAtPosition(position).toString()
+            onItemSelected.invoke(position, selectedItem)
+        }
+
+        override fun onNothingSelected(parentView: AdapterView<*>?) {
+            onNothingSelected.invoke()
+        }
     }
 }

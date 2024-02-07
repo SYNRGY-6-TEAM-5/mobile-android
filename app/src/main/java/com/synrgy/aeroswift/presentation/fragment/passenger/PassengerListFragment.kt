@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.synrgy.aeroswift.R
-import com.synrgy.aeroswift.databinding.FragmentPassengerDetailsBinding
 import com.synrgy.aeroswift.databinding.FragmentPassengerListBinding
 import com.synrgy.aeroswift.presentation.HomeActivity
 import com.synrgy.aeroswift.presentation.adapter.PassengerAdapter
@@ -29,6 +28,8 @@ class PassengerListFragment : Fragment() {
     private val passengerViewModel: PassengerDetailsViewModel by viewModels()
 
     private val adapter = PassengerAdapter(::handleClickPassenger)
+
+    private var userId: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,7 +55,7 @@ class PassengerListFragment : Fragment() {
 
         observeViewModel()
 
-        binding.cardOwner.setOnClickListener { handleNavigate() }
+        binding.cardOwner.setOnClickListener { handleNavigate(userId, isOwner = true) }
         binding.btnAdd.setOnClickListener { handleNavigate() }
         binding.toolbarPassenger.setNavigationOnClickListener { requireActivity().onBackPressed() }
     }
@@ -62,6 +63,7 @@ class PassengerListFragment : Fragment() {
     private fun observeViewModel() {
         authViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
         authViewModel.name.observe(viewLifecycleOwner, ::handleGetName)
+        authViewModel.userId.observe(viewLifecycleOwner) { userId = it }
         passengerViewModel.passengers.observe(viewLifecycleOwner, ::handleSetAdapter)
     }
 
@@ -78,9 +80,10 @@ class PassengerListFragment : Fragment() {
         binding.tvUserName.text = name
     }
 
-    private fun handleNavigate(id: String? = null) {
+    private fun handleNavigate(id: String? = null, isOwner: Boolean = false) {
         val bundle = Bundle()
         bundle.putString(PassengerDetailsFragment.KEY_PASSENGER_DETAIL_ID, id)
+        bundle.putBoolean(PassengerDetailsFragment.KEY_IS_PASSENGER_OWNER, isOwner)
 
         findNavController().navigate(R.id.action_passengerListFragment_to_passengerDetailsFragment, bundle)
     }
@@ -88,7 +91,7 @@ class PassengerListFragment : Fragment() {
     private fun handleSetAdapter(data: List<PassengerData>) {
         binding.rvPassenger.layoutManager = LinearLayoutManager(requireActivity())
         binding.rvPassenger.adapter = this.adapter
-        this.adapter.submitList(data)
+        this.adapter.submitList(data.filter { it.id != userId })
     }
 
     private fun handleClickPassenger(data: PassengerData) {
