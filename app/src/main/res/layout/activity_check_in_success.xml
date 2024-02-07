@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.CheckInSuccessActivity"
+    android:background="@color/light_gray">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="90dp"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="124dp"
+            android:layout_height="124dp"
+            android:src="@drawable/img_check_in_success"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/H6.Medium"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/check_in_success_title"
+            android:textColor="@color/base_black"
+            android:textAlignment="center"
+            android:layout_marginTop="60dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextXS.Regular"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="@string/check_in_success_desc"
+            android:textColor="@color/base_black"
+            android:textAlignment="center"
+            android:layout_marginTop="12dp"/>
+
+        <View
+            android:layout_width="260dp"
+            android:layout_height="1dp"
+            android:background="@color/gray_200"
+            android:layout_marginTop="24dp"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginHorizontal="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="8dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_check_in_success"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/item_bullet_list"
+                    tools:itemCount="4"
+                    android:nestedScrollingEnabled="true"/>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/white"
+            app:cardElevation="0dp"
+            android:layout_marginTop="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Button.Primary"
+                    android:id="@+id/btn_boarding_pass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/see_boarding_pass"/>
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Button.OutlinePrimary"
+                    android:id="@+id/btn_home"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/back_to_home"/>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+</ScrollView>

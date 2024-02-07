@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.CheckInActivity"
+    android:background="@color/light_gray"
     android:paddingTop="50dp">
 
     <fragment
@@ -17,6 +18,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/nav_checkout" />
+        app:navGraph="@navigation/nav_check_in" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

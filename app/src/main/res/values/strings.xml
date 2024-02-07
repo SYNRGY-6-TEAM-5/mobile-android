@@ -358,6 +358,28 @@
     <string name="bhjcyaa">BHJCYAA</string>
     <string name="check_in_online_now">Check-In Online Now</string>
     <string name="passenger_add_ons"><![CDATA[Passenger & Add-ons]]></string>
+    <string name="jack_harris">Jack Harris</string>
+    <string name="insured">Insured</string>
+    <string name="total_payment">Total Payment</string>
+    <string name="check_in_online_policy">Check-In Online Policy</string>
+    <string name="passenger_requirements">Passenger Requirements</string>
+    <string name="passenger_req_1">Pregnant passengers must check in directly at the airport.</string>
+    <string name="important_information">Important Information</string>
+    <string name="bullet_icon">•</string>
+    <string name="important_information_1">To board the plane, you must print your boarding pass, or pick it up at the airport check-in counter.</string>
+    <string name="dangerous_goods">Dangerous Goods</string>
+    <string name="dangerous_goods_desc">For safety reasons, airlines prohibit or restrict the following items from being carried in cabin baggage or checked baggage.</string>
+    <string name="i_agree_to_the_check_in_policy">I agree to the check-in policy</string>
+    <string name="you_can_check_in_now">You can check-in now</string>
+    <string name="your_e_ticket_is_available">Your e-ticket is available!</string>
+    <string name="check_in_data_desc">This flight does not allow you to select a seat, you will automatically get a seat on your boarding pass</string>
+    <string name="check_in">Check-In</string>
+    <string name="check_in_data">Check-In Data</string>
+    <string name="booking_code_bhjcyaa">Booking Code: BHJCYAA</string>
+    <string name="check_in_success_title">Your online check-in has been successful</string>
+    <string name="check_in_success_desc">Please pay attention to the instructions below regarding to your flight</string>
+    <string name="see_boarding_pass">See Boarding Pass</string>
+    <string name="back_to_home">Back to Home</string>
 
     <string-array name="origin">
         <item>Select</item>

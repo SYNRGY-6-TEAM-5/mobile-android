@@ -38,7 +38,7 @@ class PaymentHistoryFragment : Fragment() {
         handleSetAdapter()
 
         binding.tvToolbar.text = category
-        binding.toolbarPayment.setNavigationOnClickListener { requireActivity().onBackPressed() }
+        binding.toolbarPayment.setNavigationOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
     }
 
     private fun handleSetAdapter() {

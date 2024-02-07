@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/iv_passenger"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/img_pregnant"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextXS.Regular"
+            android:id="@+id/tv_passenger"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/passenger_req_1"
+            android:textColor="@color/base_black"
+            android:layout_marginStart="32dp"/>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_200"
+        android:layout_marginVertical="12dp"/>
+
+</LinearLayout>

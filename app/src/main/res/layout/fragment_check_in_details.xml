@@ -69,7 +69,8 @@
         android:textColor="@color/gray_400"
         android:textAlignment="center"
         android:layout_gravity="center"
-        android:layout_marginTop="12dp"/>
+        android:layout_marginTop="12dp"
+        android:paddingBottom="28dp"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -82,7 +83,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="16dp"
-            android:paddingTop="28dp"
             android:paddingBottom="200dp">
 
             <com.google.android.material.card.MaterialCardView
@@ -226,7 +226,7 @@
                 android:id="@+id/rv_check_in"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/item_ticket_check_in"
+                tools:listitem="@layout/item_ticket_order_details"
                 tools:itemCount="2"
                 android:nestedScrollingEnabled="true"/>
 
@@ -249,40 +249,110 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
                     <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/cgPassengers"
+                        android:id="@+id/cg_passengers"
                         android:layout_width="wrap_content"
-                        android:layout_height="58dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:singleSelection="true">
 
                         <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_user_1"
                             style="@style/passengerOrderChip"
                             android:layout_width="112dp"
                             android:layout_height="60dp"
-                            android:text="Bella Hadid"
-                            app:chipCornerRadius="8dp" />
+                            android:text="@string/bella_hadid"
+                            app:chipCornerRadius="8dp"
+                            android:checked="true"/>
 
                         <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_user_2"
                             style="@style/passengerOrderChip"
                             android:layout_width="112dp"
                             android:layout_height="60dp"
-                            android:text="Jack Harris"
-                            app:chipCornerRadius="8dp" />
+                            android:text="@string/jack_harris"
+                            app:chipCornerRadius="8dp"/>
+
                     </com.google.android.material.chip.ChipGroup>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_addons"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:listitem="@layout/item_addon_table"
+                        tools:itemCount="2"
+                        android:nestedScrollingEnabled="true"/>
 
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="4dp"
+        app:strokeWidth="1sp"
+        app:strokeColor="@color/gray_200">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="20dp"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:id="@+id/tv_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextS.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total_payment"
+                    android:textColor="@color/base_black"
+                    android:paddingEnd="4dp"
+                    tools:ignore="RtlSymmetry" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_down"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/Text.Semibold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/idr_2_230_900"
+                android:textColor="@color/primary_500"/>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,7 +24,7 @@ class NotificationDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.toolbarNotification.setNavigationOnClickListener {
-            requireActivity().onBackPressed()
+            requireActivity().supportFragmentManager.popBackStack()
         }
 
         binding.ivCopy.setOnClickListener {

@@ -128,8 +128,6 @@ class AddonsFragment : Fragment() {
 
     private fun observeViewModel() {
         homeViewModel.flightSearch.observe(viewLifecycleOwner, ::handleFlightSearch)
-        addonViewModel.addons.observe(viewLifecycleOwner, ::handleAddons)
-        addonViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
     }
 
     private fun handleLoading(loading: Boolean) {
@@ -138,6 +136,9 @@ class AddonsFragment : Fragment() {
 
     private fun handleFlightSearch(data: FlightSearch) {
         if (Helper.isValidFlightSearch(data)) {
+            addonViewModel.addons.observe(viewLifecycleOwner, ::handleAddons)
+            addonViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
+
             origin = data.origin!!
             destination = data.destination!!
             tripType = data.tripType!!
@@ -230,6 +231,7 @@ class AddonsFragment : Fragment() {
                 binding.cardBaggageEmpty.visibility = View.GONE
             } else {
                 this.baggageAdapter.submitList(emptyList())
+                binding.cardBaggageEmpty.visibility = View.VISIBLE
             }
 
             val mealAddons = data
@@ -275,6 +277,7 @@ class AddonsFragment : Fragment() {
                 binding.cardMealEmpty.visibility = View.GONE
             } else {
                 this.mealsAdapter.submitList(emptyList())
+                binding.cardMealEmpty.visibility = View.VISIBLE
             }
         }
     }

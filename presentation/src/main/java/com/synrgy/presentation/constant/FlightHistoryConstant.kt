@@ -11,9 +11,10 @@ object FlightHistoryConstant {
         currentTime.add(Calendar.HOUR_OF_DAY, 1)
         val timestamp = currentTime.timeInMillis
 
-        for (i in 1..3) {
+        for (i in 1..2) {
             data.add(FlightHistory(i, Constant.FlightHistoryCategory.AWAITING_PAYMENT.value, 2230900, timestamp))
         }
+        data.add(FlightHistory(3, Constant.FlightHistoryCategory.AWAITING_PAYMENT.value, isCheckIn = true))
         for (i in 4..5) {
             data.add(FlightHistory(i, Constant.FlightHistoryCategory.PROCESSING.value))
         }

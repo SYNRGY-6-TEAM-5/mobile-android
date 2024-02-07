@@ -96,7 +96,9 @@ class AirportListDialog(
         for (item in airportList) {
             if (item?.cityName?.lowercase()?.contains(text.lowercase()) == true ||
                 item?.countryName?.lowercase()?.contains(text.lowercase()) == true ||
-                item?.airPortName?.lowercase()?.contains(text.lowercase()) == true) {
+                item?.airPortName?.lowercase()?.contains(text.lowercase()) == true ||
+                item?.iataCode?.lowercase()?.contains(text.lowercase()) == true ||
+                item?.cityIataCode?.lowercase()?.contains(text.lowercase()) == true) {
 
                 filteredList.add(item)
             }

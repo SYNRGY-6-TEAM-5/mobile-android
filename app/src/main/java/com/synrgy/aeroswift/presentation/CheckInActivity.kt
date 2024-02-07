@@ -5,7 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.synrgy.aeroswift.databinding.ActivityCheckInBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CheckInActivity : AppCompatActivity() {
     companion object {
         fun startActivity(context: Context) {

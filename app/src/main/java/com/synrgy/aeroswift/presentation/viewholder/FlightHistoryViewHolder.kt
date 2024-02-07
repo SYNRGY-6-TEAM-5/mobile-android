@@ -5,6 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.ItemFlightHistoryBinding
+import com.synrgy.aeroswift.presentation.CheckInActivity
 import com.synrgy.domain.local.FlightHistory
 import com.synrgy.presentation.constant.Constant
 import com.synrgy.presentation.helper.Helper
@@ -22,13 +23,23 @@ class FlightHistoryViewHolder(
             binding.tvStatus.text = data.category
         }
 
-        if (data.category == Constant.FlightHistoryCategory.AWAITING_PAYMENT.value &&
-            data.total != null) {
-            binding.layoutTotalPrice.visibility = View.VISIBLE
-            binding.btnComplete.visibility = View.VISIBLE
+        if (data.category == Constant.FlightHistoryCategory.AWAITING_PAYMENT.value) {
+            if (data.total != null && data.time != null) {
+                binding.layoutTotalPrice.visibility = View.VISIBLE
+                binding.btnComplete.visibility = View.VISIBLE
 
-            binding.tvTotalPrice.text = context.getString(R.string.depart_baggage_price, Helper.formatPrice(data.total!!))
-            if (data.time != null) startTimer(data.time!!)
+                binding.tvTotalPrice.text = context.getString(R.string.depart_baggage_price, Helper.formatPrice(data.total!!))
+                startTimer(data.time!!)
+            }
+
+            if (data.isCheckIn == true) {
+                binding.cardCheckIn.visibility = View.VISIBLE
+                binding.tvEticket.visibility = View.VISIBLE
+
+                binding.cardCheckIn.setOnClickListener {
+                    CheckInActivity.startActivity(context)
+                }
+            }
         }
     }
 

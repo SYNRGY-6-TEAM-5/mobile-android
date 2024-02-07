@@ -24,8 +24,8 @@ class AirportListAdapter(
     }
 
     override fun onBindViewHolder(holder: AirportListViewHolder, position: Int) {
-        holder.bindData(getItem(position))
-
-        holder.itemView.setOnClickListener { clickListener(getItem(position)) }
+        if (position in 0..<itemCount) {
+            holder.bindData(getItem(position), clickListener)
+        }
     }
 }
