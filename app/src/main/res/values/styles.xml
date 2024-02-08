@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="H1" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">72sp</item>
+        <item name="lineHeight">90sp</item>
+    </style>
+
+    <style name="H1.Medium" parent="H1">
+        <item name="fontWeight">500</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="H4" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">36sp</item>
         <item name="lineHeight">44sp</item>

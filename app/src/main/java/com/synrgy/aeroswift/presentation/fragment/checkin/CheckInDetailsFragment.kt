@@ -5,11 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentCheckInDetailsBinding
+import com.synrgy.aeroswift.presentation.FlightHistoryActivity
+import com.synrgy.aeroswift.presentation.FlightOrderActivity
+import com.synrgy.aeroswift.presentation.HomeActivity
 import com.synrgy.aeroswift.presentation.adapter.AddonTableAdapter
 import com.synrgy.aeroswift.presentation.adapter.TicketOrderAdapter
 import com.synrgy.presentation.helper.Helper
@@ -28,6 +32,12 @@ class CheckInDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                handleNavigateToOrder()
+            }
+        })
 
         handleSetAdapter()
 
@@ -54,5 +64,10 @@ class CheckInDetailsFragment : Fragment() {
         val addonAdapter = AddonTableAdapter()
         binding.rvAddons.layoutManager = LinearLayoutManager(requireActivity())
         binding.rvAddons.adapter = addonAdapter
+    }
+
+    private fun handleNavigateToOrder() {
+        FlightOrderActivity.startActivity(requireActivity())
+        requireActivity().finish()
     }
 }

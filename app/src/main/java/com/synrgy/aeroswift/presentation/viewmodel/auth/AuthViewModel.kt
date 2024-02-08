@@ -144,7 +144,7 @@ class AuthViewModel @Inject constructor(
                 }
                 is Resource.ErrorRes -> {
                     setUserIdUseCase.invoke("guest")
-//                    clearTokenUseCase.invoke()
+                    clearTokenUseCase.invoke()
                     withContext(Dispatchers.Main) {
                         if (response.errorRes?.errors == null) {
                             _error.value = response.errorRes?.message ?: ""
@@ -153,7 +153,7 @@ class AuthViewModel @Inject constructor(
                 }
                 is Resource.ExceptionRes -> {
                     setUserIdUseCase.invoke("guest")
-//                    clearTokenUseCase.invoke()
+                    clearTokenUseCase.invoke()
                     withContext(Dispatchers.Main) {
                         _error.value = response.exceptionRes?.message ?: "Server error"
                     }

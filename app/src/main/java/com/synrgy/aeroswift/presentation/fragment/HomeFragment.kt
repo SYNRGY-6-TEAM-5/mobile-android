@@ -2,6 +2,7 @@ package com.synrgy.aeroswift.presentation.fragment
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -215,8 +216,13 @@ class HomeFragment : Fragment() {
     }
 
     private fun handleFlightSearch(data: FlightSearch) {
+        Log.d("DATAAA", data.toString())
         if (!Helper.isValidFlightSearch(data)) {
             Toast.makeText(requireActivity(), "Please fill all field", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (!Helper.isValidDestination(data)) {
+            Toast.makeText(requireActivity(), "Origin and destination cannot be the same", Toast.LENGTH_SHORT).show()
             return
         }
         FlightDetailsActivity.startActivity(requireActivity())

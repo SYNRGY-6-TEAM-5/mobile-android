@@ -1,6 +1,7 @@
 package com.synrgy.aeroswift.presentation.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +30,12 @@ class OneWayFragment(
 
     private var blackColor = 0
     private var lightGrayColor = 0
+
+    private var origin: String? = null
+    private var destination: String? = null
+
+    private var oCity: String? = null
+    private var dCity: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,19 +70,15 @@ class OneWayFragment(
             airportViewModel.setIsDest(true)
         }
 
-        binding.btnSwap.setOnClickListener {
-            val origin = binding.spOrigin.text.toString()
-            val destination = binding.spDestination.text.toString()
-
-            homeViewModel.setOrigin(destination)
-            homeViewModel.setDestination(origin)
-        }
+        binding.btnSwap.setOnClickListener { handleSwap() }
     }
 
     private fun observeViewModel() {
         airportViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
         homeViewModel.origin.observe(viewLifecycleOwner, ::handleGetOrigin)
         homeViewModel.destination.observe(viewLifecycleOwner, ::handleGetDestination)
+        homeViewModel.oCity.observe(viewLifecycleOwner) { oCity = it }
+        homeViewModel.dCity.observe(viewLifecycleOwner) { dCity = it }
     }
 
     private fun handleLoading(loading: Boolean) {
@@ -88,24 +91,40 @@ class OneWayFragment(
     }
 
     private fun handleGetOrigin(data: String) {
-        if (data.isNotEmpty() && data.isNotBlank()) {
-            binding.spOrigin.text = data
-            if (binding.spOrigin.text == getString(R.string.select)) {
-                binding.spOrigin.setTextColor(lightGrayColor)
-            } else {
-                binding.spOrigin.setTextColor(blackColor)
-            }
+        binding.spOrigin.text = if (data.isNotEmpty() && data.isNotBlank()) data else getString(R.string.select)
+        origin = data
+
+        if (binding.spOrigin.text == getString(R.string.select)) {
+            binding.spOrigin.setTextColor(lightGrayColor)
+        } else {
+            binding.spOrigin.setTextColor(blackColor)
         }
     }
 
     private fun handleGetDestination(data: String) {
-        if (data.isNotEmpty() && data.isNotBlank()) {
-            binding.spDestination.text = data
-            if (binding.spDestination.text == getString(R.string.select)) {
-                binding.spDestination.setTextColor(lightGrayColor)
-            } else {
-                binding.spDestination.setTextColor(blackColor)
-            }
+        binding.spDestination.text = if (data.isNotEmpty() && data.isNotBlank()) data else getString(R.string.select)
+        destination = data
+
+        if (binding.spDestination.text == getString(R.string.select)) {
+            binding.spDestination.setTextColor(lightGrayColor)
+        } else {
+            binding.spDestination.setTextColor(blackColor)
         }
+    }
+
+    private fun handleSwap() {
+        val tempOrigin = origin
+        origin = destination
+        destination = tempOrigin
+
+        homeViewModel.setOrigin(origin ?: "")
+        homeViewModel.setDestination(destination ?: "")
+
+        val tempCity = oCity
+        oCity = dCity
+        dCity = tempCity
+
+        homeViewModel.setOCity(oCity ?: "")
+        homeViewModel.setDCity(dCity ?: "")
     }
 }
