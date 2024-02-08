@@ -17,6 +17,7 @@ import com.synrgy.domain.local.DocumentData
 import com.synrgy.domain.local.FlightSearch
 import com.synrgy.domain.local.PassengerData
 import com.synrgy.presentation.R
+import com.synrgy.presentation.constant.Constant
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
 import java.text.ParseException
@@ -186,18 +187,28 @@ object Helper {
     }
 
     fun isValidFlightSearch(data: FlightSearch): Boolean {
+        val isValidReturn = if (data.tripType == Constant.TripType.ROUNDTRIP.value) {
+            data.retDate != null
+        } else true
+
         return !data.id.isNullOrEmpty() &&
                 !data.origin.isNullOrEmpty() &&
                 !data.destination.isNullOrEmpty() &&
                 !data.oCity.isNullOrEmpty() &&
                 !data.dCity.isNullOrEmpty() &&
                 !data.depDate.isNullOrEmpty() &&
+                isValidReturn &&
                 !data.tripType.isNullOrEmpty() &&
                 !data.ticketClass.isNullOrEmpty() &&
                 data.adultSeat != null &&
                 data.childSeat != null &&
                 data.totalSeat != null &&
                 data.infantSeat != null
+    }
+
+    fun isValidDestination(data: FlightSearch): Boolean {
+        return data.origin != data.destination &&
+                data.oCity != data.dCity
     }
 
     fun isValidBaggage(data: AddonData): Boolean {

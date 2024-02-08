@@ -7,12 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.atwa.filepicker.core.FilePicker
 import com.bumptech.glide.Glide
-import com.esafirm.imagepicker.features.ImagePickerConfig
-import com.esafirm.imagepicker.features.ImagePickerLauncher
-import com.esafirm.imagepicker.features.ImagePickerMode
-import com.esafirm.imagepicker.features.registerImagePicker
-import com.esafirm.imagepicker.model.Image
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentAccountDetailBinding
 import com.synrgy.aeroswift.dialog.LoadingDialog
@@ -43,8 +39,7 @@ class AccountDetailFragment : Fragment() {
     private val editProfileViewModel: EditProfileViewModel by viewModels()
     private val uploadProfileImageViewModel: UploadProfileImageViewModel by viewModels()
 
-    private lateinit var imagePickerConfig: ImagePickerConfig
-    private lateinit var imagePickerLauncher: ImagePickerLauncher
+    private val filePicker = FilePicker.getInstance(this)
 
     private lateinit var loadingDialog: LoadingDialog
 
@@ -64,16 +59,6 @@ class AccountDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         loadingDialog = LoadingDialog(requireActivity())
-
-        imagePickerConfig = ImagePickerConfig {
-            language = "en"
-            mode = ImagePickerMode.SINGLE
-            theme = R.style.Theme_AeroSwift_ImagePicker
-            isFolderMode = true
-        }
-        imagePickerLauncher = registerImagePicker { results: List<Image> ->
-            results.forEach { handleUploadImage(it) }
-        }
 
         handleGetProfile()
         observeViewModel()
@@ -168,7 +153,7 @@ class AccountDetailFragment : Fragment() {
         Helper.requestPermissions(requireActivity(), doIfGranted = ::showGallery)
     }
 
-    private fun handleUploadImage(image: Image) {
+    private fun handleUploadImage(image: File) {
         val imagePart = MultipartBody.Part.createFormData(
             "file", image.name, RequestBody.create(
                 Constant.MIME_TYPE_IMAGE.toMediaTypeOrNull(),
@@ -179,7 +164,7 @@ class AccountDetailFragment : Fragment() {
     }
 
     private fun showGallery() {
-        imagePickerLauncher.launch(imagePickerConfig)
+        filePicker.pickImage { if (it?.file != null) handleUploadImage(it.file!!) }
     }
 
     private fun handleConfirmProfile() {
