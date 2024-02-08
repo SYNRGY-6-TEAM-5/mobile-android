@@ -64,7 +64,6 @@ class AddonViewModel @Inject constructor(
     }
 
     fun getAddons() {
-        _loading.value = true
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val userId = getUserIdUseCase.invoke().first()!!
@@ -79,32 +78,6 @@ class AddonViewModel @Inject constructor(
                 }
             } catch (e: Exception) {
                 Log.d("ERR_MESSAGE", e.message.toString())
-            } finally {
-                withContext(Dispatchers.Main) {
-                    _loading.value = false
-                }
-            }
-        }
-    }
-
-    fun getAddonsByPassengerId(passengerId: String) {
-        _loading.value = true
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val response = flightDatabase
-                    .addonDao()
-                    .selectDataByPassengerId(passengerId)
-                    .toAddon()
-
-                withContext(Dispatchers.Main) {
-                    _addons.value = response
-                }
-            } catch (e: Exception) {
-                Log.d("ERR_MESSAGE", e.message.toString())
-            } finally {
-                withContext(Dispatchers.Main) {
-                    _loading.value = false
-                }
             }
         }
     }

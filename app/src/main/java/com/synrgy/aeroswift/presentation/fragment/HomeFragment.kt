@@ -19,6 +19,7 @@ import com.synrgy.aeroswift.databinding.FragmentHomeBinding
 import com.synrgy.aeroswift.dialog.PassengersAndCabinClassDialog
 import com.synrgy.aeroswift.presentation.FlightDetailsActivity
 import com.synrgy.aeroswift.presentation.NotificationActivity
+import com.synrgy.aeroswift.presentation.SearchActivity
 import com.synrgy.aeroswift.presentation.adapter.DiscountAdapter
 import com.synrgy.aeroswift.presentation.adapter.TabTripAdapter
 import com.synrgy.aeroswift.presentation.adapter.TicketPromoAdapter
@@ -221,11 +222,19 @@ class HomeFragment : Fragment() {
             Toast.makeText(requireActivity(), "Please fill all field", Toast.LENGTH_SHORT).show()
             return
         }
-        if (!Helper.isValidDestination(data)) {
-            Toast.makeText(requireActivity(), "Origin and destination cannot be the same", Toast.LENGTH_SHORT).show()
-            return
-        }
-        FlightDetailsActivity.startActivity(requireActivity())
+//        if (!Helper.isValidDestination(data)) {
+//            Toast.makeText(requireActivity(), "Origin and destination cannot be the same", Toast.LENGTH_SHORT).show()
+//            return
+//        }
+
+        val bundle = Bundle()
+        bundle.putString(SearchActivity.KEY_DEPARTURE_AIRPORT, data.origin)
+        bundle.putString(SearchActivity.KEY_ARRIVAL_AIRPORT, data.destination)
+        bundle.putString(SearchActivity.KEY_DEPARTURE_DATE, data.depDate)
+        bundle.putString(SearchActivity.KEY_RETURN_DATE, data.retDate)
+
+        SearchActivity.startActivity(requireActivity(), bundle)
+        requireActivity().finish()
     }
 
     private fun handlePassengerInput(totalSeat: Int) {
@@ -233,7 +242,7 @@ class HomeFragment : Fragment() {
             val passenger = if (totalSeat > 1) "Passengers" else "Passenger"
             viewModel.ticketClass.observe(viewLifecycleOwner) { selectedClass ->
                 if (selectedClass.isNotEmpty() && selectedClass.isNotBlank()) {
-                    binding.tvSelectedPassengerAndCabinClass.text = "${totalSeat} ${passenger} - ${selectedClass}"
+                    binding.tvSelectedPassengerAndCabinClass.text = "$totalSeat $passenger - $selectedClass"
                 }
             }
         }

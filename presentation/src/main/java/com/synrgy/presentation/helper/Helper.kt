@@ -20,6 +20,7 @@ import com.synrgy.presentation.R
 import com.synrgy.presentation.constant.Constant
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
+import java.text.NumberFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -126,6 +127,7 @@ object Helper {
         context: Context,
         selectedDate: Calendar,
         doAfterSelected: () -> Unit = {},
+        maxDate: Long? = null
     ) {
         val datePickerDialog = DatePickerDialog(
             context,
@@ -140,6 +142,7 @@ object Helper {
             selectedDate.get(Calendar.MONTH),
             selectedDate.get(Calendar.DAY_OF_MONTH)
         )
+        if (maxDate != null) datePickerDialog.datePicker.maxDate = maxDate
         datePickerDialog.show()
     }
 
@@ -173,7 +176,13 @@ object Helper {
     }
 
     fun formatPrice(number: Long): String {
-        return String.format(Locale.US, "%,d", number)
+        return String.format(Locale.getDefault(), "%,d", number)
+    }
+
+    fun formatPrice(amountString: String): String {
+        val amount = amountString.toDoubleOrNull() ?: return "Invalid amount"
+        val format = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
+        return format.format(amount).replace("Rp", "IDR ")
     }
 
     fun copyToClipboard(
@@ -225,6 +234,11 @@ object Helper {
         val outputFormat = SimpleDateFormat("EEE, d MMM yyyy", Locale.US)
         val date: Date = inputFormat.parse(dateString) ?: return ""
         return outputFormat.format(date)
+    }
+
+    fun formatStringDate(dateString: String): Date? {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return dateFormat.parse(dateString)
     }
 
     fun formatPhoneNumber(input: String): String {
@@ -302,5 +316,28 @@ object Helper {
                     it.expiry.isNotEmpty() && it.expiry.isNotBlank() &&
                     it.file.isNotEmpty() && it.file.isNotBlank()
         }
+    }
+
+    fun formatDateTime(inputDateTime: String): String {
+        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+        val date: Date = sdf.parse(inputDateTime) ?: Date()
+
+        val outputFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
+        return outputFormat.format(date)
+    }
+
+    fun calculateTimeDifference(startTime: String, endTime: String): String {
+        val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+        sdf.timeZone = TimeZone.getTimeZone("UTC")
+
+        val startDate: Date = sdf.parse(startTime) ?: Date()
+        val endDate: Date = sdf.parse(endTime) ?: Date()
+
+        val timeDifferenceInMillis = endDate.time - startDate.time
+
+        val hours = (timeDifferenceInMillis / (1000 * 60 * 60))
+        val minutes = (timeDifferenceInMillis / (1000 * 60)) % 60
+
+        return "${hours}h ${minutes}m"
     }
 }

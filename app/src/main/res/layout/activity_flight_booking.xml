@@ -123,6 +123,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="Search schedule"/>
+        android:text="@string/search_schedule"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

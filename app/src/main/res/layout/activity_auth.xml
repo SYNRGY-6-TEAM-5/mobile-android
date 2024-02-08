@@ -8,19 +8,11 @@
     tools:context=".presentation.AuthActivity">
 
     <com.google.android.material.tabs.TabLayout
+        style="@style/TabLayoutStyle.Auth"
         android:id="@+id/tab_layout_auth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/base_black"
-        app:tabIndicator="@drawable/tab_auth_inset"
-        app:tabIndicatorHeight="4dp"
-        app:tabGravity="fill"
-        app:tabMinWidth="80dp"
-        app:tabMode="scrollable"
-        app:tabRippleColor="@color/transparent"
-        app:tabSelectedTextColor="@color/white"
-        app:tabTextAppearance="@style/Text.Medium"
-        app:tabTextColor="@color/gray_700"
         android:paddingTop="60dp" />
 
     <androidx.core.widget.NestedScrollView

@@ -7,7 +7,9 @@ import com.synrgy.data.local.DataStoreManager
 import com.synrgy.data.local.LocalRepository
 import com.synrgy.data.local.SharedPreferences
 import com.synrgy.data.local.room.FlightDatabase
+import com.synrgy.data.remote.NodeRepository
 import com.synrgy.data.remote.RemoteRepository
+import com.synrgy.data.remote.service.NodeService
 import com.synrgy.data.remote.service.RemoteService
 import dagger.Module
 import dagger.Provides
@@ -54,23 +56,30 @@ object DataModule {
 
     @Singleton
     @Provides
-    fun provideBaseUrl(): String {
-        return "https://backend-java-production-ece2.up.railway.app/api/v1/"
+    fun provideRemoteService(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): RemoteService {
+        return Retrofit.Builder()
+            .client(okHttpClient)
+            .baseUrl("https://backend-java-production-ece2.up.railway.app/api/v1/")
+            .addConverterFactory(gsonConverterFactory)
+            .build()
+            .create(RemoteService::class.java)
     }
 
     @Singleton
     @Provides
-    fun provideRemoteService(
+    fun provideNodeService(
         okHttpClient: OkHttpClient,
-        gsonConverterFactory: GsonConverterFactory,
-        baseUrl: String
-    ): RemoteService {
+        gsonConverterFactory: GsonConverterFactory
+    ): NodeService {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl(baseUrl)
+            .baseUrl("https://backend-node-production-a54c.up.railway.app/api/")
             .addConverterFactory(gsonConverterFactory)
             .build()
-            .create(RemoteService::class.java)
+            .create(NodeService::class.java)
     }
 
     @Singleton
@@ -103,6 +112,14 @@ object DataModule {
         remoteService: RemoteService
     ): RemoteRepository {
         return RemoteRepository(remoteService)
+    }
+
+    @Singleton
+    @Provides
+    fun provideNodeRepository(
+        nodeService: NodeService
+    ): NodeRepository {
+        return NodeRepository(nodeService)
     }
 
     @Singleton

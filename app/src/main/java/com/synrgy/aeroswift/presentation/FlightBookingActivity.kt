@@ -3,6 +3,7 @@ package com.synrgy.aeroswift.presentation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.synrgy.aeroswift.databinding.ActivityFlightBookingBinding
@@ -25,13 +26,16 @@ class FlightBookingActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                HomeActivity.startActivity(this@FlightBookingActivity)
+                this@FlightBookingActivity.finish()
+            }
+        })
+
         binding.departDateRecycler.layoutManager = LinearLayoutManager(this)
         binding.departDateRecycler.adapter = this.departDateAdapter
 
-        binding.btnSearchSchedule.setOnClickListener {
-            Intent(this, FlightDetailsActivity::class.java).apply {
-                startActivity(this)
-            }
-        }
+        binding.btnSearchSchedule.setOnClickListener { onBackPressed() }
     }
 }

@@ -25,8 +25,6 @@ import com.synrgy.domain.local.PriceDetails
 import com.synrgy.presentation.constant.Constant
 import com.synrgy.presentation.helper.Helper
 import dagger.hilt.android.AndroidEntryPoint
-import koleton.api.hideSkeleton
-import koleton.api.loadSkeleton
 
 
 @AndroidEntryPoint
@@ -128,17 +126,11 @@ class AddonsFragment : Fragment() {
 
     private fun observeViewModel() {
         homeViewModel.flightSearch.observe(viewLifecycleOwner, ::handleFlightSearch)
-    }
-
-    private fun handleLoading(loading: Boolean) {
-        if (loading) binding.layout.loadSkeleton() else binding.layout.hideSkeleton()
+        addonViewModel.addons.observe(viewLifecycleOwner, ::handleAddons)
     }
 
     private fun handleFlightSearch(data: FlightSearch) {
         if (Helper.isValidFlightSearch(data)) {
-            addonViewModel.addons.observe(viewLifecycleOwner, ::handleAddons)
-            addonViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
-
             origin = data.origin!!
             destination = data.destination!!
             tripType = data.tripType!!
@@ -189,17 +181,17 @@ class AddonsFragment : Fragment() {
         var mealsName = ""
         var mealsCount = ""
 
-        if (data.isNotEmpty() && origin.isNotEmpty() && destination.isNotEmpty() && tripType.isNotEmpty()) {
+        if (data.isNotEmpty()) {
             val baggageAddons = data
                 .filter { it.category == Constant.AddonType.BAGGAGE.value }
-                .groupBy { it.userId }
+                .groupBy { it.passengerId }
 
             if (baggageAddons.isNotEmpty()) {
                 baggageAddons.forEach { (_, value) ->
-                    value.forEachIndexed { index, item ->
+                    value.forEachIndexed { _, item ->
                         baggagePrice += item.price
-                        baggageName += item.userName + if (value.lastIndex != index) "\n" else ""
-                        baggageCount += "${item.weight} KG" + if (value.lastIndex != index) "\n" else ""
+                        baggageName += item.userName + "\n"
+                        baggageCount += "${item.weight} KG" + "\n"
                     }
                 }
 
@@ -246,8 +238,6 @@ class AddonsFragment : Fragment() {
                     mealsName += "${entry.value[index].userName}\n"
                     mealsCount += "${entry.value.size} ${if (entry.value.size > 1) "Meals" else "Meal"}\n"
                 }
-
-                mealsList.clear()
 
                 mealsList.add(
                     AddonTravelModels(

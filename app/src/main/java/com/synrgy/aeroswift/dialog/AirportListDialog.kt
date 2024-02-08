@@ -24,7 +24,7 @@ class AirportListDialog(
     private lateinit var dialog: BottomSheetDialog
     private lateinit var binding: DialogAirportListBinding
 
-    private lateinit var airportList: List<AirportData?>
+    private var airportList: List<AirportData?> = emptyList()
 
     private val allAirportListAdapter = AirportListAdapter(::handleAirportClick)
     private val recentAirportListAdapter = AirportListAdapter(::handleAirportClick)
@@ -121,10 +121,8 @@ class AirportListDialog(
 
     private fun handleGetAirportList(response: AirportResponse) {
         binding.tvNoAirport.visibility = if (response.data.isNullOrEmpty()) View.VISIBLE else View.GONE
-        if (response.status == true) {
-            this.airportList = response.data!!
-            this.allAirportListAdapter.submitList(this.airportList)
-        }
+        this.airportList = response.data ?: emptyList()
+        this.allAirportListAdapter.submitList(this.airportList)
     }
 
     private fun handleGetRecentAirport(data: List<AirportData>) {

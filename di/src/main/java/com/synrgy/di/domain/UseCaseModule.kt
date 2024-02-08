@@ -7,6 +7,7 @@ import com.synrgy.domain.repository.GuestRepository
 import com.synrgy.domain.repository.LoginRepository
 import com.synrgy.domain.repository.NewUserRepository
 import com.synrgy.domain.repository.RegisterRepository
+import com.synrgy.domain.repository.TicketRepository
 import com.synrgy.domain.repository.UserRepository
 import com.synrgy.presentation.usecase.airport.AirportListUseCase
 import com.synrgy.presentation.usecase.auth.ClearTokenUseCase
@@ -33,6 +34,7 @@ import com.synrgy.presentation.usecase.onboarding.SetNewUserUseCase
 import com.synrgy.presentation.usecase.register.RegisterUseCase
 import com.synrgy.presentation.usecase.register.ValidateOtpUseCase
 import com.synrgy.presentation.usecase.register.ValidateRegisterUseCase
+import com.synrgy.presentation.usecase.ticket.GetTicketsUseCase
 import com.synrgy.presentation.usecase.user.EditProfileImageUseCase
 import com.synrgy.presentation.usecase.user.EditProfileUseCase
 import com.synrgy.presentation.usecase.user.GetUserDetailUseCase
@@ -276,5 +278,13 @@ object UseCaseModule {
         authRepository: AuthRepository
     ): GetUserIdUseCase {
         return GetUserIdUseCase(authRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetTicketsUseCase(
+        ticketRepository: TicketRepository
+    ): GetTicketsUseCase {
+        return GetTicketsUseCase(ticketRepository)
     }
 }
