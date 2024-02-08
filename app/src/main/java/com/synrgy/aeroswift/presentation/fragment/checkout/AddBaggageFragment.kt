@@ -90,11 +90,11 @@ class AddBaggageFragment : Fragment() {
 
     private fun handleGetAddons(addons: List<AddonData>) {
         if (addons.isNotEmpty()) {
-            binding.tvDepartSelect.text = "Change"
-
             val filteredAddons = addons
                 .filter { it.category == Constant.AddonType.BAGGAGE.value }
                 .groupBy { it.passengerId }
+
+            if (filteredAddons.isNotEmpty()) binding.tvDepartSelect.text = "Change"
 
             val list = mutableListOf<AddonModels>()
 

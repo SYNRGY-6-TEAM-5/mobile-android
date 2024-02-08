@@ -1,6 +1,5 @@
 package com.synrgy.aeroswift.presentation.fragment.checkout
 
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -58,7 +56,6 @@ class AddDepartMealsFragment : Fragment() {
         return binding.root
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -86,11 +83,11 @@ class AddDepartMealsFragment : Fragment() {
                     it.category == Constant.AddonType.MEALS.value && it.passengerId == passengerId
                 }.toMutableList()
                 handleSetAdapter(false)
+                Log.d("TAGGG", filteredAddons.toString())
             },
         )
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     private fun observeViewModel() {
         authViewModel.userId.observe(viewLifecycleOwner) { userId = it }
         addonViewModel.addons.observe(viewLifecycleOwner, ::handleAddons)
@@ -111,9 +108,9 @@ class AddDepartMealsFragment : Fragment() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     private fun handleCheckMeals(data: DepartMeals, isChecked: Boolean) {
         val selectedData = AddonData(
+            id = "${data.name}-${passengerId}",
             passengerId = passengerId!!,
             userName = userName!!,
             category = Constant.AddonType.MEALS.value,
@@ -128,8 +125,10 @@ class AddDepartMealsFragment : Fragment() {
         } else {
             price -= data.price
             if (mealCount > 0) mealCount -= 1
-            addons = addons.filter { it.price != selectedData.price }.toMutableList()
+            addons = addons.filter { it.id != selectedData.id }.toMutableList()
         }
+
+        Log.d("TAGGG", addons.toString())
 
         handleSetPrice(price)
         handleSetMealCount(mealCount)
@@ -156,7 +155,6 @@ class AddDepartMealsFragment : Fragment() {
         }.toMutableList()
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     private fun handleSetAdapter(loading: Boolean) {
         if (loading) {
             binding.mealsRecycler.loadSkeleton()

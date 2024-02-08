@@ -89,11 +89,11 @@ class AddMealsFragment : Fragment() {
 
     private fun handleGetAddons(addons: List<AddonData>) {
         if (addons.isNotEmpty()) {
-            binding.tvDepartSelect.text = "Change"
-
             val filteredAddons = addons
                 .filter { it.category == Constant.AddonType.MEALS.value }
                 .groupBy { it.passengerId }
+
+            if (filteredAddons.isNotEmpty()) binding.tvDepartSelect.text = "Change"
 
             val list = mutableListOf<AddonModels>()
 

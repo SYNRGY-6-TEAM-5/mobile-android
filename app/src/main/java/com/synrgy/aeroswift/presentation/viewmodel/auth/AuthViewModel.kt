@@ -178,7 +178,7 @@ class AuthViewModel @Inject constructor(
                 UserEntity(
                     id = response.data?.id!!,
                     name = response.data?.fullName!!,
-                    email = ""
+                    email = response.data?.email!!
                 )
             )
         } catch (_: Exception) {}

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -62,16 +63,20 @@ class AccountDetailFragment : Fragment() {
 
         handleGetProfile()
         observeViewModel()
+        handleInputChange()
 
+        binding.btnConfirmCodeAccountDetail.isEnabled = false
         binding.tvSkipAccountDetail.setOnClickListener { handleNavigate() }
-
         binding.ivProfileSetup.setOnClickListener { checkPermissions() }
         binding.tvUploadImage.setOnClickListener { checkPermissions() }
-
         binding.accountDetailTiBirth.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) Helper.showDatePicker(requireContext(), selectedDate, ::updateBirthInput)
+            if (hasFocus) Helper.showDatePicker(
+                requireContext(),
+                selectedDate,
+                ::updateBirthInput,
+                maxDate = System.currentTimeMillis()
+            )
         }
-
         binding.btnConfirmCodeAccountDetail.setOnClickListener { handleConfirmProfile() }
     }
 
@@ -216,5 +221,15 @@ class AccountDetailFragment : Fragment() {
 
     private fun updateBirthInput() {
         binding.accountDetailTiBirth.setText(dateFormatter.format(selectedDate.time))
+    }
+
+    private fun handleInputChange() {
+        binding.accountDetailTiName.addTextChangedListener { handleButtonActive() }
+        binding.accountDetailTiBirth.addTextChangedListener { handleButtonActive() }
+        binding.accountDetailTiPhone.addTextChangedListener { handleButtonActive() }
+    }
+
+    private fun handleButtonActive() {
+        binding.btnConfirmCodeAccountDetail.isEnabled = true
     }
 }

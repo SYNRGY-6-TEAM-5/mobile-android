@@ -1,49 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="16dp"
+    app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="16dp"
     app:cardElevation="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_flight_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="22dp"
-        android:paddingBottom="30dp"
-        app:layout_constraintTop_toTopOf="parent">
+        android:padding="12dp">
 
         <ImageView
-            android:id="@+id/img_departure_flight"
+            android:id="@+id/iv_airline"
             android:layout_width="35dp"
             android:layout_height="26dp"
-            android:layout_marginStart="32dp"
             android:src="@drawable/img_plane"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_plane_departure"
+            android:id="@+id/tv_airline_iata"
             style="@style/Text.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/garuda_short_name"
             android:textColor="@color/base_black"
-            app:layout_constraintStart_toEndOf="@id/img_departure_flight"
-            app:layout_constraintTop_toTopOf="@id/img_departure_flight" />
+            app:layout_constraintStart_toEndOf="@id/iv_airline"
+            app:layout_constraintTop_toTopOf="@id/iv_airline"
+            app:layout_constraintBottom_toBottomOf="@id/iv_airline"/>
 
-        <ImageView
-            android:id="@+id/img_non_stop"
-            android:layout_width="71dp"
-            android:layout_height="26dp"
-            android:layout_marginEnd="36dp"
-            android:src="@drawable/img_non_stop"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_flight_status"
+            style="@style/TextXS.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_nonstop"
+            android:paddingHorizontal="8dp"
+            android:paddingTop="2dp"
+            android:text="@string/non_stop"
+            android:textAlignment="center"
+            android:textColor="@color/gray_500"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/img_departure_flight" />
+            app:layout_constraintTop_toTopOf="@id/iv_airline"
+            app:layout_constraintBottom_toBottomOf="@id/iv_airline"/>
 
         <ImageView
             android:id="@+id/iv_flight"
@@ -52,121 +55,125 @@
             android:src="@drawable/img_line"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_details_departure" />
+            app:layout_constraintTop_toTopOf="@id/tv_departure" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_details_arrival"
+            android:id="@+id/tv_arrival"
             style="@style/H6.Semibold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="36dp"
             android:text="@string/cgk"
+            android:textColor="@color/base_black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_details_departure" />
+            app:layout_constraintTop_toTopOf="@id/tv_departure" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_details_departure"
+            android:id="@+id/tv_departure"
             style="@style/H6.Semibold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="15dp"
             android:text="@string/yia"
-            app:layout_constraintStart_toStartOf="@+id/img_departure_flight"
-            app:layout_constraintTop_toBottomOf="@+id/img_departure_flight" />
+            android:textColor="@color/base_black"
+            app:layout_constraintStart_toStartOf="@id/iv_airline"
+            app:layout_constraintTop_toBottomOf="@id/iv_airline" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/time_departure_search"
-            style="@style/Text.Regular"
+            android:id="@+id/time_departure"
+            style="@style/TextS.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="4dp"
             android:text="@string/time_departure"
-            app:layout_constraintStart_toStartOf="@+id/img_departure_flight"
-            app:layout_constraintTop_toBottomOf="@+id/tv_details_departure" />
+            android:textColor="@color/gray_300"
+            app:layout_constraintStart_toStartOf="@id/tv_departure"
+            app:layout_constraintTop_toBottomOf="@id/tv_departure" />
 
         <ImageView
             android:id="@+id/img_cabin_baggage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="6dp"
             android:src="@drawable/ic_cabin_baggage_ori"
-            app:layout_constraintStart_toEndOf="@+id/img_meal"
-            app:layout_constraintTop_toTopOf="@+id/img_meal" />
+            app:layout_constraintStart_toEndOf="@id/img_meal"
+            app:layout_constraintTop_toTopOf="@id/img_meal" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/time_arrival_search"
-            style="@style/Text.Regular"
+            android:id="@+id/time_arrival"
+            style="@style/TextS.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="4dp"
             android:text="@string/time_arrival"
-            app:layout_constraintEnd_toEndOf="@+id/tv_details_arrival"
-            app:layout_constraintTop_toBottomOf="@+id/tv_details_arrival" />
+            android:textColor="@color/gray_300"
+            app:layout_constraintEnd_toEndOf="@id/tv_arrival"
+            app:layout_constraintTop_toBottomOf="@id/tv_arrival" />
 
         <ImageView
             android:id="@+id/img_meal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="15dp"
             android:src="@drawable/ic_meal_ori"
-            app:layout_constraintStart_toStartOf="@+id/time_departure_search"
-            app:layout_constraintTop_toBottomOf="@+id/time_departure_search" />
+            app:layout_constraintStart_toStartOf="@id/tv_departure"
+            app:layout_constraintTop_toBottomOf="@id/time_departure" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/time_flight_search"
-            style="@style/Text.Regular"
+            android:id="@+id/time_total"
+            style="@style/TextXS.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
             android:text="@string/time_flight"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_flight" />
+            app:layout_constraintTop_toTopOf="@id/img_meal"
+            app:layout_constraintBottom_toBottomOf="@id/img_meal"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_total_price"
-            style="@style/Text.Semibold"
+            style="@style/TextS.Semibold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:text="@string/idr_1_000_000"
             android:textColor="@color/primary_500"
-            app:layout_constraintEnd_toEndOf="@+id/time_arrival_search"
-            app:layout_constraintTop_toBottomOf="@+id/time_arrival_search" />
+            app:layout_constraintEnd_toEndOf="@id/time_arrival"
+            app:layout_constraintTop_toTopOf="@id/img_meal"
+            app:layout_constraintBottom_toBottomOf="@id/img_meal"/>
 
-        <ImageView
-            android:id="@+id/img_line_bar"
-            android:layout_width="0dp"
-            android:layout_height="10dp"
-            android:layout_marginTop="32dp"
-            android:src="@drawable/img_line_search"
-            app:layout_constraintEnd_toEndOf="@+id/tv_total_price"
-            app:layout_constraintStart_toStartOf="@+id/img_meal"
-            app:layout_constraintTop_toBottomOf="@+id/tv_total_price" />
+        <View
+            android:id="@+id/separator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/gray_100"
+            app:layout_constraintEnd_toEndOf="@id/tv_total_price"
+            app:layout_constraintStart_toStartOf="@id/img_meal"
+            app:layout_constraintTop_toBottomOf="@id/img_meal" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_baggage"
             style="@style/TextXS.Regular"
-            android:layout_width="184dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/excess_search"
             android:textColor="@color/base_black"
-            app:layout_constraintStart_toStartOf="@+id/img_line_bar"
-            app:layout_constraintTop_toBottomOf="@+id/img_line_bar" />
-
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="@id/separator"
+            app:layout_constraintTop_toBottomOf="@id/separator" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_price_baggage"
-            style="@style/TextXS.Regular"
-            android:layout_width="184dp"
+            style="@style/TextXS.Medium"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="end"
             android:text="@string/excess_price_search"
             android:textColor="@color/base_black"
-            app:layout_constraintEnd_toEndOf="@+id/img_line_bar"
-            app:layout_constraintTop_toBottomOf="@+id/img_line_bar" />
+            android:layout_marginEnd="2dp"
+            app:layout_constraintEnd_toEndOf="@id/separator"
+            app:layout_constraintTop_toBottomOf="@id/separator"
+            app:layout_constraintTop_toTopOf="@id/tv_baggage"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

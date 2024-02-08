@@ -29,7 +29,7 @@
     <string name="excess_price_search">IDR 25,000/kg</string>
     <string name="search_departure">Yogyakarta</string>
     <string name="search_arrival">Jakarta</string>
-    <string name="search_date">Tue,3 Jan 2024</string>
+    <string name="search_date">Tue, 3 Jan 2024</string>
     <string name="search_passenger">2 Passengers</string>
     <string name="search_class">Economy Class</string>
 
@@ -394,6 +394,9 @@
     <string name="date">Date</string>
     <string name="boarding">Boarding</string>
     <string name="download_boarding_pass">Download Boarding Pass</string>
+    <string name="search_schedule">Search schedule</string>
+    <string name="search_result">Search Result</string>
+    <string name="_0_result">“0 Result”</string>
 
     <string-array name="origin">
         <item>Select</item>

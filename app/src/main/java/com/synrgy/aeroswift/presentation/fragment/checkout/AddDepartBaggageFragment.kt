@@ -102,6 +102,7 @@ class AddDepartBaggageFragment : Fragment() {
 
     private fun handleClickBaggage(data: DepartBaggage) {
         val selectedData = AddonData(
+            id = "baggage-${passengerId}",
             passengerId = passengerId!!,
             userName = userName!!,
             category = Constant.AddonType.BAGGAGE.value,
@@ -111,7 +112,7 @@ class AddDepartBaggageFragment : Fragment() {
 
         if (!data.selected) {
             price = data.price
-            addons = addons.filter { it.passengerId != selectedData.passengerId }.toMutableList()
+            addons = addons.filter { it.id != selectedData.id }.toMutableList()
             addons.add(selectedData)
         } else {
             price = 0L

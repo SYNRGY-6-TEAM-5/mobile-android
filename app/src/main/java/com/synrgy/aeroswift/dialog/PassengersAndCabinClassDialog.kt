@@ -13,7 +13,6 @@ class PassengersAndCabinClassDialog(
     private val activity: Activity,
     private val homeViewModel: HomeViewModel
 ) {
-
     private lateinit var binding: DialogPassengersAndClassBinding
 
     fun show() {
@@ -21,9 +20,7 @@ class PassengersAndCabinClassDialog(
             binding = DialogPassengersAndClassBinding.inflate(layoutInflater)
             setContentView(binding.root)
 
-            binding.btnClose.setOnClickListener {
-                dismiss()
-            }
+            binding.btnClose.setOnClickListener { dismiss() }
 
             val passengers = mutableListOf(
                 RvPassengerModels("Adult", "+12 years old", 0),

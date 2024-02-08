@@ -13,13 +13,11 @@ import com.synrgy.aeroswift.databinding.ActivityEditProfileBinding
 import com.synrgy.aeroswift.dialog.ConfirmationDialog
 import com.synrgy.aeroswift.dialog.LoadingDialog
 import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
-import com.synrgy.aeroswift.presentation.viewmodel.user.EditProfileImageViewModel
 import com.synrgy.aeroswift.presentation.viewmodel.user.EditProfileViewModel
 import com.synrgy.aeroswift.presentation.viewmodel.user.UploadProfileImageViewModel
 import com.synrgy.domain.body.user.EditProfileBody
 import com.synrgy.domain.response.auth.UploadProfileImageResponse
 import com.synrgy.domain.response.error.ErrorItem
-import com.synrgy.domain.response.user.EditProfileImageResponse
 import com.synrgy.domain.response.user.EditProfileResponse
 import com.synrgy.presentation.constant.Constant
 import com.synrgy.presentation.helper.Helper
@@ -45,15 +43,12 @@ class EditProfileActivity : AppCompatActivity() {
     private val authViewModel: AuthViewModel by viewModels()
     private val editProfileViewModel: EditProfileViewModel by viewModels()
     private val uploadProfileImageViewModel: UploadProfileImageViewModel by viewModels()
-    private val editProfileImageViewModel: EditProfileImageViewModel by viewModels()
 
     private lateinit var loadingDialog: LoadingDialog
     private lateinit var confirmationDialog: ConfirmationDialog
 
     private val dateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     private var selectedDate = Calendar.getInstance()
-
-    private var isEditImage = false
 
     private val filePicker = FilePicker.getInstance(this)
 
@@ -84,14 +79,19 @@ class EditProfileActivity : AppCompatActivity() {
         binding.toolbarProfile.setNavigationOnClickListener { onBackPressed() }
 
         binding.tiBirth.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) Helper.showDatePicker(this, selectedDate, ::updateBirthInput)
+            if (hasFocus) Helper.showDatePicker(
+                this,
+                selectedDate,
+                ::updateBirthInput,
+                maxDate = System.currentTimeMillis()
+            )
         }
 
         binding.btnSave.setOnClickListener { handleSaveProfile() }
     }
 
     private fun observeViewModel() {
-        authViewModel.loading.observe(this, ::handleLoading)
+        authViewModel.loading.observe(this, ::handleLoadingUser)
         authViewModel.name.observe(this, ::handleGetName)
         authViewModel.photo.observe(this, ::handleLoadImage)
         authViewModel.dateBirth.observe(this, ::handleGetDateBirth)
@@ -105,10 +105,6 @@ class EditProfileActivity : AppCompatActivity() {
         uploadProfileImageViewModel.profileImage.observe(this, ::handleUpdateImage)
         uploadProfileImageViewModel.error.observe(this, ::handleError)
         uploadProfileImageViewModel.loading.observe(this, ::handleLoading)
-
-        editProfileImageViewModel.profileImage.observe(this, ::handleUpdateImage)
-        editProfileImageViewModel.error.observe(this, ::handleError)
-        editProfileImageViewModel.loading.observe(this, ::handleLoading)
     }
 
     private fun handleError(error: String) {
@@ -147,12 +143,20 @@ class EditProfileActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleLoading(loading: Boolean) {
+    private fun handleLoadingUser(loading: Boolean) {
         if (loading) {
             loadingDialog.startLoadingDialog()
         } else {
             loadingDialog.dismissDialog()
             binding.btnSave.isEnabled = false
+        }
+    }
+
+    private fun handleLoading(loading: Boolean) {
+        if (loading) {
+            loadingDialog.startLoadingDialog()
+        } else {
+            loadingDialog.dismissDialog()
         }
     }
 
@@ -172,7 +176,6 @@ class EditProfileActivity : AppCompatActivity() {
 
     private fun handleLoadImage(image: String) {
         if (image.isNotBlank() && image.isNotEmpty()) {
-            isEditImage = true
             authViewModel.setPhoto(image)
 
             Glide
@@ -185,20 +188,6 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun handleUpdateImage(response: UploadProfileImageResponse) {
-        if (!response.message.isNullOrEmpty() &&
-            !response.message.isNullOrBlank() &&
-            !response.urlImage.isNullOrEmpty() &&
-            !response.urlImage.isNullOrBlank() &&
-            response.success != false
-        ) {
-
-            handleLoadImage(response.urlImage!!)
-            authViewModel.setPhoto(response.urlImage!!)
-            Helper.showToast(this, this, response.message!!, isSuccess = true)
-        }
-    }
-
-    private fun handleUpdateImage(response: EditProfileImageResponse) {
         if (!response.message.isNullOrEmpty() &&
             !response.message.isNullOrBlank() &&
             !response.urlImage.isNullOrEmpty() &&
@@ -255,11 +244,7 @@ class EditProfileActivity : AppCompatActivity() {
             )
         )
 
-        if (isEditImage) {
-            editProfileImageViewModel.editProfileImage(imagePart)
-        } else {
-            uploadProfileImageViewModel.uploadProfileImage(image.name, imagePart)
-        }
+        uploadProfileImageViewModel.uploadProfileImage(image.name, imagePart)
     }
 
     private fun updateBirthInput() {
