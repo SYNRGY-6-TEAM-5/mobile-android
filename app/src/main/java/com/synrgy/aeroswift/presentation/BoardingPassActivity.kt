@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.ActivityBoardingPassBinding
 import com.synrgy.aeroswift.presentation.viewmodel.passenger.PassengerDetailsViewModel
+import com.synrgy.aeroswift.service.PDFConverter
 import com.synrgy.domain.local.PassengerData
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,6 +27,8 @@ class BoardingPassActivity : AppCompatActivity() {
     private val passengerViewModel: PassengerDetailsViewModel by viewModels()
 
     private var passengerList = mutableListOf<PassengerData>()
+
+    private val pdfConverter = PDFConverter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +47,12 @@ class BoardingPassActivity : AppCompatActivity() {
 
         binding.toolbarBoardingPass.bringToFront()
         binding.btnHome.setOnClickListener { onBackPressed() }
+        binding.btnBoardingPass.setOnClickListener { handleDownloadBoardingPass() }
+        binding.ivDownload.setOnClickListener { handleDownloadBoardingPass() }
+    }
+
+    private fun handleDownloadBoardingPass() {
+        pdfConverter.createPdf(this, this)
     }
 
     private fun observeViewModel() {

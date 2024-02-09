@@ -21,23 +21,23 @@
 
     <com.google.android.material.textview.MaterialTextView
         style="@style/H6.Semibold"
-        android:id="@+id/tv1_origin_fb"
+        android:id="@+id/tv_origin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title_fb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="YIA"
+        android:text="@string/yia"
         android:textColor="@color/base_black"
         android:layout_marginTop="24dp"/>
 
     <com.google.android.material.textview.MaterialTextView
         style="@style/TextS.Medium"
-        android:id="@+id/tv2_origin_fb"
+        android:id="@+id/tv_origin_city"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv1_origin_fb"
+        app:layout_constraintTop_toBottomOf="@id/tv_origin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Yogyakarta"
+        android:text="@string/yogyakarta"
         android:textColor="@color/gray_300"
         android:layout_marginTop="4dp"/>
 
@@ -46,36 +46,36 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv1_origin_fb"
-        app:layout_constraintBottom_toBottomOf="@id/tv2_origin_fb"
+        app:layout_constraintTop_toTopOf="@id/tv_origin"
+        app:layout_constraintBottom_toBottomOf="@id/tv_origin_city"
         android:src="@drawable/img_arrow_left"/>
 
     <com.google.android.material.textview.MaterialTextView
         style="@style/H6.Semibold"
-        android:id="@+id/tv1_dest_fb"
+        android:id="@+id/tv_dest"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv1_origin_fb"
+        app:layout_constraintTop_toTopOf="@id/tv_origin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CGK"
+        android:text="@string/cgk"
         android:textColor="@color/base_black"/>
 
     <com.google.android.material.textview.MaterialTextView
         style="@style/TextS.Medium"
-        android:id="@+id/tv2_dest_fb"
+        android:id="@+id/tv_dest_city"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv1_dest_fb"
+        app:layout_constraintTop_toBottomOf="@id/tv_dest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Jakarta"
+        android:text="@string/jakarta"
         android:textColor="@color/gray_300"
         android:layout_marginTop="4dp"/>
 
     <com.google.android.material.textview.MaterialTextView
         style="@style/TextXS.Regular"
-        android:id="@+id/desc_fb"
+        android:id="@+id/tv_desc"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv2_origin_fb"
+        app:layout_constraintTop_toBottomOf="@id/tv_origin_city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/desc_flight_booking"
@@ -84,34 +84,34 @@
 
     <com.google.android.material.textview.MaterialTextView
         style="@style/TextS.Medium"
-        android:id="@+id/tv_prev_fb"
+        android:id="@+id/tv_prev"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/desc_fb"
+        app:layout_constraintTop_toBottomOf="@id/tv_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Previous day"
+        android:text="@string/previous_7_day"
         android:textColor="@color/primary_200"
         android:layout_marginTop="24dp"/>
 
     <com.google.android.material.textview.MaterialTextView
         style="@style/TextS.Medium"
-        android:id="@+id/tv_next_fb"
+        android:id="@+id/tv_next"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_prev_fb"
+        app:layout_constraintTop_toTopOf="@id/tv_prev"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Next day"
+        android:text="@string/next_7_day"
         android:textColor="@color/primary_500"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/depart_date_recycler"
+        android:id="@+id/rv_booking"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_prev_fb"
+        app:layout_constraintTop_toBottomOf="@id/tv_prev"
         app:layout_constraintBottom_toTopOf="@id/btn_search_schedule"
-        tools:listitem="@layout/item_depart_date"
+        tools:listitem="@layout/item_flight_booking"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="24dp"/>
 

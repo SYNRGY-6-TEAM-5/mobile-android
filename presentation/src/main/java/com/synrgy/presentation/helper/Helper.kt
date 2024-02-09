@@ -182,7 +182,7 @@ object Helper {
     fun formatPrice(amountString: String): String {
         val amount = amountString.toDoubleOrNull() ?: return "Invalid amount"
         val format = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
-        return format.format(amount).replace("Rp", "IDR ")
+        return format.format(amount).replace("Rp", "IDR ").replace(",00", "").replace(".", ",")
     }
 
     fun copyToClipboard(
@@ -239,6 +239,22 @@ object Helper {
     fun formatStringDate(dateString: String): Date? {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         return dateFormat.parse(dateString)
+    }
+
+    fun formatScheduledTime(dateString: String): String? {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+        val date = dateFormat.parse(dateString)
+
+        val outputFormat = SimpleDateFormat("dd MMM yyyy", Locale.US)
+        return if (date != null) outputFormat.format(date) else null
+    }
+
+    fun formatDmyTime(dateString: String): String? {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
+        val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+        val date = dateFormat.parse(dateString)
+        return if (date != null) outputFormat.format(date) else null
     }
 
     fun formatPhoneNumber(input: String): String {

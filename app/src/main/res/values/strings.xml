@@ -410,6 +410,10 @@
     <string name="how_to_pay">How to pay</string>
     <string name="how_to_pay_desc">Once your payment is verified, your e-ticket and receipt will be sent to registered email address.</string>
     <string name="transfer_via_atm">Transfer via ATM</string>
+    <string name="previous_day">Previous day</string>
+    <string name="previous_7_day">Previous 7 day</string>
+    <string name="next_7_day">Next 7 day</string>
+    <string name="_22_feb_2024">22 Feb 2024</string>
 
     <string-array name="origin">
         <item>Select</item>

@@ -1,6 +1,7 @@
 package com.synrgy.aeroswift.presentation.fragment.auth
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -78,7 +79,10 @@ class LoginFragment: Fragment() {
         setupGso()
         setTextSpan()
 
-        binding.btnSignInGoogle.setOnClickListener { signIn() }
+        binding.btnSignInGoogle.setOnClickListener {
+            signIn()
+//            requireActivity().startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://backend-java-production-ece2.up.railway.app/oauth2/authorization/google")))
+        }
         binding.btnLogin.setOnClickListener { handleLogin() }
 
         binding.txtForgotPass.setOnClickListener{ forgotPassDialog.show() }

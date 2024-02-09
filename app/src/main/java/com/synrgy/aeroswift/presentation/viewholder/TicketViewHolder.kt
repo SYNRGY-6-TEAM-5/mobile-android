@@ -29,8 +29,6 @@ class TicketViewHolder(
         binding.timeTotal.text = Helper.calculateTimeDifference(timeDeparture, timeArrival)
 
         binding.tvTotalPrice.text = Helper.formatPrice(data.fareAmount!!)
-            .replace(",00", "")
-            .replace(".", ",")
 
         binding.root.setOnClickListener { clickListener() }
     }

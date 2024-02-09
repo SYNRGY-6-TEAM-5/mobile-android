@@ -11,7 +11,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.synrgy.aeroswift.databinding.ActivitySearchBinding
 import com.synrgy.aeroswift.presentation.adapter.DatePagerAdapter
 import com.synrgy.aeroswift.presentation.viewmodel.HomeViewModel
+import com.synrgy.aeroswift.presentation.viewmodel.ticket.TicketViewModel
 import com.synrgy.domain.local.FlightSearch
+import com.synrgy.domain.response.ticket.TicketData
 import com.synrgy.presentation.helper.Helper
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
@@ -38,18 +40,31 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchBinding
 
     private val homeViewModel: HomeViewModel by viewModels()
+    private val ticketViewModel: TicketViewModel by viewModels()
 
+    private val numberDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     private val dateFormat = SimpleDateFormat("d MMMM", Locale.US)
     private val calendar = Calendar.getInstance()
+
+    private var departureAirport = ""
+    private var arrivalAirport = ""
+    private var departureDate = ""
+
+    private var isFirst = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        homeViewModel.getFlightSearch()
-        observeViewModel()
+        departureAirport = intent.getStringExtra(KEY_DEPARTURE_AIRPORT) ?: ""
+        arrivalAirport = intent.getStringExtra(KEY_ARRIVAL_AIRPORT) ?: ""
+        departureDate = intent.getStringExtra(KEY_DEPARTURE_DATE) ?: ""
+
         handleSetViewPager()
+        homeViewModel.getFlightSearch()
+        ticketViewModel.getDepartTickets(departureAirport, arrivalAirport, departureDate)
+        observeViewModel()
 
         binding.ivBack.setOnClickListener { onBackPressed() }
         binding.ivEdit.setOnClickListener { onBackPressed() }
@@ -57,6 +72,7 @@ class SearchActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         homeViewModel.flightSearch.observe(this, ::handleGetFlightSearch)
+        ticketViewModel.tickets.observe(this, ::handleGetTickets)
     }
 
     private fun handleGetFlightSearch(data: FlightSearch) {
@@ -78,15 +94,22 @@ class SearchActivity : AppCompatActivity() {
         val dateAdapter = DatePagerAdapter(this)
         binding.vpTicket.adapter = dateAdapter
 
-        TabLayoutMediator(binding.tlDate, binding.vpTicket) { tab, position ->
-            tab.text = dateFormat.format(getDate(position))
-        }.attach()
-
         binding.vpTicket.setCurrentItem(1, false)
 
         binding.tlDate.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 tab?.position?.let { binding.vpTicket.setCurrentItem(it, true) }
+
+                val date = numberDateFormat.format(getDate(tab?.position!!))
+
+                binding.searchDate.text = Helper.formatDateDay(date)
+
+                ticketViewModel.getDepartTickets(
+                    departureAirport,
+                    arrivalAirport,
+                    date
+                )
+
                 binding.vpTicket.requestLayout()
             }
 
@@ -100,9 +123,32 @@ class SearchActivity : AppCompatActivity() {
         })
     }
 
+    private fun handleGetTickets(tickets: ArrayList<TicketData>) {
+        if (tickets.isEmpty() && isFirst) {
+            val bundle = Bundle()
+            bundle.putString(KEY_DEPARTURE_AIRPORT, departureAirport)
+            bundle.putString(KEY_ARRIVAL_AIRPORT, arrivalAirport)
+
+            FlightBookingActivity.startActivity(this, bundle)
+            this.finish()
+        }
+
+        isFirst = false
+
+        val cheapestPrice = when (tickets.isNotEmpty()) {
+            true -> tickets.sortedBy { it.fareAmount }.first().fareAmount
+            false -> null
+        }
+
+        TabLayoutMediator(binding.tlDate, binding.vpTicket) { tab, position ->
+            var text = "${dateFormat.format(getDate(position))}"
+            if (cheapestPrice != null) text += "\n" + "${Helper.formatPrice(cheapestPrice)}"
+            tab.text = text
+        }.attach()
+    }
+
     private fun getDate(position: Int): Date {
-        val departureDate = intent.getStringExtra(KEY_DEPARTURE_DATE)
-        calendar.time = if (departureDate != null) Helper.formatStringDate(departureDate)!! else Date()
+        calendar.time = Helper.formatStringDate(departureDate)!!
         calendar.add(Calendar.DAY_OF_YEAR, position - 1)
         return calendar.time
     }

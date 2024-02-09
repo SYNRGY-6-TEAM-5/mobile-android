@@ -1,12 +1,12 @@
-package com.synrgy.aeroswift.presentation.viewmodel.ticket
+package com.synrgy.aeroswift.presentation.viewmodel.flight
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.synrgy.data.remote.NodeRepository
 import com.synrgy.domain.Resource
-import com.synrgy.domain.response.ticket.TicketData
-import com.synrgy.presentation.usecase.ticket.GetTicketsUseCase
+import com.synrgy.domain.response.flight.FlightData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,11 +14,11 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class TicketViewModel @Inject constructor(
-    private val getTicketsUseCase: GetTicketsUseCase
+class FlightViewModel @Inject constructor(
+    private val nodeRepository: NodeRepository
 ): ViewModel() {
-    private val _tickets = MutableLiveData<ArrayList<TicketData>>()
-    val tickets: LiveData<ArrayList<TicketData>> = _tickets
+    private val _flights = MutableLiveData<ArrayList<FlightData>>()
+    val flights: LiveData<ArrayList<FlightData>> = _flights
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> = _loading
@@ -26,7 +26,7 @@ class TicketViewModel @Inject constructor(
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
 
-    fun getDepartTickets(
+    fun getFlights(
         departureAirport: String = "",
         arrivalAirport: String = "",
         departureDate: String = ""
@@ -34,10 +34,10 @@ class TicketViewModel @Inject constructor(
         _loading.value = true
 
         viewModelScope.launch(Dispatchers.IO) {
-            when (val response = getTicketsUseCase.invoke(departureAirport, arrivalAirport, departureDate)) {
+            when (val response = nodeRepository.getFlights(departureAirport, arrivalAirport, departureDate)) {
                 is Resource.Success -> {
                     withContext(Dispatchers.Main) {
-                        _tickets.value = ArrayList(response.data?.data ?: emptyList())
+                        _flights.value = ArrayList(response.data?.data ?: emptyList())
                     }
                 }
                 is Resource.ErrorRes -> {
