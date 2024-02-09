@@ -12,10 +12,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentAddonsBinding
+import com.synrgy.aeroswift.dialog.ConfirmationDialog
 import com.synrgy.aeroswift.dialog.ExtraProtectionDialog
 import com.synrgy.aeroswift.dialog.PriceDetailsDialog
-import com.synrgy.aeroswift.dialog.TripConfirmationDialog
 import com.synrgy.aeroswift.models.AddonTravelModels
+import com.synrgy.aeroswift.presentation.PaymentActivity
 import com.synrgy.aeroswift.presentation.adapter.AddonTravelAdapter
 import com.synrgy.aeroswift.presentation.viewmodel.HomeViewModel
 import com.synrgy.aeroswift.presentation.viewmodel.checkout.AddonViewModel
@@ -30,7 +31,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class AddonsFragment : Fragment() {
     private lateinit var binding: FragmentAddonsBinding
-    private lateinit var confirmationDialog: TripConfirmationDialog
+    private lateinit var confirmationDialog: ConfirmationDialog
     private lateinit var protectionDialog: ExtraProtectionDialog
     private lateinit var priceDialog: PriceDetailsDialog
 
@@ -57,7 +58,7 @@ class AddonsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        confirmationDialog = TripConfirmationDialog(requireActivity())
+        confirmationDialog = ConfirmationDialog(requireActivity(), ::handleNavigatePayment)
         protectionDialog = ExtraProtectionDialog(requireActivity())
         priceDialog = PriceDetailsDialog(requireActivity())
 
@@ -116,7 +117,18 @@ class AddonsFragment : Fragment() {
             findNavController().navigate(R.id.action_addonsFragment_to_addMealsFragment)
         }
 
-        binding.btnContinue.setOnClickListener { confirmationDialog.show() }
+        binding.btnContinue.setOnClickListener {
+            confirmationDialog.show(
+                heading = getString(R.string.your_trip_confirmation),
+                title = getString(R.string.before_we_proceed),
+                description = getString(R.string.trip_confirmation_desc)
+            )
+        }
+    }
+
+    private fun handleNavigatePayment() {
+        PaymentActivity.startActivity(requireActivity())
+        requireActivity().finish()
     }
 
     private fun handleCheckedChange(checkbox: CompoundButton, isChecked: Boolean) {

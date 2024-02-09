@@ -2,7 +2,6 @@ package com.synrgy.aeroswift.presentation.fragment
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.FragmentHomeBinding
 import com.synrgy.aeroswift.dialog.PassengersAndCabinClassDialog
-import com.synrgy.aeroswift.presentation.FlightDetailsActivity
 import com.synrgy.aeroswift.presentation.NotificationActivity
 import com.synrgy.aeroswift.presentation.SearchActivity
 import com.synrgy.aeroswift.presentation.adapter.DiscountAdapter
@@ -217,15 +215,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun handleFlightSearch(data: FlightSearch) {
-        Log.d("DATAAA", data.toString())
         if (!Helper.isValidFlightSearch(data)) {
             Toast.makeText(requireActivity(), "Please fill all field", Toast.LENGTH_SHORT).show()
             return
         }
-//        if (!Helper.isValidDestination(data)) {
-//            Toast.makeText(requireActivity(), "Origin and destination cannot be the same", Toast.LENGTH_SHORT).show()
-//            return
-//        }
+        if (!Helper.isValidDestination(data)) {
+            Toast.makeText(requireActivity(), "Origin and destination cannot be the same", Toast.LENGTH_SHORT).show()
+            return
+        }
 
         val bundle = Bundle()
         bundle.putString(SearchActivity.KEY_DEPARTURE_AIRPORT, data.origin)
@@ -234,7 +231,6 @@ class HomeFragment : Fragment() {
         bundle.putString(SearchActivity.KEY_RETURN_DATE, data.retDate)
 
         SearchActivity.startActivity(requireActivity(), bundle)
-        requireActivity().finish()
     }
 
     private fun handlePassengerInput(totalSeat: Int) {

@@ -7,8 +7,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.synrgy.aeroswift.databinding.ActivityFlightDetailsBinding
+import com.synrgy.aeroswift.dialog.AuthDialog
 import com.synrgy.aeroswift.presentation.adapter.TicketDetailsAdapter
 import com.synrgy.aeroswift.presentation.viewmodel.HomeViewModel
+import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
 import com.synrgy.aeroswift.presentation.viewmodel.checkout.AddonViewModel
 import com.synrgy.domain.local.FlightSearch
 import com.synrgy.domain.local.TicketDetails
@@ -30,6 +32,9 @@ class FlightDetailsActivity : AppCompatActivity() {
 
     private val homeViewModel: HomeViewModel by viewModels()
     private val addonViewModel: AddonViewModel by viewModels()
+    private val authViewModel: AuthViewModel by viewModels()
+
+    private lateinit var authDialog: AuthDialog
 
     private val adapter = TicketDetailsAdapter()
 
@@ -39,6 +44,10 @@ class FlightDetailsActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        authDialog = AuthDialog(this)
+
+        authViewModel.getUser()
+        authViewModel.checkAuth()
         homeViewModel.getFlightSearch()
         observeViewModel()
 
@@ -56,6 +65,11 @@ class FlightDetailsActivity : AppCompatActivity() {
     private fun observeViewModel() {
         homeViewModel.flightSearch.observe(this, ::handleFlightSearch)
         homeViewModel.loading.observe(this, ::handleLoading)
+        authViewModel.authentication.observe(this, ::handleAuthentication)
+    }
+
+    private fun handleAuthentication(token: String) {
+        if (token.isEmpty() || token.isBlank()) authDialog.show()
     }
 
     private fun handleFlightSearch(data: FlightSearch) {

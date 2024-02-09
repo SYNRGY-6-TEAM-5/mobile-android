@@ -27,6 +27,16 @@ class HomeActivity : AppCompatActivity() {
             context.startActivity(intent)
         }
 
+        fun startFlightFragment(context: Context) {
+            val bundle = Bundle()
+            bundle.putInt(KEY_FRAGMENT_INDEX, 1)
+
+            val intent = Intent(context, HomeActivity::class.java)
+            intent.putExtras(bundle)
+
+            context.startActivity(intent)
+        }
+
         fun startProfileFragment(context: Context) {
             val bundle = Bundle()
             bundle.putInt(KEY_FRAGMENT_INDEX, 2)
@@ -79,7 +89,6 @@ class HomeActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.navigation_home -> replaceFragment(HomeFragment())
                 R.id.navigation_flight -> {
-//                    replaceFragment(FlightFragment())
                     if (token.isNotEmpty() && token.isNotBlank()) {
                         replaceFragment(FlightFragment())
                     } else {
@@ -87,14 +96,11 @@ class HomeActivity : AppCompatActivity() {
                     }
                 }
                 R.id.navigation_profile -> {
-//                    replaceFragment(ProfileFragment())
                     if (token.isNotEmpty() && token.isNotBlank()) {
                         replaceFragment(ProfileFragment())
                     } else {
                         authDialog.show()
                     }
-                }
-                else -> {
                 }
             }
             true

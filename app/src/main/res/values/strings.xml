@@ -397,6 +397,19 @@
     <string name="search_schedule">Search schedule</string>
     <string name="search_result">Search Result</string>
     <string name="_0_result">“0 Result”</string>
+    <string name="payment">Payment</string>
+    <string name="_00_00_00">00:00:00</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="mandiri_virtual_account">Mandiri Virtual Account</string>
+    <string name="use_promo">Use Promo</string>
+    <string name="see_all_promos_voucher_codes">See all promos/voucher codes</string>
+    <string name="pay">Pay</string>
+    <string name="idr_2_930_900">IDR 2,930,900</string>
+    <string name="text_payment_info">Complete the payment and ensure that the amount and recipient are correct</string>
+    <string name="see_order_list">See Order List</string>
+    <string name="how_to_pay">How to pay</string>
+    <string name="how_to_pay_desc">Once your payment is verified, your e-ticket and receipt will be sent to registered email address.</string>
+    <string name="transfer_via_atm">Transfer via ATM</string>
 
     <string-array name="origin">
         <item>Select</item>
