@@ -20,13 +20,16 @@ class TicketViewModel @Inject constructor(
     private val _tickets = MutableLiveData<ArrayList<TicketData>>()
     val tickets: LiveData<ArrayList<TicketData>> = _tickets
 
+    private val _retTickets = MutableLiveData<ArrayList<TicketData>>()
+    val retTickets: LiveData<ArrayList<TicketData>> = _retTickets
+
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> = _loading
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
 
-    fun getTickets(
+    fun getDepartTickets(
         departureAirport: String,
         arrivalAirport: String,
         departureDate: String
@@ -38,6 +41,41 @@ class TicketViewModel @Inject constructor(
                 is Resource.Success -> {
                     withContext(Dispatchers.Main) {
                         _tickets.value = ArrayList(response.data?.data ?: emptyList())
+                    }
+                }
+                is Resource.ErrorRes -> {
+                    withContext(Dispatchers.Main) {
+                        if (response.errorRes?.errors == null) {
+                            _error.value = response.errorRes?.message ?: ""
+                        }
+                    }
+                }
+                is Resource.ExceptionRes -> {
+                    withContext(Dispatchers.Main) {
+                        _error.value = response.exceptionRes?.message ?: "Server error"
+                    }
+                }
+                else -> {}
+            }
+
+            withContext(Dispatchers.Main) {
+                _loading.value = false
+            }
+        }
+    }
+
+    fun getReturnTickets(
+        departureAirport: String,
+        arrivalAirport: String,
+        departureDate: String
+    ) {
+        _loading.value = true
+
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val response = getTicketsUseCase.invoke(departureAirport, arrivalAirport, departureDate)) {
+                is Resource.Success -> {
+                    withContext(Dispatchers.Main) {
+                        _retTickets.value = ArrayList(response.data?.data ?: emptyList())
                     }
                 }
                 is Resource.ErrorRes -> {

@@ -9,7 +9,7 @@ import com.synrgy.aeroswift.presentation.diffutil.FaqDiffUtil
 import com.synrgy.aeroswift.presentation.viewholder.FaqViewHolder
 import com.synrgy.domain.local.FaqData
 
-class FaqAdapter(): ListAdapter<FaqData, FaqViewHolder>(
+class FaqAdapter: ListAdapter<FaqData, FaqViewHolder>(
     FaqDiffUtil()
 ) {
     private val textViewList = ArrayList<MaterialTextView>()

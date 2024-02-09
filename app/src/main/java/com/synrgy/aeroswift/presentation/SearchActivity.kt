@@ -47,13 +47,6 @@ class SearchActivity : AppCompatActivity() {
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                HomeActivity.startActivity(this@SearchActivity)
-                this@SearchActivity.finish()
-            }
-        })
-
         homeViewModel.getFlightSearch()
         observeViewModel()
         handleSetViewPager()
@@ -94,11 +87,16 @@ class SearchActivity : AppCompatActivity() {
         binding.tlDate.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 tab?.position?.let { binding.vpTicket.setCurrentItem(it, true) }
+                binding.vpTicket.requestLayout()
             }
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                binding.vpTicket.requestLayout()
+            }
 
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                binding.vpTicket.requestLayout()
+            }
         })
     }
 

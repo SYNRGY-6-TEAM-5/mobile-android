@@ -4,26 +4,23 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
 import com.synrgy.aeroswift.R
-import com.synrgy.aeroswift.databinding.ItemFaqCardBinding
-import com.synrgy.domain.local.FaqData
+import com.synrgy.aeroswift.databinding.ItemPaymentInstructionBinding
+import com.synrgy.domain.local.PaymentInstruction
 
-class FaqViewHolder(
-    private val binding: ItemFaqCardBinding
+class PaymentInstructionViewHolder(
+    private val binding: ItemPaymentInstructionBinding
 ): RecyclerView.ViewHolder(binding.root) {
-    private val cardView = binding.itemFaqCard
+    private val layoutView = binding.layoutPaymentInstruction
 
     val textView = binding.tvDescription
 
     fun bindData(
-        data: FaqData,
-        textViewList: ArrayList<MaterialTextView>,
+        data: PaymentInstruction,
+        textViewList: ArrayList<MaterialTextView>
     ) {
-        binding.tvNumber.text = "${data.number}."
         binding.tvTitle.text = data.title
-        binding.ivIcon.setImageResource(data.icon)
         binding.tvDescription.text = data.description
-
-        cardView.setOnClickListener {
+        layoutView.setOnClickListener {
             val isTextHidden = binding.tvDescription.visibility == View.GONE
 
             if (isTextHidden) {
