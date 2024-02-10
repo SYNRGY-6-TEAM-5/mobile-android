@@ -19,8 +19,6 @@ import com.synrgy.domain.local.TicketDetails
 import com.synrgy.presentation.constant.Constant
 import com.synrgy.presentation.helper.Helper
 import dagger.hilt.android.AndroidEntryPoint
-import koleton.api.hideSkeleton
-import koleton.api.loadSkeleton
 
 @AndroidEntryPoint
 class FlightDetailsActivity : AppCompatActivity() {
@@ -106,21 +104,23 @@ class FlightDetailsActivity : AppCompatActivity() {
                 val destination = dAirport.airportDetails?.iataCode!!
 
                 val depDate = oAirport.scheduledTime!!
-                val retDate = dAirport.scheduledTime!!
+                val arrivalDate = dAirport.scheduledTime!!
 
                 val ticketList = arrayListOf(
                     TicketDetails(
                         id = Constant.TripType.ONE_WAY.value,
                         origin = origin,
                         destination = destination,
-                        date = depDate,
+                        depDate = depDate,
+                        arrivalDate = arrivalDate,
                         oAirportName = oAirportName,
                         dAirportName = dAirportName,
                         oTerminal = "Terminal ${oAirport.terminal} Domestic",
                         dTerminal = "Terminal ${dAirport.terminal} Domestic",
                         airlineCode = "${ticket.flight?.airline?.iata} - ${data.ticketClass}",
                         airlineImage = ticket.flight?.airline?.image!!,
-                        airlineName = ticket.flight?.airline?.name!!
+                        airlineName = ticket.flight?.airline?.name!!,
+                        status = ticket.flight?.flightStatus!!
                     )
                 )
 
@@ -130,14 +130,16 @@ class FlightDetailsActivity : AppCompatActivity() {
                             id = Constant.TripType.ROUNDTRIP.value,
                             origin = destination,
                             destination = origin,
-                            date = retDate,
+                            depDate = depDate,
+                            arrivalDate = arrivalDate,
                             oAirportName = dAirportName,
                             dAirportName = oAirportName,
                             oTerminal = "Terminal ${dAirport.terminal} Domestic",
                             dTerminal = "Terminal ${oAirport.terminal} Domestic",
                             airlineCode = "${ticket.flight?.airline?.iata} - ${data.ticketClass}",
                             airlineImage = ticket.flight?.airline?.image!!,
-                            airlineName = ticket.flight?.airline?.name!!
+                            airlineName = ticket.flight?.airline?.name!!,
+                            status = ticket.flight?.flightStatus!!
                         )
                     )
                 }
