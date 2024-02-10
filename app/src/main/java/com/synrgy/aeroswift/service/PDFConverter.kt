@@ -12,6 +12,7 @@ import android.util.DisplayMetrics
 import android.view.View
 import androidx.core.content.FileProvider
 import com.synrgy.aeroswift.databinding.ActivityBoardingPassBinding
+import com.synrgy.aeroswift.databinding.ActivityBoardingPassDocBinding
 import java.io.File
 import java.io.FileOutputStream
 
@@ -20,12 +21,7 @@ class PDFConverter {
         context: Context,
         activity: Activity
     ): Bitmap {
-        val binding = ActivityBoardingPassBinding.inflate(activity.layoutInflater)
-
-        binding.tvPassengers.visibility = View.GONE
-        binding.layoutBottom.visibility = View.GONE
-        binding.toolbarBoardingPass.visibility = View.GONE
-
+        val binding = ActivityBoardingPassDocBinding.inflate(activity.layoutInflater)
         return createBitmap(context, binding.root, activity)
     }
 
@@ -57,7 +53,7 @@ class PDFConverter {
 
         val canvas = Canvas(bitmap)
         view.draw(canvas)
-        return Bitmap.createScaledBitmap(bitmap, 595, 842, true)
+        return Bitmap.createScaledBitmap(bitmap, canvas.width, canvas.height, true)
     }
 
     private fun convertBitmapToPdf(bitmap: Bitmap, context: Context) {

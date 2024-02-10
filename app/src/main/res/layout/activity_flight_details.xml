@@ -5,15 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.FlightDetailsActivity"
-    android:paddingTop="50dp"
-    android:background="@color/base_black">
+    android:background="@color/white">
+
+    <View
+        android:id="@+id/view_top"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/base_black"/>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/base_black"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_top">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_toolbar_title"
@@ -50,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:paddingBottom="80dp">
+            android:paddingBottom="130dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_flight_details"
@@ -126,6 +134,7 @@
                 app:layout_constraintTop_toBottomOf="@id/rv_flight_details"/>
 
             <com.google.android.material.textview.MaterialTextView
+                android:visibility="gone"
                 style="@style/TextS.Medium"
                 android:id="@+id/tv_price_pax"
                 android:layout_width="wrap_content"
@@ -137,6 +146,7 @@
                 app:layout_constraintTop_toBottomOf="@id/separator_rv" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:visibility="gone"
                 style="@style/TextS.Regular"
                 android:id="@+id/tv_price_pax_total"
                 android:layout_width="wrap_content"

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.synrgy.aeroswift.databinding.FragmentPaymentInfoBinding
 import com.synrgy.aeroswift.presentation.adapter.PaymentInstructionAdapter
 import com.synrgy.presentation.constant.PaymentInstructionConstant
+import com.synrgy.presentation.constant.PaymentMethodConstant
 import com.synrgy.presentation.helper.Helper
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
@@ -20,6 +21,7 @@ import java.util.Locale
 class PaymentInfoFragment : Fragment() {
     companion object {
         const val KEY_REMAINING_TIME = "key_remaining_time"
+        const val KEY_BANK_ID = "key_bank_id"
     }
 
     private lateinit var binding: FragmentPaymentInfoBinding
@@ -39,6 +41,9 @@ class PaymentInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val bankId = arguments?.getInt(KEY_BANK_ID, 1)
+        val bankData = PaymentMethodConstant.getData().find { it.id == bankId }
+
         remainingTime = arguments?.getLong(KEY_REMAINING_TIME) ?: 3600000
         startTimer()
         handleSetAdapter()
@@ -51,6 +56,9 @@ class PaymentInfoFragment : Fragment() {
 
         binding.toolbarPaymentInfo.setNavigationOnClickListener { requireActivity().onBackPressed() }
         binding.btnOrderList.setOnClickListener { requireActivity().onBackPressed() }
+
+        binding.tvBankName.text = bankData?.bankName
+        binding.ivBank.setImageResource(bankData?.bankImage!!)
     }
 
     private fun handleSetAdapter() {

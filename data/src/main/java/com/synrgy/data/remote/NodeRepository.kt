@@ -31,6 +31,22 @@ class NodeRepository @Inject constructor(
         }
     }
 
+    override suspend fun getTicketsById(
+        id: Int
+    ): Resource<GetTicketsResponse> {
+        return try {
+            val response = nodeService.getTicketsById(id)
+            val result = response.body()
+            Helper.getResult(response, result)
+        } catch (_: Exception) {
+            Resource.ExceptionRes(
+                Helper.getErrorResponse(
+                    "",
+                    ExceptionResponse::class.java
+                ))
+        }
+    }
+
     override suspend fun getFlights(
         departureAirport: String,
         arrivalAirport: String,

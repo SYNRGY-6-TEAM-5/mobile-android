@@ -8,5 +8,8 @@ data class TicketDetails(
     val oAirportName: String,
     val dAirportName: String,
     val oTerminal: String,
-    val dTerminal: String
+    val dTerminal: String,
+    val airlineName: String,
+    val airlineCode: String,
+    val airlineImage: String
 )

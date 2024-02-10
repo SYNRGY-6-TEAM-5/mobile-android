@@ -9,4 +9,8 @@ interface TicketRepository {
         arrivalAirport: String,
         departureDate: String
     ): Resource<GetTicketsResponse>
+
+    suspend fun getTicketsById(
+        id: Int
+    ): Resource<GetTicketsResponse>
 }

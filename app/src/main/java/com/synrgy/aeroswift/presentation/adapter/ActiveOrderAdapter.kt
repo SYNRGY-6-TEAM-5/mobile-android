@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.synrgy.aeroswift.databinding.ItemActiveOrderBinding
 import com.synrgy.aeroswift.presentation.OrderDetailActivity
+import java.util.Locale
 
 
 class ActiveOrderAdapter : RecyclerView.Adapter<ActiveOrderAdapter.ActiveOrderViewHolder>() {
@@ -28,11 +29,15 @@ class ActiveOrderAdapter : RecyclerView.Adapter<ActiveOrderAdapter.ActiveOrderVi
         // Timer for 1 hour
         val timer = object : CountDownTimer(3600000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                val hour = millisUntilFinished / 3600000
-                val minute = (millisUntilFinished % 3600000) / 60000
-                val second = (millisUntilFinished % 60000) / 1000
-                val time = "$hour:$minute:$second"
-                // Set the timer to the button
+                val seconds = (millisUntilFinished / 1000).toInt()
+                val minutes = seconds / 60
+                val hours = minutes / 60
+
+                val displaySeconds = seconds % 60
+                val displayMinutes = minutes % 60
+
+                val time = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, displayMinutes, displaySeconds)
+
                 holder.binding.btnCompletePayment.text = "Complete the Payment in $time"
             }
 

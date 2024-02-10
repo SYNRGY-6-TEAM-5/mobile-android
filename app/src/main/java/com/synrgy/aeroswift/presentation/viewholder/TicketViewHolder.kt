@@ -11,7 +11,7 @@ class TicketViewHolder(
 ): RecyclerView.ViewHolder(binding.root) {
     fun bindData(
         data: TicketData,
-        clickListener: () -> Unit
+        clickListener: (TicketData) -> Unit
     ) {
         binding.ivAirline.load(data.flight?.airline?.image)
         binding.tvAirlineIata.text = data.flight?.airline?.iata
@@ -30,6 +30,6 @@ class TicketViewHolder(
 
         binding.tvTotalPrice.text = Helper.formatPrice(data.fareAmount!!)
 
-        binding.root.setOnClickListener { clickListener() }
+        binding.root.setOnClickListener { clickListener(data) }
     }
 }

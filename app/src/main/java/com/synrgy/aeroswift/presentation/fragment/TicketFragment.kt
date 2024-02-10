@@ -105,9 +105,12 @@ class TicketFragment : Fragment() {
         binding.rvTicket.adapter = ticketAdapter
     }
 
-    private fun handleClickTicket() {
+    private fun handleClickTicket(data: TicketData) {
         if (token.isNotEmpty() && token.isNotBlank()) {
-            FlightDetailsActivity.startActivity(requireActivity())
+            val bundle = Bundle()
+            bundle.putInt(FlightDetailsActivity.KEY_TICKET_ID, data.ticketId ?: 1)
+
+            FlightDetailsActivity.startActivity(requireActivity(), bundle)
         } else {
             authDialog.show()
         }

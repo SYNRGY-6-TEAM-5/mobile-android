@@ -32,6 +32,8 @@ class PaymentFragment : Fragment() {
 
     private var remainingTime: Long = 3600000
 
+    private var bankId = 1
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -49,6 +51,7 @@ class PaymentFragment : Fragment() {
         handleSetAdapter()
         observeViewModel()
 
+        binding.btnPay.isEnabled = false
         binding.btnPay.setOnClickListener { paymentViewModel.processPayment() }
         binding.toolbarPayment.setNavigationOnClickListener { requireActivity().onBackPressed() }
     }
@@ -74,11 +77,15 @@ class PaymentFragment : Fragment() {
 
     private fun handleNavigate() {
         val bundle = Bundle()
+        bundle.putInt(PaymentInfoFragment.KEY_BANK_ID, bankId)
         bundle.putLong(PaymentInfoFragment.KEY_REMAINING_TIME, remainingTime)
         findNavController().navigate(R.id.action_paymentFragment_to_paymentInfoFragment, bundle)
     }
 
-    private fun handleClickPayment(data: PaymentMethod, isChecked: Boolean) {}
+    private fun handleClickPayment(data: PaymentMethod) {
+        binding.btnPay.isEnabled = true
+        bankId = data.id
+    }
 
     private fun startTimer() {
         val timer = object : CountDownTimer(3600000, 1000) {

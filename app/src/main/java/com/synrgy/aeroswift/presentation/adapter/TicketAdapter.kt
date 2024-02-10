@@ -9,7 +9,7 @@ import com.synrgy.aeroswift.presentation.viewholder.TicketViewHolder
 import com.synrgy.domain.response.ticket.TicketData
 
 class TicketAdapter(
-    private val clickListener: () -> Unit
+    private val clickListener: (TicketData) -> Unit
 ): ListAdapter<TicketData, TicketViewHolder>(
     TicketDiffUtil()
 ) {

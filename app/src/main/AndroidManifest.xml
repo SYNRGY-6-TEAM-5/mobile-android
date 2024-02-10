@@ -29,6 +29,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AeroSwift"
         tools:targetApi="31">
+        <activity
+            android:name=".presentation.BoardingPassDocActivity"
+            android:exported="false" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -38,6 +42,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
         <activity
             android:name=".presentation.BoardingPassActivity"
             android:exported="false" />
@@ -119,9 +124,12 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="https" android:host="backend-java-production-ece2.up.railway.app"/>
+                <data
+                    android:host="backend-java-production-ece2.up.railway.app"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
+
         <service
             android:name=".service.MyFirebaseMessagingService"
             android:exported="false">

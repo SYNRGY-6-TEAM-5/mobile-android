@@ -10,7 +10,7 @@ import com.synrgy.aeroswift.presentation.viewholder.PaymentMethodViewHolder
 import com.synrgy.domain.local.PaymentMethod
 
 class PaymentMethodAdapter(
-    private val clickListener: (PaymentMethod, isChecked: Boolean) -> Unit
+    private val clickListener: (PaymentMethod) -> Unit
 ): ListAdapter<PaymentMethod, PaymentMethodViewHolder>(
     PaymentMethodDiffUtil()
 ) {
