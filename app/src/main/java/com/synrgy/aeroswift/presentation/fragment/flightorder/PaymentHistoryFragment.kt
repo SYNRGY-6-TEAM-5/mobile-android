@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.synrgy.aeroswift.databinding.FragmentPaymentHistoryBinding
 import com.synrgy.aeroswift.presentation.CheckInActivity
+import com.synrgy.aeroswift.presentation.OrderDetailActivity
 import com.synrgy.aeroswift.presentation.adapter.FlightHistoryAdapter
 import com.synrgy.presentation.constant.Constant
 import com.synrgy.presentation.constant.FlightHistoryConstant
@@ -54,6 +55,9 @@ class PaymentHistoryFragment : Fragment() {
         if (category == Constant.FlightHistoryCategory.PROCESSING.value) {
             CheckInActivity.startActivity(requireActivity())
             requireActivity().finish()
+        }
+        if (category == Constant.FlightHistoryCategory.AWAITING_PAYMENT.value) {
+            OrderDetailActivity.startActivity(requireActivity())
         }
     }
 }

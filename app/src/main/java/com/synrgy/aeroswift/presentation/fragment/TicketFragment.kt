@@ -48,8 +48,6 @@ class TicketFragment : Fragment() {
 
     private var token = ""
 
-    private var ticketList = ArrayList<TicketData>()
-
     private var departureAirport = ""
     private var arrivalAirport = ""
     private var departureDate = ""
@@ -85,22 +83,17 @@ class TicketFragment : Fragment() {
 
     private fun handleGetTicketData() {
         ticketViewModel.getDepartTickets(departureAirport, arrivalAirport, getDateString(departureDate))
-        if (returnDate != null) {
-            ticketViewModel.getReturnTickets(departureAirport, arrivalAirport, getDateString(returnDate!!))
-        }
     }
 
     private fun observeViewModel() {
         ticketViewModel.loading.observe(viewLifecycleOwner, ::handleLoading)
         ticketViewModel.tickets.observe(viewLifecycleOwner, ::handleGetTickets)
-        ticketViewModel.retTickets.observe(viewLifecycleOwner, ::handleGetTickets)
         authViewModel.authentication.observe(viewLifecycleOwner) { token = it }
     }
 
     private fun handleGetTickets(data: ArrayList<TicketData>) {
-        ticketList.addAll(data)
-        ticketAdapter.submitList(ticketList)
-        binding.tvSearchResult.text = "“${ticketList.size} Result”"
+        ticketAdapter.submitList(data)
+        binding.tvSearchResult.text = "“${data.size} Result”"
     }
 
     private fun handleLoading(loading: Boolean) {
@@ -112,9 +105,12 @@ class TicketFragment : Fragment() {
         binding.rvTicket.adapter = ticketAdapter
     }
 
-    private fun handleClickTicket() {
+    private fun handleClickTicket(data: TicketData) {
         if (token.isNotEmpty() && token.isNotBlank()) {
-            FlightDetailsActivity.startActivity(requireActivity())
+            val bundle = Bundle()
+            bundle.putInt(FlightDetailsActivity.KEY_TICKET_ID, data.ticketId ?: 1)
+
+            FlightDetailsActivity.startActivity(requireActivity(), bundle)
         } else {
             authDialog.show()
         }

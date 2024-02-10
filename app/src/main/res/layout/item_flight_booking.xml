@@ -11,14 +11,15 @@
         style="@style/TextXS.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Depart Date"
+        android:text="@string/depart_date"
         android:textColor="@color/gray_300"/>
 
     <com.google.android.material.textview.MaterialTextView
         style="@style/TextS.Medium"
+        android:id="@+id/tv_depart_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="22 Feb 2024"
+        android:text="@string/_22_feb_2024"
         android:textColor="@color/white"
         android:layout_marginTop="4dp"/>
 
@@ -33,14 +34,15 @@
         style="@style/TextXS.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Return Date"
+        android:text="@string/return_date"
         android:textColor="@color/gray_300"/>
 
     <com.google.android.material.textview.MaterialTextView
         style="@style/TextS.Medium"
+        android:id="@+id/tv_return_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="22 Feb 2024"
+        android:text="@string/_22_feb_2024"
         android:textColor="@color/white"
         android:layout_marginTop="4dp"/>
 

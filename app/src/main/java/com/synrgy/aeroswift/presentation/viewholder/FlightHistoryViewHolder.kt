@@ -33,6 +33,8 @@ class FlightHistoryViewHolder(
 
             binding.tvTotalPrice.text = context.getString(R.string.depart_baggage_price, Helper.formatPrice(data.total!!))
             startTimer(data.time!!)
+
+            binding.btnComplete.setOnClickListener { clickListener() }
         }
 
         if (data.category == Constant.FlightHistoryCategory.PROCESSING.value) {

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.synrgy.data.remote.NodeRepository
 import com.synrgy.domain.Resource
 import com.synrgy.domain.response.ticket.TicketData
 import com.synrgy.presentation.usecase.ticket.GetTicketsUseCase
@@ -15,13 +16,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TicketViewModel @Inject constructor(
-    private val getTicketsUseCase: GetTicketsUseCase
+    private val nodeRepository: NodeRepository
 ): ViewModel() {
     private val _tickets = MutableLiveData<ArrayList<TicketData>>()
     val tickets: LiveData<ArrayList<TicketData>> = _tickets
 
-    private val _retTickets = MutableLiveData<ArrayList<TicketData>>()
-    val retTickets: LiveData<ArrayList<TicketData>> = _retTickets
+    private val _ticket = MutableLiveData<TicketData>()
+    val ticket: LiveData<TicketData> = _ticket
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> = _loading
@@ -30,14 +31,14 @@ class TicketViewModel @Inject constructor(
     val error: LiveData<String> = _error
 
     fun getDepartTickets(
-        departureAirport: String,
-        arrivalAirport: String,
-        departureDate: String
+        departureAirport: String = "",
+        arrivalAirport: String = "",
+        departureDate: String = ""
     ) {
         _loading.value = true
 
         viewModelScope.launch(Dispatchers.IO) {
-            when (val response = getTicketsUseCase.invoke(departureAirport, arrivalAirport, departureDate)) {
+            when (val response = nodeRepository.getTickets(departureAirport, arrivalAirport, departureDate)) {
                 is Resource.Success -> {
                     withContext(Dispatchers.Main) {
                         _tickets.value = ArrayList(response.data?.data ?: emptyList())
@@ -64,18 +65,14 @@ class TicketViewModel @Inject constructor(
         }
     }
 
-    fun getReturnTickets(
-        departureAirport: String,
-        arrivalAirport: String,
-        departureDate: String
-    ) {
+    fun getTicketById(id: Int) {
         _loading.value = true
 
         viewModelScope.launch(Dispatchers.IO) {
-            when (val response = getTicketsUseCase.invoke(departureAirport, arrivalAirport, departureDate)) {
+            when (val response = nodeRepository.getTicketsById(id)) {
                 is Resource.Success -> {
                     withContext(Dispatchers.Main) {
-                        _retTickets.value = ArrayList(response.data?.data ?: emptyList())
+                        _ticket.value = response.data?.data?.get(0)
                     }
                 }
                 is Resource.ErrorRes -> {

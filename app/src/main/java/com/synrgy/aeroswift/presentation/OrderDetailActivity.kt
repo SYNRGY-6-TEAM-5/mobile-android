@@ -2,11 +2,11 @@ package com.synrgy.aeroswift.presentation
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import com.synrgy.aeroswift.R
+import androidx.appcompat.app.AppCompatActivity
 import com.synrgy.aeroswift.databinding.ActivityOrderDetailBinding
+import java.util.Locale
 
 class OrderDetailActivity : AppCompatActivity() {
 
@@ -17,27 +17,29 @@ class OrderDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         startTimer()
-
+        binding.toolbarOrderDetail.setNavigationOnClickListener { onBackPressed() }
     }
 
     private fun startTimer() {
-        // Timer for 1 hour
         val timer = object : CountDownTimer(3600000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                val hour = millisUntilFinished / 3600000
-                val minute = (millisUntilFinished % 3600000) / 60000
-                val second = (millisUntilFinished % 60000) / 1000
-                val time = "$hour:$minute:$second"
+                val seconds = (millisUntilFinished / 1000).toInt()
+                val minutes = seconds / 60
+                val hours = minutes / 60
+
+                val displaySeconds = seconds % 60
+                val displayMinutes = minutes % 60
+
+                val time = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, displayMinutes, displaySeconds)
+
                 binding.btnCompletePayment.text = "Complete the Payment in $time"
                 binding.tvTimer.text = time
             }
 
-            // When the timer is finished
             override fun onFinish() {
                 binding.btnCompletePayment.text = "Complete the Payment"
             }
         }
-        // Start the timer
         timer.start()
     }
 

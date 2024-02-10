@@ -13,12 +13,12 @@ class PaymentMethodViewHolder(
     fun bindData(
         data: PaymentMethod,
         rbList: ArrayList<RadioButton>,
-        clickListener: (PaymentMethod, isChecked: Boolean) -> Unit,
+        clickListener: (PaymentMethod) -> Unit,
     ) {
         binding.ivBank.setImageResource(data.bankImage)
         binding.tvBank.text = data.bankName
         binding.rbPayment.setOnClickListener {
-            clickListener(data, binding.rbPayment.isChecked)
+            clickListener(data)
             rbList.forEach { it.isChecked = false }
             binding.rbPayment.isChecked = true
         }

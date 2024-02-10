@@ -343,7 +343,8 @@
                         android:layout_width="112dp"
                         android:layout_height="60dp"
                         android:text="Bella Hadid"
-                        app:chipCornerRadius="8dp" />
+                        app:chipCornerRadius="8dp"
+                        android:checked="true"/>
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip_user_2"
