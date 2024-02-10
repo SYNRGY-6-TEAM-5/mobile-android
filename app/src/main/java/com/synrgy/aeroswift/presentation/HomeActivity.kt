@@ -5,30 +5,56 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import androidx.fragment.app.Fragment
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.ActivityHomeBinding
-import com.synrgy.aeroswift.dialog.LoadingDialog
-import com.synrgy.aeroswift.presentation.viewmodel.AuthViewModel
-import com.synrgy.presentation.helper.Helper
+import com.synrgy.aeroswift.dialog.AuthDialog
+import com.synrgy.aeroswift.presentation.fragment.FlightFragment
+import com.synrgy.aeroswift.presentation.fragment.HomeFragment
+import com.synrgy.aeroswift.presentation.fragment.ProfileFragment
+import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
     companion object {
-        fun startActivity(context: Context) {
-            context.startActivity(Intent(context, HomeActivity::class.java))
+        const val KEY_FRAGMENT_INDEX = "key_fragment_index"
+
+        fun startActivity(context: Context, bundle: Bundle? = null) {
+            val intent = Intent(context, HomeActivity::class.java)
+            if (bundle != null) intent.putExtras(bundle)
+
+            context.startActivity(intent)
+        }
+
+        fun startFlightFragment(context: Context) {
+            val bundle = Bundle()
+            bundle.putInt(KEY_FRAGMENT_INDEX, 1)
+
+            val intent = Intent(context, HomeActivity::class.java)
+            intent.putExtras(bundle)
+
+            context.startActivity(intent)
+        }
+
+        fun startProfileFragment(context: Context) {
+            val bundle = Bundle()
+            bundle.putInt(KEY_FRAGMENT_INDEX, 2)
+
+            val intent = Intent(context, HomeActivity::class.java)
+            intent.putExtras(bundle)
+
+            context.startActivity(intent)
         }
     }
 
     private lateinit var binding: ActivityHomeBinding
-    private lateinit var mGoogleSignInClient: GoogleSignInClient
 
     private val authViewModel: AuthViewModel by viewModels()
 
-    private val loadingDialog = LoadingDialog(HomeActivity@this)
+    private lateinit var authDialog: AuthDialog
+
+    private lateinit var token: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,47 +62,59 @@ class HomeActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        authDialog = AuthDialog(this)
+
+        authViewModel.getUser()
         authViewModel.checkAuth()
+        observeViewModel()
 
-        setupGso()
+        val bundle = intent.extras
 
-        observeHome()
-
-        binding.homeBtnLogout.setOnClickListener { authViewModel.logout() }
-    }
-
-    private fun setupGso() {
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.server_client_id))
-            .requestEmail()
-            .build()
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
-    }
-
-    private fun observeHome() {
-        authViewModel.logoutLoading.observe(this, ::handleLogout)
-        authViewModel.authentication.observe(this, ::handleAuthentication)
-    }
-
-    private fun handleLogout(loading: Boolean) {
-        if (loading) {
-            loadingDialog.startLoadingDialog()
-        } else {
-            loadingDialog.dismissDialog()
-
-            mGoogleSignInClient.revokeAccess().addOnCompleteListener {
-                Helper.showToast(this, this, getString(R.string.message_logout), isSuccess = true)
-                LoginActivity.startActivity(this)
-                this.finish()
+        when (bundle?.getInt(KEY_FRAGMENT_INDEX) ?: 0) {
+            0 -> {
+                replaceFragment(HomeFragment())
+                binding.homeBottomNavigation.selectedItemId = R.id.navigation_home
+            }
+            1 -> {
+                replaceFragment(FlightFragment())
+                binding.homeBottomNavigation.selectedItemId = R.id.navigation_flight
+            }
+            2 -> {
+                replaceFragment(ProfileFragment())
+                binding.homeBottomNavigation.selectedItemId = R.id.navigation_profile
             }
         }
+
+        binding.homeBottomNavigation.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.navigation_home -> replaceFragment(HomeFragment())
+                R.id.navigation_flight -> {
+                    if (token.isNotEmpty() && token.isNotBlank()) {
+                        replaceFragment(FlightFragment())
+                    } else {
+                        authDialog.show()
+                    }
+                }
+                R.id.navigation_profile -> {
+                    if (token.isNotEmpty() && token.isNotBlank()) {
+                        replaceFragment(ProfileFragment())
+                    } else {
+                        authDialog.show()
+                    }
+                }
+            }
+            true
+        }
     }
 
-    private fun handleAuthentication(token: String) {
-        if (token.isEmpty() && token.isBlank()) {
-            authViewModel.setToken(token)
-            LoginActivity.startActivity(this)
-            this.finish()
-        }
+    private fun replaceFragment(fragment: Fragment) {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.home_frame_layout, fragment)
+        fragmentTransaction.commit()
+    }
+
+    private fun observeViewModel() {
+        authViewModel.authentication.observe(this) { token = it }
     }
 }

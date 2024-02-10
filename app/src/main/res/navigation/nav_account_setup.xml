@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_account_setup"
+    app:startDestination="@id/codeVerifFragment">
+
+    <fragment
+        android:id="@+id/codeVerifFragment"
+        android:name="com.synrgy.aeroswift.presentation.fragment.accountsetup.CodeVerifFragment"
+        android:label="fragment_code_verif"
+        tools:layout="@layout/fragment_code_verif" >
+        <action
+            android:id="@+id/action_codeVerifFragment_to_accountDetailFragment"
+            app:destination="@id/accountDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountDetailFragment"
+        android:name="com.synrgy.aeroswift.presentation.fragment.accountsetup.AccountDetailFragment"
+        android:label="fragment_account_detail"
+        tools:layout="@layout/fragment_account_detail" >
+        <action
+            android:id="@+id/action_accountDetailFragment_to_setupEmailSuccessFragment"
+            app:destination="@id/setupEmailSuccessFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/setupEmailSuccessFragment"
+        android:name="com.synrgy.aeroswift.presentation.fragment.accountsetup.SetupEmailSuccessFragment"
+        android:label="fragment_setup_email_success"
+        tools:layout="@layout/fragment_setup_email_success" />
+</navigation>

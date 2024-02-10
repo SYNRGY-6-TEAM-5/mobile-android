@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="H1" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">72sp</item>
+        <item name="lineHeight">90sp</item>
+    </style>
+
+    <style name="H1.Medium" parent="H1">
+        <item name="fontWeight">500</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="H4" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">36sp</item>
         <item name="lineHeight">44sp</item>
@@ -10,6 +20,16 @@
         <item name="fontWeight">400</item>
     </style>
 
+    <style name="H5" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">30sp</item>
+        <item name="lineHeight">38sp</item>
+    </style>
+
+    <style name="H5.Semibold" parent="H5">
+        <item name="fontWeight">600</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="H6" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">24sp</item>
         <item name="lineHeight">32sp</item>
@@ -17,6 +37,11 @@
 
     <style name="H6.Medium" parent="H6">
         <item name="fontWeight">500</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="H6.Semibold" parent="H6">
+        <item name="fontWeight">600</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -34,6 +59,11 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="TextXS.Semibold" parent="TextXS">
+        <item name="fontWeight">600</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextS" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">14sp</item>
         <item name="lineHeight">20sp</item>
@@ -48,9 +78,23 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="TextS.Semibold" parent="TextS">
+        <item name="fontWeight">600</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="Text" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">16sp</item>
         <item name="lineHeight">24sp</item>
+    </style>
+
+    <style name="Text.Regular" parent="Text">
+        <item name="fontWeight">400</item>
+    </style>
+
+    <style name="Text.Medium" parent="Text">
+        <item name="fontWeight">500</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="Text.Semibold" parent="Text">
@@ -63,7 +107,7 @@
         <item name="lineHeight">28sp</item>
     </style>
 
-    <style name="TextL.Medium" parent="Text">
+    <style name="TextL.Medium" parent="TextL">
         <item name="fontWeight">500</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -82,18 +126,182 @@
         <item name="android:paddingBottom">16dp</item>
         <item name="textAllCaps">false</item>
         <item name="cornerRadius">16dp</item>
-        <item name="android:textSize">14sp</item>
-        <item name="fontWeight">500</item>
-        <item name="lineHeight">16sp</item>
+        <item name="android:textAppearance">@style/TextS.Medium</item>
+        <item name="android:elevation">0dp</item>
+        <item name="android:stateListAnimator">@null</item>
     </style>
 
     <style name="Button.Primary" parent="Button">
-        <item name="backgroundTint">@color/primary_500</item>
+        <item name="backgroundTint">@color/bg_button_selector</item>
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Button.OutlinePrimary" parent="Button">
+        <item name="backgroundTint">@color/transparent</item>
+        <item name="android:textColor">@color/primary_500</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="strokeColor">@color/primary_100</item>
+    </style>
+
+    <style name="Button.LightError" parent="Button">
+        <item name="backgroundTint">@color/error_100</item>
+        <item name="android:textColor">@color/error_400</item>
+    </style>
+
+    <style name="Button.Error" parent="Button">
+        <item name="backgroundTint">@color/error_50</item>
+        <item name="android:textColor">@color/error_500</item>
+        <item name="cornerRadius">4dp</item>
+        <item name="android:textAppearance">@style/TextXS.Medium</item>
     </style>
 
     <style name="TextField">
         <item name="backgroundTint">@color/white</item>
+    </style>
+  
+    <style name="spinnerStyle">
+        <item name="android:textAppearance">@style/H6.Medium</item>
+        <item name="android:textColor">@color/gray_200</item>
+        <item name="android:spinnerMode">dropdown</item>
+        <item name="android:background">@drawable/bg_dropdown_trip</item>
+    </style>
+
+    <style name="CustomChipChoice" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/bg_chip_selector</item>
+        <item name="chipStrokeColor">@color/gray_300</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="rippleColor">@color/gray_300</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/text_chip_selector</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="passengerOrderChip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/bg_chip_order</item>
+        <item name="chipStrokeColor">@color/stroke_chip_order</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="rippleColor">@color/error_50</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/text_chip_order_selector</item>
+        <item name="android:textAppearance">@style/Text.Medium</item>
+    </style>
+
+
+    <style name="ChipWhiteXSMedium" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/white</item>
+        <item name="chipCornerRadius">33dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/base_black</item>
+        <item name="android:textSize">12sp</item>
+        <item name="fontWeight">500</item>
+        <item name="lineHeight">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="chipStartPadding">8dp</item>
+        <item name="chipEndPadding">8dp</item>
+    </style>
+
+    <style name="ChipGrayXSMedium" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/gray_100</item>
+        <item name="chipCornerRadius">33dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/gray_500</item>
+        <item name="android:textSize">12sp</item>
+        <item name="fontWeight">500</item>
+        <item name="lineHeight">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="chipStartPadding">8dp</item>
+        <item name="chipEndPadding">8dp</item>
+    </style>
+
+    <style name="ChipPrimaryXSMedium" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/primary_500</item>
+        <item name="chipCornerRadius">33dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAppearance">@style/TextXS.Medium</item>
+        <item name="chipStartPadding">8dp</item>
+        <item name="chipEndPadding">8dp</item>
+    </style>
+
+    <style name="ChipGrayPrimaryXSMedium" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/gray_100</item>
+        <item name="chipCornerRadius">33dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/primary_500</item>
+        <item name="android:textAppearance">@style/TextXS.Medium</item>
+        <item name="chipStartPadding">8dp</item>
+        <item name="chipEndPadding">8dp</item>
+    </style>
+
+    <style name="ChipOutline" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/white</item>
+        <item name="chipCornerRadius">8dp</item>
+        <item name="android:textAppearance">@style/TextS.Medium</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/base_black</item>
+        <item name="chipStrokeColor">@color/gray_200</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="rippleColor">@color/gray_200</item>
+    </style>
+
+    <style name="ChipOutline.Primary" parent="ChipOutline">
+        <item name="chipBackgroundColor">@color/bg_chip_outline_selector</item>
+        <item name="android:textColor">@color/color_chip_outline_selector</item>
+        <item name="chipIconTint">@color/color_chip_outline_selector</item>
+    </style>
+
+    <style name="AutoCompleteTextView">
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">20dp</item>
+        <item name="android:textAppearance">@style/Text</item>
+    </style>
+
+    <style name="AppSearchView" parent="Widget.AppCompat.SearchView">
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">@drawable/shape_gray_100</item>
+        <item name="android:searchIcon">@drawable/ic_search</item>
+        <item name="android:closeIcon">@drawable/ic_close</item>
+        <item name="android:iconifiedByDefault">false</item>
+    </style>
+
+    <style name="CustomBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
+    </style>
+
+    <style name="CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
+    </style>
+
+    <style name="CustomShapeAppearanceBottomSheetDialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">32dp</item>
+        <item name="cornerSizeTopLeft">32dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="TabLayoutStyle">
+        <item name="tabIndicator">@drawable/tab_auth_inset</item>
+        <item name="tabIndicatorHeight">4dp</item>
+        <item name="tabGravity">fill</item>
+        <item name="tabMinWidth">80dp</item>
+        <item name="tabMode">scrollable</item>
+        <item name="tabRippleColor">@color/transparent</item>
+    </style>
+
+    <style name="TabLayoutStyle.Auth" parent="TabLayoutStyle">
+        <item name="tabSelectedTextColor">@color/white</item>
+        <item name="tabTextAppearance">@style/Text.Medium</item>
+        <item name="tabTextColor">@color/gray_700</item>
+    </style>
+
+    <style name="TabLayoutStyle.Date" parent="TabLayoutStyle">
+        <item name="tabSelectedTextColor">@color/primary_500</item>
+        <item name="tabTextAppearance">@style/TextXS.Semibold</item>
+        <item name="tabTextColor">@color/gray_300</item>
+        <item name="tabGravity">center</item>
+        <item name="tabMinWidth">100dp</item>
     </style>
 
 </resources>

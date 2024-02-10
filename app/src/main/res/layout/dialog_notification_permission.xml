@@ -14,6 +14,11 @@
             android:padding="16dp"
             android:orientation="vertical">
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_notif_perm"/>
+
             <com.google.android.material.textview.MaterialTextView
                 style="@style/TextL.Medium"
                 android:layout_width="200dp"
@@ -42,15 +47,15 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_bell" />
+                    android:src="@drawable/ic_bell_outline" />
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/TextS.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Notifications"
+                    android:text="@string/notifications"
                     android:textColor="@color/base_black"
-                    android:layout_marginLeft="8dp" />
+                    android:layout_marginStart="8dp" />
 
                 <View
                     android:layout_width="0dp"
@@ -72,7 +77,7 @@
                 android:id="@+id/btn_notif_perm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Continue"
+                android:text="@string/continue_"
                 android:layout_marginTop="60dp" />
 
         </LinearLayout>

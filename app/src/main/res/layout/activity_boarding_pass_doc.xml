@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.BoardingPassDocActivity"
+    android:padding="16dp">
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/H1.Medium"
+        android:id="@+id/tv_origin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/yia"
+        android:textColor="@color/base_black"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/H1.Medium"
+        android:id="@+id/tv_destination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_origin"
+        android:text="@string/cgk"
+        android:textColor="@color/base_black"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/TextXS.Medium"
+        android:id="@+id/tv_depart_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_origin"
+        android:text="@string/depart"
+        android:textColor="@color/primary_500"
+        android:layout_marginTop="20dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/TextXS.Regular"
+        android:id="@+id/tv_depart_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_depart_text"
+        android:text="@string/tue_4_jan_2024"
+        android:textColor="@color/base_black"
+        android:layout_marginTop="4dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/TextXS.Medium"
+        android:id="@+id/tv_depart_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_depart_date"
+        android:text="@string/_07_40_am"
+        android:textColor="@color/gray_300"
+        android:layout_marginTop="4dp"/>
+
+    <ImageView
+        android:layout_width="106dp"
+        android:layout_height="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_depart_text"
+        app:layout_constraintBottom_toBottomOf="@id/tv_depart_time"
+        android:src="@drawable/img_airplane_flight"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/TextXS.Medium"
+        android:id="@+id/tv_arrived_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_origin"
+        android:text="@string/arrived"
+        android:textColor="@color/primary_500"
+        android:layout_marginTop="20dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/TextXS.Regular"
+        android:id="@+id/tv_arrived_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_arrived_text"
+        android:text="@string/tue_4_jan_2024"
+        android:textColor="@color/base_black"
+        android:layout_marginTop="4dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/TextXS.Medium"
+        android:id="@+id/tv_arrived_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_depart_date"
+        android:text="@string/_07_40_am"
+        android:textColor="@color/gray_300"
+        android:layout_marginTop="4dp"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_passenger"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/base_black"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_depart_time"
+        android:layout_marginTop="32dp">
+
+        <TableLayout
+            android:id="@+id/table_passenger"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="28dp"
+            android:stretchColumns="*">
+
+            <TableRow
+                android:paddingHorizontal="28dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/H6.Medium"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:text="@string/bella_hadid"
+                    android:textColor="@color/white"
+                    app:textAllCaps="true"/>
+
+            </TableRow>
+
+            <TableRow
+                android:paddingHorizontal="28dp"
+                android:layout_marginTop="24dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/H6.Medium"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:text="@string/_3_"
+                    android:textColor="@color/primary_500"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/H6.Medium"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:text="@string/_12a"
+                    android:textColor="@color/primary_500"/>
+
+            </TableRow>
+
+            <TableRow
+                android:paddingHorizontal="28dp"
+                android:layout_marginTop="8dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextS.Regular"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:text="@string/terminal"
+                    android:textColor="@color/gray_200"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextS.Regular"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:text="@string/gate"
+                    android:textColor="@color/gray_200"/>
+
+            </TableRow>
+
+            <TableRow
+                android:paddingHorizontal="28dp"
+                android:layout_marginTop="24dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/H6.Medium"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:text="@string/ga207"
+                    android:textColor="@color/primary_500"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/H6.Medium"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:text="@string/b3"
+                    android:textColor="@color/primary_500"/>
+
+            </TableRow>
+
+            <TableRow
+                android:paddingHorizontal="28dp"
+                android:layout_marginTop="8dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextS.Regular"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:text="@string/flight"
+                    android:textColor="@color/gray_200"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextS.Regular"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:text="@string/seat"
+                    android:textColor="@color/gray_200"/>
+
+            </TableRow>
+
+            <TableRow
+                android:paddingHorizontal="28dp"
+                android:layout_marginTop="24dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/H6.Medium"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:text="@string/_4_jan"
+                    android:textColor="@color/primary_500"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/H6.Medium"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:text="@string/_07_40_am"
+                    android:textColor="@color/primary_500"/>
+
+            </TableRow>
+
+            <TableRow
+                android:paddingHorizontal="28dp"
+                android:layout_marginTop="8dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextS.Regular"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:text="@string/date"
+                    android:textColor="@color/gray_200"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextS.Regular"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:text="@string/boarding"
+                    android:textColor="@color/gray_200"/>
+
+            </TableRow>
+
+        </TableLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <ImageView
+        android:layout_width="283dp"
+        android:layout_height="110dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/card_passenger"
+        android:src="@drawable/img_boarding_pass"
+        android:layout_marginTop="32dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

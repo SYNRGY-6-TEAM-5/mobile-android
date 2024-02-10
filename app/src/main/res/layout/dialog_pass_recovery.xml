@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar_pass_recovery"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:navigationIcon="?attr/homeAsUpIndicator"
+                    android:layout_marginVertical="20dp"/>
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="16dp"
+                            android:paddingBottom="16dp"
+                            android:orientation="vertical">
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    style="@style/H6.Medium"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/password_recovery"
+                                    android:textColor="@color/base_black" />
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    style="@style/TextS.Regular"
+                                    android:layout_width="300dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/password_recovery_desc"
+                                    android:textColor="@color/gray_500"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginBottom="50dp"/>
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/password_til_email"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="Your email address"
+                                    android:layout_marginBottom="20dp">
+
+                                        <com.google.android.material.textfield.TextInputEditText
+                                            style="@style/TextField"
+                                            android:id="@+id/password_ti_email"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:inputType="text"/>
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/btn_next_pass_recovery"
+                                    style="@style/Button.Primary"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Next"
+                                    android:layout_marginTop="40dp" />
+
+                        </LinearLayout>
+
+                </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -3,13 +3,14 @@ package com.synrgy.aeroswift.presentation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.button.MaterialButton
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
-import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.ActivityMainBinding
-import com.synrgy.aeroswift.dialog.PermissionNotificationDialog
+import com.synrgy.aeroswift.dialog.NotificationPermissionDialog
 import com.synrgy.aeroswift.presentation.adapter.ScreenSlidePagerAdapter
+import com.synrgy.aeroswift.presentation.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -22,13 +23,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityMainBinding
-    private val notifDialog = PermissionNotificationDialog(MainActivity@this)
+
+    private val mainViewModel: MainViewModel by viewModels()
+
+    private lateinit var notifDialog: NotificationPermissionDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        notifDialog = NotificationPermissionDialog(this, mainViewModel)
 
         val adapter = ScreenSlidePagerAdapter(this)
         binding.viewPagerOnboarding.adapter = adapter
@@ -41,12 +47,28 @@ class MainActivity : AppCompatActivity() {
         binding.textNextOnboarding.setOnClickListener {
             val currPos = binding.viewPagerOnboarding.currentItem
 
-            if ((currPos + 1) < adapter.itemCount ?: 0) {
+            if ((currPos + 1) < (adapter.itemCount)) {
                 handleNextOnBoarding(currPos)
             } else {
                 notifDialog.show()
             }
         }
+
+        binding.viewPagerOnboarding.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                handleScrollView(position)
+            }
+        })
+    }
+
+    private fun handleScrollView(index: Int) {
+        val textList = listOf(
+            "Track & find your flight",
+            "Manage all your document trip",
+            "Easy to schedulling your flight"
+        )
+
+        binding.textOnboarding.text = textList[index]
     }
 
     private fun handleNextOnBoarding(currPos: Int) {

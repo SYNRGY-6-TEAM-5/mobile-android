@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_check_in"
+    app:startDestination="@id/checkInDetailsFragment">
+
+    <fragment
+        android:id="@+id/checkInDetailsFragment"
+        android:name="com.synrgy.aeroswift.presentation.fragment.checkin.CheckInDetailsFragment"
+        android:label="fragment_check_in_details"
+        tools:layout="@layout/fragment_check_in_details" >
+        <action
+            android:id="@+id/action_checkInDetailsFragment_to_checkInPolicyFragment"
+            app:destination="@id/checkInPolicyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkInPolicyFragment"
+        android:name="com.synrgy.aeroswift.presentation.fragment.checkin.CheckInPolicyFragment"
+        android:label="fragment_check_in_policy"
+        tools:layout="@layout/fragment_check_in_policy" >
+        <action
+            android:id="@+id/action_checkInPolicyFragment_to_checkInDataFragment"
+            app:destination="@id/checkInDataFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkInDataFragment"
+        android:name="com.synrgy.aeroswift.presentation.fragment.checkin.CheckInDataFragment"
+        android:label="fragment_check_in_data"
+        tools:layout="@layout/fragment_check_in_data" />
+</navigation>

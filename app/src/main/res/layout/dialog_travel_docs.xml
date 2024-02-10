@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/iv_close"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_close"
+        android:layout_gravity="end"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="16dp"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="32dp"
+            android:layout_gravity="bottom"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="218dp"
+                android:layout_height="300dp"
+                android:src="@drawable/img_travel_docs"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/H6.Medium"
+                android:layout_width="317dp"
+                android:layout_height="wrap_content"
+                android:text="@string/travel_docs_title"
+                android:textColor="@color/base_black"
+                android:textAlignment="center"
+                android:layout_marginTop="85dp"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextXS.Regular"
+                android:layout_width="236dp"
+                android:layout_height="wrap_content"
+                android:text="@string/travel_docs_desc"
+                android:textColor="@color/base_black"
+                android:textAlignment="center"
+                android:layout_marginTop="12dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_continue"
+                style="@style/Button.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="@string/continue_"
+                android:layout_marginTop="46dp"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

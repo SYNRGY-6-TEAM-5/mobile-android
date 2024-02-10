@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.fragment.accountsetup.SetupEmailSuccessFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="32dp"
+        android:layout_gravity="bottom"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_profile_setup_success"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/H6.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/your_account_has_been_verified_succesfully"
+            android:textColor="@color/base_black"
+            android:textAlignment="center"
+            android:layout_marginTop="110dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="110dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextS.Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/redirecting_to_home_in"
+                android:textColor="@color/gray_300"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextS.Medium"
+                android:id="@+id/tv_timer_account_setup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_0_03"
+                android:textColor="@color/primary_500"
+                android:layout_marginStart="5dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
