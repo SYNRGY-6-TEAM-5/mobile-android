@@ -6,16 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.google.android.material.textview.MaterialTextView
+import com.bumptech.glide.Glide
 import com.synrgy.aeroswift.R
-import com.synrgy.aeroswift.presentation.LoginActivity
-import com.synrgy.aeroswift.presentation.MainActivity
-import com.synrgy.aeroswift.presentation.viewmodel.PageViewModel
+import com.synrgy.aeroswift.databinding.FragmentOnBoardingBinding
+import com.synrgy.aeroswift.presentation.viewmodel.onboarding.PageViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class OnBoardingFragment : Fragment() {
     private val pageViewModel: PageViewModel by viewModels()
+    private lateinit var binding: FragmentOnBoardingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,24 +25,27 @@ class OnBoardingFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_on_boarding, container, false)
+    ): View {
+        binding = FragmentOnBoardingBinding.inflate(layoutInflater)
+        val view = binding.root
 
         pageViewModel.index.observe(viewLifecycleOwner, ::handleScrollView)
 
-        return root
+        return view
     }
 
     private fun handleScrollView(index: Int) {
-        val textOnboarding = view?.findViewById<MaterialTextView>(R.id.text_onboarding)
-
-        val textList = listOf<String>(
-            "Track & find your flight",
-            "Manage all your document trip",
-            "Easy to schedulling your flight"
+        val imgList = listOf(
+            R.drawable.img_onboarding_1,
+            R.drawable.img_onboarding_2,
+            R.drawable.img_onboarding_3
         )
 
-        textOnboarding?.text = textList[index ?: 0]
+        Glide
+            .with(this)
+            .load(imgList[index])
+            .centerCrop()
+            .into(binding.imgOnboarding)
     }
 
     companion object {

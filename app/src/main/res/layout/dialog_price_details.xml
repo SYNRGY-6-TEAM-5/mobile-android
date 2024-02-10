@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="12dp"
+            android:paddingHorizontal="16dp"
+            android:gravity="center_vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/Text.Regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/price_details"
+                android:textColor="@color/gray_900"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/iv_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_close"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_100"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="32dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_price_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:itemCount="2"
+                tools:listitem="@layout/item_price_details" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/Text.Medium"
+                android:id="@+id/tv_addon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_price_details"
+                android:text="@string/other_add_on"
+                android:textColor="@color/black"/>
+
+            <TableLayout
+                android:id="@+id/table_addon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_addon"
+                android:layout_marginTop="16dp"
+                android:stretchColumns="*">
+
+                <TableRow>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextXS.Semibold"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:text="@string/type"
+                        android:textColor="@color/white"
+                        android:paddingEnd="12dp"
+                        tools:ignore="RtlSymmetry"
+                        android:background="@drawable/bg_table_head_left"/>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextXS.Semibold"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:text="@string/price"
+                        android:textColor="@color/white"
+                        android:paddingEnd="12dp"
+                        tools:ignore="RtlSymmetry"
+                        android:background="@drawable/bg_table_head_right"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tr_full_protection">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextXS.Regular"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:text="@string/full_protection"
+                        android:textColor="@color/base_black"
+                        android:paddingEnd="12dp"
+                        tools:ignore="RtlSymmetry"
+                        android:background="@drawable/bg_table_body"/>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextXS.Regular"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:text="@string/idr_95_000_pax"
+                        android:textColor="@color/base_black"
+                        android:paddingEnd="12dp"
+                        tools:ignore="RtlSymmetry"
+                        android:background="@drawable/bg_table_body"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tr_insurance">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextXS.Regular"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:text="@string/baggage_insurance"
+                        android:textColor="@color/base_black"
+                        android:paddingEnd="12dp"
+                        tools:ignore="RtlSymmetry"
+                        android:background="@drawable/bg_table_body"/>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextXS.Regular"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:text="@string/idr_16_000_pax"
+                        android:textColor="@color/base_black"
+                        android:paddingEnd="12dp"
+                        tools:ignore="RtlSymmetry"
+                        android:background="@drawable/bg_table_body"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tr_flight_delay">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextXS.Regular"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:text="@string/flight_delay"
+                        android:textColor="@color/base_black"
+                        android:paddingEnd="12dp"
+                        tools:ignore="RtlSymmetry"
+                        android:background="@drawable/bg_table_body"/>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/TextXS.Regular"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:text="@string/idr_16_000_pax"
+                        android:textColor="@color/base_black"
+                        android:paddingEnd="12dp"
+                        tools:ignore="RtlSymmetry"
+                        android:background="@drawable/bg_table_body"/>
+
+                </TableRow>
+
+            </TableLayout>
+
+            <View
+                android:id="@+id/table_separator_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/table_addon"
+                android:background="@color/gray_500"
+                android:layout_marginTop="16dp"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextS.Medium"
+                android:id="@+id/tv_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/table_separator_bottom"
+                android:text="@string/total"
+                android:textColor="@color/base_black"
+                android:layout_marginTop="16dp"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/Text.Semibold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_total"
+                app:layout_constraintBottom_toBottomOf="@id/tv_total"
+                android:text="@string/idr_2_230_900"
+                android:textColor="@color/primary_500"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

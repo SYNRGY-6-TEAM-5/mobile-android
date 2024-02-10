@@ -11,10 +11,38 @@
     <color name="transparent">#00000000</color>
     <color name="base_black">#111111</color>
     <color name="transparent_black">#80000000</color>
+
+    <color name="primary_100">#FDD7CE</color>
+    <color name="primary_200">#FBAE9D</color>
     <color name="primary_500">#F74E28</color>
+
+    <color name="warning_50">#FFFAEB</color>
+    <color name="warning_100">#FEF0C7</color>
+    <color name="warning_500">#F79009</color>
+
+    <color name="error_50">#FEEBE6</color>
+    <color name="error_100">#FEE4E2</color>
+    <color name="error_400">#F97066</color>
+    <color name="error_500">#F04438</color>
+
+    <color name="light_gray">#FBFBFB</color>
+    <color name="gray_50">#F9F9FB</color>
     <color name="gray_100">#EFF1F5</color>
     <color name="gray_200">#DCDFEA</color>
     <color name="gray_300">#B9C0D4</color>
-    <color name="gray_600">#4A5578</color>S
+    <color name="gray_400">#7D89B0</color>
+    <color name="gray_500">#5D6B98</color>
+    <color name="gray_600">#4A5578</color>
     <color name="gray_700">#404968</color>
+    <color name="gray_800">#30374F</color>
+    <color name="gray_900">#2B2B2B</color>
+
+    <color name="success_500">#12B76A</color>
+
+    <color name="no_color" />
+
+    <color name="password_weak">#F04438</color>
+    <color name="password_okay">#FDB022</color>
+    <color name="password_strong">#12B76A</color>
+    <color name="background">#FBFBFB</color>
 </resources>

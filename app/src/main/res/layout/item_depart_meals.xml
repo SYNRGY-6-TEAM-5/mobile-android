@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="20dp">
+
+    <ImageView
+        android:id="@+id/img_meals"
+        android:layout_width="89dp"
+        android:layout_height="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/img_fried_noodle"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/Text.Medium"
+        android:id="@+id/meals_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/img_meals"
+        app:layout_constraintTop_toTopOf="@id/img_meals"
+        app:layout_constraintBottom_toTopOf="@id/meals_price"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:text="@string/fried_noodle"
+        android:textColor="@color/base_black"
+        android:layout_marginStart="12dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/TextXS.Regular"
+        android:id="@+id/meals_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/meals_name"
+        app:layout_constraintTop_toBottomOf="@id/meals_name"
+        app:layout_constraintBottom_toBottomOf="@id/img_meals"
+        android:text="@string/idr_99_000_portion"
+        android:textColor="@color/base_black"
+        android:layout_marginTop="8dp"/>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/cb_meals"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/img_meals"
+        app:layout_constraintBottom_toBottomOf="@id/img_meals"
+        android:buttonTint="@color/primary_500"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_meals"
+        android:background="@color/gray_200"
+        android:layout_marginTop="20dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

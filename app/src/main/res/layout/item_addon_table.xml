@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/bg_dash"
+        android:layout_marginTop="16dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/Text.Medium"
+        android:id="@+id/tv_origin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/separator"
+        android:text="@string/jakarta"
+        android:textColor="@color/black"/>
+
+    <ImageView
+        android:id="@+id/iv_arrow"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintStart_toEndOf="@id/tv_origin"
+        app:layout_constraintTop_toTopOf="@id/tv_origin"
+        android:src="@drawable/ef_ic_arrow_forward"
+        app:tint="@color/primary_500"
+        android:layout_marginHorizontal="4dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/Text.Medium"
+        android:id="@+id/tv_dest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/iv_arrow"
+        app:layout_constraintTop_toTopOf="@id/tv_origin"
+        android:text="@string/yogyakarta"
+        android:textColor="@color/black"/>
+
+    <TableLayout
+        android:id="@+id/table_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_origin"
+        android:layout_marginTop="16dp"
+        android:stretchColumns="*">
+
+        <TableRow>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextXS.Semibold"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/add_ons"
+                android:textColor="@color/white"
+                android:paddingEnd="12dp"
+                tools:ignore="RtlSymmetry"
+                android:background="@drawable/bg_table_head_left"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextXS.Semibold"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/evidence"
+                android:textColor="@color/white"
+                android:paddingEnd="12dp"
+                tools:ignore="RtlSymmetry"
+                android:background="@drawable/bg_table_head_right"/>
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tr_baggage">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextXS.Regular"
+                android:id="@+id/tv_title_baggage"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/extra_baggage"
+                android:textColor="@color/base_black"
+                android:paddingEnd="12dp"
+                tools:ignore="RtlSymmetry"
+                android:background="@drawable/bg_table_body"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextXS.Regular"
+                android:id="@+id/tv_value_baggage"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/_16_kg"
+                android:textColor="@color/base_black"
+                android:paddingEnd="12dp"
+                tools:ignore="RtlSymmetry"
+                android:background="@drawable/bg_table_body"/>
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tr_meal">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextXS.Regular"
+                android:id="@+id/tv_title_meal"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/meal"
+                android:textColor="@color/base_black"
+                android:paddingEnd="12dp"
+                tools:ignore="RtlSymmetry"
+                android:background="@drawable/bg_table_body"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextXS.Regular"
+                android:id="@+id/tv_value_meal"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/_1_meal"
+                android:textColor="@color/base_black"
+                android:paddingEnd="12dp"
+                tools:ignore="RtlSymmetry"
+                android:background="@drawable/bg_table_body"/>
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tr_full_protection">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextXS.Regular"
+                android:id="@+id/tv_title_full_protection"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/full_protection"
+                android:textColor="@color/base_black"
+                android:paddingEnd="12dp"
+                tools:ignore="RtlSymmetry"
+                android:background="@drawable/bg_table_body"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextXS.Regular"
+                android:id="@+id/tv_value_full_protection"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/insured"
+                android:textColor="@color/base_black"
+                android:paddingEnd="12dp"
+                tools:ignore="RtlSymmetry"
+                android:background="@drawable/bg_table_body"/>
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tr_flight_delay">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextXS.Regular"
+                android:id="@+id/tv_title_flight_delay"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/flight_delay"
+                android:textColor="@color/base_black"
+                android:paddingEnd="12dp"
+                tools:ignore="RtlSymmetry"
+                android:background="@drawable/bg_table_body"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextXS.Regular"
+                android:id="@+id/tv_value_flight_delay"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/insured"
+                android:textColor="@color/base_black"
+                android:paddingEnd="12dp"
+                tools:ignore="RtlSymmetry"
+                android:background="@drawable/bg_table_body"/>
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tr_insurance">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextXS.Regular"
+                android:id="@+id/tv_title_insurance"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/baggage_insurance"
+                android:textColor="@color/base_black"
+                android:paddingEnd="12dp"
+                tools:ignore="RtlSymmetry"
+                android:background="@drawable/bg_table_body"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextXS.Regular"
+                android:id="@+id/tv_value_insurance"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/insured"
+                android:textColor="@color/base_black"
+                android:paddingEnd="12dp"
+                tools:ignore="RtlSymmetry"
+                android:background="@drawable/bg_table_body"/>
+
+        </TableRow>
+
+    </TableLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

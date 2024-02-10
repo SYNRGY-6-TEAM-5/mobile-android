@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_flight_order"
+    app:startDestination="@id/flightOrderFragment">
+
+    <fragment
+        android:id="@+id/flightOrderFragment"
+        android:name="com.synrgy.aeroswift.presentation.fragment.flightorder.FlightOrderFragment"
+        android:label="fragment_flight_order"
+        tools:layout="@layout/fragment_flight_order" >
+        <action
+            android:id="@+id/action_flightOrderFragment_to_paymentHistoryFragment"
+            app:destination="@id/paymentHistoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/paymentHistoryFragment"
+        android:name="com.synrgy.aeroswift.presentation.fragment.flightorder.PaymentHistoryFragment"
+        android:label="fragment_payment_history"
+        tools:layout="@layout/fragment_payment_history" >
+        <argument
+            android:name="payment_category"
+            app:argType="com.synrgy.presentation.constant.Constant$FlightHistoryCategory"
+            android:defaultValue="COMPLETED" />
+    </fragment>
+</navigation>

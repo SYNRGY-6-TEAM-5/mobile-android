@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginBottom="8dp">
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/TextXS.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bullet_icon"
+        android:textColor="@color/base_black"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/TextXS.Regular"
+        android:id="@+id/tv_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/important_information_1"
+        android:textColor="@color/base_black"
+        android:layout_marginStart="6dp"/>
+
+</LinearLayout>
