@@ -10,6 +10,7 @@ import com.synrgy.domain.body.forgotpassword.EditPasswordFpBody
 import com.synrgy.domain.body.forgotpassword.ForgotPasswordBody
 import com.synrgy.domain.body.forgotpassword.ValidateOtpFpBody
 import com.synrgy.domain.body.user.EditProfileBody
+import com.synrgy.domain.body.user.FcmTokenBody
 import com.synrgy.domain.repository.AirportRepository
 import com.synrgy.domain.repository.DepartureRepository
 import com.synrgy.domain.repository.GuestRepository
@@ -26,6 +27,7 @@ import com.synrgy.domain.response.forgotpassword.ForgotPasswordResponse
 import com.synrgy.domain.response.forgotpassword.ValidateOtpFpResponse
 import com.synrgy.domain.response.user.EditProfileImageResponse
 import com.synrgy.domain.response.user.EditProfileResponse
+import com.synrgy.domain.response.user.FcmTokenResponse
 import com.synrgy.domain.response.user.UserDetailResponse
 import okhttp3.MultipartBody
 import javax.inject.Inject
@@ -192,6 +194,22 @@ class RemoteRepository @Inject constructor(
     override suspend fun getUserDetail(token: String): Resource<UserDetailResponse> {
         return try {
             val response = remoteService.getUserDetail("Bearer $token")
+            val result = response.body()
+            Helper.getResult(response, result)
+        } catch (_: Exception) {
+            Resource.ExceptionRes(Helper.getErrorResponse(
+                "",
+                ExceptionResponse::class.java
+            ))
+        }
+    }
+
+    override suspend fun getFcmToken(
+        token: String,
+        body: FcmTokenBody
+    ): Resource<FcmTokenResponse> {
+        return try {
+            val response = remoteService.getFcmToken("Bearer $token", body)
             val result = response.body()
             Helper.getResult(response, result)
         } catch (_: Exception) {

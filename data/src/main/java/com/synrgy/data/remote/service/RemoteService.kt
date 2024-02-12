@@ -7,6 +7,7 @@ import com.synrgy.domain.body.forgotpassword.EditPasswordFpBody
 import com.synrgy.domain.body.forgotpassword.ForgotPasswordBody
 import com.synrgy.domain.body.forgotpassword.ValidateOtpFpBody
 import com.synrgy.domain.body.user.EditProfileBody
+import com.synrgy.domain.body.user.FcmTokenBody
 import com.synrgy.domain.response.airport.AirportDetailResponse
 import com.synrgy.domain.response.airport.AirportResponse
 import com.synrgy.domain.response.auth.LoginResponse
@@ -19,6 +20,7 @@ import com.synrgy.domain.response.forgotpassword.ForgotPasswordResponse
 import com.synrgy.domain.response.forgotpassword.ValidateOtpFpResponse
 import com.synrgy.domain.response.user.EditProfileImageResponse
 import com.synrgy.domain.response.user.EditProfileResponse
+import com.synrgy.domain.response.user.FcmTokenResponse
 import com.synrgy.domain.response.user.UserDetailResponse
 import okhttp3.MultipartBody
 import retrofit2.Response
@@ -86,4 +88,10 @@ interface RemoteService {
 
     @GET("user/detail-user")
     suspend fun getUserDetail(@Header("Authorization") token: String): Response<UserDetailResponse>
+
+    @POST("user/fcm-token")
+    suspend fun getFcmToken(
+        @Header("Authorization") token: String,
+        @Body body: FcmTokenBody
+    ): Response<FcmTokenResponse>
 }

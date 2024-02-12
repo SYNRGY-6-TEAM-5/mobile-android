@@ -7,7 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.synrgy.data.local.room.FlightDatabase
 import com.synrgy.data.local.room.entity.UserEntity
 import com.synrgy.data.local.room.entity.toUser
+import com.synrgy.data.remote.RemoteRepository
 import com.synrgy.domain.Resource
+import com.synrgy.domain.body.user.FcmTokenBody
 import com.synrgy.domain.local.User
 import com.synrgy.domain.response.user.UserDetailResponse
 import com.synrgy.presentation.usecase.auth.ClearTokenUseCase
@@ -31,6 +33,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
+    private val remoteRepository: RemoteRepository,
     private val getTokenUseCase: GetTokenUseCase,
     private val clearTokenUseCase: ClearTokenUseCase,
     private val setTokenUseCase: SetTokenUseCase,
@@ -182,5 +185,14 @@ class AuthViewModel @Inject constructor(
                 )
             )
         } catch (_: Exception) {}
+    }
+
+    fun getFcmToken(body: FcmTokenBody) {
+        viewModelScope.launch(Dispatchers.IO) {
+            remoteRepository.getFcmToken(
+                token = getTokenUseCase.invoke().first() ?: "",
+                body = body
+            )
+        }
     }
 }

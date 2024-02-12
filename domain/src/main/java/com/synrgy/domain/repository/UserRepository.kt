@@ -2,9 +2,11 @@ package com.synrgy.domain.repository
 
 import com.synrgy.domain.Resource
 import com.synrgy.domain.body.user.EditProfileBody
+import com.synrgy.domain.body.user.FcmTokenBody
 import com.synrgy.domain.response.auth.UploadProfileImageResponse
 import com.synrgy.domain.response.user.EditProfileImageResponse
 import com.synrgy.domain.response.user.EditProfileResponse
+import com.synrgy.domain.response.user.FcmTokenResponse
 import com.synrgy.domain.response.user.UserDetailResponse
 import okhttp3.MultipartBody
 
@@ -28,4 +30,9 @@ interface UserRepository {
         token: String,
         file: MultipartBody.Part
     ): Resource<EditProfileImageResponse>
+
+    suspend fun getFcmToken(
+        token: String,
+        body: FcmTokenBody
+    ): Resource<FcmTokenResponse>
 }

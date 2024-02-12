@@ -6,6 +6,9 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.installations.FirebaseInstallations
+import com.google.firebase.messaging.FirebaseMessaging
 import com.synrgy.aeroswift.R
 import com.synrgy.aeroswift.databinding.ActivityHomeBinding
 import com.synrgy.aeroswift.dialog.AuthDialog
@@ -13,7 +16,9 @@ import com.synrgy.aeroswift.presentation.fragment.FlightFragment
 import com.synrgy.aeroswift.presentation.fragment.HomeFragment
 import com.synrgy.aeroswift.presentation.fragment.ProfileFragment
 import com.synrgy.aeroswift.presentation.viewmodel.auth.AuthViewModel
+import com.synrgy.domain.body.user.FcmTokenBody
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
@@ -105,6 +110,16 @@ class HomeActivity : AppCompatActivity() {
             }
             true
         }
+
+        FirebaseMessaging.getInstance().token
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    return@OnCompleteListener
+                }
+                // Get new Instance ID token
+                val token = task.result
+                authViewModel.getFcmToken(FcmTokenBody(token))
+            })
     }
 
     private fun replaceFragment(fragment: Fragment) {

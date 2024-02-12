@@ -153,11 +153,15 @@ class FlightBookingActivity : AppCompatActivity() {
     private fun handleNavigateSearch() {
         val bundle = Bundle()
         val departDate = flightBookings[position]?.get(0)?.departDate
-        bundle.putString(SearchActivity.KEY_DEPARTURE_AIRPORT, departureAirport)
-        bundle.putString(SearchActivity.KEY_ARRIVAL_AIRPORT, arrivalAirport)
-        bundle.putString(SearchActivity.KEY_DEPARTURE_DATE, Helper.formatDmyTime(departDate!!))
+        if (departDate == null) {
+            onBackPressed()
+        } else {
+            bundle.putString(SearchActivity.KEY_DEPARTURE_AIRPORT, departureAirport)
+            bundle.putString(SearchActivity.KEY_ARRIVAL_AIRPORT, arrivalAirport)
+            bundle.putString(SearchActivity.KEY_DEPARTURE_DATE, Helper.formatDmyTime(departDate!!))
 
-        SearchActivity.startActivity(this, bundle)
-        this.finish()
+            SearchActivity.startActivity(this, bundle)
+            this.finish()
+        }
     }
 }

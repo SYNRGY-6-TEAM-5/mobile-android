@@ -1,73 +1,26 @@
 {
   "project_info": {
-    "project_number": "432632858701",
-    "project_id": "aero-swift",
-    "storage_bucket": "aero-swift.appspot.com"
+    "project_number": "157685447698",
+    "project_id": "aeroswift-3cd95",
+    "storage_bucket": "aeroswift-3cd95.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:432632858701:android:a10a6db4495e1e8fc6f404",
+        "mobilesdk_app_id": "1:157685447698:android:c6859e256305be1a3daccb",
         "android_client_info": {
           "package_name": "com.synrgy.aeroswift"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "432632858701-qntht7lfuubdvso38ogje0uetqr68qgv.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.synrgy.aeroswift",
-            "certificate_hash": "2d9e213d6164f21aedd39970b6de2ac188d52da1"
-          }
-        },
-        {
-          "client_id": "432632858701-8pjqliu5fet9klpoqoa4o22oni7q700a.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAdv2q9s6xp_LWWKwamcQZgIs0rMJGA_74"
+          "current_key": "AIzaSyBkOEo2VFbhj_D5mb8TW5Pz1JDlZOQhHYw"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "432632858701-8pjqliu5fet9klpoqoa4o22oni7q700a.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:432632858701:android:009b911bf82c94afc6f404",
-        "android_client_info": {
-          "package_name": "com.synrgy.aeroswift.debug"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "432632858701-8pjqliu5fet9klpoqoa4o22oni7q700a.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAdv2q9s6xp_LWWKwamcQZgIs0rMJGA_74"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "432632858701-8pjqliu5fet9klpoqoa4o22oni7q700a.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
