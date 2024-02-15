@@ -126,7 +126,8 @@
 
                 <data
                     android:host="backend-java-production-ece2.up.railway.app"
-                    android:scheme="https" />
+                    android:scheme="https"
+                    android:path="/oauth2/authorization/google" />
             </intent-filter>
         </activity>
 

@@ -61,7 +61,7 @@ object DataModule {
     ): RemoteService {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl("https://backend-java-production-ece2.up.railway.app/api/v1/")
+            .baseUrl("https://backend-java-production-defa.up.railway.app/api/v1/")
             .addConverterFactory(gsonConverterFactory)
             .build()
             .create(RemoteService::class.java)
@@ -75,7 +75,7 @@ object DataModule {
     ): NodeService {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl("https://backend-node-production-a54c.up.railway.app/api/")
+            .baseUrl("https://backend-node-production-21bd.up.railway.app/api/")
             .addConverterFactory(gsonConverterFactory)
             .build()
             .create(NodeService::class.java)
