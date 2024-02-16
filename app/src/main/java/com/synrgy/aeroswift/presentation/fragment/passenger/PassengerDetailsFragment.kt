@@ -118,6 +118,18 @@ class PassengerDetailsFragment : Fragment() {
             this.inputDocAdapter.submitList(updatedList)
             binding.rvInputDoc.scrollToPosition(0)
         }
+
+        binding.nestedScrollView.viewTreeObserver.addOnScrollChangedListener {
+            if (binding.nestedScrollView.scrollY <= 200) {
+                binding.fabScrollUp.visibility = View.GONE
+            } else {
+                binding.fabScrollUp.visibility = View.VISIBLE
+            }
+        }
+
+        binding.fabScrollUp.setOnClickListener {
+            binding.nestedScrollView.fullScroll(View.FOCUS_UP)
+        }
     }
 
     private fun observeViewModel() {

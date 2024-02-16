@@ -124,6 +124,20 @@ class AddonsFragment : Fragment() {
                 description = getString(R.string.trip_confirmation_desc)
             )
         }
+
+        binding.fabScrollUp.visibility = View.GONE
+
+        binding.nestedScrollView.viewTreeObserver.addOnScrollChangedListener {
+            if (binding.nestedScrollView.scrollY <= 200) {
+                binding.fabScrollUp.visibility = View.GONE
+            } else {
+                binding.fabScrollUp.visibility = View.VISIBLE
+            }
+        }
+
+        binding.fabScrollUp.setOnClickListener {
+            binding.nestedScrollView.fullScroll(View.FOCUS_UP)
+        }
     }
 
     private fun handleNavigatePayment() {
