@@ -78,7 +78,9 @@ class PassengerFragment : Fragment() {
         authViewModel.name.observe(viewLifecycleOwner) { binding.tvName.text = it }
         authViewModel.email.observe(viewLifecycleOwner) { binding.tvEmail.text = it }
         authViewModel.phoneNumber.observe(viewLifecycleOwner) {
-            binding.tvPhone.text = Helper.formatPhoneNumber("+62$it")
+            if (it != null && it != 0L) {
+                binding.tvPhone.text = Helper.formatPhoneNumber("+62$it")
+            }
         }
     }
 

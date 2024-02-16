@@ -1,7 +1,6 @@
 package com.synrgy.aeroswift.presentation.fragment.auth
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -40,6 +39,7 @@ import com.synrgy.domain.response.forgotpassword.ForgotPasswordResponse
 import com.synrgy.presentation.helper.Helper
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class LoginFragment: Fragment() {
     private lateinit var binding: FragmentLoginBinding
@@ -59,7 +59,7 @@ class LoginFragment: Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
@@ -269,7 +269,7 @@ class LoginFragment: Fragment() {
     override fun onActivityResult(
         requestCode: Int,
         resultCode: Int,
-        data: Intent?
+        data: Intent?,
     ) {
         super.onActivityResult(requestCode, resultCode, data)
 

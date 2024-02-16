@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,6 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:navigationIcon="?attr/homeAsUpIndicator"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:paddingBottom="8dp"/>
 
     <androidx.core.widget.NestedScrollView
@@ -20,7 +22,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_term_and_serv"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_covid"
         android:paddingHorizontal="16dp"
         android:paddingBottom="50dp"
         android:scrollbars="vertical"
@@ -32,6 +34,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingEnd="20dp"
+            android:paddingBottom="100dp"
             tools:ignore="RtlSymmetry">
 
             <com.google.android.material.textview.MaterialTextView
@@ -365,4 +368,18 @@
 
     </androidx.core.widget.NestedScrollView>
 
-</LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_scroll_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="32dp"
+        android:src="@drawable/ic_arrow_up"
+        app:backgroundTint="@color/primary_500"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:rippleColor="@color/gray_100"
+        app:tint="@android:color/white"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@ package com.synrgy.aeroswift.presentation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.synrgy.aeroswift.databinding.ActivityFlightHistoryBinding
@@ -28,6 +29,18 @@ class FlightHistoryActivity : AppCompatActivity() {
         setAdapter()
 
         binding.toolbarHistory.setNavigationOnClickListener { onBackPressed() }
+
+        binding.nestedScrollView.viewTreeObserver.addOnScrollChangedListener {
+            if (binding.nestedScrollView.scrollY <= 200) {
+                binding.fabScrollUp.visibility = View.GONE
+            } else {
+                binding.fabScrollUp.visibility = View.VISIBLE
+            }
+        }
+
+        binding.fabScrollUp.setOnClickListener {
+            binding.nestedScrollView.fullScroll(View.FOCUS_UP)
+        }
     }
 
     private fun setAdapter() {

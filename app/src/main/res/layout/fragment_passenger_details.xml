@@ -25,6 +25,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -200,6 +201,19 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_scroll_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_arrow_up"
+        app:backgroundTint="@color/primary_500"
+        app:layout_constraintBottom_toTopOf="@id/btn_delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:rippleColor="@color/gray_100"
+        app:tint="@android:color/white"/>
 
     <com.google.android.material.button.MaterialButton
         android:visibility="gone"

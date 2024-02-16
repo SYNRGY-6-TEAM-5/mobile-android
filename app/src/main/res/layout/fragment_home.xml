@@ -8,12 +8,14 @@
     tools:context=".presentation.fragment.HomeFragment">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingBottom="50dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_top_container"
@@ -368,7 +370,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/rv_ticket_promo"/>
 
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_ticket_promo"
                 android:layout_width="match_parent"
@@ -383,8 +384,22 @@
                 tools:listitem="@layout/item_ticket"
                 tools:itemCount="3"
                 />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_scroll_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_arrow_up"
+        app:backgroundTint="@color/primary_500"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:rippleColor="@color/gray_100"
+        app:tint="@android:color/white"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

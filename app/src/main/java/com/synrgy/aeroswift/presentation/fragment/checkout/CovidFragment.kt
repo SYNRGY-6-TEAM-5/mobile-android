@@ -24,5 +24,19 @@ class CovidFragment : Fragment() {
         binding.toolbarCovid.setNavigationOnClickListener {
             requireActivity().onBackPressed()
         }
+
+        binding.fabScrollUp.visibility = View.GONE
+
+        binding.nsvCovid.viewTreeObserver.addOnScrollChangedListener {
+            if (binding.nsvCovid.scrollY <= 200) {
+                binding.fabScrollUp.visibility = View.GONE
+            } else {
+                binding.fabScrollUp.visibility = View.VISIBLE
+            }
+        }
+
+        binding.fabScrollUp.setOnClickListener {
+            binding.nsvCovid.fullScroll(View.FOCUS_UP)
+        }
     }
 }
